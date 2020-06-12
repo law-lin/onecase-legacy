@@ -23,7 +23,7 @@ const LandingPage = () => (
             </div>
         </div> 
         <div className="content">
-            <div className="center">
+            <div className="landing-center">
                 <div className="left">
                     <h2 className="oneliner">Your Page, Your Portfolio, Uniquely You</h2>
                     <div className="description">
