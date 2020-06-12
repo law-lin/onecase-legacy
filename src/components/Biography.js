@@ -33,8 +33,8 @@ class Biography extends Component {
             }
             
         })
-        
     }
+    
     render() {
         const { loading, bio } = this.state
         return ( 

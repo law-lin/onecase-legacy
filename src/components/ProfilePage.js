@@ -9,6 +9,7 @@ import GridItem from './GridItem'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import ProfileCard from './ProfileCard';
 import QueryCard from './QueryCard';
 import Biography from './Biography';
 import Username from './Username';
@@ -35,13 +36,43 @@ class ProfilePage extends Component {
                             <div className="content">
                                 <Grid container spacing={3}>
                                     <Grid justify="center" container item xs={12}spacing={3}>
-                                        <GridItem />
+                                        <React.Fragment>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="1"/>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="2"/>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="3"/>
+                                        </Grid>
+                                        </React.Fragment>
+                                        </Grid>
+                                    <Grid justify="center" container item xs={12} spacing={3}>
+                                    <React.Fragment>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="4"/>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="5"/>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="6"/>
+                                        </Grid>
+                                        </React.Fragment>
                                     </Grid>
                                     <Grid justify="center" container item xs={12} spacing={3}>
-                                        <GridItem />
-                                    </Grid>
-                                    <Grid justify="center" container item xs={12} spacing={3}>
-                                        <GridItem />
+                                    <React.Fragment>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="7"/>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="8"/>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <ProfileCard cardNumber="9"/>
+                                        </Grid>
+                                        </React.Fragment>
                                     </Grid>
                                 </Grid>
                             </div>

@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function QueryCard() {
+function QueryCard() {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -38,3 +38,5 @@ export default function QueryCard() {
     </Card>
   );
 }
+
+export default QueryCard;
