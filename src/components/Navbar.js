@@ -115,7 +115,7 @@ export default function Navbar() {
         <Toolbar >
           
           <Typography className={classes.title} variant="h6" noWrap>
-            OnePage
+            OneCase
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

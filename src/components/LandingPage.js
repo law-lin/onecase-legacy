@@ -27,7 +27,7 @@ const LandingPage = () => (
                 <div className="left">
                     <h2 className="oneliner">Your Page, Your Portfolio, Uniquely You</h2>
                     <div className="description">
-                        <span>OnePage is the perfect icebreaker</span>
+                        <span>OneCase is the perfect icebreaker</span>
                         <img className="descimg" alt="icecube" src={icecube}></img>
                     </div>
                     <div className="description">
