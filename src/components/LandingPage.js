@@ -17,7 +17,7 @@ const LandingPage = () => (
     <div className="header">
       <div className="centerheader">
         <span className="logo">
-          <b>OnePage</b>
+          <b>OneCase</b>
         </span>
         <div className="loginfield">
           <LogInForm />
