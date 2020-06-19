@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { withFirebase } from "./Firebase";
 
+import TextField from "@material-ui/core/TextField";
 import "./profile.css";
 
 class Username extends Component {
@@ -25,12 +26,20 @@ class Username extends Component {
       });
     });
   }
+
+  handleChange = (event) => {
+    this.props.onChange(event.target.value);
+  };
+
   render() {
-    const { loading, username } = this.state;
+    const { username } = this.state;
+    console.log(this.props.editable);
     return (
       <div className="username">
-        {loading && <div>Loading...</div>}
-        <h2>{username}</h2>
+        {this.props.editable && (
+          <TextField defaultValue={username} onChange={this.handleChange} />
+        )}
+        {!this.props.editable && <h2>{username}</h2>}
       </div>
     );
   }

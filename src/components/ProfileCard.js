@@ -117,18 +117,26 @@ class ProfileCard extends Component {
             <h1>{cardInfo}</h1>
           </CardContent>
           <CardActions>
-            <EditCard cardNumber={this.props.cardNumber} size="small" />
-            <input
-              type="file"
-              id={this.props.cardNumber}
-              className={classes.input}
-              onChange={this.handleChange}
+            <EditCard
+              cardNumber={this.props.cardNumber}
+              editable={this.props.editable}
+              size="small"
             />
-            <label htmlFor={this.props.cardNumber}>
-              <Button variant="contained" color="primary" component="span">
-                Upload
-              </Button>
-            </label>
+            {this.props.editable && (
+              <div>
+                <input
+                  type="file"
+                  id={this.props.cardNumber}
+                  className={classes.input}
+                  onChange={this.handleChange}
+                />
+                <label htmlFor={this.props.cardNumber}>
+                  <Button variant="contained" color="primary" component="span">
+                    Upload
+                  </Button>
+                </label>
+              </div>
+            )}
           </CardActions>
         </Card>
       </CardActionArea>

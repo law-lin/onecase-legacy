@@ -86,22 +86,29 @@ class ProfilePicture extends Component {
     const { profilePicture } = this.state;
     return (
       <div>
-        <input
-          type="file"
-          ref={"profile-pic"}
-          className={classes.input}
-          onChange={this.handleChange}
-        />
-        <label htmlFor="profile-pic">
-          <ButtonBase
-            onClick={(e) => {
-              this.refs["profile-pic"].click();
-            }}
-          >
-            <img className={classes.profilePic} src={profilePicture} />
-            {/* <span style={{ backgroundImage: profilePicture }} /> */}
-          </ButtonBase>
-        </label>
+        {this.props.editable && (
+          <div>
+            <input
+              type="file"
+              ref={"profile-pic"}
+              className={classes.input}
+              onChange={this.handleChange}
+            />
+            <label htmlFor="profile-pic">
+              <ButtonBase
+                onClick={(e) => {
+                  this.refs["profile-pic"].click();
+                }}
+              >
+                <img className={classes.profilePic} src={profilePicture} />
+                {/* <span style={{ backgroundImage: profilePicture }} /> */}
+              </ButtonBase>
+            </label>
+          </div>
+        )}
+        {!this.props.editable && (
+          <img className={classes.profilePic} src={profilePicture} />
+        )}
       </div>
     );
   }
