@@ -11,6 +11,7 @@ class Biography extends Component {
 
     this.state = {
       loading: false,
+      username: this.props.username,
       bio: "",
     };
   }
@@ -18,7 +19,7 @@ class Biography extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.bio().on("value", (snapshot) => {
+    this.props.firebase.bio(this.state.username).on("value", (snapshot) => {
       const state = snapshot.val();
       if (state) {
         this.setState({

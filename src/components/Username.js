@@ -11,20 +11,19 @@ class Username extends Component {
 
     this.state = {
       loading: false,
-      username: "",
+      username: this.props.username,
     };
   }
 
   componentDidMount() {
-    this.setState({ loading: true });
-
-    this.props.firebase.currentUser().on("value", (snapshot) => {
-      const state = snapshot.val();
-      this.setState({
-        username: state.username,
-        loading: false,
-      });
-    });
+    // this.setState({ loading: true });
+    // this.props.firebase.currentUser().on("value", (snapshot) => {
+    //   const state = snapshot.val();
+    //   this.setState({
+    //     username: state.username,
+    //     loading: false,
+    //   });
+    // });
   }
 
   handleChange = (event) => {

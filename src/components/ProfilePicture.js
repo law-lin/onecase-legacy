@@ -34,6 +34,7 @@ class ProfilePicture extends Component {
     super(props);
 
     this.state = {
+      username: this.props.username,
       profilePicture: null,
       loading: false,
     };
@@ -41,20 +42,22 @@ class ProfilePicture extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.currentUser().on("value", (snapshot) => {
-      const state = snapshot.val();
-      if (state.profilePicture !== undefined) {
-        this.setState({
-          profilePicture: state.profilePicture,
-          loading: false,
-        });
-      } else {
-        this.setState({
-          profilePicture: DefaultProfilePic,
-          loading: false,
-        });
-      }
-    });
+    this.props.firebase
+      .currentUser(this.state.username)
+      .on("value", (snapshot) => {
+        const state = snapshot.val();
+        if (this.state.profilePicture !== undefined) {
+          this.setState({
+            profilePicture: this.state.profilePicture,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            profilePicture: DefaultProfilePic,
+            loading: false,
+          });
+        }
+      });
   }
 
   handleChange = (e) => {

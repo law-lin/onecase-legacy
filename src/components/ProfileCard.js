@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import UploadButton from "./UploadButton";
 import Typography from "@material-ui/core/Typography";
 
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
 import EditCard from "./EditCard";
 import { CardActionArea } from "@material-ui/core";
 
@@ -40,6 +42,7 @@ class ProfileCard extends Component {
     super(props);
 
     this.state = {
+      username: this.props.username,
       cardInfo: "",
       cardImageURL: null,
       loading: false,
@@ -50,22 +53,24 @@ class ProfileCard extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.card(this.props.cardNumber).on("value", (snapshot) => {
-      const state = snapshot.val();
-      if (state) {
-        this.setState({
-          cardInfo: state.cardInfo,
-          cardImageURL: state.cardImageURL,
-          loading: false,
-        });
-      } else {
-        this.setState({
-          cardInfo: "Edit this card below!",
-          cardImageURL: null,
-          loading: false,
-        });
-      }
-    });
+    this.props.firebase
+      .card(this.state.username, this.props.cardNumber)
+      .on("value", (snapshot) => {
+        const state = snapshot.val();
+        if (state) {
+          this.setState({
+            cardInfo: state.cardInfo,
+            cardImageURL: state.cardImageURL,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            cardInfo: "Edit this card below!",
+            cardImageURL: null,
+            loading: false,
+          });
+        }
+      });
   }
 
   handleChange = (e) => {
@@ -95,11 +100,18 @@ class ProfileCard extends Component {
     }
   };
 
+  handleClick = () => {
+    let path = this.state.cardInfo.toLowerCase();
+    this.props.history.push(path);
+  };
+
   render() {
     const { classes } = this.props;
     const { cardInfo, cardImageURL, loading } = this.state;
+
     return (
       <CardActionArea
+        onClick={this.handleClick}
         className={classes.root}
         style={{
           backgroundSize: "350px 160px",
@@ -143,5 +155,10 @@ class ProfileCard extends Component {
     );
   }
 }
+const CardLink = compose(
+  withRouter,
+  withFirebase,
+  withStyles(styles)
+)(ProfileCard);
 
-export default withFirebase(withStyles(styles)(ProfileCard));
+export default CardLink;

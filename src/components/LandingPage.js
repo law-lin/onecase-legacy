@@ -78,7 +78,7 @@ class LogInFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_LOGIN_STATE });
-        this.props.history.push(ROUTES.PROFILE);
+        this.props.history.push(this.props.firebase.currentUsername());
       })
       .catch((error) => {
         this.setState({ error });
@@ -158,14 +158,14 @@ class SignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         // Create a user in your Firebase realtime database
-        return this.props.firebase.user(authUser.user.uid).set({
-          username,
+        return this.props.firebase.user(username).set({
+          uid: authUser.user.uid,
           email,
         });
       })
       .then(() => {
         this.setState({ ...INITIAL_SIGNUP_STATE });
-        this.props.history.push(ROUTES.PROFILE);
+        this.props.history.push(username);
       })
       .catch((error) => {
         this.setState({ error });

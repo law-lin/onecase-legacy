@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import ProfilePicture from "./ProfilePicture";
 import Grid from "@material-ui/core/Grid";
 import ProfileCard from "./ProfileCard";
-import QueryCard from "./QueryCard";
+import LinksCard from "./LinksCard";
 import Biography from "./Biography";
 import Username from "./Username";
 import EditBio from "./EditBio";
@@ -20,10 +20,17 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: null,
       editing: false,
       canSave: false,
       canCancel: false,
     };
+  }
+
+  componentDidMount() {
+    const username = this.props.match.params.username;
+
+    if (username) this.setState({ username: username });
   }
 
   onUsernameChange = (value) => {
@@ -74,16 +81,21 @@ class ProfilePage extends Component {
           <div className="center">
             <div className="profileleft">
               <Biography
+                username={this.state.username}
                 editable={this.state.editing}
                 onChange={this.onBioChange}
               />
 
               <div className="profile">
                 <Username
+                  username={this.state.username}
                   editable={this.state.editing}
                   onChange={this.onUsernameChange}
                 />
-                <ProfilePicture editable={this.state.editing} />
+                <ProfilePicture
+                  username={this.state.username}
+                  editable={this.state.editing}
+                />
                 {!this.state.editing && (
                   <Button onClick={this.handleEdit}>Edit</Button>
                 )}
@@ -101,18 +113,21 @@ class ProfilePage extends Component {
                     <React.Fragment>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="1"
                           editable={this.state.editing}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="2"
                           editable={this.state.editing}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="3"
                           editable={this.state.editing}
                         />
@@ -123,18 +138,21 @@ class ProfilePage extends Component {
                     <React.Fragment>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="4"
                           editable={this.state.editing}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="5"
                           editable={this.state.editing}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="6"
                           editable={this.state.editing}
                         />
@@ -145,18 +163,21 @@ class ProfilePage extends Component {
                     <React.Fragment>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="7"
                           editable={this.state.editing}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="8"
                           editable={this.state.editing}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ProfileCard
+                          username={this.state.username}
                           cardNumber="9"
                           editable={this.state.editing}
                         />
@@ -167,7 +188,7 @@ class ProfilePage extends Component {
               </div>
             </div>
             <div className="profileright">
-              <QueryCard />
+              <LinksCard />
             </div>
           </div>
         </div>

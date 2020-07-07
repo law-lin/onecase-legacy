@@ -48,13 +48,15 @@ class Firebase {
 
   // *** User API ***
 
-  user = (uid) => this.db.ref(`users/${uid}`);
+  user = (username) => this.db.ref(`users/${username}`);
 
   users = () => this.db.ref("users");
 
   // profilePic = () =>
-  uploadProfilePicture = (image) =>
-    this.storage.ref(`profile_pictures/${image.name}`).put(image);
+
+  getProfilePicture = (image) =>
+    (uploadProfilePicture = (image) =>
+      this.storage.ref(`profile_pictures/${image.name}`).put(image));
 
   uploadProfilePictureURL = (image) => {
     this.storage
@@ -68,22 +70,30 @@ class Firebase {
       });
   };
 
-  bio = () => this.db.ref(`bios/${this.auth.currentUser.uid}`);
+  bio = (username) => this.db.ref(`bios/${username}`);
 
-  currentUser = () => this.db.ref(`users/${this.auth.currentUser.uid}`);
+  getUID = (username) => this.db.ref(`users/${username}/uid`);
+  getBio = (username) => this.db.ref(`bios/${username}`);
+  currentUser = (username) => this.db.ref(`users/${username}`);
 
-  editUsername = (username) =>
-    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
-      username,
-    });
+  currentUsername = () =>
+    this.db.ref(`users/${this.auth.currentUser.uid}/username`);
+
+  editUsername = (currentUsername, username) => {
+    this.db.ref(`users/${username}`).remove();
+    this.db.ref(`users/${username}`);
+  };
+  // this.db.ref(`users/${username}`).update({
+  //   username,
+  // });
 
   editBio = (bio) =>
     this.db.ref(`bios/${this.auth.currentUser.uid}`).update({
       bio,
     });
 
-  card = (cardNumber) =>
-    this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`);
+  card = (username, cardNumber) =>
+    this.db.ref(`users/${username}/${cardNumber}`);
 
   editCard = (cardInfo, cardNumber) =>
     this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
