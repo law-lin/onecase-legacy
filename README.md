@@ -1,4 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# OneCase
+
+By Lawrence Lin
+
+For simple set up:
+1. Clone the repository
+2. `cd` into the repository
+3. Use `npm start` to start the local server, a new browser window will open up. If it didn't, visit `localhost:3000`.
+4. Happy hacking. 
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). 
 
 ## Available Scripts
 
