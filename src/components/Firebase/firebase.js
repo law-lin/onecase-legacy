@@ -50,17 +50,16 @@ class Firebase {
 
   user = (userID) => this.db.ref(`users/${userID}`);
 
-  usernames = () => this.db.ref(`usernames/`);
+  usernames = () => this.db.ref("usernames");
 
   users = () => this.db.ref("users");
 
-  getIDWithUsername = (username) =>
-    this.db.ref("usernames").child(`${username}`);
+  getIDWithUsername = (username) => this.db.ref(`usernames/${username}`);
 
   // getUsername = (username) => this.db.ref(`usernames/${username}`);
-  // getProfilePicture = (image) =>
-  //   (uploadProfilePicture = (image) =>
-  //     this.storage.ref(`profile_pictures/${image.name}`).put(image));
+
+  uploadProfilePicture = (image) =>
+    this.storage.ref(`profile_pictures/${image.name}`).put(image);
 
   // checkUsername = (username) => this.db.ref(`usernames/${username}`)
   uploadProfilePictureURL = (image) => {
@@ -75,7 +74,7 @@ class Firebase {
       });
   };
 
-  bio = (userID) => this.db.ref(`users/${userID}/bio`);
+  bio = (userID) => this.db.ref(`users/${userID}`);
 
   updateUsername = (username) =>
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
@@ -84,12 +83,13 @@ class Firebase {
 
   currentUsername = () => this.db.ref(`users/${this.auth.currentUser.uid}`);
 
-  editUsername = (userID, username) => {
+  editUsername = (oldUsername, username) => {
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       username,
     });
-    this.db.ref(`usernames}`).update({
-      [username]: userID,
+    this.db.ref("usernames").child(`${oldUsername}`).remove();
+    this.db.ref(`usernames`).update({
+      [username]: this.auth.currentUser.uid,
     });
   };
   // this.db.ref(`users/${username}`).update({

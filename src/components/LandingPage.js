@@ -164,7 +164,7 @@ class SignUpFormBase extends Component {
           username,
           email,
         });
-        return this.props.firebase.usernames().set({
+        return this.props.firebase.usernames().update({
           [username]: authUser.user.uid,
         });
       })

@@ -39,26 +39,6 @@ class ProfilePicture extends Component {
       loading: false,
     };
   }
-  componentDidMount() {
-    this.setState({ loading: true });
-
-    this.props.firebase
-      .getIDWithUsername(this.state.username)
-      .on("value", (snapshot) => {
-        const state = snapshot.val();
-        if (this.state.profilePicture !== undefined) {
-          this.setState({
-            profilePicture: this.state.profilePicture,
-            loading: false,
-          });
-        } else {
-          this.setState({
-            profilePicture: DefaultProfilePic,
-            loading: false,
-          });
-        }
-      });
-  }
 
   handleChange = (e) => {
     if (e.target.files[0]) {
@@ -85,8 +65,8 @@ class ProfilePicture extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { profilePicture } = this.state;
+    const { classes, profilePicture } = this.props;
+
     return (
       <div>
         {this.props.editable && (
@@ -103,14 +83,22 @@ class ProfilePicture extends Component {
                   this.refs["profile-pic"].click();
                 }}
               >
-                <img className={classes.profilePic} src={profilePicture} />
+                <img
+                  className={classes.profilePic}
+                  src={profilePicture}
+                  alt="profile pic"
+                />
                 {/* <span style={{ backgroundImage: profilePicture }} /> */}
               </ButtonBase>
             </label>
           </div>
         )}
         {!this.props.editable && (
-          <img className={classes.profilePic} src={profilePicture} />
+          <img
+            className={classes.profilePic}
+            src={profilePicture}
+            alt="profile pic"
+          />
         )}
       </div>
     );

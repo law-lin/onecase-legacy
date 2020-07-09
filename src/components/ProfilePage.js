@@ -4,6 +4,7 @@ import "./profile.css";
 import SignOutButton from "./SignOut";
 import Navbar from "./Navbar";
 import souljason from "../images/souljason.png";
+import DefaultProfilePicture from "../images/default-profile-pic.png";
 
 import Button from "@material-ui/core/Button";
 import ProfilePicture from "./ProfilePicture";
@@ -20,18 +21,51 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUsername: null,
+      userID: null,
+      oldUsername: null,
       username: null,
+      profilePicture: null,
       editing: false,
       canSave: false,
       canCancel: false,
+      bio: null,
     };
   }
 
   componentDidMount() {
     const username = this.props.match.params.username;
 
-    if (username) this.setState({ username });
+    if (username) this.setState({ oldUsername: username, username });
+
+    console.log(username);
+    this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+      const state = snapshot.val();
+      if (state) {
+        this.setState({
+          userID: state,
+        });
+        this.props.firebase.user(this.state.userID).on("value", (snapshot) => {
+          const state = snapshot.val();
+          if (state.bio) {
+            this.setState({
+              bio: state.bio,
+              profilePicture: state.profilePicture,
+              loading: false,
+            });
+          } else {
+            this.setState({
+              bio: "Edit your bio with the edit button!",
+              profilePicture: DefaultProfilePicture,
+              loading: false,
+            });
+          }
+        });
+      } else {
+        this.setState({
+          userID: null,
+        });
+      }
+    });
   }
 
   onUsernameChange = (value) => {
@@ -55,9 +89,13 @@ class ProfilePage extends Component {
   };
 
   handleSave = () => {
-    if (this.state.username != null)
+    if (
+      this.state.username !== this.state.oldUsername &&
+      this.state.username !== "" &&
+      this.state.username != null
+    )
       this.props.firebase.editUsername(
-        this.state.currentUsername,
+        this.state.oldUsername,
         this.state.username
       );
     if (this.state.bio != null) this.props.firebase.editBio(this.state.bio);
@@ -77,8 +115,6 @@ class ProfilePage extends Component {
   };
 
   render() {
-    console.log(this.state.editing);
-
     return (
       <div className="bg">
         <Navbar />
@@ -86,7 +122,7 @@ class ProfilePage extends Component {
           <div className="center">
             <div className="profileleft">
               <Biography
-                username={this.state.username}
+                bio={this.state.bio}
                 editable={this.state.editing}
                 onChange={this.onBioChange}
               />
@@ -98,7 +134,7 @@ class ProfilePage extends Component {
                   onChange={this.onUsernameChange}
                 />
                 <ProfilePicture
-                  username={this.state.username}
+                  profilePicture={this.state.profilePicture}
                   editable={this.state.editing}
                 />
                 {!this.state.editing && (

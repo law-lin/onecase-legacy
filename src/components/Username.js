@@ -14,17 +14,6 @@ class Username extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.setState({ loading: true });
-    // this.props.firebase.currentUser().on("value", (snapshot) => {
-    //   const state = snapshot.val();
-    //   this.setState({
-    //     username: state.username,
-    //     loading: false,
-    //   });
-    // });
-  }
-
   handleChange = (event) => {
     this.props.onChange(event.target.value);
   };

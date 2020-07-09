@@ -17,41 +17,6 @@ class Biography extends Component {
     };
   }
 
-  componentDidMount() {
-    this.setState({ loading: true });
-
-    this.props.firebase
-      .getIDWithUsername(this.state.username)
-      .on("value", (snapshot) => {
-        const state = snapshot.val();
-        if (state) {
-          this.setState({
-            userID: state,
-          });
-        } else {
-          this.setState({
-            userID: null,
-          });
-        }
-      });
-
-    // this.props.firebase.checkUsername(this.state.username);
-    this.props.firebase.bio(this.state.userID).on("value", (snapshot) => {
-      const state = snapshot.val();
-      if (state) {
-        this.setState({
-          bio: state.bio,
-          loading: false,
-        });
-      } else {
-        this.setState({
-          bio: "Edit your bio with the pencil button!",
-          loading: false,
-        });
-      }
-    });
-  }
-
   handleChange = (event) => {
     this.props.onChange(event.target.value);
   };
@@ -61,9 +26,12 @@ class Biography extends Component {
     return (
       <div className="bio">
         {this.props.editable && (
-          <TextField defaultValue={bio} onChange={this.handleChange} />
+          <TextField
+            defaultValue={this.props.bio}
+            onChange={this.handleChange}
+          />
         )}
-        {!this.props.editable && <h2>{bio}</h2>}
+        {!this.props.editable && <h2>{this.props.bio}</h2>}
       </div>
     );
   }
