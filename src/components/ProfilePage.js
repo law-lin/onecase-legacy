@@ -20,6 +20,7 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUsername: null,
       username: null,
       editing: false,
       canSave: false,
@@ -30,7 +31,7 @@ class ProfilePage extends Component {
   componentDidMount() {
     const username = this.props.match.params.username;
 
-    if (username) this.setState({ username: username });
+    if (username) this.setState({ username });
   }
 
   onUsernameChange = (value) => {
@@ -55,7 +56,10 @@ class ProfilePage extends Component {
 
   handleSave = () => {
     if (this.state.username != null)
-      this.props.firebase.editUsername(this.state.username);
+      this.props.firebase.editUsername(
+        this.state.currentUsername,
+        this.state.username
+      );
     if (this.state.bio != null) this.props.firebase.editBio(this.state.bio);
     this.setState({
       editing: false,
@@ -74,6 +78,7 @@ class ProfilePage extends Component {
 
   render() {
     console.log(this.state.editing);
+
     return (
       <div className="bg">
         <Navbar />

@@ -11,7 +11,6 @@ class Username extends Component {
 
     this.state = {
       loading: false,
-      username: this.props.username,
     };
   }
 
@@ -31,14 +30,15 @@ class Username extends Component {
   };
 
   render() {
-    const { username } = this.state;
-    console.log(this.props.editable);
     return (
       <div className="username">
         {this.props.editable && (
-          <TextField defaultValue={username} onChange={this.handleChange} />
+          <TextField
+            defaultValue={this.props.username}
+            onChange={this.handleChange}
+          />
         )}
-        {!this.props.editable && <h2>{username}</h2>}
+        {!this.props.editable && <h2>{this.props.username}</h2>}
       </div>
     );
   }

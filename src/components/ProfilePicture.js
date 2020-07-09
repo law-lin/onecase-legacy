@@ -43,7 +43,7 @@ class ProfilePicture extends Component {
     this.setState({ loading: true });
 
     this.props.firebase
-      .currentUser(this.state.username)
+      .getIDWithUsername(this.state.username)
       .on("value", (snapshot) => {
         const state = snapshot.val();
         if (this.state.profilePicture !== undefined) {

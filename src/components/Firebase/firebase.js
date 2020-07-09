@@ -48,16 +48,21 @@ class Firebase {
 
   // *** User API ***
 
-  user = (username) => this.db.ref(`users/${username}`);
+  user = (userID) => this.db.ref(`users/${userID}`);
+
+  usernames = () => this.db.ref(`usernames/`);
 
   users = () => this.db.ref("users");
 
-  // profilePic = () =>
+  getIDWithUsername = (username) =>
+    this.db.ref("usernames").child(`${username}`);
 
-  getProfilePicture = (image) =>
-    (uploadProfilePicture = (image) =>
-      this.storage.ref(`profile_pictures/${image.name}`).put(image));
+  // getUsername = (username) => this.db.ref(`usernames/${username}`);
+  // getProfilePicture = (image) =>
+  //   (uploadProfilePicture = (image) =>
+  //     this.storage.ref(`profile_pictures/${image.name}`).put(image));
 
+  // checkUsername = (username) => this.db.ref(`usernames/${username}`)
   uploadProfilePictureURL = (image) => {
     this.storage
       .ref("profile_pictures")
@@ -70,25 +75,29 @@ class Firebase {
       });
   };
 
-  bio = (username) => this.db.ref(`bios/${username}`);
+  bio = (userID) => this.db.ref(`users/${userID}/bio`);
 
-  getUID = (username) => this.db.ref(`users/${username}/uid`);
-  getBio = (username) => this.db.ref(`bios/${username}`);
-  currentUser = (username) => this.db.ref(`users/${username}`);
+  updateUsername = (username) =>
+    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
+      username,
+    });
 
-  currentUsername = () =>
-    this.db.ref(`users/${this.auth.currentUser.uid}/username`);
+  currentUsername = () => this.db.ref(`users/${this.auth.currentUser.uid}`);
 
-  editUsername = (currentUsername, username) => {
-    this.db.ref(`users/${username}`).remove();
-    this.db.ref(`users/${username}`);
+  editUsername = (userID, username) => {
+    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
+      username,
+    });
+    this.db.ref(`usernames}`).update({
+      [username]: userID,
+    });
   };
   // this.db.ref(`users/${username}`).update({
   //   username,
   // });
 
   editBio = (bio) =>
-    this.db.ref(`bios/${this.auth.currentUser.uid}`).update({
+    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       bio,
     });
 

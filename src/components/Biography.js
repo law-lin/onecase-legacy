@@ -12,6 +12,7 @@ class Biography extends Component {
     this.state = {
       loading: false,
       username: this.props.username,
+      userID: null,
       bio: "",
     };
   }
@@ -19,7 +20,23 @@ class Biography extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    this.props.firebase.bio(this.state.username).on("value", (snapshot) => {
+    this.props.firebase
+      .getIDWithUsername(this.state.username)
+      .on("value", (snapshot) => {
+        const state = snapshot.val();
+        if (state) {
+          this.setState({
+            userID: state,
+          });
+        } else {
+          this.setState({
+            userID: null,
+          });
+        }
+      });
+
+    // this.props.firebase.checkUsername(this.state.username);
+    this.props.firebase.bio(this.state.userID).on("value", (snapshot) => {
       const state = snapshot.val();
       if (state) {
         this.setState({
