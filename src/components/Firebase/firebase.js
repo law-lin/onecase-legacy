@@ -54,34 +54,14 @@ class Firebase {
 
   users = () => this.db.ref("users");
 
+  currentUsername = () => this.db.ref(`users/${this.auth.currentUser.uid}`);
+
   getIDWithUsername = (username) => this.db.ref(`usernames/${username}`);
 
-  // getUsername = (username) => this.db.ref(`usernames/${username}`);
-
-  uploadProfilePicture = (image) =>
-    this.storage.ref(`profile_pictures/${image.name}`).put(image);
-
-  // checkUsername = (username) => this.db.ref(`usernames/${username}`)
-  uploadProfilePictureURL = (image) => {
-    this.storage
-      .ref("profile_pictures")
-      .child(image.name)
-      .getDownloadURL()
-      .then((profilePicture) => {
-        this.db.ref(`users/${this.auth.currentUser.uid}`).update({
-          profilePicture,
-        });
-      });
-  };
-
+  // *** Getters ***
   bio = (userID) => this.db.ref(`users/${userID}`);
-
-  updateUsername = (username) =>
-    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
-      username,
-    });
-
-  currentUsername = () => this.db.ref(`users/${this.auth.currentUser.uid}`);
+  cards = (userID, cardNumber) => this.db.ref(`users/${userID}/${cardNumber}`);
+  // *** Edit Profile Functions (Setters) ***
 
   editUsername = (oldUsername, username) => {
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
@@ -98,12 +78,17 @@ class Firebase {
       bio,
     });
 
-  cards = (userID, cardNumber) => this.db.ref(`users/${userID}/${cardNumber}`);
-
-  editCard = (cardTitle, cardNumber) =>
+  editCard = (cardNumber, cardTitle) =>
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       [cardNumber]: cardTitle,
     });
+
+  editBridgeCard = (cardBridgeNumber, cardTitle) =>
+    this.db.ref(
+      `users/${this.auth.currentUser.uid}`.update({
+        [cardBridgeNumber]: cardTitle,
+      })
+    );
 
   uploadCardImage = (image) =>
     this.storage.ref(`card_images/${image.name}`).put(image);
@@ -116,6 +101,23 @@ class Firebase {
       .then((cardImageURL) => {
         this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
           cardImageURL,
+        });
+      });
+  };
+
+  // *** Profile Pictures ***
+  uploadProfilePicture = (image) =>
+    this.storage.ref(`profile_pictures/${image.name}`).put(image);
+
+  // checkUsername = (username) => this.db.ref(`usernames/${username}`)
+  uploadProfilePictureURL = (image) => {
+    this.storage
+      .ref("profile_pictures")
+      .child(image.name)
+      .getDownloadURL()
+      .then((profilePicture) => {
+        this.db.ref(`users/${this.auth.currentUser.uid}`).update({
+          profilePicture,
         });
       });
   };
