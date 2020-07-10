@@ -44,6 +44,7 @@ class ProfileCard extends Component {
 
     this.state = {
       username: null,
+      oldCardTitle: "",
       cardTitle: "",
       cardImageURL: null,
       loading: false,
@@ -69,12 +70,14 @@ class ProfileCard extends Component {
             if (state) {
               this.setState({
                 cardTitle: state,
+                oldCardTitle: state,
                 cardImageURL: state.cardImageURL,
                 loading: false,
               });
             } else {
               this.setState({
                 cardTitle: "Edit this card!",
+                oldCardTitle: "Edit this card",
                 cardImageURL: null,
                 loading: false,
               });
@@ -126,7 +129,7 @@ class ProfileCard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { cardTitle, cardImageURL, loading } = this.state;
+    const { oldCardTitle, cardTitle, cardImageURL, loading } = this.state;
 
     return (
       <div>
@@ -167,6 +170,7 @@ class ProfileCard extends Component {
             </CardContent>
             <CardActions>
               <EditCard
+                oldCardTitle={oldCardTitle}
                 cardTitle={cardTitle}
                 cardNumber={this.props.cardNumber}
                 editable={this.props.editable}

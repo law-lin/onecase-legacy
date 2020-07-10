@@ -30,7 +30,11 @@ class EditCard extends Component {
   };
   handleSubmit = () => {
     const { cardTitle } = this.state;
-    this.props.firebase.editCard(cardTitle, this.props.cardNumber);
+    this.props.firebase.editCard(
+      this.props.oldCardTitle,
+      this.props.cardNumber,
+      cardTitle
+    );
     this.handleClose();
   };
   render() {

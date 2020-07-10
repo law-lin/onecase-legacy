@@ -61,6 +61,11 @@ class Firebase {
   // *** Getters ***
   bio = (userID) => this.db.ref(`users/${userID}`);
   cards = (userID, cardNumber) => this.db.ref(`users/${userID}/${cardNumber}`);
+
+  getCardNumberWithCardTitle = (userID, cardTitle) =>
+    this.db.ref(`users/${userID}`).orderByChild("card2").equalTo(cardTitle);
+
+  // bridgeCards = (userID, cardBridgeNumber) => this.db.ref(`users/${userID}/${cardNumber}/${cardBridgeNumber}`)
   // *** Edit Profile Functions (Setters) ***
 
   editUsername = (oldUsername, username) => {
@@ -78,10 +83,16 @@ class Firebase {
       bio,
     });
 
-  editCard = (cardNumber, cardTitle) =>
+  editCard = (oldCardTitle, cardNumber, cardTitle) => {
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       [cardNumber]: cardTitle,
     });
+
+    this.db.ref("cards").child(`${oldCardTitle}`).remove();
+    this.db.ref("cards").update({
+      [cardTitle]: cardNumber,
+    });
+  };
 
   editBridgeCard = (cardBridgeNumber, cardTitle) =>
     this.db.ref(

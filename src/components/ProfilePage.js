@@ -13,6 +13,7 @@ import ProfileCard from "./ProfileCard";
 import LinksCard from "./LinksCard";
 import Biography from "./Biography";
 import Username from "./Username";
+
 import EditBio from "./EditBio";
 import EditUsername from "./EditUsername";
 import { withAuthorization } from "./Session";
