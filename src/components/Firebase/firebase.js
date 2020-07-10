@@ -104,9 +104,17 @@ class Firebase {
   card = (username, cardNumber) =>
     this.db.ref(`users/${username}/${cardNumber}`);
 
-  editCard = (cardInfo, cardNumber) =>
-    this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
-      cardInfo,
+  editCards = (c1, c2, c3, c4, c5, c6, c7, c8, c9) =>
+    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
+      card1: c1,
+      card2: c2,
+      card3: c3,
+      card4: c4,
+      card5: c5,
+      card6: c6,
+      card7: c7,
+      card8: c8,
+      card9: c9,
     });
 
   uploadCardImage = (image) =>

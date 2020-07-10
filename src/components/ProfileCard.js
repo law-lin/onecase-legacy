@@ -10,6 +10,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import UploadButton from "./UploadButton";
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
@@ -73,36 +74,40 @@ class ProfileCard extends Component {
       });
   }
 
-  handleChange = (e) => {
-    if (e.target.files[0]) {
-      const cardImage = e.target.files[0];
-      this.props.firebase.uploadCardImage(cardImage).on(
-        "state_changed",
-        (snapshot) => {
-          // progress function ...
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          this.setState({ progress });
-        },
-        (error) => {
-          // Error function ...
-          console.log(error);
-        },
-        () => {
-          // complete function ...
-          this.props.firebase.uploadCardImageURL(
-            this.props.cardNumber,
-            cardImage
-          );
-        }
-      );
-    }
+  // handleChange = (e) => {
+  //   if (e.target.files[0]) {
+  //     const cardImage = e.target.files[0];
+  //     this.props.firebase.uploadCardImage(cardImage).on(
+  //       "state_changed",
+  //       (snapshot) => {
+  //         // progress function ...
+  //         const progress = Math.round(
+  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //         );
+  //         this.setState({ progress });
+  //       },
+  //       (error) => {
+  //         // Error function ...
+  //         console.log(error);
+  //       },
+  //       () => {
+  //         // complete function ...
+  //         this.props.firebase.uploadCardImageURL(
+  //           this.props.cardNumber,
+  //           cardImage
+  //         );
+  //       }
+  //     );
+  //   }
+  // };
+
+  handleChange = (event) => {
+    this.props.onChange(event.target.value);
   };
 
   handleClick = () => {
-    let path = this.state.cardInfo.toLowerCase();
-    this.props.history.push(path);
+    let path = this.state.cardInfo.toLowerCase().split(" ").join("_");
+    this.props.history.push(`${this.props.username}/${path}`);
   };
 
   render() {
@@ -110,31 +115,56 @@ class ProfileCard extends Component {
     const { cardInfo, cardImageURL, loading } = this.state;
 
     return (
-      <CardActionArea
-        onClick={this.handleClick}
-        className={classes.root}
-        style={{
-          backgroundSize: "350px 160px",
-        }}
-      >
-        <Card
-          className={classes.root}
-          style={{
-            backgroundSize: "350px 160px",
-            backgroundImage: `url(${cardImageURL})`,
-          }}
-        >
-          <CardContent>
-            {loading && <div>Loading...</div>}
-            <h1>{cardInfo}</h1>
-          </CardContent>
-          <CardActions>
-            <EditCard
-              cardNumber={this.props.cardNumber}
-              editable={this.props.editable}
-              size="small"
-            />
-            {this.props.editable && (
+      <div>
+        {!this.props.editable && (
+          <CardActionArea
+            onClick={this.handleClick}
+            disabled={this.props.editable}
+            className={classes.root}
+            style={{
+              backgroundSize: "350px 160px",
+            }}
+          >
+            <Card
+              className={classes.root}
+              style={{
+                backgroundSize: "350px 160px",
+                backgroundImage: `url(${cardImageURL})`,
+              }}
+            >
+              <CardContent>
+                {loading && <div>Loading...</div>}
+                <h1>{cardInfo}</h1>
+              </CardContent>
+            </Card>
+          </CardActionArea>
+        )}
+        {this.props.editable && (
+          <Card
+            className={classes.root}
+            style={{
+              backgroundSize: "350px 160px",
+              backgroundImage: `url(${cardImageURL})`,
+            }}
+          >
+            <CardContent>
+              {loading && <div>Loading...</div>}
+              <TextField
+                defaultValue={cardInfo}
+                multiline
+                rows={4}
+                rowsMax={6}
+                onChange={this.handleChange}
+                className={classes.root}
+                style={{ width: 200 }}
+              />
+            </CardContent>
+            {/* <CardActions>
+              <EditCard
+                cardNumber={this.props.cardNumber}
+                editable={this.props.editable}
+                size="small"
+              />
               <div>
                 <input
                   type="file"
@@ -148,10 +178,10 @@ class ProfileCard extends Component {
                   </Button>
                 </label>
               </div>
-            )}
-          </CardActions>
-        </Card>
-      </CardActionArea>
+            </CardActions> */}
+          </Card>
+        )}
+      </div>
     );
   }
 }
