@@ -53,11 +53,12 @@ class EditCard extends Component {
                 <form>
                   <TextField
                     name="cardInfo"
-                    tpye="text"
+                    type="text"
                     label="Card Info"
                     multiline
                     rows="1"
-                    placeholder="Update card info"
+                    defaultValue={this.props.cardTitle}
+                    placeholder="Update card title"
                     value={this.state.username}
                     onChange={this.handleChange}
                     fullWidth

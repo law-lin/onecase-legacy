@@ -43,8 +43,8 @@ class ProfileCard extends Component {
     super(props);
 
     this.state = {
-      username: this.props.username,
-      cardInfo: "",
+      userID: null,
+      cardTitle: "",
       cardImageURL: null,
       loading: false,
       progress: 0,
@@ -54,65 +54,85 @@ class ProfileCard extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
+    console.log(this.props.username);
     this.props.firebase
-      .card(this.state.username, this.props.cardNumber)
+      .getIDWithUsername(this.props.username)
       .on("value", (snapshot) => {
         const state = snapshot.val();
+        console.log(state);
+        console.log(this.props.username);
         if (state) {
           this.setState({
-            cardInfo: state.cardInfo,
-            cardImageURL: state.cardImageURL,
-            loading: false,
+            userID: state,
           });
+          this.props.firebase
+            .cards(this.state.userID, this.props.cardNumber)
+            .on("value", (snapshot) => {
+              const state = snapshot.val();
+              console.log(state);
+              console.log(this.state.userID);
+              console.log(this.props.cardNumber);
+              if (state) {
+                this.setState({
+                  cardTitle: state.cardTitle,
+                  cardImageURL: state.cardImageURL,
+                  loading: false,
+                });
+              } else {
+                this.setState({
+                  cardTitle: "Edit this card!",
+                  cardImageURL: null,
+                  loading: false,
+                });
+              }
+            });
         } else {
           this.setState({
-            cardInfo: "Edit this card below!",
-            cardImageURL: null,
-            loading: false,
+            userID: null,
           });
         }
       });
   }
 
-  // handleChange = (e) => {
-  //   if (e.target.files[0]) {
-  //     const cardImage = e.target.files[0];
-  //     this.props.firebase.uploadCardImage(cardImage).on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         // progress function ...
-  //         const progress = Math.round(
-  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //         );
-  //         this.setState({ progress });
-  //       },
-  //       (error) => {
-  //         // Error function ...
-  //         console.log(error);
-  //       },
-  //       () => {
-  //         // complete function ...
-  //         this.props.firebase.uploadCardImageURL(
-  //           this.props.cardNumber,
-  //           cardImage
-  //         );
-  //       }
-  //     );
-  //   }
-  // };
+  handleChange = (e) => {
+    if (e.target.files[0]) {
+      const cardImage = e.target.files[0];
+      this.props.firebase.uploadCardImage(cardImage).on(
+        "state_changed",
+        (snapshot) => {
+          // progress function ...
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          this.setState({ progress });
+        },
+        (error) => {
+          // Error function ...
+          console.log(error);
+        },
+        () => {
+          // complete function ...
+          this.props.firebase.uploadCardImageURL(
+            this.props.cardNumber,
+            cardImage
+          );
+        }
+      );
+    }
+  };
 
   handleChange = (event) => {
     this.props.onChange(event.target.value);
   };
 
   handleClick = () => {
-    let path = this.state.cardInfo.toLowerCase().split(" ").join("_");
+    let path = this.state.cardTitle.toLowerCase().split(" ").join("_");
     this.props.history.push(`${this.props.username}/${path}`);
   };
 
   render() {
     const { classes } = this.props;
-    const { cardInfo, cardImageURL, loading } = this.state;
+    const { cardTitle, cardImageURL, loading } = this.state;
 
     return (
       <div>
@@ -134,7 +154,7 @@ class ProfileCard extends Component {
             >
               <CardContent>
                 {loading && <div>Loading...</div>}
-                <h1>{cardInfo}</h1>
+                <h1>{cardTitle}</h1>
               </CardContent>
             </Card>
           </CardActionArea>
@@ -149,18 +169,11 @@ class ProfileCard extends Component {
           >
             <CardContent>
               {loading && <div>Loading...</div>}
-              <TextField
-                defaultValue={cardInfo}
-                multiline
-                rows={4}
-                rowsMax={6}
-                onChange={this.handleChange}
-                className={classes.root}
-                style={{ width: 200 }}
-              />
+              <h1>{cardTitle}</h1>
             </CardContent>
-            {/* <CardActions>
+            <CardActions>
               <EditCard
+                cardTitle={cardTitle}
                 cardNumber={this.props.cardNumber}
                 editable={this.props.editable}
                 size="small"
@@ -178,7 +191,7 @@ class ProfileCard extends Component {
                   </Button>
                 </label>
               </div>
-            </CardActions> */}
+            </CardActions>
           </Card>
         )}
       </div>
