@@ -29,8 +29,8 @@ class EditCard extends Component {
     });
   };
   handleSubmit = () => {
-    const { cardInfo } = this.state;
-    this.props.firebase.editCard(cardInfo, this.props.cardNumber);
+    const { cardTitle } = this.state;
+    this.props.firebase.editCard(cardTitle, this.props.cardNumber);
     this.handleClose();
   };
   render() {
@@ -52,11 +52,13 @@ class EditCard extends Component {
               <DialogContent>
                 <form>
                   <TextField
-                    name="cardInfo"
+                    name="cardTitle"
                     type="text"
-                    label="Card Info"
+                    label="Card Title"
                     multiline
-                    rows="1"
+                    rows={1}
+                    rowsMax={2}
+                    styles={{ height: 500 }}
                     defaultValue={this.props.cardTitle}
                     placeholder="Update card title"
                     value={this.state.username}

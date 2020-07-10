@@ -43,7 +43,7 @@ class ProfileCard extends Component {
     super(props);
 
     this.state = {
-      userID: null,
+      username: null,
       cardTitle: "",
       cardImageURL: null,
       loading: false,
@@ -53,45 +53,38 @@ class ProfileCard extends Component {
 
   componentDidMount() {
     this.setState({ loading: true });
+    const username = this.props.match.params.username;
 
-    console.log(this.props.username);
-    this.props.firebase
-      .getIDWithUsername(this.props.username)
-      .on("value", (snapshot) => {
-        const state = snapshot.val();
-        console.log(state);
-        console.log(this.props.username);
-        if (state) {
-          this.setState({
-            userID: state,
+    this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+      const state = snapshot.val();
+      if (state) {
+        this.setState({
+          userID: state,
+        });
+        this.props.firebase
+          .cards(this.state.userID, this.props.cardNumber)
+          .on("value", (snapshot) => {
+            const state = snapshot.val();
+            if (state) {
+              this.setState({
+                cardTitle: state.cardTitle,
+                cardImageURL: state.cardImageURL,
+                loading: false,
+              });
+            } else {
+              this.setState({
+                cardTitle: "Edit this card!",
+                cardImageURL: null,
+                loading: false,
+              });
+            }
           });
-          this.props.firebase
-            .cards(this.state.userID, this.props.cardNumber)
-            .on("value", (snapshot) => {
-              const state = snapshot.val();
-              console.log(state);
-              console.log(this.state.userID);
-              console.log(this.props.cardNumber);
-              if (state) {
-                this.setState({
-                  cardTitle: state.cardTitle,
-                  cardImageURL: state.cardImageURL,
-                  loading: false,
-                });
-              } else {
-                this.setState({
-                  cardTitle: "Edit this card!",
-                  cardImageURL: null,
-                  loading: false,
-                });
-              }
-            });
-        } else {
-          this.setState({
-            userID: null,
-          });
-        }
-      });
+      } else {
+        this.setState({
+          userID: null,
+        });
+      }
+    });
   }
 
   handleChange = (e) => {
