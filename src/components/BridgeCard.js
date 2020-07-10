@@ -38,7 +38,7 @@ const styles = () => ({
   },
 });
 
-class ProfileCard extends Component {
+class BridgeCard extends Component {
   constructor(props) {
     super(props);
 
@@ -196,6 +196,6 @@ const CardLink = compose(
   withRouter,
   withFirebase,
   withStyles(styles)
-)(ProfileCard);
+)(BridgeCard);
 
 export default CardLink;

@@ -92,9 +92,6 @@ class Firebase {
       [username]: this.auth.currentUser.uid,
     });
   };
-  // this.db.ref(`users/${username}`).update({
-  //   username,
-  // });
 
   editBio = (bio) =>
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
@@ -104,8 +101,8 @@ class Firebase {
   cards = (userID, cardNumber) => this.db.ref(`users/${userID}/${cardNumber}`);
 
   editCard = (cardTitle, cardNumber) =>
-    this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
-      cardTitle,
+    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
+      [cardNumber]: cardTitle,
     });
 
   uploadCardImage = (image) =>

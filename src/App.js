@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/ProfilePage";
 import AdminPage from "./components/AdminPage";
-import CardBridge from "./components/CardBridge";
+import Bridge from "./components/Bridge";
 import * as ROUTES from "./constants/routes";
 
 import { withAuthentication } from "./components/Session";
@@ -19,7 +19,7 @@ class App extends Component {
       <Router>
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
         <Route exact path={"/:username"} component={ProfilePage} />
-        <Route exact path={"/:username/:cardTitle"} component={CardBridge} />
+        <Route exact path={"/:username/:cardTitle"} component={Bridge} />
         <Route path={ROUTES.ADMIN} component={AdminPage} />
         {/* <Route path={ROUTES.CARD_BRIDGE} /> */}
       </Router>

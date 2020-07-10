@@ -46,7 +46,7 @@ class ProfilePage extends Component {
         });
         this.props.firebase.user(this.state.userID).on("value", (snapshot) => {
           const state = snapshot.val();
-          if (state.bio) {
+          if (state) {
             this.setState({
               bio: state.bio,
               profilePicture: state.profilePicture,
