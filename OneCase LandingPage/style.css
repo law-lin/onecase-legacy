@@ -190,6 +190,17 @@ a {
   margin-top: 5vh;
 }
 
+@media screen and (max-width:700px) {
+  .one-liner {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .one-liner {
+    font-size: 15px;
+  }
+}
 /* .onecase-title {
   justify-content: center;
   font-size: 50px;
