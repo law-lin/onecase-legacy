@@ -65,7 +65,7 @@ a {
 .center-page img {
   height: 420px;
   object-fit: cover;
-  width: 100%;
+  width: 100vw;
   grid-column: 1/6;
  
 }
@@ -147,6 +147,14 @@ a {
   .log {
     padding: 5px 20px;
   }
+}
+
+.description {
+  display: flex;
+}
+
+. one-liner {
+  
 }
 /* .onecase-title {
   justify-content: center;
