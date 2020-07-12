@@ -63,9 +63,9 @@ a {
 
 
 .center-page img {
-  height: 420px;
+  height: 70vh;
   object-fit: cover;
-  width: 100vw;
+  width: 100%;
   grid-column: 1/6;
  
 }
