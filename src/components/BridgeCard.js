@@ -14,7 +14,7 @@ import TextField from "@material-ui/core/TextField";
 
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
-import EditCard from "./EditCard";
+import EditBridgeCard from "./EditBridgeCard";
 import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
@@ -44,6 +44,9 @@ class BridgeCard extends Component {
 
     this.state = {
       username: null,
+      cardNumber: null,
+      bridgeCardNumber: null,
+      parentCardTitle: null,
       cardTitle: "",
       cardImageURL: null,
       loading: false,
@@ -52,40 +55,34 @@ class BridgeCard extends Component {
   }
 
   componentDidMount() {
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
     const username = this.props.match.params.username;
+    const parentCardTitle = this.props.match.params.cardTitle;
 
-    this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
-      const state = snapshot.val();
-      if (state) {
-        this.setState({
-          userID: state,
+    this.setState({ parentCardTitle });
+    if (this.state.userID == null || this.state.cardTitle == null) {
+      this.props.firebase
+        .bridgeCards(
+          this.props.userID,
+          this.props.cardNumber,
+          this.props.bridgeCardNumber
+        )
+        .on("value", (snapshot) => {
+          const state = snapshot.val();
+          if (state) {
+            this.setState({
+              cardTitle: state,
+              loading: false,
+            });
+          } else {
+            this.setState({
+              cardTitle: "Edit this card info!",
+              cardImageURL: null,
+              loading: false,
+            });
+          }
         });
-        this.props.firebase
-          .cards(this.state.userID, this.props.cardNumber)
-          .on("value", (snapshot) => {
-            const state = snapshot.val();
-            console.log(state);
-            if (state) {
-              this.setState({
-                cardTitle: state,
-                cardImageURL: state.cardImageURL,
-                loading: false,
-              });
-            } else {
-              this.setState({
-                cardTitle: "Edit this card!",
-                cardImageURL: null,
-                loading: false,
-              });
-            }
-          });
-      } else {
-        this.setState({
-          userID: null,
-        });
-      }
-    });
+    }
   }
 
   handleChange = (e) => {
@@ -120,8 +117,12 @@ class BridgeCard extends Component {
   };
 
   handleClick = () => {
-    let path = this.state.cardTitle.toLowerCase().split(" ").join("_");
-    this.props.history.push(`${this.props.username}/${path}`);
+    let cardTitlePath = this.state.parentCardTitle;
+    let bridgeCardTitlePath = this.state.cardTitle
+      .toLowerCase()
+      .split(" ")
+      .join("_");
+    this.props.history.push(`${cardTitlePath}/${bridgeCardTitlePath}`);
   };
 
   render() {
@@ -166,9 +167,10 @@ class BridgeCard extends Component {
               <h1>{cardTitle}</h1>
             </CardContent>
             <CardActions>
-              <EditCard
+              <EditBridgeCard
                 cardTitle={cardTitle}
                 cardNumber={this.props.cardNumber}
+                bridgeCardNumber={this.props.bridgeCardNumber}
                 editable={this.props.editable}
                 size="small"
               />

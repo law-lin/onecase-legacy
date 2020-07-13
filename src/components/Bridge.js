@@ -17,9 +17,14 @@ class Bridge extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userID: null,
       username: null,
       profilePicture: null,
       cardTitle: null,
+      cardNumber: null,
+      userIDLoading: true,
+      cardNumberLoading: true,
+      profilePictureLoading: true,
     };
   }
   handleEdit = () => {
@@ -39,132 +44,176 @@ class Bridge extends Component {
   };
 
   componentDidMount() {
-    const username = this.props.match.params.username;
-    const cardTitle = this.props.match.params.cardTitle;
-
-    if (username && cardTitle) this.setState({ username, cardTitle });
-
-    console.log(username);
-    console.log(cardTitle);
-
-    this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
-      const state = snapshot.val();
-      if (state) {
-        this.setState({
-          userID: state,
-        });
-
-        this.props.firebase
-          .getCardNumberWithCardTitle(this.state.userID, cardTitle)
-          .on("value", (snapshot) => {
-            console.log(snapshot.val());
-          });
-        this.props.firebase.user(this.state.userID).on("value", (snapshot) => {
-          const state = snapshot.val();
-          if (state) {
+    if (
+      this.state.cardNumberLoading &&
+      this.state.userIDLoading &&
+      this.state.profilePictureLoading &&
+      (this.state.userID == null || this.state.cardNumber == null)
+    ) {
+      const username = this.props.match.params.username;
+      const cardTitle = this.props.match.params.cardTitle;
+      console.log("running");
+      if (username && cardTitle) this.setState({ username, cardTitle });
+      this.props.firebase
+        .getIDWithUsername(username)
+        .on("value", (snapshot) => {
+          const userIDState = snapshot.val();
+          console.log(userIDState);
+          if (userIDState) {
             this.setState({
-              profilePicture: state.profilePicture,
+              userID: userIDState,
+              userIDLoading: false,
+            });
+
+            this.props.firebase
+              .getCardNumberWithCardTitle(userIDState, cardTitle)
+              .on("value", (snapshot) => {
+                const state = snapshot.val();
+                console.log(state);
+                if (state) {
+                  this.setState({
+                    cardNumber: state,
+                    cardNumberLoading: false,
+                  });
+                } else {
+                  this.setState({
+                    cardNumber: null,
+                    cardNumberLoading: false,
+                  });
+                }
+              });
+            this.props.firebase.user(userIDState).on("value", (snapshot) => {
+              const state = snapshot.val();
+              if (state) {
+                this.setState({
+                  profilePicture: state.profilePicture,
+                  profilePictureLoading: false,
+                });
+              } else {
+                this.setState({
+                  profilePicture: DefaultProfilePicture,
+                  profilePictureLoading: false,
+                });
+              }
             });
           } else {
             this.setState({
-              profilePicture: DefaultProfilePicture,
+              userID: null,
+              userIDLoading: false,
             });
           }
         });
-      } else {
-        this.setState({
-          userID: null,
-        });
-      }
-    });
+    }
   }
 
   render() {
+    console.log(this.state.cardNumberLoading);
+    console.log(this.state.cardNumber);
     return (
       <div className="bg">
         <Username username={this.state.username} />
         <ProfilePicture profilePicture={this.state.profilePicture} />
         {!this.state.editing && <Button onClick={this.handleEdit}>Edit</Button>}
         {this.state.editing && <Button onClick={this.handleDone}>Done</Button>}
-        <div className="content">
-          <Grid container spacing={3}>
-            <Grid justify="center" container item xs={12} spacing={3}>
-              <React.Fragment>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card1"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card2"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card3"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-              </React.Fragment>
+        {!this.state.cardNumberLoading && (
+          <div className="content">
+            <Grid container spacing={3}>
+              <Grid justify="center" container item xs={12} spacing={3}>
+                <React.Fragment>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard1"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard2"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard3"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                </React.Fragment>
+              </Grid>
+              <Grid justify="center" container item xs={12} spacing={3}>
+                <React.Fragment>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard4"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="5"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard6"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                </React.Fragment>
+              </Grid>
+              <Grid justify="center" container item xs={12} spacing={3}>
+                <React.Fragment>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard7"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard8"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <BridgeCard
+                      userID={this.state.userID}
+                      username={this.state.username}
+                      cardNumber={this.state.cardNumber}
+                      bridgeCardNumber="bridgeCard9"
+                      editable={this.state.editing}
+                    />
+                  </Grid>
+                </React.Fragment>
+              </Grid>
             </Grid>
-            <Grid justify="center" container item xs={12} spacing={3}>
-              <React.Fragment>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card4"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card5"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card6"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-              </React.Fragment>
-            </Grid>
-            <Grid justify="center" container item xs={12} spacing={3}>
-              <React.Fragment>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card7"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card8"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <BridgeCard
-                    username={this.state.username}
-                    cardNumber="card9"
-                    editable={this.state.editing}
-                  />
-                </Grid>
-              </React.Fragment>
-            </Grid>
-          </Grid>
-        </div>
+          </div>
+        )}
       </div>
     );
   }

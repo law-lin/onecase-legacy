@@ -63,9 +63,12 @@ class Firebase {
   cards = (userID, cardNumber) => this.db.ref(`users/${userID}/${cardNumber}`);
 
   getCardNumberWithCardTitle = (userID, cardTitle) =>
-    this.db.ref(`users/${userID}`).orderByChild("card2").equalTo(cardTitle);
+    this.db.ref(`cards/${userID}/${cardTitle}`);
 
-  // bridgeCards = (userID, cardBridgeNumber) => this.db.ref(`users/${userID}/${cardNumber}/${cardBridgeNumber}`)
+  // this.db.ref(`users/${userID}`).orderByChild("card2").equalTo(cardTitle);
+
+  bridgeCards = (userID, cardNumber, cardBridgeNumber) =>
+    this.db.ref(`users/${userID}/${cardNumber}/${cardBridgeNumber}`);
   // *** Edit Profile Functions (Setters) ***
 
   editUsername = (oldUsername, username) => {
@@ -84,22 +87,25 @@ class Firebase {
     });
 
   editCard = (oldCardTitle, cardNumber, cardTitle) => {
-    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
-      [cardNumber]: cardTitle,
+    this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
+      cardTitle,
     });
+    let formattedOldCardTitle = oldCardTitle.toLowerCase().split(" ").join("_");
+    let formattedCardTitle = cardTitle.toLowerCase().split(" ").join("_");
 
-    this.db.ref("cards").child(`${oldCardTitle}`).remove();
-    this.db.ref("cards").update({
-      [cardTitle]: cardNumber,
+    this.db
+      .ref(`cards/${this.auth.currentUser.uid}`)
+      .child(`${formattedOldCardTitle}`)
+      .remove();
+    this.db.ref(`cards/${this.auth.currentUser.uid}`).update({
+      [formattedCardTitle]: cardNumber,
     });
   };
 
-  editBridgeCard = (cardBridgeNumber, cardTitle) =>
-    this.db.ref(
-      `users/${this.auth.currentUser.uid}`.update({
-        [cardBridgeNumber]: cardTitle,
-      })
-    );
+  editBridgeCard = (cardNumber, bridgeCardNumber, bridgeCardTitle) =>
+    this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
+      [bridgeCardNumber]: bridgeCardTitle,
+    });
 
   uploadCardImage = (image) =>
     this.storage.ref(`card_images/${image.name}`).put(image);

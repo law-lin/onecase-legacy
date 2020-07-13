@@ -69,7 +69,7 @@ class ProfileCard extends Component {
             console.log(state);
             if (state) {
               this.setState({
-                cardTitle: state,
+                cardTitle: state.cardTitle,
                 oldCardTitle: state,
                 cardImageURL: state.cardImageURL,
                 loading: false,
