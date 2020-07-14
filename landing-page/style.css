@@ -1,4 +1,6 @@
-
+body {
+  background-color: #F6F6F6;
+}
 /* Navigation Bar */
 .main-nav {
     display: flex;
@@ -140,6 +142,18 @@ a {
   }
 }
 
+@media screen and (max-width:580px) {
+  .onecase-text {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width:410px) {
+  .onecase-text {
+    font-size: 18px;
+  }
+}
+
 @media screen and (max-width:450px) {
   .logo {
     font-size: 2.3em;
@@ -149,46 +163,23 @@ a {
   }
 }
 
-/* .description {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  align-content: space-between;
-} */
 
 
-.two-images {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
 
-.network-icon {
-  height: 10vh;
-  order: 0;
-  margin-right: 40px;
-  margin-top: 20px;
-}
 
-.archive {
-  order: 0;
-  height: 10vh;
-  margin-top: 20px;
-}
 
 .one-liner {
   color: white;
   font-family: 'Montserrat', sans-serif; 
-  color: #3E4E55;
+  color:  #3E4E55;
   font-weight: 800;
-  font-size: 30px;
+  font-size: 20px;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
   margin-top: 5vh;
 }
+
 
 @media screen and (max-width:700px) {
   .one-liner {
@@ -199,8 +190,178 @@ a {
 @media screen and (max-width:500px) {
   .one-liner {
     font-size: 15px;
+    
   }
 }
+
+.parentblock {
+  display: flex;
+  justify-content: center;
+}
+
+.twoblocks {
+  margin-top: 10vh;
+  background: linear-gradient(to right, #9BF1AE 50%, #2088E8 50%);
+  height: 2vh;
+  width: 30vw;
+}
+
+
+
+.light-scrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
+  
+  
+}
+
+.lightbulb {
+  width: 50px;
+  height: 50px;
+  margin-right: 40vw;
+  
+}
+
+.scrapbook {
+  width: 50px;
+  height: 50px;
+} 
+
+.one-description {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.description {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif; 
+  color: #3E4E55;
+  font-weight: bold;
+  grid-column: 27/95;
+}
+
+
+.think {
+  color: 	#CCCC00;
+}
+
+
+
+.scrap {
+  color: #02ab59;
+}
+
+.portfolio {
+  color: #00a196;
+}
+
+.friends {
+  color: #007ea1;
+}
+/* @media screen and (max-width:1200px) {
+  .scrapbook {
+    grid-column: 55/60;
+  }
+} */
+
+@media screen and (max-width:990px) {
+  .description {
+    font-size: 15px;
+    text-align: center;
+    
+  }
+  
+}
+
+
+.three-icons {
+  display: flex;
+  margin-top: 8vh;
+  justify-content: space-around;
+  font-family: 'Montserrat', sans-serif; 
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.first {
+  color: #02AB59;
+  width: 15%;
+  position: relative;
+  left: 1vw;
+}
+
+.second {
+  color: #00A196;
+  width: 15%;
+  position: relative;
+  left: 1vw;
+}
+
+.third {
+  color: #007EA1;
+  width: 17%;
+  position: relative;
+  left: 1.5vw;
+}
+
+.icon-descriptions {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif; 
+  margin-top: 2vh;
+}
+
+.first-description {
+  width: 20%;
+  color: #3E4E55;
+  font-weight: bold;
+}
+
+.second-description {
+  width: 24%;
+  color: #3E4E55;
+  font-weight: bold;
+}
+
+.third-description {
+  width: 20%;
+  color: #3E4E55;
+  font-weight: bold;
+  position: relative;
+}
+/* .description {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+} */
+
+
+/* .two-images {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}  */
+
+/* .archive {
+  height: 10vh;
+  order: 0;
+  margin-right: 10vw;
+  margin-top: 5vh;
+}
+
+.network-icon {
+  order: 0;   
+  height: 10vh;
+  margin-top: 5vh;
+} */
+
+
 /* .onecase-title {
   justify-content: center;
   font-size: 50px;
