@@ -11,7 +11,9 @@ export default function WelcomePage() {
           </li>
         </ul>
       </nav>
-      <div>Welcome!</div>
+      <div class="welcome-line">
+        Welcome and thanks for signing up for OneCase's Early Access,{" "}
+      </div>
     </div>
   );
 }
