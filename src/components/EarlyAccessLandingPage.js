@@ -95,13 +95,6 @@ export default function LandingPage() {
           <li className="logo">
             <a href>OneCase</a>
           </li>
-          <li className="push">
-            <a href>
-              <button type="button" className="btn btn-primary log">
-                Login
-              </button>
-            </a>
-          </li>
         </ul>
       </nav>
       <div className="center-page">
