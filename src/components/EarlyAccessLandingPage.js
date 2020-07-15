@@ -61,21 +61,18 @@ class EarlyAccessFormBase extends Component {
             helperText={error}
           />
 
-          <Button
+          <button
+            className="btn btn-primary log"
             disabled={isInvalid}
             type="submit"
-            value="Subscribe"
-            name="subscribe"
-            variant="contained"
             color="primary"
             style={{
-              marginTop: 10,
+              marginTop: 5,
               marginLeft: 10,
-              textTransform: "none",
             }}
           >
             Early Access
-          </Button>
+          </button>
         </form>
       </div>
     );
