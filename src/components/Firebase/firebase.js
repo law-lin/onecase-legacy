@@ -54,6 +54,9 @@ class Firebase {
     });
   };
 
+  checkDuplicateEmail = (email) =>
+    this.db.ref("emails").orderByValue().equalTo(email);
+
   // *** User API ***
 
   user = (userID) => this.db.ref(`users/${userID}`);

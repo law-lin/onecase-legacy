@@ -24,11 +24,20 @@ class EarlyAccessFormBase extends Component {
     const { email } = this.state;
     event.preventDefault();
     if (this.validateEmail(email)) {
-      this.setState({
-        error: null,
+      this.props.firebase.checkDuplicateEmail(email).on("value", (snapshot) => {
+        console.log(snapshot);
+        if (snapshot.exists()) {
+          this.setState({
+            error: "This email is already signed up!",
+          });
+        } else {
+          this.setState({
+            error: null,
+          });
+          this.props.firebase.earlyAccess(this.state.email);
+          this.props.history.push("welcome");
+        }
       });
-      this.props.firebase.earlyAccess(this.state.email);
-      this.props.history.push("welcome");
     } else {
       this.setState({
         error: "Please enter a valid email address.",
