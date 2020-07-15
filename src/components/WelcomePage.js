@@ -6,13 +6,18 @@ export default function WelcomePage() {
     <div>
       <nav className="zone top">
         <ul className="main-nav">
-          <li className="logo">
-            <a href>OneCase</a>
+          <li className="welcome-logo">
+            <a href="">OneCase</a>
+            {/* ^^^ this should link back to homepage/landingpage */}
           </li>
         </ul>
       </nav>
-      <div class="welcome-line">
-        Welcome and thanks for signing up for OneCase's Early Access,{" "}
+      <div class="center-screen">
+        <div class="welcome-line">
+          Welcome and thanks for signing up for
+          <span class="website-name"> OneCase's </span>
+          Early Access, that was a pretty cool thing to do.{" "}
+        </div>
       </div>
     </div>
   );
