@@ -1,271 +1,158 @@
-import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { compose } from "recompose";
-
-// MUI Stuff
+import React from "react";
+import "./landingpage.css";
+import background from "../images/background3.png";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+export default function LandingPage() {
+  return (
+    <div>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+      <title>OneCase</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-import icecube from "../images/icecube.jpg";
-import "./landing.css";
-
-import { withFirebase } from "./Firebase";
-import * as ROUTES from "../constants/routes";
-
-const LandingPage = () => (
-  <div className="bg">
-    <div className="header">
-      <div className="centerheader">
-        <span className="logo">
-          <b>OneCase</b>
-        </span>
-        <div className="loginfield">
-          <LogInForm />
+      {/* Custom Stylesheet */}
+      <link rel="stylesheet" href="landingpage.css" type="text/css" />
+      {/* <link
+        href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css"
+        rel="stylesheet"
+        type="text/css"
+      /> */}
+      <nav className="zone top">
+        <ul className="main-nav">
+          <li className="logo">
+            <a href>OneCase</a>
+          </li>
+          <li className="push">
+            <a href>
+              <button type="button" className="btn btn-primary log">
+                Login
+              </button>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div className="center-page">
+        <img className="mural-img" src={background} />
+        <div className="sign-up-box">
+          <div className="onecase-title">OneCase</div>
+          <div className="onecase-text">
+            A Personal Archive + Social Network
+          </div>
+          {/* Begin Mailchimp Signup Form */}
+          <link
+            href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css"
+            rel="stylesheet"
+            type="text/css"
+          />
+          <div id="mc_embed_signup">
+            <form
+              action="https://app.us10.list-manage.com/subscribe/post?u=f85bcb415af912b06fb56e101&id=037f01bf55"
+              method="post"
+              id="mc-embedded-subscribe-form"
+              name="mc-embedded-subscribe-form"
+              className="validate"
+              target="_blank"
+              noValidate
+            >
+              <div id="mc_embed_signup_scroll">
+                <div className="mc-field-group">
+                  <input
+                    type="email"
+                    placeholder="Email address"
+                    name="EMAIL"
+                    className="required email"
+                    id="mce-EMAIL"
+                  />
+                </div>
+                <div id="mce-responses" className="clear">
+                  <div
+                    className="response"
+                    id="mce-error-response"
+                    style={{ display: "none" }}
+                  />
+                  <div
+                    className="response"
+                    id="mce-success-response"
+                    style={{ display: "none" }}
+                  />
+                </div>
+                {/* real people should not fill this in and expect good things - do not remove this or risk form bot signups*/}
+                <div
+                  style={{ position: "absolute", left: "-5000px" }}
+                  aria-hidden="true"
+                >
+                  <input
+                    type="text"
+                    name="b_f85bcb415af912b06fb56e101_037f01bf55"
+                    tabIndex={-1}
+                    defaultValue
+                  />
+                </div>
+                <div className="clear">
+                  <input
+                    type="submit"
+                    defaultValue="Subscribe"
+                    name="subscribe"
+                    id="mc-embedded-subscribe"
+                    className="button"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          {/*End mc_embed_signup*/}
+        </div>
+      </div>
+      <div className="signup-btn">
+        <button type="button" className="btn btn-primary btn-lg signup">
+          <a href>Sign up</a>
+        </button>
+      </div>
+      <a href></a>
+      <div className="parentblock">
+        <div className="twoblocks" />
+      </div>
+      <div className="light-scrap">
+        <img
+          className="lightbulb"
+          src="https://www.amt-us.com/wp-content/uploads/2018/10/icon-lightbulb-2.png"
+        />
+        <img
+          className="scrapbook"
+          src="https://icons.iconarchive.com/icons/flameia/machemicals/128/scrapbook-icon.png"
+        />
+      </div>
+      <div className="one-description">
+        <p className="description">
+          <span className="think">Think </span>
+          of us as an
+          <span className="scrap"> online scrapbook </span>
+          or
+          <span className="portfolio"> portfolio, </span>
+          with
+          <span className="friends"> friends</span>
+        </p>
+      </div>
+      <div className="three-icons">
+        <div className="first">Your Own Page</div>
+        <div className="second">Interest Oriented</div>
+        <div className="third">Creative Motivation</div>
+      </div>
+      <div className="icon-descriptions">
+        <div className="first-description">
+          Let OneCase serve as your one-stop shop to display all your favorite
+          projects and things
+        </div>
+        <div className="second-description">
+          Uploading content shouldn’t feel too personal and daunting, let your
+          interests speak for themselves
+        </div>
+        <div className="third-description">
+          Get inspo from your friends, collaborate, and get excited to try/learn
+          new things
         </div>
       </div>
     </div>
-    <div className="content">
-      <div className="landing-center">
-        <div className="left">
-          <h2 className="oneliner">Your Page, Your Portfolio, Uniquely You</h2>
-          <div className="description">
-            <span>OneCase is the perfect icebreaker</span>
-            <img className="descimg" alt="icecube" src={icecube}></img>
-          </div>
-          <div className="description">
-            <span>Share who you are with the world</span>
-          </div>
-          <div className="description">
-            <span>Connect with friends</span>
-          </div>
-          <div className="description">
-            <span>Grow personally alongside your board</span>
-          </div>
-        </div>
-        <div className="right">
-          <span>
-            <b style={{ color: "#B54646", fontSize: "32px" }}>New?</b>
-            <b style={{ color: "#93B4F6", fontSize: "32px" }}>
-              {" "}
-              Make an account
-            </b>
-          </span>
-          <SignUpForm />
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const INITIAL_LOGIN_STATE = {
-  email: "",
-  password: "",
-  error: null,
-};
-
-class LogInFormBase extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { ...INITIAL_LOGIN_STATE };
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const { email, password } = this.state;
-
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState({ ...INITIAL_LOGIN_STATE });
-        this.props.firebase.currentUsername().on("value", (snapshot) => {
-          this.props.history.push(snapshot.val().username);
-        });
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
-  };
-
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  render() {
-    const { email, password, error } = this.state;
-
-    const isInvalid = password === "" || email === "";
-
-    return (
-      <form>
-        <TextField
-          name="email"
-          value={email}
-          onChange={this.handleChange}
-          type="email"
-          label="Email"
-          style={{ marginTop: 30, marginRight: 10 }}
-          variant="outlined"
-        />
-        <TextField
-          name="password"
-          value={password}
-          onChange={this.handleChange}
-          type="password"
-          label="Password"
-          style={{ marginTop: 30 }}
-          variant="outlined"
-        />
-        <Button
-          disabled={isInvalid}
-          onClick={this.handleSubmit}
-          type="button"
-          style={{
-            marginTop: 35,
-            marginLeft: 10,
-            textTransform: "none",
-            lineHeight: "30px",
-          }}
-          variant="contained"
-          color="primary"
-        >
-          Log In
-        </Button>
-
-        {error && <p>{error.message}</p>}
-      </form>
-    );
-  }
+  );
 }
-
-const INITIAL_SIGNUP_STATE = {
-  email: "",
-  username: "",
-  password: "",
-  confirmPassword: "",
-  error: null,
-};
-
-class SignUpFormBase extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { ...INITIAL_SIGNUP_STATE };
-  }
-
-  handleSubmit = (event) => {
-    const { email, username, password } = this.state;
-
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        // Create a user in your Firebase realtime database
-        this.props.firebase.user(authUser.user.uid).set({
-          username,
-          email,
-          // bio: "Edit your bio with the edit button!",
-          // card1: "Edit this card!",
-          // card2: "Edit this card!",
-          // card3: "Edit this card!",
-          // card4: "Edit this card!",
-          // card5: "Edit this card!",
-          // card6: "Edit this card!",
-          // card7: "Edit this card!",
-          // card8: "Edit this card!",
-          // card9: "Edit this card!",
-        });
-        return this.props.firebase.usernames().update({
-          [username]: authUser.user.uid,
-        });
-      })
-      .then(() => {
-        this.setState({ ...INITIAL_SIGNUP_STATE });
-        this.props.history.push(username);
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
-
-    event.preventDefault();
-  };
-
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  render() {
-    const { email, username, password, confirmPassword, error } = this.state;
-
-    const isInvalid =
-      email === "" ||
-      username === "" ||
-      password === "" ||
-      password !== confirmPassword;
-
-    return (
-      <form>
-        <TextField
-          name="email"
-          value={email}
-          onChange={this.handleChange}
-          type="email"
-          label="Email"
-          required
-          style={{ marginTop: 20, marginBottom: 8, width: 400 }}
-          variant="outlined"
-        />
-        <TextField
-          required
-          name="username"
-          value={username}
-          onChange={this.handleChange}
-          type="text"
-          label="Username"
-          style={{ marginBottom: 8, width: 400 }}
-          variant="outlined"
-        />
-        <TextField
-          required
-          name="password"
-          value={password}
-          onChange={this.handleChange}
-          type="password"
-          label="Password"
-          style={{ marginBottom: 8, width: 400 }}
-          variant="outlined"
-        />
-        <TextField
-          required
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={this.handleChange}
-          type="password"
-          label="Confirm Password"
-          style={{ marginBottom: 8, width: 400 }}
-          variant="outlined"
-        />
-        <Button
-          disabled={isInvalid}
-          onClick={this.handleSubmit}
-          type="button"
-          style={{ textTransform: "none", marginTop: 15 }}
-          variant="contained"
-          color="primary"
-        >
-          {" "}
-          Sign Up
-        </Button>
-
-        {error && <p>{error.message}</p>}
-      </form>
-    );
-  }
-}
-
-const LogInForm = compose(withRouter, withFirebase)(LogInFormBase);
-
-const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
-
-export default LandingPage;

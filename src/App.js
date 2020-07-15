@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/ProfilePage";
 import AdminPage from "./components/AdminPage";
+import WelcomePage from "./components/WelcomePage";
 import Bridge from "./components/Bridge";
 import * as ROUTES from "./constants/routes";
 
@@ -18,6 +19,7 @@ class App extends Component {
       // <ProfilePage/>
       <Router>
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route exact path={"/welcome"} component={WelcomePage} />
         <Route exact path={"/:username"} component={ProfilePage} />
         <Route exact path={"/:username/:cardTitle"} component={Bridge} />
         <Route path={ROUTES.ADMIN} component={AdminPage} />
