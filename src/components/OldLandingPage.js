@@ -163,16 +163,6 @@ class SignUpFormBase extends Component {
         this.props.firebase.user(authUser.user.uid).set({
           username,
           email,
-          // bio: "Edit your bio with the edit button!",
-          // card1: "Edit this card!",
-          // card2: "Edit this card!",
-          // card3: "Edit this card!",
-          // card4: "Edit this card!",
-          // card5: "Edit this card!",
-          // card6: "Edit this card!",
-          // card7: "Edit this card!",
-          // card8: "Edit this card!",
-          // card9: "Edit this card!",
         });
         return this.props.firebase.usernames().update({
           [username]: authUser.user.uid,

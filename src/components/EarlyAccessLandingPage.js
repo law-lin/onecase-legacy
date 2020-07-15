@@ -6,6 +6,81 @@ import Button from "@material-ui/core/Button";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 
+class EarlyAccessFormBase extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: null,
+      error: null,
+    };
+  }
+  validateEmail = (email) => {
+    const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regexp.test(email);
+  };
+
+  handleSubmit = (event) => {
+    const { email } = this.state;
+    event.preventDefault();
+    if (this.validateEmail(email)) {
+      this.setState({
+        error: null,
+      });
+      this.props.firebase.earlyAccess(this.state.email);
+      this.props.history.push("welcome");
+    } else {
+      this.setState({
+        error: "Please enter a valid email address.",
+      });
+    }
+  };
+
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+  render() {
+    const { email, error } = this.state;
+    const isInvalid = email === "";
+
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit} noValidate>
+          <TextField
+            error={error}
+            value={email}
+            name="email"
+            required
+            id="outlined-required"
+            label="Email"
+            variant="filled"
+            style={{ backgroundColor: "white", width: 400 }}
+            onChange={this.handleChange}
+            helperText={error}
+          />
+
+          <Button
+            disabled={isInvalid}
+            type="submit"
+            value="Subscribe"
+            name="subscribe"
+            variant="contained"
+            color="primary"
+            style={{
+              marginTop: 10,
+              marginLeft: 10,
+              textTransform: "none",
+            }}
+          >
+            Early Access
+          </Button>
+        </form>
+      </div>
+    );
+  }
+}
 export default function LandingPage() {
   return (
     <div>
@@ -40,12 +115,11 @@ export default function LandingPage() {
             A Personal Archive + Social Network
           </div>
           <div className="signup-btn">
-            <button type="button" className="btn btn-primary btn-lg signup">
-              <a href>Sign up</a>
-            </button>
+            <EarlyAccessForm />
           </div>
         </div>
       </div>
+
       <a href></a>
       <div className="parentblock">
         <div className="twoblocks" />
@@ -93,3 +167,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+const EarlyAccessForm = withFirebase(withRouter(EarlyAccessFormBase));

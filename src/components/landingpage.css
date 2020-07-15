@@ -1,28 +1,28 @@
 body {
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
 }
 /* Navigation Bar */
 .main-nav {
-    display: flex;
-    list-style: none;
-    font-size: 1em;
-    font-weight: 700;
-    margin: 0;
-    height: 4em;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;    
-} 
+  display: flex;
+  list-style: none;
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0;
+  height: 4em;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+}
 
 .logo {
   font-size: 3em;
-  color: #D4F1F3; 
-  
+  color: #d4f1f3;
+
   padding: 7vh 7vh 7vh 0px;
 }
 
 a:hover {
   color: #aaeef2;
-  text-decoration: none;  
+  text-decoration: none;
   text-shadow: 2px 2px black;
 }
 
@@ -31,12 +31,12 @@ li {
 }
 
 .top {
-  background-color: #3E4E55;
+  background-color: #3e4e55;
 }
 
 a {
   text-decoration: none;
-  color: #D4F1F3; 
+  color: #d4f1f3;
 }
 
 .push {
@@ -47,10 +47,7 @@ a {
 .log {
   border-radius: 15px;
   padding: 10px 40px;
-  
 }
-
-
 
 /* Center Section */
 
@@ -63,53 +60,51 @@ a {
   grid-template-columns: repeat(5, 1fr);
 }
 
-
 .center-page img {
   height: 70vh;
   object-fit: cover;
   width: 100%;
   grid-column: 1/6;
- 
 }
 
-.mural-img, .sign-up-box {
+.mural-img,
+.sign-up-box {
   grid-row: 1/2;
 }
 
-
 .sign-up-box {
-    grid-column: 3/4;
-    width: 700px;
-    height: 200px;
-    align-self: center;
-    justify-content: center;
-    background-color: #3E4E55;
-    border-radius: 15px;
-    border-style: solid;
-    border-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    /* grid-template-rows: repeat(10, 1fr);
+  grid-column: 3/4;
+  width: 700px;
+  height: 250px;
+  align-self: center;
+  justify-content: center;
+  background-color: #3e4e55;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  /* grid-template-rows: repeat(10, 1fr);
     grid-template-columns: repeat(100, 1fr); */
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .onecase-title {
   justify-content: flex-end;
   align-self: center;
   font-size: 50px;
-  font-family: 'Montserrat', sans-serif;    
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   color: #aaeef2;
   text-shadow: 2px 2px black;
-  
+
   order: 1;
 }
 
 .onecase-text {
   align-self: center;
   order: 2;
-  font-family: 'Montserrat', sans-serif;   
+  font-family: "Montserrat", sans-serif;
   font-weight: 300;
   font-size: 30px;
   color: white;
@@ -119,21 +114,19 @@ a {
   align-self: center;
   order: 3;
   border-radius: 15px;
-  font-family: 'Montserrat', sans-serif; 
+  font-family: "Montserrat", sans-serif;
   font-weight: 900;
   margin: 1em;
-  
 }
 
 .signup {
   padding: 7px 30px;
   border: solid;
-  border-color: #3E4E55;
+  border-color: #3e4e55;
   border-width: 1px;
-  
 }
 
-@media screen and (max-width:700px) {
+@media screen and (max-width: 700px) {
   .sign-up-box {
     width: 90vw;
   }
@@ -142,19 +135,19 @@ a {
   }
 }
 
-@media screen and (max-width:580px) {
+@media screen and (max-width: 580px) {
   .onecase-text {
     font-size: 20px;
   }
 }
 
-@media screen and (max-width:410px) {
+@media screen and (max-width: 410px) {
   .onecase-text {
     font-size: 18px;
   }
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width: 450px) {
   .logo {
     font-size: 2.3em;
   }
@@ -163,15 +156,10 @@ a {
   }
 }
 
-
-
-
-
-
 .one-liner {
   color: white;
-  font-family: 'Montserrat', sans-serif; 
-  color:  #3E4E55;
+  font-family: "Montserrat", sans-serif;
+  color: #3e4e55;
   font-weight: 800;
   font-size: 20px;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -180,17 +168,15 @@ a {
   margin-top: 5vh;
 }
 
-
-@media screen and (max-width:700px) {
+@media screen and (max-width: 700px) {
   .one-liner {
     font-size: 20px;
   }
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
   .one-liner {
     font-size: 15px;
-    
   }
 }
 
@@ -201,53 +187,44 @@ a {
 
 .twoblocks {
   margin-top: 10vh;
-  background: linear-gradient(to right, #9BF1AE 50%, #2088E8 50%);
+  background: linear-gradient(to right, #9bf1ae 50%, #2088e8 50%);
   height: 2vh;
   width: 30vw;
 }
-
-
 
 .light-scrap {
   display: flex;
   justify-content: center;
   margin-top: 10vh;
-  
-  
 }
 
 .lightbulb {
   width: 50px;
   height: 50px;
   margin-right: 40vw;
-  
 }
 
 .scrapbook {
   width: 50px;
   height: 50px;
-} 
+}
 
 .one-description {
   display: flex;
   justify-content: center;
-  
 }
 
 .description {
   font-size: 20px;
-  font-family: 'Montserrat', sans-serif; 
-  color: #3E4E55;
+  font-family: "Montserrat", sans-serif;
+  color: #3e4e55;
   font-weight: bold;
   grid-column: 27/95;
 }
 
-
 .think {
-  color: 	#CCCC00;
+  color: #cccc00;
 }
-
-
 
 .scrap {
   color: #02ab59;
@@ -266,41 +243,38 @@ a {
   }
 } */
 
-@media screen and (max-width:990px) {
+@media screen and (max-width: 990px) {
   .description {
     font-size: 15px;
     text-align: center;
-    
   }
-  
 }
-
 
 .three-icons {
   display: flex;
   margin-top: 8vh;
   justify-content: space-around;
-  font-family: 'Montserrat', sans-serif; 
+  font-family: "Montserrat", sans-serif;
   font-weight: 800;
   font-size: 20px;
 }
 
 .first {
-  color: #02AB59;
+  color: #02ab59;
   width: 15%;
   position: relative;
   left: 1vw;
 }
 
 .second {
-  color: #00A196;
+  color: #00a196;
   width: 15%;
   position: relative;
   left: 1vw;
 }
 
 .third {
-  color: #007EA1;
+  color: #007ea1;
   width: 17%;
   position: relative;
   left: 1.5vw;
@@ -310,25 +284,25 @@ a {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  font-family: 'Montserrat', sans-serif; 
+  font-family: "Montserrat", sans-serif;
   margin-top: 2vh;
 }
 
 .first-description {
   width: 20%;
-  color: #3E4E55;
+  color: #3e4e55;
   font-weight: bold;
 }
 
 .second-description {
   width: 24%;
-  color: #3E4E55;
+  color: #3e4e55;
   font-weight: bold;
 }
 
 .third-description {
   width: 20%;
-  color: #3E4E55;
+  color: #3e4e55;
   font-weight: bold;
   position: relative;
 }
@@ -340,7 +314,6 @@ a {
   justify-content: space-between;
   align-content: space-between;
 } */
-
 
 /* .two-images {
   display: flex;
@@ -360,7 +333,6 @@ a {
   height: 10vh;
   margin-top: 5vh;
 } */
-
 
 /* .onecase-title {
   justify-content: center;

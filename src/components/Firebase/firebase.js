@@ -46,6 +46,14 @@ class Firebase {
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
 
+  // EARLY ACCESS FUNCTIONS
+  earlyAccess = (email) => {
+    const key = this.db.ref("emails").push().getKey();
+    this.db.ref("emails").update({
+      [key]: email,
+    });
+  };
+
   // *** User API ***
 
   user = (userID) => this.db.ref(`users/${userID}`);
