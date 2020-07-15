@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "OneCase",
+  "description": "A Personal Archive + Social Network",
   "icons": [
     {
       "src": "favicon.ico",
