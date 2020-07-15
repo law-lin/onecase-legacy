@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./landingpage.css";
 import background from "../images/background3.png";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 
@@ -98,7 +98,7 @@ export default function LandingPage() {
         </ul>
       </nav>
       <div className="center-page">
-        <img className="mural-img" src={background} />
+        <img className="mural-img" src={background} alt="mural background" />
         <div className="sign-up-box">
           <div className="onecase-title">OneCase</div>
           <div className="onecase-text">
@@ -109,8 +109,6 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-
-      <a href></a>
       <div className="parentblock">
         <div className="twoblocks" />
       </div>
@@ -118,10 +116,12 @@ export default function LandingPage() {
         <img
           className="lightbulb"
           src="https://www.amt-us.com/wp-content/uploads/2018/10/icon-lightbulb-2.png"
+          alt="lightbulb icon"
         />
         <img
           className="scrapbook"
           src="https://icons.iconarchive.com/icons/flameia/machemicals/128/scrapbook-icon.png"
+          alt="scrapbook icon"
         />
       </div>
       <div className="one-description">

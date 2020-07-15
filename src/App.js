@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <Router>
         <Route exact path={ROUTES.LANDING} component={EarlyAccessLandingPage} />
-        <Route exact path={"/welcome"} component={WelcomePage} />
+        <Route exact path={ROUTES.WELCOME} component={WelcomePage} />
         <Route exact path={"/:username"} component={ProfilePage} />
         <Route exact path={"/:username/:cardTitle"} component={Bridge} />
         <Route path={ROUTES.ADMIN} component={AdminPage} />
