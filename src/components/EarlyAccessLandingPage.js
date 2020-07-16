@@ -102,7 +102,7 @@ export default function LandingPage() {
       <nav className="zone top">
         <ul className="main-nav">
           <li className="logo">
-            <a href>OneCase</a>
+            <a href="/">OneCase</a>
           </li>
         </ul>
       </nav>

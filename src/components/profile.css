@@ -59,3 +59,20 @@
   justify-items: center;
   direction: column;
 }
+
+.error-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.error-line {
+  font-size: 3vh;
+  text-align: center;
+}
+
+.red-error {
+  font-weight: bolder;
+  color: red;
+}

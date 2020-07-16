@@ -35,18 +35,15 @@ class PublicProfilePage extends Component {
 
     if (username) this.setState({ oldUsername: username, username });
 
-    console.log(username);
     this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
       const userIDState = snapshot.val();
       if (userIDState) {
-        console.log("found userID");
         this.setState({
           userID: userIDState,
         });
         this.props.firebase.user(userIDState).on("value", (snapshot) => {
           const state = snapshot.val();
           if (state) {
-            console.log("found user!");
             this.setState({
               exists: true,
               bio: state.bio,
@@ -56,6 +53,7 @@ class PublicProfilePage extends Component {
           }
         });
       } else {
+        console.log("didnt find");
         this.setState({
           loading: false,
         });
@@ -160,7 +158,18 @@ class PublicProfilePage extends Component {
           </div>
         );
       } else {
-        return <div>Sorry, this page does not exist.</div>;
+        return (
+          <div>
+            <Navbar />
+            <div className="error-screen">
+              <div className="error-line">
+                Oops, there was an
+                <span className="red-error"> error</span>. This page doesn't
+                exist!
+              </div>
+            </div>
+          </div>
+        );
       }
     } else {
       return <div>Loading...</div>;
