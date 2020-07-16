@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./landingpage.css";
 import background from "../images/background3.png";
 import TextField from "@material-ui/core/TextField";
+import Navbar from "./Navbar";
 
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "./Firebase";
@@ -99,13 +100,7 @@ export default function LandingPage() {
       {/* Custom Stylesheet */}
       <link rel="stylesheet" href="landingpage.css" type="text/css" />
 
-      <nav className="zone top">
-        <ul className="main-nav">
-          <li className="logo">
-            <a href="/">OneCase</a>
-          </li>
-        </ul>
-      </nav>
+      <Navbar />
       <div className="center-page">
         <img className="mural-img" src={background} alt="mural background" />
         <div className="sign-up-box">

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./landingpage.css";
+
+import Navbar from "./Navbar";
 import background from "../images/background3.png";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -18,6 +20,7 @@ export default function LandingPage() {
       {/* Custom Stylesheet */}
       <link rel="stylesheet" href="landingpage.css" type="text/css" />
 
+      <Navbar />
       <nav className="zone top">
         <ul className="main-nav">
           <li className="logo">
