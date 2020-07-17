@@ -30,6 +30,7 @@ class PersonalProfilePage extends Component {
       canSave: false,
       canCancel: false,
       bio: null,
+      loading: false,
     };
   }
 
@@ -38,36 +39,45 @@ class PersonalProfilePage extends Component {
 
     if (username) this.setState({ oldUsername: username, username });
 
-    console.log(username);
-    this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
-      const state = snapshot.val();
-      if (state) {
-        this.setState({
-          userID: state,
-        });
-        this.props.firebase.user(this.state.userID).on("value", (snapshot) => {
-          const state = snapshot.val();
-          if (state) {
+    console.log(this.state.loading);
+    if (!this.state.loading) {
+      this.setState({
+        loading: true,
+      });
+      console.log(username);
+      this.props.firebase
+        .getIDWithUsername(username)
+        .on("value", (snapshot) => {
+          const userIDState = snapshot.val();
+          console.log(userIDState);
+          if (userIDState) {
             this.setState({
-              bio: state.bio,
-              profilePicture: state.profilePicture,
-              loading: false,
+              userID: userIDState,
+            });
+            this.props.firebase.user(userIDState).on("value", (snapshot) => {
+              const state = snapshot.val();
+              console.log(state);
+              if (state) {
+                this.setState({
+                  bio: state.bio,
+                  profilePicture: state.profilePicture,
+                  loading: false,
+                });
+              } else {
+                this.setState({
+                  bio: "Edit your bio with the edit button!",
+                  profilePicture: DefaultProfilePicture,
+                  loading: false,
+                });
+              }
             });
           } else {
             this.setState({
-              bio: "Edit your bio with the edit button!",
-              profilePicture: DefaultProfilePicture,
-
-              loading: false,
+              userID: null,
             });
           }
         });
-      } else {
-        this.setState({
-          userID: null,
-        });
-      }
-    });
+    }
   }
 
   onUsernameChange = (value) => {
@@ -123,11 +133,13 @@ class PersonalProfilePage extends Component {
         <div className="profile-page">
           <div className="center">
             <div className="profileleft">
-              <Biography
-                bio={this.state.bio}
-                editable={this.state.editing}
-                onChange={this.onBioChange}
-              />
+              {!this.state.loading && (
+                <Biography
+                  bio={this.state.bio}
+                  editable={this.state.editing}
+                  onChange={this.onBioChange}
+                />
+              )}
 
               <div className="profile">
                 <Username
@@ -135,10 +147,12 @@ class PersonalProfilePage extends Component {
                   editable={this.state.editing}
                   onChange={this.onUsernameChange}
                 />
-                <ProfilePicture
-                  profilePicture={this.state.profilePicture}
-                  editable={this.state.editing}
-                />
+                {!this.state.loading && (
+                  <ProfilePicture
+                    profilePicture={this.state.profilePicture}
+                    editable={this.state.editing}
+                  />
+                )}
                 {!this.state.editing && (
                   <Button onClick={this.handleEdit}>Edit</Button>
                 )}

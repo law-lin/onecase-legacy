@@ -85,7 +85,7 @@ class ProfilePicture extends Component {
               >
                 <img
                   className={classes.profilePic}
-                  src={profilePicture}
+                  src={DefaultProfilePic}
                   alt="profile pic"
                 />
                 {/* <span style={{ backgroundImage: profilePicture }} /> */}

@@ -34,7 +34,7 @@ class PublicProfilePage extends Component {
     const username = this.props.match.params.username;
 
     if (username) this.setState({ oldUsername: username, username });
-
+    console.log(this.state.loading);
     this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
       const userIDState = snapshot.val();
       if (userIDState) {
