@@ -58,9 +58,25 @@ class PersonalProfilePage extends Component {
               const state = snapshot.val();
               console.log(state);
               if (state) {
+                if (state.bio) {
+                  this.setState({
+                    bio: state.bio,
+                  });
+                } else {
+                  this.setState({
+                    bio: "Edit your bio with the edit button!",
+                  });
+                }
+                if (state.profilePicture) {
+                  this.setState({
+                    profilePicture: state.profilePicture,
+                  });
+                } else {
+                  this.setState({
+                    profilePicture: DefaultProfilePicture,
+                  });
+                }
                 this.setState({
-                  bio: state.bio,
-                  profilePicture: state.profilePicture,
                   loading: false,
                 });
               } else {
@@ -127,6 +143,7 @@ class PersonalProfilePage extends Component {
   };
 
   render() {
+    console.log(this.state.bio);
     return (
       <div className="bg">
         <Navbar />

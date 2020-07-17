@@ -12,6 +12,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import DefaultProfilePicture from "../images/default-profile-pic.png";
 import { withFirebase } from "./Firebase";
 
 function LandingPage(props) {
@@ -48,6 +49,8 @@ function LandingPage(props) {
         props.firebase.user(authUser.user.uid).set({
           username,
           email,
+          bio: "Edit your bio with the edit button!",
+          profilePicture: DefaultProfilePicture,
         });
         return props.firebase.usernames().update({
           [username]: authUser.user.uid,
