@@ -13,9 +13,11 @@ class ProfilePage extends Component {
     this.state = {
       personal: false,
       valid: false,
+      loading: false,
     };
   }
   componentDidMount() {
+    this.setState({ loading: true });
     if (!ROUTES.NON_USERNAMES.includes(this.props.match.params.username)) {
       this.setState({
         valid: true,
@@ -24,6 +26,12 @@ class ProfilePage extends Component {
         if (snapshot.val().username === this.props.match.params.username) {
           this.setState({
             personal: true,
+            loading: false,
+          });
+        } else {
+          this.setState({
+            personal: false,
+            loading: false,
           });
         }
       });
@@ -32,10 +40,14 @@ class ProfilePage extends Component {
 
   render() {
     if (this.state.valid) {
-      if (this.state.personal) {
-        return <PersonalProfilePage />;
+      if (!this.state.loading) {
+        if (this.state.personal) {
+          return <PersonalProfilePage />;
+        } else {
+          return <PublicProfilePage />;
+        }
       } else {
-        return <PublicProfilePage />;
+        return null;
       }
     } else {
       return null;
