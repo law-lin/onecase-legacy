@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "./profile.css";
-
+import Navbar from "./Navbar";
 import DefaultProfilePicture from "../images/default-profile-pic.png";
 
 import ProfilePicture from "./ProfilePicture";
@@ -111,6 +111,8 @@ class Bridge extends Component {
     console.log(this.state.cardNumber);
     return (
       <div className="bg">
+        <Navbar />
+        {this.state.cardTitle}
         <Username username={this.state.username} />
         <ProfilePicture profilePicture={this.state.profilePicture} />
         {!this.state.editing && <Button onClick={this.handleEdit}>Edit</Button>}

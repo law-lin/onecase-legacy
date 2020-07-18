@@ -20,7 +20,7 @@ class Username extends Component {
 
   render() {
     return (
-      <div className="username">
+      <div>
         {this.props.editable && (
           <TextField
             defaultValue={this.props.username}

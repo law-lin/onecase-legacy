@@ -11,6 +11,11 @@ import Button from "@material-ui/core/Button";
 import UploadButton from "./UploadButton";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
@@ -50,6 +55,7 @@ class BridgeCard extends Component {
       cardTitle: "",
       cardImageURL: null,
       loading: false,
+      open: false,
       progress: 0,
     };
   }
@@ -117,13 +123,24 @@ class BridgeCard extends Component {
   };
 
   handleClick = () => {
-    let cardTitlePath = this.state.parentCardTitle;
-    let bridgeCardTitlePath = this.state.cardTitle
-      .toLowerCase()
-      .split(" ")
-      .join("_");
-    this.props.history.push(`${cardTitlePath}/${bridgeCardTitlePath}`);
+    this.setState({
+      open: true,
+    });
   };
+
+  handleClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+  // handleClick = () => {
+  //   let cardTitlePath = this.state.parentCardTitle;
+  //   let bridgeCardTitlePath = this.state.cardTitle
+  //     .toLowerCase()
+  //     .split(" ")
+  //     .join("_");
+  //   this.props.history.push(`${cardTitlePath}/${bridgeCardTitlePath}`);
+  // };
 
   render() {
     const { classes } = this.props;
@@ -132,27 +149,50 @@ class BridgeCard extends Component {
     return (
       <div>
         {!this.props.editable && (
-          <CardActionArea
-            onClick={this.handleClick}
-            disabled={this.props.editable}
-            className={classes.root}
-            style={{
-              backgroundSize: "350px 160px",
-            }}
-          >
-            <Card
+          <div>
+            <CardActionArea
+              onClick={this.handleClick}
+              disabled={this.props.editable}
               className={classes.root}
               style={{
                 backgroundSize: "350px 160px",
-                backgroundImage: `url(${cardImageURL})`,
               }}
             >
-              <CardContent>
-                {loading && <div>Loading...</div>}
-                <h1>{cardTitle}</h1>
-              </CardContent>
-            </Card>
-          </CardActionArea>
+              <Card
+                className={classes.root}
+                style={{
+                  backgroundSize: "350px 160px",
+                  backgroundImage: `url(${cardImageURL})`,
+                }}
+              >
+                <CardContent>
+                  {loading && <div>Loading...</div>}
+                  <h1>{cardTitle}</h1>
+                </CardContent>
+              </Card>
+            </CardActionArea>
+
+            <Dialog
+              open={this.state.open}
+              onClose={this.handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogTitle id="form-dialog-title">{cardTitle}</DialogTitle>
+
+              <DialogContent>
+                <DialogContentText></DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <button
+                  className="btn btn-danger log"
+                  onClick={this.handleClose}
+                  color="primary"
+                >
+                  Cancel
+                </button>
+              </DialogActions>
+            </Dialog>
+          </div>
         )}
         {this.props.editable && (
           <Card

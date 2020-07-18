@@ -19,12 +19,11 @@ import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
   root: {
-    width: 350,
+    width: "90%",
     height: 160,
   },
   bullet: {
     display: "inline-block",
-    margin: "0 2px",
     transform: "scale(0.8)",
   },
   title: {
@@ -138,29 +137,18 @@ class ProfileCard extends Component {
             onClick={this.handleClick}
             disabled={this.props.editable}
             className={classes.root}
-            style={{
-              backgroundSize: "350px 160px",
-            }}
+            style={{ backgroundColor: "white" }}
           >
-            <Card
-              className={classes.root}
-              style={{
-                backgroundSize: "350px 160px",
-                backgroundImage: `url(${cardImageURL})`,
-              }}
-            >
-              <CardContent>
-                {loading && <div>Loading...</div>}
-                <h1>{cardTitle}</h1>
-              </CardContent>
-            </Card>
+            <CardContent>
+              {loading && <div>Loading...</div>}
+              <h1>{cardTitle}</h1>
+            </CardContent>
           </CardActionArea>
         )}
         {this.props.editable && (
           <Card
             className={classes.root}
             style={{
-              backgroundSize: "350px 160px",
               backgroundImage: `url(${cardImageURL})`,
             }}
           >
