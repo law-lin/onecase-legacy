@@ -32,6 +32,7 @@ export const NON_USERNAMES = [
   "exhibitions",
   "faq",
   "favorites",
+  "feed",
   "find_sources",
   "find_users",
   "followers",

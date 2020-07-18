@@ -25,6 +25,8 @@ class Username extends Component {
           <TextField
             defaultValue={this.props.username}
             onChange={this.handleChange}
+            style={{ backgroundColor: "white", width: "30%" }}
+            InputProps={{ disableUnderline: true }}
           />
         )}
         {!this.props.editable && <h2>{this.props.username}</h2>}

@@ -27,11 +27,17 @@ class Biography extends Component {
       <div className="bio">
         {this.props.editable && (
           <TextField
+            label="Biography"
             defaultValue={this.props.bio}
             onChange={this.handleChange}
+            multiline
+            style={{ backgroundColor: "white", width: "100%" }}
+            rows={6}
+            rowsMax="6"
+            InputProps={{ disableUnderline: true }}
           />
         )}
-        {!this.props.editable && <h2>{this.props.bio}</h2>}
+        {!this.props.editable && <p>{this.props.bio}</p>}
       </div>
     );
   }

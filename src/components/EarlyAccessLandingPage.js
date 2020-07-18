@@ -56,8 +56,8 @@ class EarlyAccessFormBase extends Component {
     const isInvalid = email === "";
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} noValidate>
+      <form onSubmit={this.handleSubmit} noValidate>
+        <div class="input-group mb-3 ">
           <TextField
             error={error}
             value={email}
@@ -66,25 +66,24 @@ class EarlyAccessFormBase extends Component {
             id="outlined-required"
             label="Email"
             variant="filled"
-            style={{ backgroundColor: "white", width: 400 }}
+            style={{ backgroundColor: "white", width: "100%", float: "left" }}
             onChange={this.handleChange}
             helperText={error}
           />
 
-          <button
-            className="btn btn-primary log"
-            disabled={isInvalid}
-            type="submit"
-            color="primary"
-            style={{
-              marginTop: 5,
-              marginLeft: 10,
-            }}
-          >
-            Early Access
-          </button>
-        </form>
-      </div>
+          <div class="input-group-append">
+            <button
+              className="btn btn-primary log"
+              disabled={isInvalid}
+              type="submit"
+              color="primary"
+              style={{ float: "left" }}
+            >
+              Early Access
+            </button>
+          </div>
+        </div>
+      </form>
     );
   }
 }

@@ -98,7 +98,7 @@ function LandingPage(props) {
               onClose={handleClose}
               aria-labelledby="form-dialog-title"
             >
-              <DialogTitle id="form-dialog-title">Login</DialogTitle>
+              <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
 
               <DialogContent>
                 <TextField

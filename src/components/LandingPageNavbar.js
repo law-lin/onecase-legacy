@@ -7,7 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withFirebase } from "./Firebase";
-
+import { withRouter } from "react-router-dom";
 import "./landingpage.css";
 
 function LandingPageNavbar(props) {
@@ -33,7 +33,7 @@ function LandingPageNavbar(props) {
     props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        props.firebase.currentUsername().on("value", (snapshot) => {
+        props.firebase.currentUser().on("value", (snapshot) => {
           setOpen(false);
           props.history.push(snapshot.val().username);
         });
@@ -114,4 +114,4 @@ function LandingPageNavbar(props) {
   );
 }
 
-export default withFirebase(LandingPageNavbar);
+export default withFirebase(withRouter(LandingPageNavbar));
