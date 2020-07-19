@@ -60,6 +60,11 @@ function LandingPage(props) {
               props.firebase.userCards(authUser.user.uid, i).set({
                 cardTitle: "Card " + i,
               });
+              props.firebase.newCards(
+                authUser.user.uid,
+                "card" + i,
+                "Card_" + i
+              );
             }
           });
         return props.firebase.usernames().update({

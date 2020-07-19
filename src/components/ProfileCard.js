@@ -68,14 +68,14 @@ class ProfileCard extends Component {
             if (state) {
               this.setState({
                 cardTitle: state.cardTitle,
-                oldCardTitle: state,
+                oldCardTitle: state.cardTitle,
                 cardImageURL: state.cardImageURL,
                 loading: false,
               });
             } else {
               this.setState({
                 cardTitle: "Edit this card!",
-                oldCardTitle: "Edit this card",
+                oldCardTitle: "Edit this card!",
                 cardImageURL: null,
                 loading: false,
               });

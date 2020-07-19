@@ -64,6 +64,14 @@ class Firebase {
   userCards = (userID, cardNumber) =>
     this.db.ref(`users/${userID}/card${cardNumber}`);
 
+  newCards = (userID, cardNumber, cardTitle) => {
+    let strCardTitle = cardTitle + "";
+
+    this.db.ref(`cards/${this.auth.currentUser.uid}`).update({
+      [strCardTitle]: cardNumber,
+    });
+  };
+
   usernames = () => this.db.ref("usernames");
 
   users = () => this.db.ref("users");
@@ -104,9 +112,14 @@ class Firebase {
     this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
       cardTitle,
     });
-    let formattedOldCardTitle = oldCardTitle.toLowerCase().split(" ").join("_");
-    let formattedCardTitle = cardTitle.toLowerCase().split(" ").join("_");
+    let strOldCardTitle = oldCardTitle + "";
+    let formattedOldCardTitle = strOldCardTitle.split(" ").join("_");
 
+    let strCardTitle = cardTitle + "";
+    let formattedCardTitle = strCardTitle.split(" ").join("_");
+
+    console.log(formattedOldCardTitle);
+    console.log(formattedCardTitle);
     this.db
       .ref(`cards/${this.auth.currentUser.uid}`)
       .child(`${formattedOldCardTitle}`)
@@ -114,6 +127,8 @@ class Firebase {
     this.db.ref(`cards/${this.auth.currentUser.uid}`).update({
       [formattedCardTitle]: cardNumber,
     });
+    console.log(formattedOldCardTitle);
+    console.log(formattedCardTitle);
   };
 
   editBridgeCard = (cardNumber, bridgeCardNumber, bridgeCardTitle) =>
