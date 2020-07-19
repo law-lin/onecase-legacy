@@ -131,10 +131,28 @@ class Firebase {
     console.log(formattedCardTitle);
   };
 
-  editBridgeCard = (cardNumber, bridgeCardNumber, bridgeCardTitle) =>
-    this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
-      [bridgeCardNumber]: bridgeCardTitle,
-    });
+  editBridgeCard = (
+    cardNumber,
+    bridgeCardNumber,
+    bridgeCardTitle,
+    yearCreated,
+    isProud,
+    coworkers,
+    whyMake,
+    description
+  ) =>
+    this.db
+      .ref(
+        `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
+      )
+      .update({
+        bridgeCardTitle,
+        yearCreated,
+        isProud,
+        coworkers,
+        whyMake,
+        description,
+      });
 
   uploadCardImage = (image) =>
     this.storage.ref(`card_images/${image.name}`).put(image);

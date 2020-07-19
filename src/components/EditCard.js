@@ -65,7 +65,6 @@ class EditCard extends Component {
                     styles={{ height: 500 }}
                     defaultValue={this.props.cardTitle}
                     placeholder="Update card title"
-                    value={this.state.username}
                     onChange={this.handleChange}
                     fullWidth
                   />

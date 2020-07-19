@@ -17,6 +17,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import background from "../images/background3.png";
+
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import EditBridgeCard from "./EditBridgeCard";
@@ -51,7 +53,12 @@ class BridgeCard extends Component {
       cardNumber: null,
       bridgeCardNumber: null,
       parentCardTitle: null,
-      cardTitle: "",
+      bridgeCardTitle: "",
+      yearCreated: null,
+      isProud: null,
+      coworkers: null,
+      whyMake: null,
+      description: null,
       cardImageURL: null,
       loading: false,
       open: false,
@@ -66,6 +73,9 @@ class BridgeCard extends Component {
 
     this.setState({ parentCardTitle });
     if (this.state.userID == null || this.state.cardTitle == null) {
+      console.log(this.props.userID);
+      console.log(this.props.cardNumber);
+      console.log(this.props.bridgeCardNumber);
       this.props.firebase
         .bridgeCards(
           this.props.userID,
@@ -74,14 +84,20 @@ class BridgeCard extends Component {
         )
         .on("value", (snapshot) => {
           const state = snapshot.val();
+          console.log(state);
           if (state) {
             this.setState({
-              cardTitle: state,
+              bridgeCardTitle: state.bridgeCardTitle,
+              yearCreated: state.yearCreated,
+              isProud: state.isProud,
+              coworkers: state.coworkers,
+              whyMake: state.whyMake,
+              description: state.description,
               loading: false,
             });
           } else {
             this.setState({
-              cardTitle: "Edit this card!",
+              bridgeCardTitle: "Edit this bridge card!",
               cardImageURL: null,
               loading: false,
             });
@@ -143,7 +159,16 @@ class BridgeCard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { cardTitle, cardImageURL, loading } = this.state;
+    const {
+      bridgeCardTitle,
+      yearCreated,
+      isProud,
+      coworkers,
+      whyMake,
+      description,
+      cardImageURL,
+      loading,
+    } = this.state;
 
     return (
       <div>
@@ -157,29 +182,38 @@ class BridgeCard extends Component {
             >
               <CardContent>
                 {loading && <div>Loading...</div>}
-                <h1>{cardTitle}</h1>
+                <h1>{bridgeCardTitle}</h1>
               </CardContent>
             </CardActionArea>
 
             <Dialog
+              fullWidth={true}
+              maxWidth={"lg"}
               open={this.state.open}
               onClose={this.handleClose}
-              aria-labelledby="form-dialog-title"
             >
-              <DialogTitle id="form-dialog-title">{cardTitle}</DialogTitle>
+              <DialogTitle>{bridgeCardTitle}</DialogTitle>
 
-              <DialogContent>
-                <DialogContentText></DialogContentText>
+              <DialogContent dividers>
+                <DialogContentText>
+                  <Typography style={{ width: "50%" }} gutterBottom>
+                    Year created: {yearCreated}
+                  </Typography>
+                  <Typography gutterBottom>
+                    Am I proud of this? {isProud}{" "}
+                  </Typography>
+                  <Typography gutterBottom>
+                    People I worked with: {coworkers}
+                  </Typography>
+                  <Typography gutterBottom>
+                    Why'd you make it? {whyMake}{" "}
+                  </Typography>
+                  <Typography gutterBottom>
+                    Description: {description}{" "}
+                  </Typography>
+                  <img src={background} />
+                </DialogContentText>
               </DialogContent>
-              <DialogActions>
-                <button
-                  className="btn btn-danger log"
-                  onClick={this.handleClose}
-                  color="primary"
-                >
-                  Cancel
-                </button>
-              </DialogActions>
             </Dialog>
           </div>
         )}
@@ -193,11 +227,11 @@ class BridgeCard extends Component {
           >
             <CardContent>
               {loading && <div>Loading...</div>}
-              <h1>{cardTitle}</h1>
+              <h1>{bridgeCardTitle}</h1>
             </CardContent>
             <CardActions>
               <EditBridgeCard
-                cardTitle={cardTitle}
+                bridgeCardTitle={bridgeCardTitle}
                 cardNumber={this.props.cardNumber}
                 bridgeCardNumber={this.props.bridgeCardNumber}
                 editable={this.props.editable}

@@ -17,14 +17,19 @@ class EditBridgeCard extends Component {
     open: false,
     cardNumber: null,
     bridgeCardNumber: null,
-    cardTitle: null,
+    bridgeCardTitle: null,
+    yearCreated: null,
+    isProud: null,
+    coworkers: null,
+    whyMake: null,
+    description: null,
   };
 
   componentDidMount() {
     this.setState({
       cardNumber: this.props.cardNumber,
       bridgeCardNumber: this.props.bridgeCardNumber,
-      cardTitle: this.props.cardTitle,
+      bridgeCardTitle: this.props.bridgeCardTitle,
     });
   }
   handleOpen = () => {
@@ -40,9 +45,27 @@ class EditBridgeCard extends Component {
     });
   };
   handleSubmit = () => {
-    const { cardTitle, cardNumber, bridgeCardNumber } = this.state;
+    const {
+      bridgeCardTitle,
+      cardNumber,
+      bridgeCardNumber,
+      yearCreated,
+      isProud,
+      coworkers,
+      whyMake,
+      description,
+    } = this.state;
     console.log(cardNumber);
-    this.props.firebase.editBridgeCard(cardNumber, bridgeCardNumber, cardTitle);
+    this.props.firebase.editBridgeCard(
+      cardNumber,
+      bridgeCardNumber,
+      bridgeCardTitle,
+      yearCreated,
+      isProud,
+      coworkers,
+      whyMake,
+      description
+    );
     this.handleClose();
   };
   render() {
@@ -50,8 +73,8 @@ class EditBridgeCard extends Component {
       <div>
         {this.props.editable && (
           <Fragment>
-            <Button tip="Edit Card" onClick={this.handleOpen}>
-              EDIT CARD
+            <Button tip="Edit Bridge Card" onClick={this.handleOpen}>
+              EDIT BRIDGE CARD
             </Button>
 
             <Dialog
@@ -60,20 +83,69 @@ class EditBridgeCard extends Component {
               fullWidth
               maxWidth="sm"
             >
-              <DialogTitle>Edit this card</DialogTitle>
+              <DialogTitle>Edit this bridge card</DialogTitle>
               <DialogContent>
                 <form>
                   <TextField
-                    name="cardTitle"
+                    name="bridgeCardTitle"
                     type="text"
-                    label="Card Title"
+                    label="Bridge Card Title"
                     multiline
                     rows={1}
                     rowsMax={2}
                     styles={{ height: 500 }}
-                    defaultValue={this.props.cardTitle}
-                    placeholder="Update card title"
-                    value={this.state.username}
+                    defaultValue={this.props.bridgeCardTitle}
+                    value={this.state.bridgeCardTitle}
+                    onChange={this.handleChange}
+                    fullWidth
+                  />
+                  <TextField
+                    name="yearCreated"
+                    type="text"
+                    label="Year Created"
+                    rowsMax={1}
+                    styles={{ height: 500 }}
+                    value={this.state.yearCreated}
+                    onChange={this.handleChange}
+                    fullWidth
+                  />
+                  <TextField
+                    name="isProud"
+                    type="text"
+                    label="Am I Proud Of This?"
+                    rowsMax={1}
+                    styles={{ height: 500 }}
+                    value={this.state.isProud}
+                    onChange={this.handleChange}
+                    fullWidth
+                  />
+                  <TextField
+                    name="coworkers"
+                    type="text"
+                    label="People I Worked With:"
+                    rowsMax={1}
+                    styles={{ height: 500 }}
+                    value={this.state.coworkers}
+                    onChange={this.handleChange}
+                    fullWidth
+                  />
+                  <TextField
+                    name="whyMake"
+                    type="text"
+                    label="Why'd You Make It?"
+                    rowsMax={1}
+                    styles={{ height: 500 }}
+                    value={this.state.whyMake}
+                    onChange={this.handleChange}
+                    fullWidth
+                  />
+                  <TextField
+                    name="description"
+                    type="text"
+                    label="Description"
+                    rowsMax={1}
+                    styles={{ height: 500 }}
+                    value={this.state.description}
                     onChange={this.handleChange}
                     fullWidth
                   />
