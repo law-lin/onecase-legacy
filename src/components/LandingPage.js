@@ -47,21 +47,21 @@ function LandingPage(props) {
       .doCreateUserWithEmailAndPassword(email, password)
       .then((authUser) => {
         // Create a user in your Firebase realtime database
-        props.firebase.user(authUser.user.uid).set({
-          username,
-          email,
-          bio: "Edit your bio with the edit button!",
-          profilePicture: DefaultProfilePicture,
-          card1: null,
-          card2: null,
-          card3: null,
-          card4: null,
-          card5: null,
-          card6: null,
-          card7: null,
-          card8: null,
-          card9: null,
-        });
+        props.firebase
+          .user(authUser.user.uid)
+          .set({
+            username,
+            email,
+            bio: "Edit your bio with the edit button!",
+            profilePicture: DefaultProfilePicture,
+          })
+          .then(() => {
+            for (var i = 1; i <= 9; i++) {
+              props.firebase.userCards(authUser.user.uid, i).set({
+                cardTitle: "Card " + i,
+              });
+            }
+          });
         return props.firebase.usernames().update({
           [username]: authUser.user.uid,
         });
@@ -158,7 +158,6 @@ function LandingPage(props) {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextField
-                  autoFocus
                   margin="dense"
                   id="username"
                   label="Username"
@@ -168,7 +167,6 @@ function LandingPage(props) {
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <TextField
-                  autoFocus
                   margin="dense"
                   id="password"
                   label="Password"
@@ -178,7 +176,6 @@ function LandingPage(props) {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <TextField
-                  autoFocus
                   margin="dense"
                   id="confirmPassword"
                   label="Confirm Password"

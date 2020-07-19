@@ -56,16 +56,15 @@ class ProfileCard extends Component {
     const username = this.props.match.params.username;
 
     this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
-      const state = snapshot.val();
-      if (state) {
+      const userIDState = snapshot.val();
+      if (userIDState) {
         this.setState({
-          userID: state,
+          userID: userIDState,
         });
         this.props.firebase
-          .cards(this.state.userID, this.props.cardNumber)
+          .cards(userIDState, this.props.cardNumber)
           .on("value", (snapshot) => {
             const state = snapshot.val();
-            console.log(state);
             if (state) {
               this.setState({
                 cardTitle: state.cardTitle,

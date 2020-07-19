@@ -81,7 +81,7 @@ class BridgeCard extends Component {
             });
           } else {
             this.setState({
-              cardTitle: "Edit this card info!",
+              cardTitle: "Edit this card!",
               cardImageURL: null,
               loading: false,
             });

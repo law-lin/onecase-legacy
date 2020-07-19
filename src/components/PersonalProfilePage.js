@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./profile.css";
 import SignOutButton from "./SignOut";
 import Navbar from "./Navbar";
-import souljason from "../images/souljason.png";
+
 import DefaultProfilePicture from "../images/default-profile-pic.png";
 
 import Button from "@material-ui/core/Button";
@@ -154,7 +154,7 @@ class PersonalProfilePage extends Component {
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
                   <Box clone order={{ xs: 2, sm: 1 }}>
-                    <Grid item xs={12} sm={4} align="center">
+                    <Grid item xs={12} sm={4}>
                       {!this.state.loading && (
                         <Biography
                           bio={this.state.bio}

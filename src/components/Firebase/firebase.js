@@ -61,6 +61,9 @@ class Firebase {
 
   user = (userID) => this.db.ref(`users/${userID}`);
 
+  userCards = (userID, cardNumber) =>
+    this.db.ref(`users/${userID}/card${cardNumber}`);
+
   usernames = () => this.db.ref("usernames");
 
   users = () => this.db.ref("users");

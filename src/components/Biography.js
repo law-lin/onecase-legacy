@@ -24,7 +24,7 @@ class Biography extends Component {
   render() {
     const { bio } = this.state;
     return (
-      <div>
+      <div style={{ marginLeft: "25px", fontSize: "20px" }}>
         {this.props.editable && (
           <TextField
             label="Biography"

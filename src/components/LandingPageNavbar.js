@@ -79,7 +79,6 @@ function LandingPageNavbar(props) {
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="password"
             label="Password"
