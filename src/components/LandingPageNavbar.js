@@ -35,7 +35,7 @@ function LandingPageNavbar(props) {
       .then(() => {
         props.firebase.currentUser().on("value", (snapshot) => {
           setOpen(false);
-          props.history.push(snapshot.val().username);
+          props.history.push("/feed");
         });
       })
       .catch((error) => {

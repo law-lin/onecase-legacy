@@ -4,6 +4,7 @@ export const ACCOUNT = "/account";
 export const WELCOME = "/welcome";
 export const ADMIN = "/admin";
 export const PASSWORD_FORGET = "/pw-forget";
+export const FEED = "/feed";
 
 export const NON_USERNAMES = [
   "about",
