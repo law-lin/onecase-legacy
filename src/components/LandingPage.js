@@ -52,6 +52,15 @@ function LandingPage(props) {
           email,
           bio: "Edit your bio with the edit button!",
           profilePicture: DefaultProfilePicture,
+          card1: null,
+          card2: null,
+          card3: null,
+          card4: null,
+          card5: null,
+          card6: null,
+          card7: null,
+          card8: null,
+          card9: null,
         });
         return props.firebase.usernames().update({
           [username]: authUser.user.uid,
