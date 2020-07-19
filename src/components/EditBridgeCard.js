@@ -41,6 +41,7 @@ class EditBridgeCard extends Component {
   };
   handleSubmit = () => {
     const { cardTitle, cardNumber, bridgeCardNumber } = this.state;
+    console.log(cardNumber);
     this.props.firebase.editBridgeCard(cardNumber, bridgeCardNumber, cardTitle);
     this.handleClose();
   };

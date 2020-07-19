@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import Navbar from "./Navbar";
 import PersonalBridge from "./PersonalBridge";
 import PublicBridge from "./PublicBridge";
 import { withAuthorization } from "./Session";
@@ -12,6 +13,7 @@ class Bridge extends Component {
     super(props);
 
     this.state = {
+      cardNumber: null,
       exists: false,
       personal: false,
       valid: false,
@@ -31,12 +33,10 @@ class Bridge extends Component {
         if (snapshot.val().username === username) {
           this.setState({
             personal: true,
-            loading: false,
           });
         } else {
           this.setState({
             personal: false,
-            loading: false,
           });
         }
       });
@@ -47,11 +47,6 @@ class Bridge extends Component {
           const userIDState = snapshot.val();
           console.log(userIDState);
           if (userIDState) {
-            this.setState({
-              userID: userIDState,
-              userIDLoading: false,
-            });
-
             this.props.firebase
               .getCardNumberWithCardTitle(userIDState, cardTitle)
               .on("value", (snapshot) => {
@@ -60,35 +55,19 @@ class Bridge extends Component {
                 if (state) {
                   this.setState({
                     exists: true,
-                    cardNumber: state,
-                    cardNumberLoading: false,
+                    loading: false,
                   });
                 } else {
                   this.setState({
                     exists: false,
-                    cardNumber: null,
-                    cardNumberLoading: false,
+                    loading: false,
                   });
                 }
               });
-            this.props.firebase.user(userIDState).on("value", (snapshot) => {
-              const state = snapshot.val();
-              if (state) {
-                this.setState({
-                  profilePicture: state.profilePicture,
-                  profilePictureLoading: false,
-                });
-              } else {
-                this.setState({
-                  profilePicture: DefaultProfilePicture,
-                  profilePictureLoading: false,
-                });
-              }
-            });
           } else {
             this.setState({
-              userID: null,
-              userIDLoading: false,
+              exists: false,
+              loading: false,
             });
           }
         });
@@ -96,15 +75,26 @@ class Bridge extends Component {
   }
 
   render() {
-    if (this.state.valid && this.state.exists) {
-      if (!this.state.loading) {
+    if (!this.state.loading && this.state.valid) {
+      if (this.state.exists) {
         if (this.state.personal) {
           return <PersonalBridge />;
         } else {
           return <PublicBridge />;
         }
       } else {
-        return null;
+        return (
+          <div>
+            <Navbar />
+            <div className="error-screen">
+              <div className="error-line">
+                Oops, there was an
+                <span className="red-error"> error</span>. This page doesn't
+                exist!
+              </div>
+            </div>
+          </div>
+        );
       }
     } else {
       return null;
