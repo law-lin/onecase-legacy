@@ -3,7 +3,8 @@ import "./landingpage.css";
 import background from "../images/background3.png";
 import TextField from "@material-ui/core/TextField";
 import Navbar from "./Navbar";
-
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 
@@ -12,7 +13,7 @@ class EarlyAccessFormBase extends Component {
     super(props);
 
     this.state = {
-      email: null,
+      email: "",
       error: null,
     };
   }
@@ -56,33 +57,36 @@ class EarlyAccessFormBase extends Component {
     const isInvalid = email === "";
 
     return (
-      <form onSubmit={this.handleSubmit} noValidate>
-        <div class="input-group mb-3 ">
-          <TextField
-            error={error}
-            value={email}
-            name="email"
-            required
-            id="outlined-required"
-            label="Email"
-            variant="filled"
-            style={{ backgroundColor: "white", width: "100%", float: "left" }}
-            onChange={this.handleChange}
-            helperText={error}
-          />
-
-          <div class="input-group-append">
-            <button
-              className="btn btn-primary log"
-              disabled={isInvalid}
-              type="submit"
-              color="primary"
-              style={{ float: "left" }}
-            >
-              Early Access
-            </button>
-          </div>
-        </div>
+      <form onSubmit={this.handleSubmit} noValidate style={{ display: "flex" }}>
+        <TextField
+          error={error}
+          value={email}
+          name="email"
+          required
+          id="outlined-required"
+          label="Email"
+          variant="filled"
+          style={{
+            backgroundColor: "white",
+            width: "70%",
+            margin: "20px 10px 10px 50px",
+          }}
+          onChange={this.handleChange}
+          helperText={error}
+        />
+        <button
+          className="btn btn-primary log"
+          disabled={isInvalid}
+          type="submit"
+          color="primary"
+          style={{
+            margin: "20px 50px 10px 5px",
+            maxHeight: "60px",
+            width: "30%",
+          }}
+        >
+          Early Access
+        </button>
       </form>
     );
   }
@@ -100,63 +104,129 @@ export default function LandingPage() {
       <link rel="stylesheet" href="landingpage.css" type="text/css" />
 
       <Navbar />
-      <div className="center-page">
-        <img className="mural-img" src={background} alt="mural background" />
-        <div className="sign-up-box">
-          <div className="onecase-title">OneCase</div>
-          <div className="onecase-text">
+      <Grid
+        container
+        spacing={16}
+        alignItems="center"
+        justify="center"
+        direction="column"
+        style={{
+          minHeight: "70vh",
+          backgroundImage: `url(${background})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <Grid
+          item
+          xs={12}
+          style={{
+            width: "700px",
+            minHeight: "250px",
+            backgroundColor: "#3e4e55",
+            borderRadius: "15px",
+            borderStyle: "solid",
+            borderColor: "#ffffff",
+          }}
+        >
+          <Grid
+            item
+            xs={12}
+            style={{
+              textAlign: "center",
+              fontSize: "50px",
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              color: "#aaeef2",
+              textShadow: "2px 2px black",
+            }}
+          >
+            OneCase
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            style={{
+              textAlign: "center",
+              fontSize: "30px",
+              fontFamily: "Montserrat",
+              fontWeight: 300,
+              color: "#ffffff",
+            }}
+          >
             A Personal Archive + Social Network
-          </div>
-          <div className="signup-btn">
+          </Grid>
+          <Grid item xs={12}>
             <EarlyAccessForm />
-          </div>
-        </div>
-      </div>
-      <div className="parentblock">
-        <div className="twoblocks" />
-      </div>
-      <div className="light-scrap">
-        <img
-          className="lightbulb"
-          src="https://www.amt-us.com/wp-content/uploads/2018/10/icon-lightbulb-2.png"
-          alt="lightbulb icon"
-        />
-        <img
-          className="scrapbook"
-          src="https://icons.iconarchive.com/icons/flameia/machemicals/128/scrapbook-icon.png"
-          alt="scrapbook icon"
-        />
-      </div>
-      <div className="one-description">
-        <p className="description">
-          <span className="think">Think </span>
-          of us as an
-          <span className="scrap"> online scrapbook </span>
-          or
-          <span className="portfolio"> portfolio, </span>
-          with
-          <span className="friends"> friends</span>
-        </p>
-      </div>
-      <div className="three-icons">
-        <div className="first">Your Own Page</div>
-        <div className="second">Interest Oriented</div>
-        <div className="third">Creative Motivation</div>
-      </div>
-      <div className="icon-descriptions">
-        <div className="first-description">
-          Let OneCase serve as your one-stop shop to display all your favorite
-          projects and things
-        </div>
-        <div className="second-description">
-          Uploading content shouldn’t feel too personal and daunting, let your
-          interests speak for themselves
-        </div>
-        <div className="third-description">
-          Get inspo from your friends, collaborate, and get excited to try/learn
-          new things
-        </div>
-      </div>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12} align="center" justify="center">
+          <div className="twoblocks" />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "8vh",
+          }}
+        >
+          <img
+            className="lightbulb"
+            src="https://www.amt-us.com/wp-content/uploads/2018/10/icon-lightbulb-2.png"
+            alt="lightbulb icon"
+          />
+          <p className="description">
+            <span className="think">Think </span>
+            of us as an
+            <span className="scrap"> online scrapbook </span>
+            or
+            <span className="portfolio"> portfolio, </span>
+            with
+            <span className="friends"> friends</span>
+          </p>
+          <img
+            className="scrapbook"
+            src="https://icons.iconarchive.com/icons/flameia/machemicals/128/scrapbook-icon.png"
+            alt="scrapbook icon"
+          />
+        </Grid>
+        <Grid
+          container
+          item
+          xs={12}
+          align="center"
+          justify="center"
+          className="three-icons"
+          spacing={3}
+        >
+          <Grid item xs={12} sm={4} align="center">
+            <div className="first">Your Own Page</div>
+            <div className="first-description">
+              Let OneCase serve as your one-stop shop to display all your
+              favorite projects and things
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={4} align="center">
+            <div className="second">Interest Oriented</div>
+            <div className="second-description">
+              Uploading content shouldn’t feel too personal and daunting, let
+              your interests speak for themselves
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={4} align="center">
+            <div className="third">Creative Motivation</div>
+            <div className="third-description">
+              Get inspo from your friends, collaborate, and get excited to
+              try/learn new things
+            </div>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 }
