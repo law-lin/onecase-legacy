@@ -13,6 +13,7 @@ import ProfileCard from "./ProfileCard";
 import LinksCard from "./LinksCard";
 import Biography from "./Biography";
 import Username from "./Username";
+import Box from "@material-ui/core/Box";
 
 import EditBio from "./EditBio";
 import EditUsername from "./EditUsername";
@@ -147,45 +148,51 @@ class PersonalProfilePage extends Component {
     return (
       <div className="bg">
         <Navbar />
-        <Grid container>
+        <Grid container style={{ marginTop: "10px" }}>
           <Grid item xs={12} sm={9}>
             <Grid container spacing={3}>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
-                  <Grid item xs={12} sm={4}>
-                    {!this.state.loading && (
-                      <Biography
-                        bio={this.state.bio}
+                  <Box clone order={{ xs: 2, sm: 1 }}>
+                    <Grid item xs={12} sm={4} align="center">
+                      {!this.state.loading && (
+                        <Biography
+                          bio={this.state.bio}
+                          editable={this.state.editing}
+                          onChange={this.onBioChange}
+                        />
+                      )}
+                    </Grid>
+                  </Box>
+                  <Box clone order={{ xs: 1, sm: 2 }}>
+                    <Grid item xs={12} sm={4} align="center">
+                      <Username
+                        username={this.state.username}
                         editable={this.state.editing}
-                        onChange={this.onBioChange}
+                        onChange={this.onUsernameChange}
                       />
-                    )}
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="center">
-                    <Username
-                      username={this.state.username}
-                      editable={this.state.editing}
-                      onChange={this.onUsernameChange}
-                    />
-                    {!this.state.loading && (
-                      <ProfilePicture
-                        profilePicture={this.state.profilePicture}
-                        editable={this.state.editing}
-                      />
-                    )}
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    {!this.state.editing && (
-                      <Button onClick={this.handleEdit}>Edit</Button>
-                    )}
-                    {this.state.editing && (
-                      <Button onClick={this.handleSave}>Save</Button>
-                    )}
-                    {this.state.editing && (
-                      <Button onClick={this.handleCancel}>Cancel</Button>
-                    )}
-                    <SignOutButton />
-                  </Grid>
+                      {!this.state.loading && (
+                        <ProfilePicture
+                          profilePicture={this.state.profilePicture}
+                          editable={this.state.editing}
+                        />
+                      )}
+                    </Grid>
+                  </Box>
+                  <Box clone order={{ xs: 3, sm: 3 }}>
+                    <Grid item xs={12} sm={4} align="center">
+                      {!this.state.editing && (
+                        <Button onClick={this.handleEdit}>Edit Profile</Button>
+                      )}
+                      {this.state.editing && (
+                        <Button onClick={this.handleSave}>Save</Button>
+                      )}
+                      {this.state.editing && (
+                        <Button onClick={this.handleCancel}>Cancel</Button>
+                      )}
+                      <SignOutButton />
+                    </Grid>
+                  </Box>
                 </React.Fragment>
               </Grid>
               <Grid justify="center" container item xs={12} spacing={3}>
@@ -265,7 +272,7 @@ class PersonalProfilePage extends Component {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
             <LinksCard />
           </Grid>
         </Grid>

@@ -52,8 +52,11 @@ class Bridge extends Component {
     ) {
       const username = this.props.match.params.username;
       const cardTitle = this.props.match.params.cardTitle;
+
+      const modifiedCardTitle = cardTitle.replace(/_/g, " ");
       console.log("running");
-      if (username && cardTitle) this.setState({ username, cardTitle });
+      if (username && cardTitle)
+        this.setState({ username, cardTitle: modifiedCardTitle });
       this.props.firebase
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
@@ -112,17 +115,30 @@ class Bridge extends Component {
     return (
       <div className="bg">
         <Navbar />
-        {this.state.cardTitle}
-        <Username username={this.state.username} />
-        <ProfilePicture profilePicture={this.state.profilePicture} />
-        {!this.state.editing && <Button onClick={this.handleEdit}>Edit</Button>}
-        {this.state.editing && <Button onClick={this.handleDone}>Done</Button>}
-        {!this.state.cardNumberLoading && (
-          <div className="content">
-            <Grid container spacing={3}>
+
+        <Grid container spacing={3}>
+          <Grid justify="center" container item xs={12} spacing={3}>
+            <Grid item xs={12} sm={4} align="center">
+              <Username username={this.state.username} />
+              <ProfilePicture profilePicture={this.state.profilePicture} />
+              {!this.state.editing && (
+                <Button onClick={this.handleEdit}>Edit</Button>
+              )}
+              {this.state.editing && (
+                <Button onClick={this.handleDone}>Done</Button>
+              )}
+            </Grid>
+            <Grid item xs={12} sm={4} align="center">
+              {this.state.cardTitle}
+            </Grid>
+            <Grid item xs={12} sm={4}></Grid>
+          </Grid>
+
+          {!this.state.cardNumberLoading && (
+            <Grid justify="center" container item xs={12} spacing={3}>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -131,7 +147,7 @@ class Bridge extends Component {
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -140,7 +156,7 @@ class Bridge extends Component {
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -153,7 +169,7 @@ class Bridge extends Component {
               </Grid>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -162,7 +178,7 @@ class Bridge extends Component {
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -171,7 +187,7 @@ class Bridge extends Component {
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -184,7 +200,7 @@ class Bridge extends Component {
               </Grid>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -193,7 +209,7 @@ class Bridge extends Component {
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -202,7 +218,7 @@ class Bridge extends Component {
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} sm={4} align="center">
                     <BridgeCard
                       userID={this.state.userID}
                       username={this.state.username}
@@ -214,8 +230,8 @@ class Bridge extends Component {
                 </React.Fragment>
               </Grid>
             </Grid>
-          </div>
-        )}
+          )}
+        </Grid>
       </div>
     );
   }

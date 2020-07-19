@@ -122,7 +122,7 @@ class ProfileCard extends Component {
   };
 
   handleClick = () => {
-    let path = this.state.cardTitle.toLowerCase().split(" ").join("_");
+    let path = this.state.cardTitle.split(" ").join("_");
     this.props.history.push(`${this.props.username}/${path}`);
   };
 
