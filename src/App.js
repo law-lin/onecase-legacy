@@ -18,8 +18,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        {/* <Route exact path={ROUTES.LANDING} component={LandingPage} /> */}
-        <Route exact path={ROUTES.LANDING} component={EarlyAccessLandingPage} />
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        {/* <Route exact path={ROUTES.LANDING} component={EarlyAccessLandingPage} /> */}
         <Route exact path={ROUTES.WELCOME} component={WelcomePage} />
         <Route exact path={"/:username"} component={ProfilePage} />
         <Route exact path={"/:username/:cardTitle"} component={Bridge} />
