@@ -97,7 +97,6 @@ export default function EarlyAccessLandingPage() {
       <Navbar />
       <Grid
         container
-        spacing={16}
         alignItems="center"
         justify="center"
         direction="column"
@@ -154,7 +153,7 @@ export default function EarlyAccessLandingPage() {
         </Grid>
       </Grid>
       <Grid container spacing={3}>
-        <Grid item xs={12} align="center" justify="center">
+        <Grid item xs={12} align="center">
           <div className="twoblocks" />
         </Grid>
         <Grid
@@ -187,8 +186,7 @@ export default function EarlyAccessLandingPage() {
           />
         </Grid>
         <Grid
-          item
-          xs={12}
+          container
           align="center"
           justify="center"
           className="three-icons"
