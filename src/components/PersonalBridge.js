@@ -121,12 +121,6 @@ class PersonalBridge extends Component {
             <Grid item xs={12} sm={4} align="center">
               <Username username={this.state.username} />
               <ProfilePicture profilePicture={this.state.profilePicture} />
-              {!this.state.editing && (
-                <Button onClick={this.handleEdit}>Edit</Button>
-              )}
-              {this.state.editing && (
-                <Button onClick={this.handleDone}>Done</Button>
-              )}
             </Grid>
             <Grid
               item
@@ -137,7 +131,14 @@ class PersonalBridge extends Component {
             >
               {this.state.cardTitle}
             </Grid>
-            <Grid item xs={12} sm={4}></Grid>
+            <Grid item xs={12} sm={4} align="center">
+              {!this.state.editing && (
+                <Button onClick={this.handleEdit}>Edit</Button>
+              )}
+              {this.state.editing && (
+                <Button onClick={this.handleDone}>Done</Button>
+              )}
+            </Grid>
           </Grid>
 
           {!this.state.cardNumberLoading && (

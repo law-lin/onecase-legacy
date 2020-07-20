@@ -157,15 +157,22 @@ class Firebase {
   uploadCardImage = (image) =>
     this.storage.ref(`card_images/${image.name}`).put(image);
 
-  uploadCardImageURL = (cardNumber, image) => {
+  uploadCardImageURL = (cardNumber, bridgeCardNumber, image) => {
     this.storage
       .ref("card_images")
       .child(image.name)
       .getDownloadURL()
       .then((cardImageURL) => {
-        this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
-          cardImageURL,
-        });
+        console.log(cardImageURL);
+        console.log(cardNumber);
+        console.log(bridgeCardNumber);
+        this.db
+          .ref(
+            `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
+          )
+          .update({
+            cardImageURL,
+          });
       });
   };
 

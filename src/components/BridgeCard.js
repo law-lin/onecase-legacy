@@ -73,9 +73,6 @@ class BridgeCard extends Component {
 
     this.setState({ parentCardTitle });
     if (this.state.userID == null || this.state.cardTitle == null) {
-      console.log(this.props.userID);
-      console.log(this.props.cardNumber);
-      console.log(this.props.bridgeCardNumber);
       this.props.firebase
         .bridgeCards(
           this.props.userID,
@@ -84,7 +81,7 @@ class BridgeCard extends Component {
         )
         .on("value", (snapshot) => {
           const state = snapshot.val();
-          console.log(state);
+
           if (state) {
             this.setState({
               bridgeCardTitle: state.bridgeCardTitle,
@@ -93,6 +90,7 @@ class BridgeCard extends Component {
               coworkers: state.coworkers,
               whyMake: state.whyMake,
               description: state.description,
+              cardImageURL: state.cardImageURL,
               loading: false,
             });
           } else {
@@ -105,33 +103,6 @@ class BridgeCard extends Component {
         });
     }
   }
-
-  handleChange = (e) => {
-    if (e.target.files[0]) {
-      const cardImage = e.target.files[0];
-      this.props.firebase.uploadCardImage(cardImage).on(
-        "state_changed",
-        (snapshot) => {
-          // progress function ...
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          this.setState({ progress });
-        },
-        (error) => {
-          // Error function ...
-          console.log(error);
-        },
-        () => {
-          // complete function ...
-          this.props.firebase.uploadCardImageURL(
-            this.props.cardNumber,
-            cardImage
-          );
-        }
-      );
-    }
-  };
 
   handleChange = (event) => {
     this.props.onChange(event.target.value);
@@ -211,20 +182,14 @@ class BridgeCard extends Component {
                   <Typography gutterBottom>
                     Description: {description}{" "}
                   </Typography>
-                  <img src={background} />
+                  <img src={cardImageURL} />
                 </DialogContentText>
               </DialogContent>
             </Dialog>
           </div>
         )}
         {this.props.editable && (
-          <Card
-            className={classes.root}
-            style={{
-              backgroundSize: "350px 160px",
-              backgroundImage: `url(${cardImageURL})`,
-            }}
-          >
+          <Card className={classes.root}>
             <CardContent>
               {loading && <div>Loading...</div>}
               <h1>{bridgeCardTitle}</h1>
@@ -232,24 +197,17 @@ class BridgeCard extends Component {
             <CardActions>
               <EditBridgeCard
                 bridgeCardTitle={bridgeCardTitle}
+                yearCreated={yearCreated}
+                isProud={isProud}
+                coworkers={coworkers}
+                whyMake={whyMake}
+                description={description}
+                cardImageURL={cardImageURL}
                 cardNumber={this.props.cardNumber}
                 bridgeCardNumber={this.props.bridgeCardNumber}
                 editable={this.props.editable}
                 size="small"
               />
-              <div>
-                <input
-                  type="file"
-                  id={this.props.cardNumber}
-                  className={classes.input}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor={this.props.cardNumber}>
-                  <Button variant="contained" color="primary" component="span">
-                    Upload
-                  </Button>
-                </label>
-              </div>
             </CardActions>
           </Card>
         )}
