@@ -205,7 +205,7 @@ class BridgeCard extends Component {
                       fontWeight: 700,
                     }}
                   >
-                    Am I proud of this? {isProud}
+                    Am I proud of this?
                   </Typography>
                   <Typography
                     gutterBottom

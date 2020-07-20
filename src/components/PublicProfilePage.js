@@ -33,17 +33,19 @@ class PublicProfilePage extends Component {
   componentDidMount() {
     this.setState({ loading: true });
     const username = this.props.match.params.username;
-
+    console.log(username);
     if (username) this.setState({ oldUsername: username, username });
     console.log(this.state.loading);
     this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
       const userIDState = snapshot.val();
+      console.log(userIDState);
       if (userIDState) {
         this.setState({
           userID: userIDState,
         });
         this.props.firebase.user(userIDState).on("value", (snapshot) => {
           const state = snapshot.val();
+          console.log(state);
           if (state) {
             this.setState({
               exists: true,
