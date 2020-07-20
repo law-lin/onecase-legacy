@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 
 import Username from "./Username";
 
+import { withFirebase } from "./Firebase";
+import { withRouter } from "react-router-dom";
 import { withAuthorization } from "./Session";
 
 class PublicBridge extends Component {
@@ -212,6 +214,5 @@ class PublicBridge extends Component {
     );
   }
 }
-const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(PublicBridge);
+export default withFirebase(withRouter(PublicBridge));

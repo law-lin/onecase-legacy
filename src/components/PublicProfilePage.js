@@ -15,7 +15,8 @@ import Biography from "./Biography";
 import Username from "./Username";
 import Box from "@material-ui/core/Box";
 import { withAuthorization } from "./Session";
-
+import { withFirebase } from "./Firebase";
+import { withRouter } from "react-router-dom";
 class PublicProfilePage extends Component {
   constructor(props) {
     super(props);
@@ -189,6 +190,5 @@ class PublicProfilePage extends Component {
     }
   }
 }
-const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(PublicProfilePage);
+export default withFirebase(withRouter(PublicProfilePage));

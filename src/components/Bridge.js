@@ -5,7 +5,7 @@ import PersonalBridge from "./PersonalBridge";
 import PublicBridge from "./PublicBridge";
 import { withAuthorization } from "./Session";
 import DefaultProfilePicture from "../images/default-profile-pic.png";
-
+import { withFirebase } from "./Firebase";
 import * as ROUTES from "../constants/routes";
 
 class Bridge extends Component {
@@ -29,48 +29,86 @@ class Bridge extends Component {
       this.setState({
         valid: true,
       });
-      this.props.firebase.currentUser().on("value", (snapshot) => {
-        if (snapshot.val().username === username) {
-          this.setState({
-            personal: true,
+      this.props.firebase.auth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+          this.props.firebase.currentUser().on("value", (snapshot) => {
+            if (snapshot.val().username === username) {
+              this.setState({
+                personal: true,
+              });
+            } else {
+              this.setState({
+                personal: false,
+              });
+            }
           });
+
+          this.props.firebase
+            .getIDWithUsername(username)
+            .on("value", (snapshot) => {
+              const userIDState = snapshot.val();
+              console.log(userIDState);
+              if (userIDState) {
+                this.props.firebase
+                  .getCardNumberWithCardTitle(userIDState, cardTitle)
+                  .on("value", (snapshot) => {
+                    const state = snapshot.val();
+                    console.log(state);
+                    if (state) {
+                      this.setState({
+                        exists: true,
+                        loading: false,
+                      });
+                    } else {
+                      this.setState({
+                        exists: false,
+                        loading: false,
+                      });
+                    }
+                  });
+              } else {
+                this.setState({
+                  exists: false,
+                  loading: false,
+                });
+              }
+            });
         } else {
           this.setState({
             personal: false,
           });
+          this.props.firebase
+            .getIDWithUsername(username)
+            .on("value", (snapshot) => {
+              const userIDState = snapshot.val();
+              console.log(userIDState);
+              if (userIDState) {
+                this.props.firebase
+                  .getCardNumberWithCardTitle(userIDState, cardTitle)
+                  .on("value", (snapshot) => {
+                    const state = snapshot.val();
+                    console.log(state);
+                    if (state) {
+                      this.setState({
+                        exists: true,
+                        loading: false,
+                      });
+                    } else {
+                      this.setState({
+                        exists: false,
+                        loading: false,
+                      });
+                    }
+                  });
+              } else {
+                this.setState({
+                  exists: false,
+                  loading: false,
+                });
+              }
+            });
         }
       });
-
-      this.props.firebase
-        .getIDWithUsername(username)
-        .on("value", (snapshot) => {
-          const userIDState = snapshot.val();
-          console.log(userIDState);
-          if (userIDState) {
-            this.props.firebase
-              .getCardNumberWithCardTitle(userIDState, cardTitle)
-              .on("value", (snapshot) => {
-                const state = snapshot.val();
-                console.log(state);
-                if (state) {
-                  this.setState({
-                    exists: true,
-                    loading: false,
-                  });
-                } else {
-                  this.setState({
-                    exists: false,
-                    loading: false,
-                  });
-                }
-              });
-          } else {
-            this.setState({
-              exists: false,
-              loading: false,
-            });
-          }
-        });
     }
   }
 
@@ -101,6 +139,5 @@ class Bridge extends Component {
     }
   }
 }
-const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(Bridge);
+export default withFirebase(Bridge);
