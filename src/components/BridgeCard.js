@@ -26,7 +26,7 @@ import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
   root: {
-    width: "90%",
+    width: "70%",
     height: 160,
   },
   bullet: {
@@ -152,7 +152,6 @@ class BridgeCard extends Component {
               style={{
                 borderRadius: "20px",
                 backgroundColor: "white",
-                width: "75%",
               }}
             >
               <CardContent>

@@ -148,7 +148,7 @@ class PersonalBridge extends Component {
               item
               xs={12}
               spacing={3}
-              style={{ margin: "0 100px 0 100px" }}
+              style={{ margin: "0 10px 0 10px" }}
             >
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>

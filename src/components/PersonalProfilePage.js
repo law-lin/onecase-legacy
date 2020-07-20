@@ -150,7 +150,7 @@ class PersonalProfilePage extends Component {
         <Navbar />
         <Grid container style={{ marginTop: "10px" }}>
           <Grid item xs={12} sm={9}>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} style={{ marginLeft: "5px" }}>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
                   <Box clone order={{ xs: 2, sm: 1 }}>

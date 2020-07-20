@@ -89,33 +89,6 @@ class ProfileCard extends Component {
     });
   }
 
-  handleChange = (e) => {
-    if (e.target.files[0]) {
-      const cardImage = e.target.files[0];
-      this.props.firebase.uploadCardImage(cardImage).on(
-        "state_changed",
-        (snapshot) => {
-          // progress function ...
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          this.setState({ progress });
-        },
-        (error) => {
-          // Error function ...
-          console.log(error);
-        },
-        () => {
-          // complete function ...
-          this.props.firebase.uploadCardImageURL(
-            this.props.cardNumber,
-            cardImage
-          );
-        }
-      );
-    }
-  };
-
   handleChange = (event) => {
     this.props.onChange(event.target.value);
   };
@@ -136,7 +109,7 @@ class ProfileCard extends Component {
             onClick={this.handleClick}
             disabled={this.props.editable}
             className={classes.root}
-            style={{ backgroundColor: "white" }}
+            style={{ borderRadius: "20px", backgroundColor: "white" }}
           >
             <CardContent>
               {loading && <div>Loading...</div>}
@@ -148,6 +121,7 @@ class ProfileCard extends Component {
           <Card
             className={classes.root}
             style={{
+              borderRadius: "20px",
               backgroundImage: `url(${cardImageURL})`,
             }}
           >
@@ -163,19 +137,6 @@ class ProfileCard extends Component {
                 editable={this.props.editable}
                 size="small"
               />
-              <div>
-                <input
-                  type="file"
-                  id={this.props.cardNumber}
-                  className={classes.input}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor={this.props.cardNumber}>
-                  <Button variant="contained" color="primary" component="span">
-                    Upload
-                  </Button>
-                </label>
-              </div>
             </CardActions>
           </Card>
         )}
