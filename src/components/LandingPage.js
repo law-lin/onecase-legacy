@@ -161,7 +161,7 @@ function LandingPage(props) {
                 className="btn btn-primary btn-lg signup"
                 onClick={handleClickOpen}
               >
-                <a href>Sign up</a>
+                Sign Up
               </button>
               <Dialog
                 open={open}
