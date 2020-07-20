@@ -149,7 +149,11 @@ class BridgeCard extends Component {
               onClick={this.handleClick}
               disabled={this.props.editable}
               className={classes.root}
-              style={{ backgroundColor: "white" }}
+              style={{
+                borderRadius: "20px",
+                backgroundColor: "white",
+                width: "75%",
+              }}
             >
               <CardContent>
                 {loading && <div>Loading...</div>}

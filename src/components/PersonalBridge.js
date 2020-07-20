@@ -142,7 +142,14 @@ class PersonalBridge extends Component {
           </Grid>
 
           {!this.state.cardNumberLoading && (
-            <Grid justify="center" container item xs={12} spacing={3}>
+            <Grid
+              justify="center"
+              container
+              item
+              xs={12}
+              spacing={3}
+              style={{ margin: "0 100px 0 100px" }}
+            >
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
                   <Grid item xs={12} sm={4} align="center">
