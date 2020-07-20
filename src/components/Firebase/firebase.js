@@ -97,9 +97,10 @@ class Firebase {
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       username,
     });
+    let formattedUsername = username.toLowerCase();
     this.db.ref("usernames").child(`${oldUsername}`).remove();
     this.db.ref(`usernames`).update({
-      [username]: this.auth.currentUser.uid,
+      [formattedUsername]: this.auth.currentUser.uid,
     });
   };
 

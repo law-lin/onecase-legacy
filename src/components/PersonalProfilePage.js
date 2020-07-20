@@ -34,9 +34,7 @@ class PersonalProfilePage extends Component {
   }
 
   componentDidMount() {
-    const username = this.props.match.params.username;
-
-    if (username) this.setState({ oldUsername: username, username });
+    let username = this.props.match.params.username.toString().toLowerCase();
 
     if (!this.state.loading) {
       this.setState({
@@ -53,6 +51,10 @@ class PersonalProfilePage extends Component {
             this.props.firebase.user(userIDState).on("value", (snapshot) => {
               const state = snapshot.val();
               if (state) {
+                this.setState({
+                  oldUsername: state.username,
+                  username: state.username,
+                });
                 if (state.bio) {
                   this.setState({
                     bio: state.bio,
@@ -159,11 +161,13 @@ class PersonalProfilePage extends Component {
                   </Box>
                   <Box clone order={{ xs: 1, sm: 2 }}>
                     <Grid item xs={12} sm={4} align="center">
-                      <Username
-                        username={this.state.username}
-                        editable={this.state.editing}
-                        onChange={this.onUsernameChange}
-                      />
+                      {!this.state.loading && (
+                        <Username
+                          username={this.state.username}
+                          editable={this.state.editing}
+                          onChange={this.onUsernameChange}
+                        />
+                      )}
                       {!this.state.loading && (
                         <ProfilePicture
                           profilePicture={this.state.profilePicture}

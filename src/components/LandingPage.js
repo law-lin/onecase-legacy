@@ -80,8 +80,9 @@ function LandingPage(props) {
               );
             }
           });
+        let formattedUsername = username.toLowerCase();
         return props.firebase.usernames().update({
-          [username]: authUser.user.uid,
+          [formattedUsername]: authUser.user.uid,
         });
       })
       .then(() => {
