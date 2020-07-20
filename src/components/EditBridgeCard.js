@@ -25,22 +25,27 @@ const styles = () => ({
   input1: {
     fontFamily: "Montserrat",
     color: "#0FA9FF",
+    fontSize: "24px",
   },
   input2: {
     fontFamily: "Montserrat",
     color: "#FF0000",
+    fontSize: "24px",
   },
   input3: {
     fontFamily: "Montserrat",
     color: "#137212",
+    fontSize: "24px",
   },
   input4: {
     fontFamily: "Montserrat",
     color: "#FF9900",
+    fontSize: "24px",
   },
   input5: {
     fontFamily: "Montserrat",
     color: "#000000",
+    fontSize: "24px",
   },
 });
 

@@ -33,14 +33,14 @@ const styles = () => ({
     display: "inline-block",
     transform: "scale(0.8)",
   },
-  title: {
-    fontSize: 14,
-  },
   pos: {
     marginBottom: 12,
   },
   input: {
     display: "none",
+  },
+  title: {
+    fontSize: "36px",
   },
 });
 
@@ -167,24 +167,123 @@ class BridgeCard extends Component {
               open={this.state.open}
               onClose={this.handleClose}
             >
-              <DialogTitle>{bridgeCardTitle}</DialogTitle>
+              <DialogTitle>
+                <Typography className={classes.title}>
+                  {bridgeCardTitle}
+                </Typography>
+              </DialogTitle>
 
               <DialogContent dividers>
                 <DialogContentText>
-                  <Typography style={{ width: "50%" }} gutterBottom>
-                    Year created: {yearCreated}
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#0FA9FF",
+                      fontSize: "24px",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Year created:
                   </Typography>
-                  <Typography gutterBottom>
-                    Am I proud of this? {isProud}{" "}
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#0FA9FF",
+                      fontSize: "24px",
+                      fontWeight: 20,
+                    }}
+                  >
+                    {yearCreated}
                   </Typography>
-                  <Typography gutterBottom>
-                    People I worked with: {coworkers}
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#FF0000",
+                      fontSize: "24px",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Am I proud of this? {isProud}
                   </Typography>
-                  <Typography gutterBottom>
-                    Why'd you make it? {whyMake}{" "}
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#FF0000",
+                      fontSize: "24px",
+                      fontWeight: 20,
+                    }}
+                  >
+                    {isProud}
                   </Typography>
-                  <Typography gutterBottom>
-                    Description: {description}{" "}
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#137212",
+                      fontSize: "24px",
+                      fontWeight: 700,
+                    }}
+                  >
+                    People I worked with:
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#137212",
+                      fontSize: "24px",
+                      fontWeight: 20,
+                    }}
+                  >
+                    {coworkers}
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#FF9900",
+                      fontSize: "24px",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Why'd you make it?
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#FF9900",
+                      fontSize: "24px",
+                      fontWeight: 20,
+                    }}
+                  >
+                    {whyMake}
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#000000",
+                      fontSize: "24px",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Description:
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    style={{
+                      fontFamily: "Montserrat",
+                      color: "#000000",
+                      fontSize: "24px",
+                      fontWeight: 20,
+                    }}
+                  >
+                    {description}
                   </Typography>
                   <img src={cardImageURL} />
                 </DialogContentText>
