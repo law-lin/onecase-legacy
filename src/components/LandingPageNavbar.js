@@ -49,15 +49,13 @@ function LandingPageNavbar(props) {
           <a href="/">OneCase</a>
         </li>
         <li className="push">
-          <a href>
-            <button
-              type="button"
-              className="btn btn-primary log"
-              onClick={handleClickOpen}
-            >
-              Login
-            </button>
-          </a>
+          <button
+            type="button"
+            className="btn btn-primary log"
+            onClick={handleClickOpen}
+          >
+            Login
+          </button>
         </li>
       </ul>
       <Dialog

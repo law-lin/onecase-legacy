@@ -54,14 +54,12 @@ class PersonalBridge extends Component {
       const cardTitle = this.props.match.params.cardTitle;
 
       const modifiedCardTitle = cardTitle.replace(/_/g, " ");
-      console.log("running");
       if (username && cardTitle)
         this.setState({ username, cardTitle: modifiedCardTitle });
       this.props.firebase
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
           const userIDState = snapshot.val();
-          console.log(userIDState);
           if (userIDState) {
             this.setState({
               userID: userIDState,
@@ -72,7 +70,6 @@ class PersonalBridge extends Component {
               .getCardNumberWithCardTitle(userIDState, cardTitle)
               .on("value", (snapshot) => {
                 const state = snapshot.val();
-                console.log(state);
                 if (state) {
                   this.setState({
                     cardNumber: state,
@@ -110,12 +107,9 @@ class PersonalBridge extends Component {
   }
 
   render() {
-    console.log(this.state.cardNumberLoading);
-    console.log(this.state.cardNumber);
     return (
       <div className="bg">
         <Navbar />
-
         <Grid container spacing={3}>
           <Grid justify="center" container item xs={12} spacing={3}>
             <Grid item xs={12} sm={4} align="center">

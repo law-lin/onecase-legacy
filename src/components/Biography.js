@@ -6,23 +6,11 @@ import TextField from "@material-ui/core/TextField";
 import "./profile.css";
 
 class Biography extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      username: this.props.username,
-      userID: null,
-      bio: "",
-    };
-  }
-
   handleChange = (event) => {
     this.props.onChange(event.target.value);
   };
 
   render() {
-    const { bio } = this.state;
     return (
       <div style={{ marginLeft: "25px", fontSize: "20px" }}>
         {this.props.editable && (

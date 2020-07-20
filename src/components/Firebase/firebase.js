@@ -118,8 +118,6 @@ class Firebase {
     let strCardTitle = cardTitle + "";
     let formattedCardTitle = strCardTitle.split(" ").join("_");
 
-    console.log(formattedOldCardTitle);
-    console.log(formattedCardTitle);
     this.db
       .ref(`cards/${this.auth.currentUser.uid}`)
       .child(`${formattedOldCardTitle}`)
@@ -127,8 +125,6 @@ class Firebase {
     this.db.ref(`cards/${this.auth.currentUser.uid}`).update({
       [formattedCardTitle]: cardNumber,
     });
-    console.log(formattedOldCardTitle);
-    console.log(formattedCardTitle);
   };
 
   editBridgeCard = (
@@ -163,9 +159,6 @@ class Firebase {
       .child(image.name)
       .getDownloadURL()
       .then((cardImageURL) => {
-        console.log(cardImageURL);
-        console.log(cardNumber);
-        console.log(bridgeCardNumber);
         this.db
           .ref(
             `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`

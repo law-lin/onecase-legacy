@@ -15,8 +15,6 @@ import Biography from "./Biography";
 import Username from "./Username";
 import Box from "@material-ui/core/Box";
 
-import EditBio from "./EditBio";
-import EditUsername from "./EditUsername";
 import { withAuthorization } from "./Session";
 
 class PersonalProfilePage extends Component {
@@ -40,24 +38,20 @@ class PersonalProfilePage extends Component {
 
     if (username) this.setState({ oldUsername: username, username });
 
-    console.log(this.state.loading);
     if (!this.state.loading) {
       this.setState({
         loading: true,
       });
-      console.log(username);
       this.props.firebase
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
           const userIDState = snapshot.val();
-          console.log(userIDState);
           if (userIDState) {
             this.setState({
               userID: userIDState,
             });
             this.props.firebase.user(userIDState).on("value", (snapshot) => {
               const state = snapshot.val();
-              console.log(state);
               if (state) {
                 if (state.bio) {
                   this.setState({
@@ -144,7 +138,6 @@ class PersonalProfilePage extends Component {
   };
 
   render() {
-    console.log(this.state.bio);
     return (
       <div className="bg">
         <Navbar />

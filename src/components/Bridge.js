@@ -47,13 +47,11 @@ class Bridge extends Component {
             .getIDWithUsername(username)
             .on("value", (snapshot) => {
               const userIDState = snapshot.val();
-              console.log(userIDState);
               if (userIDState) {
                 this.props.firebase
                   .getCardNumberWithCardTitle(userIDState, cardTitle)
                   .on("value", (snapshot) => {
                     const state = snapshot.val();
-                    console.log(state);
                     if (state) {
                       this.setState({
                         exists: true,
@@ -81,13 +79,11 @@ class Bridge extends Component {
             .getIDWithUsername(username)
             .on("value", (snapshot) => {
               const userIDState = snapshot.val();
-              console.log(userIDState);
               if (userIDState) {
                 this.props.firebase
                   .getCardNumberWithCardTitle(userIDState, cardTitle)
                   .on("value", (snapshot) => {
                     const state = snapshot.val();
-                    console.log(state);
                     if (state) {
                       this.setState({
                         exists: true,

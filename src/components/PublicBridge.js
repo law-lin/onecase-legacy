@@ -41,14 +41,12 @@ class PublicBridge extends Component {
       const cardTitle = this.props.match.params.cardTitle;
 
       const modifiedCardTitle = cardTitle.replace(/_/g, " ");
-      console.log("running");
       if (username && cardTitle)
         this.setState({ username, cardTitle: modifiedCardTitle });
       this.props.firebase
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
           const userIDState = snapshot.val();
-          console.log(userIDState);
           if (userIDState) {
             this.setState({
               userID: userIDState,
@@ -59,7 +57,6 @@ class PublicBridge extends Component {
               .getCardNumberWithCardTitle(userIDState, cardTitle)
               .on("value", (snapshot) => {
                 const state = snapshot.val();
-                console.log(state);
                 if (state) {
                   this.setState({
                     cardNumber: state,
@@ -97,8 +94,6 @@ class PublicBridge extends Component {
   }
 
   render() {
-    console.log(this.state.cardNumberLoading);
-    console.log(this.state.cardNumber);
     return (
       <div className="bg">
         <Navbar />

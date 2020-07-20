@@ -27,7 +27,6 @@ class EarlyAccessFormBase extends Component {
     event.preventDefault();
     if (this.validateEmail(email)) {
       this.props.firebase.checkDuplicateEmail(email).on("value", (snapshot) => {
-        console.log(snapshot);
         if (snapshot.exists()) {
           this.setState({
             error: "This email is already signed up!",

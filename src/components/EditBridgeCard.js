@@ -92,7 +92,6 @@ class EditBridgeCard extends Component {
     let reader = new FileReader();
     let cardImage = e.target.files[0];
 
-    console.log(cardImage);
     reader.onloadend = () => {
       this.setState({
         cardImage,
@@ -115,7 +114,6 @@ class EditBridgeCard extends Component {
       whyMake,
       description,
     } = this.state;
-    console.log(cardNumber);
     this.props.firebase.editBridgeCard(
       cardNumber,
       bridgeCardNumber,
@@ -137,13 +135,9 @@ class EditBridgeCard extends Component {
         this.setState({ progress });
       },
       (error) => {
-        // Error function ...
         console.log(error);
       },
       () => {
-        // complete function ...
-
-        console.log(cardImage);
         this.props.firebase.uploadCardImageURL(
           this.props.cardNumber,
           this.props.bridgeCardNumber,
@@ -339,7 +333,10 @@ class EditBridgeCard extends Component {
                   </label>
                 </div>
 
-                <img src={this.state.imagePreviewURL} />
+                <img
+                  src={this.state.imagePreviewURL}
+                  alt="preview bridge card img"
+                />
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
 import "./profile.css";
-import SignOutButton from "./SignOut";
+
 import Navbar from "./Navbar";
-import souljason from "../images/souljason.png";
 import DefaultProfilePicture from "../images/default-profile-pic.png";
 
 import Button from "@material-ui/core/Button";
@@ -17,6 +16,7 @@ import Box from "@material-ui/core/Box";
 import { withAuthorization } from "./Session";
 import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
+
 class PublicProfilePage extends Component {
   constructor(props) {
     super(props);
@@ -33,19 +33,15 @@ class PublicProfilePage extends Component {
   componentDidMount() {
     this.setState({ loading: true });
     const username = this.props.match.params.username;
-    console.log(username);
     if (username) this.setState({ oldUsername: username, username });
-    console.log(this.state.loading);
     this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
       const userIDState = snapshot.val();
-      console.log(userIDState);
       if (userIDState) {
         this.setState({
           userID: userIDState,
         });
         this.props.firebase.user(userIDState).on("value", (snapshot) => {
           const state = snapshot.val();
-          console.log(state);
           if (state) {
             this.setState({
               exists: true,
@@ -56,7 +52,6 @@ class PublicProfilePage extends Component {
           }
         });
       } else {
-        console.log("didnt find");
         this.setState({
           loading: false,
         });
