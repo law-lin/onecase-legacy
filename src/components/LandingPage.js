@@ -269,7 +269,6 @@ function LandingPage(props) {
             />
           </Grid>
           <Grid
-            container
             item
             xs={12}
             align="center"

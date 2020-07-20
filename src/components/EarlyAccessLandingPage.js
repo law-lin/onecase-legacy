@@ -187,7 +187,6 @@ export default function EarlyAccessLandingPage() {
           />
         </Grid>
         <Grid
-          container
           item
           xs={12}
           align="center"
