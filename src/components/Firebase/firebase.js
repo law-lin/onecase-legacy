@@ -2,6 +2,7 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
+import "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB4BhoDKEBGcrWV6hl9DCzIFyes33V6cwY",
@@ -11,11 +12,13 @@ const firebaseConfig = {
   storageBucket: "onepage-3bdd8.appspot.com",
   messagingSenderId: "798277787212",
   appId: "1:798277787212:web:40c319d820185f9c30dee9",
+  measurementId: "G-HQKNY0D3TX",
 };
 
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
+    app.analytics();
 
     this.auth = app.auth();
     this.db = app.database();

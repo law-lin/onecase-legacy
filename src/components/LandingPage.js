@@ -318,6 +318,7 @@ function LandingPage(props) {
               alt="lightbulb icon"
             />
             <p className="description">
+              We're an
               <span className="one-liner"> online scrapbook </span>
               or portfolio, with
               <span className="one-liner"> friends</span>

@@ -56,8 +56,7 @@ class PersonalBridge extends Component {
       const cardTitle = this.props.match.params.cardTitle;
 
       const modifiedCardTitle = cardTitle.replace(/_/g, " ");
-      if (username && cardTitle)
-        this.setState({ username, cardTitle: modifiedCardTitle });
+      if (cardTitle) this.setState({ cardTitle: modifiedCardTitle });
       this.props.firebase
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
@@ -88,11 +87,13 @@ class PersonalBridge extends Component {
               const state = snapshot.val();
               if (state) {
                 this.setState({
+                  username: state.username,
                   profilePicture: state.profilePicture,
                   profilePictureLoading: false,
                 });
               } else {
                 this.setState({
+                  username: "",
                   profilePicture: DefaultProfilePicture,
                   profilePictureLoading: false,
                 });
