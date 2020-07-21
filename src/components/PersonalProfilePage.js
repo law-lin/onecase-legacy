@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "./profile.css";
-import SignOutButton from "./SignOut";
+import SignOutButton from "./SignOutButton";
 import Navbar from "./Navbar";
 
 import DefaultProfilePicture from "../images/default-profile-pic.png";

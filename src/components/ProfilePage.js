@@ -19,14 +19,18 @@ class ProfilePage extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    if (!ROUTES.NON_USERNAMES.includes(this.props.match.params.username)) {
+    let formattedUsername = this.props.match.params.username
+      .toString()
+      .toLowerCase();
+
+    if (!ROUTES.NON_USERNAMES.includes(formattedUsername)) {
       this.setState({
         valid: true,
       });
       this.props.firebase.auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           this.props.firebase.currentUser().on("value", (snapshot) => {
-            if (snapshot.val().username === this.props.match.params.username) {
+            if (snapshot.val().username.toLowerCase() === formattedUsername) {
               this.setState({
                 personal: true,
                 loading: false,
