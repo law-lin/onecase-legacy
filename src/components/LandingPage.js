@@ -18,13 +18,24 @@ import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
 
 function LandingPage(props) {
+  // let open = false;
+  // let email = "";
+  // let username = ""
+  // let password = ""
+  // let confirmPassword = ""
+  // let error = null;
+
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [usernameError, setUsernameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     props.firebase.auth.onAuthStateChanged((currentUser) => {
@@ -37,12 +48,99 @@ function LandingPage(props) {
     });
   }, []);
 
-  const validateSignup = () => {
+  const handleSignUp = (event) => {
+    event.preventDefault();
+
+    let valid = true;
+    let formattedUsername = username.toLowerCase();
+
+    props.firebase
+      .checkDuplicateUsername(formattedUsername)
+      .once("value")
+      .then((snapshot) => {
+        // Email validation
+        const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (regexp.test(email)) {
+          setEmailError(null);
+        } else {
+          setEmailError("Please enter a valid email");
+          valid = false;
+        }
+
+        // Username validation
+        const userNameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
+        if (userNameRegexp.test(username)) {
+          if (!snapshot.exists()) {
+            setUsernameError(null);
+          } else {
+            setUsernameError("Username is already taken.");
+            valid = false;
+          }
+        } else {
+          setUsernameError(
+            "Please use only letters (a-z, A-Z), numbers, underscores, and periods. (1-30 characters)"
+          );
+          valid = false;
+        }
+        // Password validation
+        // TODO: Password strength
+        if (password === confirmPassword) {
+          setPasswordError(null);
+        } else {
+          setPasswordError("Passwords do not match.");
+          valid = false;
+        }
+
+        if (valid) {
+          if (valid) {
+            console.log("signing up...");
+            props.firebase
+              .doCreateUserWithEmailAndPassword(email, password)
+              .then((authUser) => {
+                // Create a user in your Firebase realtime database
+                props.firebase
+                  .user(authUser.user.uid)
+                  .set({
+                    username,
+                    email,
+                    bio: "Edit your bio with the edit button!",
+                    profilePicture: DefaultProfilePicture,
+                  })
+                  .then(() => {
+                    for (var i = 1; i <= 9; i++) {
+                      props.firebase.userCards(authUser.user.uid, i).set({
+                        cardTitle: "Card " + i,
+                      });
+                      props.firebase.newCards(
+                        authUser.user.uid,
+                        "card" + i,
+                        "Card_" + i
+                      );
+                    }
+                  });
+
+                return props.firebase.usernames().update({
+                  [formattedUsername]: authUser.user.uid,
+                });
+              })
+              .then(() => {
+                setOpen(false);
+                props.history.push(username);
+              })
+              .catch((error) => {
+                setError(error);
+              });
+          }
+        }
+      });
+  };
+
+  const validateNotEmpty = () => {
     return (
-      password !== "" &&
-      password === confirmPassword &&
+      email !== "" &&
       username !== "" &&
-      email !== ""
+      password !== "" &&
+      confirmPassword !== ""
     );
   };
   const handleClickOpen = () => {
@@ -51,47 +149,6 @@ function LandingPage(props) {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleSignup = (event) => {
-    event.preventDefault();
-
-    props.firebase
-      .doCreateUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        // Create a user in your Firebase realtime database
-        props.firebase
-          .user(authUser.user.uid)
-          .set({
-            username,
-            email,
-            bio: "Edit your bio with the edit button!",
-            profilePicture: DefaultProfilePicture,
-          })
-          .then(() => {
-            for (var i = 1; i <= 9; i++) {
-              props.firebase.userCards(authUser.user.uid, i).set({
-                cardTitle: "Card " + i,
-              });
-              props.firebase.newCards(
-                authUser.user.uid,
-                "card" + i,
-                "Card_" + i
-              );
-            }
-          });
-        let formattedUsername = username.toLowerCase();
-        return props.firebase.usernames().update({
-          [formattedUsername]: authUser.user.uid,
-        });
-      })
-      .then(() => {
-        setOpen(false);
-        props.history.push(username);
-      })
-      .catch((error) => {
-        setError(error);
-      });
   };
 
   if (!loading) {
@@ -172,25 +229,30 @@ function LandingPage(props) {
 
                 <DialogContent>
                   <TextField
+                    error={emailError}
                     autoFocus
                     margin="dense"
                     id="email"
                     label="Email Address"
                     type="email"
                     value={email}
+                    helperText={emailError}
                     fullWidth
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <TextField
+                    error={usernameError}
                     margin="dense"
                     id="username"
                     label="Username"
                     type="username"
                     value={username}
+                    helperText={usernameError}
                     fullWidth
                     onChange={(e) => setUsername(e.target.value)}
                   />
                   <TextField
+                    error={passwordError}
                     margin="dense"
                     id="password"
                     label="Password"
@@ -200,11 +262,13 @@ function LandingPage(props) {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <TextField
+                    error={passwordError}
                     margin="dense"
                     id="confirmPassword"
                     label="Confirm Password"
                     type="password"
                     value={confirmPassword}
+                    helperText={passwordError}
                     fullWidth
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
@@ -223,9 +287,9 @@ function LandingPage(props) {
                     Cancel
                   </button>
                   <button
-                    disabled={!validateSignup()}
+                    disabled={!validateNotEmpty()}
                     className="btn btn-primary log"
-                    onClick={handleSignup}
+                    onClick={handleSignUp}
                     color="primary"
                   >
                     Sign Up

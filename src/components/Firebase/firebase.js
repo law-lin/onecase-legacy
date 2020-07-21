@@ -61,6 +61,9 @@ class Firebase {
 
   user = (userID) => this.db.ref(`users/${userID}`);
 
+  checkDuplicateUsername = (username) =>
+    this.db.ref("usernames").orderByKey().equalTo(username);
+
   userCards = (userID, cardNumber) =>
     this.db.ref(`users/${userID}/card${cardNumber}`);
 
