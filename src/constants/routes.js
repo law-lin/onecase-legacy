@@ -5,6 +5,8 @@ export const WELCOME = "/welcome";
 export const ADMIN = "/admin";
 export const PASSWORD_FORGET = "/pw-forget";
 export const FEED = "/feed";
+export const USERNAME = "/:username";
+export const USERNAME_CARD = "/:username/:cardTitle";
 
 export const NON_USERNAMES = [
   "about",
