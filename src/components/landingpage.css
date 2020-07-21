@@ -27,26 +27,29 @@ body {
 .twoblocks {
   margin-top: 10vh;
   background: linear-gradient(to right, #9bf1ae 50%, #2088e8 50%);
-  height: 2vh;
-  width: 30vw;
+  height: 1vh;
+  width: 13vw;
 }
 
 .light-scrap {
   display: flex;
   justify-content: center;
-  margin-top: 10vh;
 }
 
 .lightbulb {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   margin-right: 1vw;
+  bottom: 4vh;
+  position: relative;
 }
 
 .scrapbook {
-  width: 50px;
-  height: 50px;
-  margin-left: 1vw;
+  width: 100px;
+  height: 100px;
+  margin-left: 1.5vw;
+  bottom: 4vh;
+  position: relative;
 }
 
 .one-description {
@@ -55,23 +58,15 @@ body {
 }
 
 .description {
-  font-size: 20px;
+  font-size: 25px;
   font-family: "Montserrat", sans-serif;
   color: #3e4e55;
-  font-weight: bold;
-  margin: "0 0 0 0";
-}
-
-.think {
-  color: #cccc00;
+  font-weight: 800;
+  margin-bottom: 14vh;
 }
 
 .scrap {
-  color: #02ab59;
-}
-
-.portfolio {
-  color: #00a196;
+  color: #007ea1;
 }
 
 .friends {
@@ -88,6 +83,14 @@ body {
     font-size: 15px;
     text-align: center;
   }
+  .lightbulb {
+    width: 60px;
+    height: 60px;
+  }
+  .scrapbook {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .three-icons {
@@ -96,15 +99,15 @@ body {
   justify-content: space-around;
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .first {
-  color: #02ab59;
+  color: #007ea1;
 }
 
 .second {
-  color: #00a196;
+  color: #007ea1;
 }
 
 .third {
