@@ -170,13 +170,10 @@ export default function EarlyAccessLandingPage() {
             alt="lightbulb icon"
           />
           <p className="description">
-            <span className="think">Think </span>
-            of us as an
-            <span className="scrap"> online scrapbook </span>
-            or
-            <span className="portfolio"> portfolio, </span>
-            with
-            <span className="friends"> friends</span>
+            We're an
+            <span className="one-liner"> online scrapbook </span>
+            or portfolio, with
+            <span className="one-liner"> friends</span>
           </p>
           <img
             className="scrapbook"

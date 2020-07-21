@@ -21,7 +21,7 @@ class Bridge extends Component {
     };
   }
   componentDidMount() {
-    const username = this.props.match.params.username;
+    const username = this.props.match.params.username.toString().toLowerCase();
     const cardTitle = this.props.match.params.cardTitle;
 
     this.setState({ loading: true });
@@ -32,7 +32,7 @@ class Bridge extends Component {
       this.props.firebase.auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           this.props.firebase.currentUser().on("value", (snapshot) => {
-            if (snapshot.val().username === username) {
+            if (snapshot.val().username.toLowerCase() === username) {
               this.setState({
                 personal: true,
               });
@@ -52,6 +52,7 @@ class Bridge extends Component {
                   .getCardNumberWithCardTitle(userIDState, cardTitle)
                   .on("value", (snapshot) => {
                     const state = snapshot.val();
+                    console.log(state);
                     if (state) {
                       this.setState({
                         exists: true,
@@ -109,6 +110,7 @@ class Bridge extends Component {
   }
 
   render() {
+    console.log(this.state.personal);
     if (!this.state.loading && this.state.valid) {
       if (this.state.exists) {
         if (this.state.personal) {

@@ -50,7 +50,9 @@ class PersonalBridge extends Component {
       this.state.profilePictureLoading &&
       (this.state.userID == null || this.state.cardNumber == null)
     ) {
-      const username = this.props.match.params.username;
+      const username = this.props.match.params.username
+        .toString()
+        .toLowerCase();
       const cardTitle = this.props.match.params.cardTitle;
 
       const modifiedCardTitle = cardTitle.replace(/_/g, " ");

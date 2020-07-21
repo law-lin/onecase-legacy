@@ -65,13 +65,10 @@ body {
   margin-bottom: 14vh;
 }
 
-.scrap {
+.one-liner {
   color: #007ea1;
 }
 
-.friends {
-  color: #007ea1;
-}
 /* @media screen and (max-width:1200px) {
   .scrapbook {
     grid-column: 55/60;

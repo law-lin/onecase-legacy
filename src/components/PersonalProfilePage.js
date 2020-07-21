@@ -44,12 +44,14 @@ class PersonalProfilePage extends Component {
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
           const userIDState = snapshot.val();
+          console.log(userIDState);
           if (userIDState) {
             this.setState({
               userID: userIDState,
             });
             this.props.firebase.user(userIDState).on("value", (snapshot) => {
               const state = snapshot.val();
+              console.log(state);
               if (state) {
                 this.setState({
                   oldUsername: state.username,
