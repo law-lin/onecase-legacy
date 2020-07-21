@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import EarlyAccessLandingPage from "./components/EarlyAccessLandingPage";
+import WelcomePage from "./components/WelcomePage";
 import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/ProfilePage";
 import AdminPage from "./components/AdminPage";
 import FeedPage from "./components/FeedPage";
-import WelcomePage from "./components/WelcomePage";
+
 import Bridge from "./components/Bridge";
 import * as ROUTES from "./constants/routes";
 

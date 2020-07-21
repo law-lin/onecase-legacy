@@ -34,7 +34,6 @@ function LandingPageNavbar(props) {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         props.firebase.currentUser().on("value", (snapshot) => {
-          setOpen(false);
           props.history.push("/feed");
         });
       })
