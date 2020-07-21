@@ -8,6 +8,8 @@ For simple set up:
 3. Use `npm start` to start the local server, a new browser window will open up. If it didn't, visit `localhost:3000`.
 4. Happy hacking. 
 
+If any package installation errors arise, try delete `package.json` and `package-lock.json`, then try `npm install`.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). 
 
 ## Available Scripts
