@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
-import { withFirebase } from "./Firebase";
+import { withFirebase } from "../Firebase";
 
 import TextField from "@material-ui/core/TextField";
-import "./profile.css";
 
 class Username extends Component {
   constructor(props) {

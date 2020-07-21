@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./profile.css";
+import "./landingpage.css";
 export default function Navbar() {
   return (
     <nav className="zone top">

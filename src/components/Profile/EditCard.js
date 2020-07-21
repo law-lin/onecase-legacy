@@ -8,7 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import { withFirebase } from "./Firebase";
+import { withFirebase } from "../Firebase";
 // Icons
 
 class EditCard extends Component {

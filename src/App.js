@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import EarlyAccessLandingPage from "./components/EarlyAccessLandingPage";
 import WelcomePage from "./components/WelcomePage";
 import LandingPage from "./components/LandingPage";
-import ProfilePage from "./components/ProfilePage";
+import ProfilePage from "./components/Profile/ProfilePage";
 import AdminPage from "./components/AdminPage";
 import FeedPage from "./components/FeedPage";
 
-import Bridge from "./components/Bridge";
+import Bridge from "./components/Profile/Bridge";
 import * as ROUTES from "./constants/routes";
 
 import { withAuthentication } from "./components/Session";

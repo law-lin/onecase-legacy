@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
-import Navbar from "./Navbar";
-import PersonalBridge from "./PersonalBridge";
-import PublicBridge from "./PublicBridge";
-import { withAuthorization } from "./Session";
-import DefaultProfilePicture from "../images/default-profile-pic.png";
-import { withFirebase } from "./Firebase";
-import * as ROUTES from "../constants/routes";
+import Navbar from "../Navbar";
+import PersonalBridge from "./Private/PersonalBridge";
+import PublicBridge from "./Public/PublicBridge";
+import { withAuthorization } from "../Session";
+import DefaultProfilePicture from "../../images/default-profile-pic.png";
+import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
 
 class Bridge extends Component {
   constructor(props) {

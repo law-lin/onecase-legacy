@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { withFirebase } from "./Firebase";
+import { withFirebase } from "../Firebase";
 
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -8,7 +8,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import UploadButton from "./UploadButton";
+
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -17,7 +17,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import background from "../images/background3.png";
+import background from "../../images/background3.png";
 
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";

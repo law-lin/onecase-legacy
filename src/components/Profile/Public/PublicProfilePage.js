@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 
-import "./profile.css";
+import "../profile.css";
 
-import Navbar from "./Navbar";
-import DefaultProfilePicture from "../images/default-profile-pic.png";
+import Navbar from "../../Navbar";
+import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
 import Button from "@material-ui/core/Button";
-import ProfilePicture from "./ProfilePicture";
+import ProfilePicture from "../ProfilePicture";
 import Grid from "@material-ui/core/Grid";
-import ProfileCard from "./ProfileCard";
-import LinksCard from "./LinksCard";
-import Biography from "./Biography";
-import Username from "./Username";
+import ProfileCard from "../ProfileCard";
+import LinksCard from "../LinksCard";
+import Biography from "../Biography";
+import Username from "../Username";
 import Box from "@material-ui/core/Box";
-import { withAuthorization } from "./Session";
-import { withFirebase } from "./Firebase";
+import { withAuthorization } from "../../Session";
+import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
 
 class PublicProfilePage extends Component {

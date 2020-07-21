@@ -159,3 +159,42 @@ body {
 
   padding: 7vh 7vh 7vh 0px;
 }
+
+/* Navigation Bar */
+.main-nav {
+  display: flex;
+  list-style: none;
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0;
+  height: 4em;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.logo {
+  font-size: 3em;
+  color: #d4f1f3;
+
+  padding: 7vh 7vh 7vh 0px;
+}
+
+a:hover {
+  color: #aaeef2;
+  text-decoration: none;
+  text-shadow: 2px 2px transparent;
+}
+
+li {
+  padding: 7vh;
+}
+
+.top {
+  background-color: #3e4e55;
+}
+
+a {
+  color: #d4f1f3;
+  text-decoration: none;
+  text-shadow: 2px 2px black;
+}

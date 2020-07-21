@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import PersonalProfilePage from "./PersonalProfilePage";
-import PublicProfilePage from "./PublicProfilePage";
-import { withAuthorization } from "./Session";
-import { withFirebase } from "./Firebase";
-import * as ROUTES from "../constants/routes";
+import PersonalProfilePage from "./Private/PersonalProfilePage";
+import PublicProfilePage from "./Public/PublicProfilePage";
+import { withAuthorization } from "../Session";
+import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
 
 class ProfilePage extends Component {
   constructor(props) {

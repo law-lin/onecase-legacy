@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { withFirebase } from "./Firebase";
+import { withFirebase } from "../Firebase";
 
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -8,7 +8,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import UploadButton from "./UploadButton";
+
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
@@ -109,7 +109,7 @@ class ProfileCard extends Component {
             onClick={this.handleClick}
             disabled={this.props.editable}
             className={classes.root}
-            style={{ borderRadius: "20px", backgroundColor: "white" }}
+            style={{ borderRadius: "20px", backgroundColor: "#ffffff" }}
           >
             <CardContent>
               {loading && <div>Loading...</div>}

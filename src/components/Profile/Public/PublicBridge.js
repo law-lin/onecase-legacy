@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 
-import "./profile.css";
-import Navbar from "./Navbar";
-import DefaultProfilePicture from "../images/default-profile-pic.png";
+import "../profile.css";
+import Navbar from "../../Navbar";
+import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
-import ProfilePicture from "./ProfilePicture";
+import ProfilePicture from "../ProfilePicture";
 import Grid from "@material-ui/core/Grid";
-import BridgeCard from "./BridgeCard";
+import BridgeCard from "../BridgeCard";
 import Button from "@material-ui/core/Button";
 
-import Username from "./Username";
+import Username from "../Username";
 
-import { withAuthorization } from "./Session";
+import { withFirebase } from "../../Firebase";
+import { withRouter } from "react-router-dom";
+import { withAuthorization } from "../../Session";
 
-class PersonalBridge extends Component {
+class PublicBridge extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,21 +29,6 @@ class PersonalBridge extends Component {
       profilePictureLoading: true,
     };
   }
-  handleEdit = () => {
-    this.setState({
-      editing: true,
-      canSave: true,
-      canCancel: true,
-    });
-  };
-
-  handleDone = () => {
-    this.setState({
-      editing: false,
-      canSave: false,
-      canCancel: false,
-    });
-  };
 
   componentDidMount() {
     if (
@@ -93,7 +80,6 @@ class PersonalBridge extends Component {
                 });
               } else {
                 this.setState({
-                  username: "",
                   profilePicture: DefaultProfilePicture,
                   profilePictureLoading: false,
                 });
@@ -113,6 +99,7 @@ class PersonalBridge extends Component {
     return (
       <div className="bg">
         <Navbar />
+
         <Grid container spacing={3}>
           <Grid justify="center" container item xs={12} spacing={3}>
             <Grid item xs={12} sm={4} align="center">
@@ -128,25 +115,11 @@ class PersonalBridge extends Component {
             >
               {this.state.cardTitle}
             </Grid>
-            <Grid item xs={12} sm={4} align="center">
-              {!this.state.editing && (
-                <Button onClick={this.handleEdit}>Edit</Button>
-              )}
-              {this.state.editing && (
-                <Button onClick={this.handleDone}>Done</Button>
-              )}
-            </Grid>
+            <Grid item xs={12} sm={4}></Grid>
           </Grid>
 
           {!this.state.cardNumberLoading && (
-            <Grid
-              justify="center"
-              container
-              item
-              xs={12}
-              spacing={3}
-              style={{ margin: "0 10px 0 10px" }}
-            >
+            <Grid justify="center" container item xs={12} spacing={3}>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
                   <Grid item xs={12} sm={4} align="center">
@@ -155,7 +128,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard1"
-                      editable={this.state.editing}
                     />
                   </Grid>
                   <Grid item xs={12} sm={4} align="center">
@@ -164,7 +136,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard2"
-                      editable={this.state.editing}
                     />
                   </Grid>
                   <Grid item xs={12} sm={4} align="center">
@@ -173,7 +144,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard3"
-                      editable={this.state.editing}
                     />
                   </Grid>
                 </React.Fragment>
@@ -186,7 +156,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard4"
-                      editable={this.state.editing}
                     />
                   </Grid>
                   <Grid item xs={12} sm={4} align="center">
@@ -195,7 +164,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="5"
-                      editable={this.state.editing}
                     />
                   </Grid>
                   <Grid item xs={12} sm={4} align="center">
@@ -204,7 +172,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard6"
-                      editable={this.state.editing}
                     />
                   </Grid>
                 </React.Fragment>
@@ -217,7 +184,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard7"
-                      editable={this.state.editing}
                     />
                   </Grid>
                   <Grid item xs={12} sm={4} align="center">
@@ -226,7 +192,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard8"
-                      editable={this.state.editing}
                     />
                   </Grid>
                   <Grid item xs={12} sm={4} align="center">
@@ -235,7 +200,6 @@ class PersonalBridge extends Component {
                       username={this.state.username}
                       cardNumber={this.state.cardNumber}
                       bridgeCardNumber="bridgeCard9"
-                      editable={this.state.editing}
                     />
                   </Grid>
                 </React.Fragment>
@@ -247,6 +211,5 @@ class PersonalBridge extends Component {
     );
   }
 }
-const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(PersonalBridge);
+export default withFirebase(withRouter(PublicBridge));

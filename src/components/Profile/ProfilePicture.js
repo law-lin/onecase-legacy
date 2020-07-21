@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ButtonBase } from "@material-ui/core";
-import DefaultProfilePic from "../images/default-profile-pic.png";
-import { withFirebase } from "./Firebase";
+import DefaultProfilePic from "../../images/default-profile-pic.png";
+import { withFirebase } from "../Firebase";
 
 import { withStyles } from "@material-ui/core/styles";
 const styles = () => ({

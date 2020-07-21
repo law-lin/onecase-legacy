@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "@material-ui/core/Button";
 
-import { withFirebase } from "./Firebase";
+import { withFirebase } from "../Firebase";
 import { withRouter } from "react-router-dom";
 function SignOutButton(props) {
   const signOut = () => {
