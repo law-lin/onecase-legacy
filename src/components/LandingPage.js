@@ -299,7 +299,7 @@ function LandingPage(props) {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
+        <Grid container>
           <Grid item xs={12} align="center">
             <div className="twoblocks" />
           </Grid>
@@ -332,33 +332,34 @@ function LandingPage(props) {
               alt="scrapbook icon"
             />
           </Grid>
-          <Grid
-            container
-            align="center"
-            justify="center"
-            className="three-icons"
-            spacing={3}
-          >
-            <Grid item xs={12} sm={4} align="center">
-              <div className="first">Your Own Page</div>
-              <div className="first-description">
-                Let OneCase serve as your one-stop shop to display all your
-                favorite projects and things
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={4} align="center">
-              <div className="second">Interest Oriented</div>
-              <div className="second-description">
-                Uploading content shouldn’t feel too personal and daunting, let
-                your interests speak for themselves
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={4} align="center">
-              <div className="third">Creative Motivation</div>
-              <div className="third-description">
-                Get inspo from your friends, collaborate, and get excited to
-                try/learn new things
-              </div>
+          <Grid item xs={12} style={{ margin: "0 4.5% 0 4.5%" }}>
+            <Grid
+              container
+              justify="center"
+              className="three-icons"
+              spacing={3}
+            >
+              <Grid item xs={12} sm={4} align="center">
+                <div className="first">Your Own Page</div>
+                <div className="first-description">
+                  Let OneCase serve as your one-stop shop to display all your
+                  favorite projects and things
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4} align="center">
+                <div className="second">Interest Oriented</div>
+                <div className="second-description">
+                  Uploading content shouldn’t feel too personal and daunting,
+                  let your interests speak for themselves
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={4} align="center">
+                <div className="third">Creative Motivation</div>
+                <div className="third-description">
+                  Get inspo from your friends, collaborate, and get excited to
+                  try/learn new things
+                </div>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
