@@ -53,7 +53,7 @@ class ProfileCard extends Component {
 
   componentDidMount() {
     this.setState({ loading: true });
-    const username = this.props.match.params.username;
+    const username = this.props.match.params.username.toString().toLowerCase();
 
     this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
       const userIDState = snapshot.val();

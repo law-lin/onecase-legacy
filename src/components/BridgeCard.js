@@ -291,7 +291,13 @@ class BridgeCard extends Component {
           </div>
         )}
         {this.props.editable && (
-          <Card className={classes.root}>
+          <Card
+            className={classes.root}
+            style={{
+              borderRadius: "20px",
+              backgroundColor: "white",
+            }}
+          >
             <CardContent>
               {loading && <div>Loading...</div>}
               <h1>{bridgeCardTitle}</h1>
