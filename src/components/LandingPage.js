@@ -93,7 +93,6 @@ function LandingPage(props) {
 
         if (valid) {
           if (valid) {
-            console.log("signing up...");
             props.firebase
               .doCreateUserWithEmailAndPassword(email, password)
               .then((authUser) => {
@@ -126,6 +125,7 @@ function LandingPage(props) {
               .then(() => {
                 setOpen(false);
                 props.history.push(username);
+                props.history.go();
               })
               .catch((error) => {
                 setError(error);
