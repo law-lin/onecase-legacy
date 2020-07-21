@@ -18,13 +18,6 @@ import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
 
 function LandingPage(props) {
-  // let open = false;
-  // let email = "";
-  // let username = ""
-  // let password = ""
-  // let confirmPassword = ""
-  // let error = null;
-
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
