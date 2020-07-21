@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./landingpage.css";
-import background from "../images/background3.png";
+import background from "../images/background2.png";
 import TextField from "@material-ui/core/TextField";
 import Navbar from "./Navbar";
 import Grid from "@material-ui/core/Grid";
