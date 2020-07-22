@@ -4,6 +4,7 @@ import "../profile.css";
 import Navbar from "../../Navbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
+import UsernameButton from "../../UsernameButton";
 import ProfilePicture from "../ProfilePicture";
 import Grid from "@material-ui/core/Grid";
 import BridgeCard from "../BridgeCard";
@@ -116,7 +117,7 @@ class PersonalBridge extends Component {
         <Grid container spacing={3}>
           <Grid justify="center" container item xs={12} spacing={3}>
             <Grid item xs={12} sm={4} align="center">
-              <Username username={this.state.username} />
+              <UsernameButton username={this.state.username} />
               <ProfilePicture profilePicture={this.state.profilePicture} />
             </Grid>
             <Grid

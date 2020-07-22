@@ -10,7 +10,7 @@ import BridgeCard from "../BridgeCard";
 import Button from "@material-ui/core/Button";
 
 import Username from "../Username";
-
+import UsernameButton from "../../UsernameButton";
 import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
 import { withAuthorization } from "../../Session";
@@ -103,7 +103,7 @@ class PublicBridge extends Component {
         <Grid container spacing={3}>
           <Grid justify="center" container item xs={12} spacing={3}>
             <Grid item xs={12} sm={4} align="center">
-              <Username username={this.state.username} />
+              <UsernameButton username={this.state.username} />
               <ProfilePicture profilePicture={this.state.profilePicture} />
             </Grid>
             <Grid

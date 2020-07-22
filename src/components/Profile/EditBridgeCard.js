@@ -71,6 +71,13 @@ class EditBridgeCard extends Component {
       cardNumber: this.props.cardNumber,
       bridgeCardNumber: this.props.bridgeCardNumber,
       bridgeCardTitle: this.props.bridgeCardTitle,
+      yearCreated: this.props.yearCreated,
+      isProud: this.props.isProud,
+      coworkers: this.props.coworkers,
+      whyMake: this.props.whyMake,
+      description: this.props.description,
+      cardImageURL: this.props.cardImageURL,
+      imagePreviewURL: this.props.cardImageURL,
     });
   }
   handleOpen = () => {
@@ -125,26 +132,28 @@ class EditBridgeCard extends Component {
       description
     );
 
-    this.props.firebase.uploadCardImage(cardImage).on(
-      "state_changed",
-      (snapshot) => {
-        // progress function ...
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        this.setState({ progress });
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        this.props.firebase.uploadCardImageURL(
-          this.props.cardNumber,
-          this.props.bridgeCardNumber,
-          cardImage
-        );
-      }
-    );
+    if (cardImage != null) {
+      this.props.firebase.uploadCardImage(cardImage).on(
+        "state_changed",
+        (snapshot) => {
+          // progress function ...
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          this.setState({ progress });
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          this.props.firebase.uploadCardImageURL(
+            this.props.cardNumber,
+            this.props.bridgeCardNumber,
+            cardImage
+          );
+        }
+      );
+    }
     this.handleClose();
   };
 
