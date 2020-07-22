@@ -27,7 +27,7 @@ import { CardActionArea } from "@material-ui/core";
 const styles = () => ({
   root: {
     width: "70%",
-    height: 160,
+    minHeight: 190,
   },
   bullet: {
     display: "inline-block",
