@@ -268,10 +268,13 @@ class BridgeCard extends Component {
                           </Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                          <img
-                            style={{ height: "90%", width: "90%" }}
-                            src={cardImageURL}
-                          />
+                          {cardImageURL && (
+                            <img
+                              style={{ height: "100%", width: "100%" }}
+                              src={cardImageURL}
+                              alt="Show off your project!"
+                            />
+                          )}
                         </Grid>
                       </Grid>
                     </Grid>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
+import { withAuthorization } from "./Session";
 
-export default class FeedPage extends Component {
+class FeedPage extends Component {
   render() {
     return (
       <div>
@@ -11,3 +12,7 @@ export default class FeedPage extends Component {
     );
   }
 }
+
+const condition = (authenticated) => !!authenticated;
+
+export default withAuthorization(condition)(FeedPage);

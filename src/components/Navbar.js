@@ -24,7 +24,7 @@ function Navbar() {
     <nav className="zone top">
       <ul className="main-nav">
         <li className="logo">
-          <Link href="/" className={classes.root}>
+          <Link href="/feed" className={classes.root}>
             OneCase
           </Link>
         </li>

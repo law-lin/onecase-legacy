@@ -6,9 +6,26 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Link from "@material-ui/core/Link";
+
 import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
 import "./landingpage.css";
+
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    "&:hover": {
+      color: "#aaeef2",
+      textDecoration: "none",
+      textShadow: "2px 2px transparent",
+    },
+    color: "#d4f1f3",
+    textDecoration: "none",
+    textShadow: "2px 2px black",
+  },
+});
 
 function LandingPageNavbar(props) {
   const [open, setOpen] = useState(false);
@@ -41,11 +58,15 @@ function LandingPageNavbar(props) {
         setError(error);
       });
   };
+
+  const classes = useStyles();
   return (
     <nav className="zone top">
       <ul className="main-nav">
         <li className="logo">
-          <a href="/">OneCase</a>
+          <Link href="/" className={classes.root}>
+            OneCase
+          </Link>
         </li>
         <li className="push">
           <button
