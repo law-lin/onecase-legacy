@@ -26,6 +26,7 @@ const styles = () => ({
   profilePic: {
     width: 100,
     height: 100,
+    verticalAlign: "middle",
   },
 });
 
@@ -68,7 +69,7 @@ class ProfilePicture extends Component {
     const { classes, profilePicture } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         {this.props.editable && (
           <div>
             <input
@@ -100,7 +101,7 @@ class ProfilePicture extends Component {
             alt="profile pic"
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

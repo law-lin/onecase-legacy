@@ -14,6 +14,7 @@ import LinksCard from "../LinksCard";
 import Biography from "../Biography";
 import Username from "../Username";
 import Box from "@material-ui/core/Box";
+import MediaQuery from "react-responsive";
 
 import { withAuthorization } from "../../Session";
 
@@ -150,117 +151,156 @@ class PersonalProfilePage extends Component {
             <Grid container spacing={3} style={{ marginLeft: "5px" }}>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
-                  <Box clone order={{ xs: 2, sm: 1 }}>
-                    <Grid item xs={12} sm={4}>
-                      {!this.state.loading && (
-                        <Biography
-                          bio={this.state.bio}
-                          editable={this.state.editing}
-                          onChange={this.onBioChange}
-                        />
-                      )}
+                  <MediaQuery maxDeviceWidth={1224}>
+                    <Grid container item xs={12}>
+                      <Grid item xs={10}>
+                        {!this.state.loading && (
+                          <ProfilePicture
+                            profilePicture={this.state.profilePicture}
+                            editable={this.state.editing}
+                          />
+                        )}
+                        {!this.state.loading && (
+                          <Username
+                            username={this.state.username}
+                            editable={this.state.editing}
+                            onChange={this.onUsernameChange}
+                          />
+                        )}
+                      </Grid>
+                      <Grid item xs={2}></Grid>
+                      <Grid item xs={6}>
+                        {!this.state.loading && (
+                          <Biography
+                            bio={this.state.bio}
+                            editable={this.state.editing}
+                            onChange={this.onBioChange}
+                          />
+                        )}
+                      </Grid>
+                      <Grid item xs={6}>
+                        {!this.state.editing && (
+                          <Button onClick={this.handleEdit}>
+                            Edit Profile
+                          </Button>
+                        )}
+                        {this.state.editing && (
+                          <Button onClick={this.handleSave}>Save</Button>
+                        )}
+                        {this.state.editing && (
+                          <Button onClick={this.handleCancel}>Cancel</Button>
+                        )}
+                        <SignOutButton />
+                      </Grid>
                     </Grid>
-                  </Box>
-                  <Box clone order={{ xs: 1, sm: 2 }}>
-                    <Grid item xs={12} sm={4} align="center">
-                      {!this.state.loading && (
-                        <Username
-                          username={this.state.username}
-                          editable={this.state.editing}
-                          onChange={this.onUsernameChange}
-                        />
-                      )}
-                      {!this.state.loading && (
-                        <ProfilePicture
-                          profilePicture={this.state.profilePicture}
-                          editable={this.state.editing}
-                        />
-                      )}
-                    </Grid>
-                  </Box>
-                  <Box clone order={{ xs: 3, sm: 3 }}>
-                    <Grid item xs={12} sm={4} align="center">
-                      {!this.state.editing && (
-                        <Button onClick={this.handleEdit}>Edit Profile</Button>
-                      )}
-                      {this.state.editing && (
-                        <Button onClick={this.handleSave}>Save</Button>
-                      )}
-                      {this.state.editing && (
-                        <Button onClick={this.handleCancel}>Cancel</Button>
-                      )}
-                      <SignOutButton />
-                    </Grid>
-                  </Box>
+                  </MediaQuery>
+                  <MediaQuery minDeviceWidth={1224}>
+                    <Box clone order={{ xs: 2, sm: 1 }}>
+                      <Grid item xs={12} sm={4}>
+                        {!this.state.loading && (
+                          <Biography
+                            bio={this.state.bio}
+                            editable={this.state.editing}
+                            onChange={this.onBioChange}
+                          />
+                        )}
+                      </Grid>
+                    </Box>
+                    <Box clone order={{ xs: 1, sm: 2 }}>
+                      <Grid item xs={12} sm={4} align="center">
+                        {!this.state.loading && (
+                          <Username
+                            username={this.state.username}
+                            editable={this.state.editing}
+                            onChange={this.onUsernameChange}
+                          />
+                        )}
+                        {!this.state.loading && (
+                          <ProfilePicture
+                            profilePicture={this.state.profilePicture}
+                            editable={this.state.editing}
+                          />
+                        )}
+                      </Grid>
+                    </Box>
+                    <Box clone order={{ xs: 3, sm: 3 }}>
+                      <Grid item xs={12} sm={4} align="center">
+                        {!this.state.editing && (
+                          <Button onClick={this.handleEdit}>
+                            Edit Profile
+                          </Button>
+                        )}
+                        {this.state.editing && (
+                          <Button onClick={this.handleSave}>Save</Button>
+                        )}
+                        {this.state.editing && (
+                          <Button onClick={this.handleCancel}>Cancel</Button>
+                        )}
+                        <SignOutButton />
+                      </Grid>
+                    </Box>
+                  </MediaQuery>
                 </React.Fragment>
               </Grid>
               <Grid justify="center" container item xs={12} spacing={3}>
                 <React.Fragment>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card1"
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card2"
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card3"
                       editable={this.state.editing}
                     />
                   </Grid>
-                </React.Fragment>
-              </Grid>
-              <Grid justify="center" container item xs={12} spacing={3}>
-                <React.Fragment>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card4"
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card5"
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card6"
                       editable={this.state.editing}
                     />
                   </Grid>
-                </React.Fragment>
-              </Grid>
-              <Grid justify="center" container item xs={12} spacing={3}>
-                <React.Fragment>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card7"
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card8"
                       editable={this.state.editing}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4} align="center">
+                  <Grid item xs={6} sm={4} align="center">
                     <ProfileCard
                       username={this.state.username}
                       cardNumber="card9"

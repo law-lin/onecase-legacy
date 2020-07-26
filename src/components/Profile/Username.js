@@ -19,7 +19,7 @@ class Username extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         {this.props.editable && (
           <TextField
             defaultValue={this.props.username}
@@ -28,8 +28,10 @@ class Username extends Component {
             InputProps={{ disableUnderline: true }}
           />
         )}
-        {!this.props.editable && <h2>{this.props.username}</h2>}
-      </div>
+        {!this.props.editable && (
+          <h2 style={{ display: "inline" }}>{this.props.username}</h2>
+        )}
+      </React.Fragment>
     );
   }
 }
