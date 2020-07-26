@@ -1,7 +1,6 @@
 html,
 body {
   background-color: #f6f6f6;
-  width: 100%;
   height: 100%;
   margin: 0px;
   padding: 0px;
@@ -39,19 +38,23 @@ body {
 .lightbulb {
   width: 100px;
   height: 100px;
-  margin-right: 1vw;
-  bottom: 4vh;
+
   position: relative;
 }
 
 .scrapbook {
   width: 100px;
   height: 100px;
-  margin-left: 1.5vw;
-  bottom: 4vh;
+
   position: relative;
 }
 
+.community {
+  width: 150px;
+  height: 100px;
+
+  position: relative;
+}
 .one-description {
   display: flex;
   justify-content: center;
@@ -59,7 +62,7 @@ body {
 
 .description {
   font-size: 25px;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Mukta Mahee", sans-serif;
   color: #3e4e55;
   font-weight: 800;
   margin-bottom: 14vh;
@@ -93,47 +96,32 @@ body {
   display: flex;
   margin-top: 8vh;
   justify-content: space-around;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Mukta Mahee", sans-serif;
+  font-size: 20px;
+}
+
+.three-headers {
+  color: #007ea1;
   font-weight: 800;
-  font-size: 25px;
-}
-
-.first {
-  color: #007ea1;
-}
-
-.second {
-  color: #007ea1;
-}
-
-.third {
-  color: #007ea1;
+  font-size: 30px;
 }
 
 .icon-descriptions {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Mukta Mahee", sans-serif;
   margin-top: 2vh;
 }
 
-.first-description {
+.three-descriptions {
   width: 90%;
   color: #3e4e55;
-  font-weight: bold;
 }
 
-.second-description {
-  width: 90%;
+.three-image-descriptions {
+  width: 70%;
   color: #3e4e55;
-  font-weight: bold;
-}
-
-.third-description {
-  width: 90%;
-  color: #3e4e55;
-  font-weight: bold;
 }
 
 .center-screen {
@@ -169,7 +157,7 @@ body {
   margin: 0;
   height: 4em;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Mukta Mahee", sans-serif;
 }
 
 .logo {
@@ -185,4 +173,24 @@ li {
 
 .top {
   background-color: #3e4e55;
+}
+
+/* Footer */
+
+.footer {
+  margin-top: 15vh;
+  min-height: 15vh;
+  background-color: #3e4e55;
+  color: white;
+  font-size: 20px;
+}
+
+.footer-logo {
+  font-size: 30px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.social-media-icons {
+  margin: 0 10px 0 10px;
 }

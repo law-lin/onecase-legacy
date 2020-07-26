@@ -179,7 +179,7 @@ function LandingPage(props) {
               style={{
                 textAlign: "center",
                 fontSize: "50px",
-                fontFamily: "Montserrat",
+                fontFamily: "Mukta Mahee",
                 fontWeight: 700,
                 color: "#aaeef2",
                 textShadow: "2px 2px black",
@@ -193,7 +193,7 @@ function LandingPage(props) {
               style={{
                 textAlign: "center",
                 fontSize: "30px",
-                fontFamily: "Montserrat",
+                fontFamily: "Mukta Mahee",
                 fontWeight: 300,
                 color: "#ffffff",
               }}

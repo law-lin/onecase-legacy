@@ -181,7 +181,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#0FA9FF",
                               fontSize: "24px",
                               fontWeight: 700,
@@ -192,7 +192,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#0FA9FF",
                               fontSize: "24px",
                               fontWeight: 20,
@@ -203,7 +203,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#FF0000",
                               fontSize: "24px",
                               fontWeight: 700,
@@ -214,7 +214,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#FF0000",
                               fontSize: "24px",
                               fontWeight: 20,
@@ -225,7 +225,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#137212",
                               fontSize: "24px",
                               fontWeight: 700,
@@ -236,7 +236,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#137212",
                               fontSize: "24px",
                               fontWeight: 20,
@@ -247,7 +247,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#FF9900",
                               fontSize: "24px",
                               fontWeight: 700,
@@ -258,7 +258,7 @@ class BridgeCard extends Component {
                           <Typography
                             gutterBottom
                             style={{
-                              fontFamily: "Montserrat",
+                              fontFamily: "Mukta Mahee",
                               color: "#FF9900",
                               fontSize: "24px",
                               fontWeight: 20,
@@ -282,7 +282,7 @@ class BridgeCard extends Component {
                       <Typography
                         gutterBottom
                         style={{
-                          fontFamily: "Montserrat",
+                          fontFamily: "Mukta Mahee",
                           color: "#000000",
                           fontSize: "24px",
                           fontWeight: 700,
@@ -293,7 +293,7 @@ class BridgeCard extends Component {
                       <Typography
                         gutterBottom
                         style={{
-                          fontFamily: "Montserrat",
+                          fontFamily: "Mukta Mahee",
                           color: "#000000",
                           fontSize: "24px",
                           fontWeight: 20,

@@ -21,7 +21,7 @@ import { IconButton } from "@material-ui/core";
 
 const styles = () => ({
   root: {
-    fontFamily: "Montserrat",
+    fontFamily: "Mukta Mahee",
     fontWeight: 700,
     fontSize: "100px",
   },
@@ -29,27 +29,27 @@ const styles = () => ({
     fontSize: "36px",
   },
   input1: {
-    fontFamily: "Montserrat",
+    fontFamily: "Mukta Mahee",
     color: "#0FA9FF",
     fontSize: "24px",
   },
   input2: {
-    fontFamily: "Montserrat",
+    fontFamily: "Mukta Mahee",
     color: "#FF0000",
     fontSize: "24px",
   },
   input3: {
-    fontFamily: "Montserrat",
+    fontFamily: "Mukta Mahee",
     color: "#137212",
     fontSize: "24px",
   },
   input4: {
-    fontFamily: "Montserrat",
+    fontFamily: "Mukta Mahee",
     color: "#FF9900",
     fontSize: "24px",
   },
   input5: {
-    fontFamily: "Montserrat",
+    fontFamily: "Mukta Mahee",
     color: "#000000",
     fontSize: "24px",
   },
