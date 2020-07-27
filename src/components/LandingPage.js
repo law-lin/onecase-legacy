@@ -373,7 +373,7 @@ function LandingPage(props) {
         <Grid
           container
           spacing={5}
-          className="three-icons"
+          className="three-images"
           style={{ marginTop: "15vh" }}
         >
           <Grid item xs={12} style={{ margin: "0 5% 0 5%" }}>
@@ -386,7 +386,7 @@ function LandingPage(props) {
                 />
               </Grid>
               <Grid item xs={12} sm={6} align="center">
-                <div className="three-headers">User Centered Platform</div>
+                <div className="three-big-headers">User Centered Platform</div>
                 <div className="three-image-descriptions">
                   We’re a social network that revolves around people’s geniune
                   interests and personalities
@@ -397,7 +397,7 @@ function LandingPage(props) {
           <Grid item xs={12} style={{ margin: "0 5% 0 5%" }}>
             <Grid container alignItems="center" spacing={5}>
               <Grid item xs={12} sm={6} align="center">
-                <div className="three-headers">Untapped Potential</div>
+                <div className="three-big-headers">Untapped Potential</div>
                 <div className="three-image-descriptions">
                   A lot of the most interesting things we do go unbroadcasted or
                   unrecorded, this is a place to share it with others
@@ -422,7 +422,7 @@ function LandingPage(props) {
                 />
               </Grid>
               <Grid item xs={12} sm={6} align="center">
-                <div className="three-headers">
+                <div className="three-big-headers">
                   Creative and Professional Hub
                 </div>
                 <div className="three-image-descriptions">

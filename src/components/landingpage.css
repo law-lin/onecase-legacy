@@ -96,14 +96,14 @@ body {
   display: flex;
   margin-top: 8vh;
   justify-content: space-around;
-  font-family: "Mukta Mahee", sans-serif;
   font-size: 20px;
 }
 
 .three-headers {
   color: #007ea1;
   font-weight: 800;
-  font-size: 30px;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .icon-descriptions {
@@ -117,11 +117,26 @@ body {
 .three-descriptions {
   width: 90%;
   color: #3e4e55;
+  font-family: "Mukta Mahee", sans-serif;
+}
+
+.three-images {
+  display: flex;
+  margin-top: 8vh;
+  justify-content: space-around;
+}
+
+.three-big-headers {
+  color: #007ea1;
+  font-weight: 800;
+  font-size: 40px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .three-image-descriptions {
   width: 70%;
   color: #3e4e55;
+  font-size: 30px;
 }
 
 .center-screen {
