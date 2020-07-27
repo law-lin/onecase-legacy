@@ -18,6 +18,7 @@ import Box from "@material-ui/core/Box";
 import MediaQuery from "react-responsive";
 
 import { withAuthorization } from "../../Session";
+import BottomNavbar from "../../BottomNavbar";
 
 class PersonalProfilePage extends Component {
   constructor(props) {
@@ -275,6 +276,7 @@ class PersonalProfilePage extends Component {
               <LinksCard />
             </Grid>
           </Grid>
+          <BottomNavbar />
         </MediaQuery>
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
