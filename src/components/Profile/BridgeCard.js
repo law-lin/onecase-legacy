@@ -26,6 +26,12 @@ import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
   root: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
     width: "90%",
     minHeight: 160,
   },

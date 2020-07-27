@@ -17,6 +17,7 @@ import Card from "@material-ui/core/Card";
 import Username from "../Username";
 
 import { withAuthorization } from "../../Session";
+import NotesCard from "../NotesCard";
 
 class PersonalBridge extends Component {
   constructor(props) {
@@ -135,14 +136,27 @@ class PersonalBridge extends Component {
                 >
                   <React.Fragment>
                     <Grid item xs={12} sm={4}></Grid>
-                    <Grid item xs={12} sm={4} align="center">
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={4}
+                      justify="center"
+                      align="center"
+                      direction="column"
+                    >
                       <Card
                         style={{
+                          fontFamily: ["Montserrat", "sans-serif"],
                           backgroundColor: "black",
                           color: "white",
                           fontSize: "30px",
                           borderRadius: "15px",
                           width: "100%",
+                          height: "50%",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
                         }}
                       >
                         {this.state.cardTitle}
@@ -261,7 +275,7 @@ class PersonalBridge extends Component {
                   <ProfilePicture profilePicture={this.state.profilePicture} />
                 </Grid>
                 <Grid item xs={12}>
-                  notes
+                  <NotesCard />
                 </Grid>
               </Grid>
             </Grid>
