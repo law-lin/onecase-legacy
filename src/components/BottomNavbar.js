@@ -9,6 +9,7 @@ import SignOutButton from "./Profile/SignOutButton";
 
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
 import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
+import { ReactComponent as SignOutIcon } from "./icons/signout.svg";
 import { withFirebase } from "./Firebase";
 import { Link, withRouter } from "react-router-dom";
 import "./landingpage.css";

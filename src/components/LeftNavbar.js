@@ -15,7 +15,10 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   root: {
     "&:hover": {
-      textDecoration: "none",
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
     },
     fontFamily: ["Montserrat", "sans-serif"],
     fontWeight: 600,

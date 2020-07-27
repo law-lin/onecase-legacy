@@ -19,12 +19,14 @@ import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
   root: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
     width: "90%",
     minHeight: 160,
-  },
-  bullet: {
-    display: "inline-block",
-    transform: "scale(0.8)",
   },
   title: {
     fontSize: 14,
