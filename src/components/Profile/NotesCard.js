@@ -44,6 +44,10 @@ const useStyles = makeStyles({
 function NotesCard(props) {
   const classes = useStyles();
 
+  function handleChange(event) {
+    props.onChange(event.target.value);
+  }
+
   return (
     <React.Fragment>
       {!props.editable && (
@@ -51,7 +55,7 @@ function NotesCard(props) {
           <CardContent>
             <h1 className={classes.header}>Notes</h1>
             <Divider className={classes.divider} />
-            <p className={classes.notes}>blah blah blah</p>
+            <p className={classes.notes}>{props.notes}</p>
           </CardContent>
           <CardActions>
             <Button size="small"></Button>
@@ -65,11 +69,18 @@ function NotesCard(props) {
             <Divider className={classes.divider} />
             <TextField
               className={classes.editNotes}
+              onChange={handleChange}
               defaultValue={props.notes}
               multiline
-              rows={6}
-              rowsMax="6"
-              InputProps={{ disableUnderline: true, className: classes.input }}
+              rows={30}
+              rowsMax="30"
+              inputProps={{
+                maxLength: 1700,
+                className: classes.input,
+              }}
+              InputProps={{
+                disableUnderline: true,
+              }}
             />
           </CardContent>
           <CardActions>

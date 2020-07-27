@@ -28,11 +28,19 @@ class PersonalBridge extends Component {
       profilePicture: null,
       cardTitle: null,
       cardNumber: null,
+      notes: "",
       userIDLoading: true,
       cardNumberLoading: true,
       profilePictureLoading: true,
     };
   }
+
+  onNotesChange = (value) => {
+    this.setState({
+      notes: value,
+    });
+  };
+
   handleEdit = () => {
     this.setState({
       editing: true,
@@ -42,6 +50,8 @@ class PersonalBridge extends Component {
   };
 
   handleDone = () => {
+    if (this.state.notes !== "")
+      this.props.firebase.editNotes(this.state.cardNumber, this.state.notes);
     this.setState({
       editing: false,
       canSave: false,
@@ -82,6 +92,22 @@ class PersonalBridge extends Component {
                     cardNumber: state,
                     cardNumberLoading: false,
                   });
+                  this.props.firebase
+                    .cards(userIDState, state)
+                    .on("value", (snapshot) => {
+                      const state = snapshot.val();
+                      if (state) {
+                        this.setState({
+                          notes: state.notes,
+                          notesLoading: false,
+                        });
+                      } else {
+                        this.setState({
+                          notes: "",
+                          notesLoading: false,
+                        });
+                      }
+                    });
                 } else {
                   this.setState({
                     cardNumber: null,
@@ -275,10 +301,14 @@ class PersonalBridge extends Component {
                   <ProfilePicture profilePicture={this.state.profilePicture} />
                 </Grid>
                 <Grid item xs={12}>
-                  <NotesCard
-                    cardNumber={this.state.cardNumber}
-                    editable={this.state.editing}
-                  />
+                  {!this.state.notesLoading && (
+                    <NotesCard
+                      notes={this.state.notes}
+                      cardNumber={this.state.cardNumber}
+                      editable={this.state.editing}
+                      onChange={this.onNotesChange}
+                    />
+                  )}
                 </Grid>
               </Grid>
             </Grid>
