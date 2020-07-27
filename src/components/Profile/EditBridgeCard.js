@@ -63,11 +63,11 @@ class EditBridgeCard extends Component {
     cardImage: null,
     bridgeCardNumber: null,
     bridgeCardTitle: null,
-    yearCreated: null,
-    isProud: null,
-    coworkers: null,
-    whyMake: null,
-    description: null,
+    yearCreated: "",
+    isProud: "",
+    coworkers: "",
+    whyMake: "",
+    description: "",
     imageLoading: true,
     imagePreviewURL: null,
   };
@@ -165,7 +165,10 @@ class EditBridgeCard extends Component {
 
   render() {
     const { classes } = this.props;
-
+    console.log("ok");
+    console.log(this.state.yearCreated);
+    console.log(this.state.isProud);
+    console.log(this.state.whyMake);
     return (
       <div>
         {this.props.editable && (
@@ -312,7 +315,7 @@ class EditBridgeCard extends Component {
                           fullWidth
                         />
                       </Grid>
-                      <Grid item xs={12} md={6} justify="center">
+                      <Grid item xs={12} md={6}>
                         <div>
                           {!this.state.imagePreviewURL && (
                             <Grid

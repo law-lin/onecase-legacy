@@ -69,6 +69,22 @@ class PublicBridge extends Component {
                     cardNumber: state,
                     cardNumberLoading: false,
                   });
+                  this.props.firebase
+                    .cards(userIDState, state)
+                    .on("value", (snapshot) => {
+                      const state = snapshot.val();
+                      if (state) {
+                        this.setState({
+                          notes: state.notes,
+                          notesLoading: false,
+                        });
+                      } else {
+                        this.setState({
+                          notes: "",
+                          notesLoading: false,
+                        });
+                      }
+                    });
                 } else {
                   this.setState({
                     cardNumber: null,
@@ -245,7 +261,7 @@ class PublicBridge extends Component {
                   <ProfilePicture profilePicture={this.state.profilePicture} />
                 </Grid>
                 <Grid item xs={12}>
-                  <NotesCard />
+                  <NotesCard notes={this.state.notes} />
                 </Grid>
               </Grid>
             </Grid>
