@@ -1,5 +1,7 @@
 import React from "react";
 
+import { ReactComponent as SignOutIcon } from "../icons/signout.svg";
+
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -9,14 +11,20 @@ import { withRouter } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     "&:hover": {
-      backgroundColor: "red",
+      textDecoration: "none",
     },
-    color: "white",
-    backgroundColor: "black",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 600,
+    color: "#3E4E56",
+    textDecoration: "none",
     textTransform: "none",
-    marginTop: "200px",
-    fontSize: "20px",
-    justifyContent: "center",
+    fontSize: "30px",
+    width: "100%",
+    justifyContent: "left",
+  },
+  icon: {
+    width: "50px",
+    marginRight: "20px",
   },
 });
 
@@ -28,13 +36,8 @@ function SignOutButton(props) {
     props.firebase.doSignOut();
   };
   return (
-    <Button
-      type="button"
-      variant="contained"
-      color="blue"
-      className={classes.root}
-      onClick={signOut}
-    >
+    <Button className={classes.root} onClick={signOut}>
+      <SignOutIcon className={classes.icon} />
       Sign Out
     </Button>
   );

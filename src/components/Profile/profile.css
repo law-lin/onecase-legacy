@@ -1,5 +1,13 @@
-.bg {
+html,
+body {
   background-color: #e0dede;
+  height: 100%;
+  margin: 0px;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+.bg {
   min-height: 100vh;
   margin: 0 auto;
 }

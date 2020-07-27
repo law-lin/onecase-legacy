@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   root: {
     margin: "0 5% 0 5%",
     minWidth: "90%",
-    height: 800,
+    height: 700,
     backgroundColor: "#3E4E55",
   },
   bullet: {

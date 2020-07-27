@@ -17,7 +17,8 @@ const useStyles = makeStyles({
     "&:hover": {
       textDecoration: "none",
     },
-
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 600,
     color: "#3E4E56",
     textDecoration: "none",
     textTransform: "none",
