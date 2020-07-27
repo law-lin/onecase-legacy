@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import SignOutButton from "./Profile/SignOutButton";
 
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
 import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
@@ -57,7 +58,7 @@ function LeftNavbar(props) {
   }
 
   return (
-    <Grid container alignItems="center" style={{ margin: "100% 0 100% 5%" }}>
+    <Grid container alignItems="center" style={{ margin: "50% 0 0 5%" }}>
       <Grid item xs={12}>
         <a href="/feed" style={{ textDecoration: "none" }}>
           <Button className={classes.root}>
@@ -88,6 +89,9 @@ function LeftNavbar(props) {
           )}
           Profile
         </Button>
+      </Grid>
+      <Grid item xs={12} align="center">
+        <SignOutButton />
       </Grid>
     </Grid>
   );

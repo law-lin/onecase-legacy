@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "../profile.css";
-import SignOutButton from "../SignOutButton";
+
 import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
 
@@ -182,7 +182,6 @@ class PersonalProfilePage extends Component {
                         {this.state.editing && (
                           <Button onClick={this.handleCancel}>Cancel</Button>
                         )}
-                        <SignOutButton />
                       </Grid>
                       <Grid item xs={6}>
                         {!this.state.loading && (
@@ -329,7 +328,6 @@ class PersonalProfilePage extends Component {
                         {this.state.editing && (
                           <Button onClick={this.handleCancel}>Cancel</Button>
                         )}
-                        <SignOutButton />
                       </Grid>
                     </Box>
                   </React.Fragment>
