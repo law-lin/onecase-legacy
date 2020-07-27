@@ -275,7 +275,10 @@ class PersonalBridge extends Component {
                   <ProfilePicture profilePicture={this.state.profilePicture} />
                 </Grid>
                 <Grid item xs={12}>
-                  <NotesCard />
+                  <NotesCard
+                    cardNumber={this.state.cardNumber}
+                    editable={this.state.editing}
+                  />
                 </Grid>
               </Grid>
             </Grid>

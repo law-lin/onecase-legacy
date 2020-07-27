@@ -4,16 +4,22 @@ import "../profile.css";
 import Navbar from "../../Navbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
+import UsernameButton from "../../UsernameButton";
 import ProfilePicture from "../ProfilePicture";
 import Grid from "@material-ui/core/Grid";
 import BridgeCard from "../BridgeCard";
 import Button from "@material-ui/core/Button";
+import MediaQuery from "react-responsive";
+import LeftNavbar from "../../LeftNavbar";
+
+import Card from "@material-ui/core/Card";
 
 import Username from "../Username";
-import UsernameButton from "../../UsernameButton";
+
+import { withAuthorization } from "../../Session";
+import NotesCard from "../NotesCard";
 import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
-import { withAuthorization } from "../../Session";
 
 class PublicBridge extends Component {
   constructor(props) {
@@ -98,115 +104,153 @@ class PublicBridge extends Component {
   render() {
     return (
       <div className="bg">
-        <Navbar />
+        <MediaQuery minDeviceWidth={1224}>
+          <Navbar />
+          <Grid container style={{ marginTop: "10px" }}>
+            <Grid item xs={12} sm={2}>
+              <LeftNavbar />
+            </Grid>
+            <Grid item xs={12} sm={7}>
+              <Grid container spacing={3}>
+                <Grid
+                  justify="center"
+                  container
+                  item
+                  xs={12}
+                  spacing={3}
+                  style={{ minHeight: "20vh" }}
+                >
+                  <React.Fragment>
+                    <Grid item xs={12} sm={4}></Grid>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={4}
+                      justify="center"
+                      align="center"
+                      direction="column"
+                    >
+                      <Card
+                        style={{
+                          fontFamily: ["Montserrat", "sans-serif"],
+                          backgroundColor: "black",
+                          color: "white",
+                          fontSize: "30px",
+                          borderRadius: "15px",
+                          width: "100%",
+                          height: "50%",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {this.state.cardTitle}
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={4} align="center"></Grid>
+                  </React.Fragment>
+                </Grid>
+                {!this.state.cardNumberLoading && (
+                  <Grid justify="center" container item xs={12} spacing={3}>
+                    <React.Fragment>
+                      <Grid item xs={6} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard1"
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard2"
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard3"
+                        />
+                      </Grid>
+                    </React.Fragment>
 
-        <Grid container spacing={3}>
-          <Grid justify="center" container item xs={12} spacing={3}>
-            <Grid item xs={12} sm={4} align="center">
-              <UsernameButton username={this.state.username} />
-              <ProfilePicture profilePicture={this.state.profilePicture} />
+                    <React.Fragment>
+                      <Grid item xs={6} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard4"
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="5"
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard6"
+                        />
+                      </Grid>
+
+                      <Grid item xs={6} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard7"
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard8"
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={4} align="center">
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard9"
+                        />
+                      </Grid>
+                    </React.Fragment>
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={4}
-              align="center"
-              style={{ fontSize: "50px", color: "maroon" }}
-            >
-              {this.state.cardTitle}
+            <Grid item xs={12} sm={3} align="center">
+              <Grid container>
+                <Grid item xs={12}>
+                  <UsernameButton
+                    display="block"
+                    username={this.state.username}
+                  />
+                  <ProfilePicture profilePicture={this.state.profilePicture} />
+                </Grid>
+                <Grid item xs={12}>
+                  <NotesCard />
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={4}></Grid>
           </Grid>
-
-          {!this.state.cardNumberLoading && (
-            <Grid justify="center" container item xs={12} spacing={3}>
-              <Grid justify="center" container item xs={12} spacing={3}>
-                <React.Fragment>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard1"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard2"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard3"
-                    />
-                  </Grid>
-                </React.Fragment>
-              </Grid>
-              <Grid justify="center" container item xs={12} spacing={3}>
-                <React.Fragment>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard4"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="5"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard6"
-                    />
-                  </Grid>
-                </React.Fragment>
-              </Grid>
-              <Grid justify="center" container item xs={12} spacing={3}>
-                <React.Fragment>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard7"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard8"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4} align="center">
-                    <BridgeCard
-                      userID={this.state.userID}
-                      username={this.state.username}
-                      cardNumber={this.state.cardNumber}
-                      bridgeCardNumber="bridgeCard9"
-                    />
-                  </Grid>
-                </React.Fragment>
-              </Grid>
-            </Grid>
-          )}
-        </Grid>
+        </MediaQuery>
       </div>
     );
   }
