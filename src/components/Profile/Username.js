@@ -29,7 +29,7 @@ class Username extends Component {
           />
         )}
         {!this.props.editable && (
-          <h2 style={{ display: "inline" }}>{this.props.username}</h2>
+          <h2 style={{ display: this.props.display }}>{this.props.username}</h2>
         )}
       </React.Fragment>
     );

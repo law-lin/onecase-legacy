@@ -145,15 +145,15 @@ class PersonalProfilePage extends Component {
   render() {
     return (
       <div className="bg">
-        <Navbar />
-        <Grid container style={{ marginTop: "10px" }}>
-          <Grid item xs={12} sm={9}>
-            <Grid container spacing={3} style={{ marginLeft: "5px" }}>
-              <Grid justify="center" container item xs={12} spacing={3}>
-                <React.Fragment>
-                  <MediaQuery maxDeviceWidth={1224}>
+        <MediaQuery maxDeviceWidth={1224}>
+          <Navbar />
+          <Grid container style={{ marginTop: "10px" }}>
+            <Grid item xs={12} sm={9}>
+              <Grid container spacing={3} style={{ marginLeft: "5px" }}>
+                <Grid justify="center" container item xs={12} spacing={3}>
+                  <React.Fragment>
                     <Grid container item xs={12}>
-                      <Grid item xs={10}>
+                      <Grid item xs={8}>
                         {!this.state.loading && (
                           <ProfilePicture
                             profilePicture={this.state.profilePicture}
@@ -162,23 +162,14 @@ class PersonalProfilePage extends Component {
                         )}
                         {!this.state.loading && (
                           <Username
+                            display="inline"
                             username={this.state.username}
                             editable={this.state.editing}
                             onChange={this.onUsernameChange}
                           />
                         )}
                       </Grid>
-                      <Grid item xs={2}></Grid>
-                      <Grid item xs={6}>
-                        {!this.state.loading && (
-                          <Biography
-                            bio={this.state.bio}
-                            editable={this.state.editing}
-                            onChange={this.onBioChange}
-                          />
-                        )}
-                      </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={4}>
                         {!this.state.editing && (
                           <Button onClick={this.handleEdit}>
                             Edit Profile
@@ -192,13 +183,112 @@ class PersonalProfilePage extends Component {
                         )}
                         <SignOutButton />
                       </Grid>
+                      <Grid item xs={6}>
+                        {!this.state.loading && (
+                          <Biography
+                            margin="0px"
+                            bio={this.state.bio}
+                            editable={this.state.editing}
+                            onChange={this.onBioChange}
+                          />
+                        )}
+                      </Grid>
+                      <Grid item xs={6}>
+                        follow
+                      </Grid>
+                      <Grid item xs={12} align="right">
+                        switch
+                      </Grid>
                     </Grid>
-                  </MediaQuery>
-                  <MediaQuery minDeviceWidth={1224}>
+                  </React.Fragment>
+                </Grid>
+                <Grid justify="center" container item xs={12} spacing={3}>
+                  <React.Fragment>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card1"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card2"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card3"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card4"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card5"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card6"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card7"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card8"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card9"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                  </React.Fragment>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+              <LinksCard />
+            </Grid>
+          </Grid>
+        </MediaQuery>
+        <MediaQuery minDeviceWidth={1224}>
+          <Navbar />
+          <Grid container style={{ marginTop: "10px" }}>
+            <Grid item xs={12} sm={2}></Grid>
+            <Grid item xs={12} sm={7}>
+              <Grid container spacing={3} style={{ marginLeft: "5px" }}>
+                <Grid justify="center" container item xs={12} spacing={3}>
+                  <React.Fragment>
                     <Box clone order={{ xs: 2, sm: 1 }}>
                       <Grid item xs={12} sm={4}>
                         {!this.state.loading && (
                           <Biography
+                            margin="25px"
                             bio={this.state.bio}
                             editable={this.state.editing}
                             onChange={this.onBioChange}
@@ -239,82 +329,82 @@ class PersonalProfilePage extends Component {
                         <SignOutButton />
                       </Grid>
                     </Box>
-                  </MediaQuery>
-                </React.Fragment>
-              </Grid>
-              <Grid justify="center" container item xs={12} spacing={3}>
-                <React.Fragment>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card1"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card2"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card3"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card4"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card5"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card6"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card7"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card8"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={4} align="center">
-                    <ProfileCard
-                      username={this.state.username}
-                      cardNumber="card9"
-                      editable={this.state.editing}
-                    />
-                  </Grid>
-                </React.Fragment>
+                  </React.Fragment>
+                </Grid>
+                <Grid justify="center" container item xs={12} spacing={3}>
+                  <React.Fragment>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card1"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card2"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card3"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card4"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card5"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card6"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card7"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card8"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={4} align="center">
+                      <ProfileCard
+                        username={this.state.username}
+                        cardNumber="card9"
+                        editable={this.state.editing}
+                      />
+                    </Grid>
+                  </React.Fragment>
+                </Grid>
               </Grid>
             </Grid>
+            <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+              <LinksCard />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-            <LinksCard />
-          </Grid>
-        </Grid>
+        </MediaQuery>
       </div>
     );
   }

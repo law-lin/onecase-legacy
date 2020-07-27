@@ -11,7 +11,7 @@ class Biography extends Component {
 
   render() {
     return (
-      <div style={{ marginLeft: "25px", fontSize: "20px" }}>
+      <React.Fragment>
         {this.props.editable && (
           <TextField
             label="Biography"
@@ -24,8 +24,12 @@ class Biography extends Component {
             InputProps={{ disableUnderline: true }}
           />
         )}
-        {!this.props.editable && <p>{this.props.bio}</p>}
-      </div>
+        {!this.props.editable && (
+          <p style={{ fontSize: "20px", marginLeft: this.props.margin }}>
+            {this.props.bio}
+          </p>
+        )}
+      </React.Fragment>
     );
   }
 }
