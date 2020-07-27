@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "../profile.css";
 import SignOutButton from "../SignOutButton";
 import Navbar from "../../Navbar";
+import LeftNavbar from "../../LeftNavbar";
 
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
@@ -279,7 +280,9 @@ class PersonalProfilePage extends Component {
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
           <Grid container style={{ marginTop: "10px" }}>
-            <Grid item xs={12} sm={2}></Grid>
+            <Grid item xs={12} sm={2}>
+              <LeftNavbar />
+            </Grid>
             <Grid item xs={12} sm={7}>
               <Grid container spacing={3} style={{ marginLeft: "5px" }}>
                 <Grid justify="center" container item xs={12} spacing={3}>

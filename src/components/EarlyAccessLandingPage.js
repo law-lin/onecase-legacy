@@ -109,7 +109,6 @@ export default function EarlyAccessLandingPage() {
       <EarlyAccessNavbar />
       <Grid
         container
-        alignItems="center"
         justify="center"
         direction="column"
         style={{

@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import { withAuthorization } from "./Session";
+import LeftNavbar from "./LeftNavbar";
 
 class FeedPage extends Component {
   render() {
     return (
       <div>
         <Navbar />
-        FeedPage
+        <LeftNavbar />
       </div>
     );
   }

@@ -18,7 +18,7 @@ class ProfilePage extends Component {
   }
   componentDidMount() {
     this.setState({ loading: true });
-
+    console.log("mounting");
     let formattedUsername = this.props.match.params.username
       .toString()
       .toLowerCase();
@@ -53,6 +53,7 @@ class ProfilePage extends Component {
   }
 
   render() {
+    console.log("render profile");
     if (this.state.valid) {
       if (!this.state.loading) {
         if (this.state.personal) {
