@@ -58,9 +58,23 @@ function BottomNavbar(props) {
 
   return (
     <BottomNavigation className={classes.root}>
-      <BottomNavigationAction icon={<HomeIcon />} component={Link} to="/feed" />
-      <BottomNavigationAction icon={<ExhibitionsIcon />} />
       <BottomNavigationAction
+        onClick={() => {
+          window.location.href = "/feed";
+        }}
+        icon={<HomeIcon />}
+      />
+
+      <BottomNavigationAction
+        onClick={() => {
+          window.location.href = "/exhibitions";
+        }}
+        icon={<ExhibitionsIcon />}
+      />
+      <BottomNavigationAction
+        onClick={() => {
+          window.location.href = "/" + username;
+        }}
         icon={<img style={{ width: "50px" }} src={profilePicture} />}
       />
     </BottomNavigation>
