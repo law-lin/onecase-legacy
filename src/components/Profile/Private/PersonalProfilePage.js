@@ -151,7 +151,7 @@ class PersonalProfilePage extends Component {
           <Navbar />
           <Grid container style={{ marginTop: "10px" }}>
             <Grid item xs={12} sm={9}>
-              <Grid container spacing={3} style={{ marginLeft: "5px" }}>
+              <Grid container spacing={3}>
                 <Grid justify="center" container item xs={12} spacing={3}>
                   <React.Fragment>
                     <Grid container item xs={12}>
@@ -285,8 +285,15 @@ class PersonalProfilePage extends Component {
               <LeftNavbar />
             </Grid>
             <Grid item xs={12} sm={7}>
-              <Grid container spacing={3} style={{ marginLeft: "5px" }}>
-                <Grid justify="center" container item xs={12} spacing={3}>
+              <Grid container spacing={3}>
+                <Grid
+                  justify="center"
+                  container
+                  item
+                  xs={12}
+                  spacing={3}
+                  style={{ minHeight: "20vh" }}
+                >
                   <React.Fragment>
                     <Box clone order={{ xs: 2, sm: 1 }}>
                       <Grid item xs={12} sm={4}>

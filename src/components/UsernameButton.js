@@ -4,7 +4,7 @@ import Link from "@material-ui/core/Link";
 function UsernameButton(props) {
   return (
     <Link
-      style={{ color: "black", fontSize: "32px" }}
+      style={{ display: props.display, color: "black", fontSize: "32px" }}
       href={"/" + props.username}
     >
       {props.username}

@@ -13,6 +13,11 @@ import LinksCard from "../LinksCard";
 import Biography from "../Biography";
 import Username from "../Username";
 import Box from "@material-ui/core/Box";
+
+import MediaQuery from "react-responsive";
+import LeftNavbar from "../../LeftNavbar";
+import BottomNavbar from "../../BottomNavbar";
+
 import { withAuthorization } from "../../Session";
 import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
@@ -65,110 +70,235 @@ class PublicProfilePage extends Component {
       if (this.state.exists) {
         return (
           <div className="bg">
-            <Navbar />
-            <Grid container style={{ marginTop: "10px" }}>
-              <Grid item xs={12} sm={9}>
-                <Grid container spacing={3} style={{ marginLeft: "5px" }}>
-                  <Grid justify="center" container item xs={12} spacing={3}>
-                    <React.Fragment>
-                      <Box clone order={{ xs: 2, sm: 1 }}>
-                        <Grid item xs={12} sm={4}>
-                          {!this.state.loading && (
-                            <Biography bio={this.state.bio} />
-                          )}
+            <MediaQuery maxDeviceWidth={1224}>
+              <Navbar />
+              <Grid container style={{ marginTop: "10px" }}>
+                <Grid item xs={12} sm={9}>
+                  <Grid container spacing={3} style={{ marginLeft: "5px" }}>
+                    <Grid justify="center" container item xs={12} spacing={3}>
+                      <React.Fragment>
+                        <Grid container item xs={12}>
+                          <Grid item xs={8}>
+                            {!this.state.loading && (
+                              <ProfilePicture
+                                profilePicture={this.state.profilePicture}
+                              />
+                            )}
+                            {!this.state.loading && (
+                              <Username
+                                display="inline"
+                                username={this.state.username}
+                                onChange={this.onUsernameChange}
+                              />
+                            )}
+                          </Grid>
+                          <Grid item xs={4}>
+                            {!this.state.editing && (
+                              <Button onClick={this.handleEdit}>
+                                Edit Profile
+                              </Button>
+                            )}
+                            {this.state.editing && (
+                              <Button onClick={this.handleSave}>Save</Button>
+                            )}
+                            {this.state.editing && (
+                              <Button onClick={this.handleCancel}>
+                                Cancel
+                              </Button>
+                            )}
+                          </Grid>
+                          <Grid item xs={6}>
+                            {!this.state.loading && (
+                              <Biography
+                                margin="0px"
+                                bio={this.state.bio}
+                                onChange={this.onBioChange}
+                              />
+                            )}
+                          </Grid>
+                          <Grid item xs={6}>
+                            follow
+                          </Grid>
+                          <Grid item xs={12} align="right">
+                            switch
+                          </Grid>
                         </Grid>
-                      </Box>
-                      <Box clone order={{ xs: 1, sm: 2 }}>
-                        <Grid item xs={12} sm={4} align="center">
-                          {!this.state.loading && (
-                            <Username username={this.state.username} />
-                          )}
-                          {!this.state.loading && (
-                            <ProfilePicture
-                              profilePicture={this.state.profilePicture}
-                            />
-                          )}
+                      </React.Fragment>
+                    </Grid>
+                    <Grid justify="center" container item xs={12} spacing={3}>
+                      <React.Fragment>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card1"
+                          />
                         </Grid>
-                      </Box>
-                      <Box clone order={{ xs: 3, sm: 3 }}>
-                        <Grid item xs={12} sm={4} align="center">
-                          Follow
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card2"
+                          />
                         </Grid>
-                      </Box>
-                    </React.Fragment>
-                  </Grid>
-                  <Grid justify="center" container item xs={12} spacing={3}>
-                    <React.Fragment>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card1"
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card2"
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card3"
-                        />
-                      </Grid>
-                    </React.Fragment>
-                  </Grid>
-                  <Grid justify="center" container item xs={12} spacing={3}>
-                    <React.Fragment>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card4"
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card5"
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card6"
-                        />
-                      </Grid>
-                    </React.Fragment>
-                  </Grid>
-                  <Grid justify="center" container item xs={12} spacing={3}>
-                    <React.Fragment>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card7"
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card8"
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
-                        <ProfileCard
-                          username={this.state.username}
-                          cardNumber="card9"
-                        />
-                      </Grid>
-                    </React.Fragment>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card3"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card4"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card5"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card6"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card7"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card8"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card9"
+                          />
+                        </Grid>
+                      </React.Fragment>
+                    </Grid>
                   </Grid>
                 </Grid>
+                <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+                  <LinksCard />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-                <LinksCard />
+              <BottomNavbar />
+            </MediaQuery>
+            <MediaQuery minDeviceWidth={1224}>
+              <Navbar />
+              <Grid container style={{ marginTop: "10px" }}>
+                <Grid item xs={12} sm={2}>
+                  <LeftNavbar />
+                </Grid>
+                <Grid item xs={12} sm={7}>
+                  <Grid container spacing={3} style={{ marginLeft: "5px" }}>
+                    <Grid justify="center" container item xs={12} spacing={3}>
+                      <React.Fragment>
+                        <Box clone order={{ xs: 2, sm: 1 }}>
+                          <Grid item xs={12} sm={4}>
+                            {!this.state.loading && (
+                              <Biography
+                                margin="25px"
+                                bio={this.state.bio}
+                                onChange={this.onBioChange}
+                              />
+                            )}
+                          </Grid>
+                        </Box>
+                        <Box clone order={{ xs: 1, sm: 2 }}>
+                          <Grid item xs={12} sm={4} align="center">
+                            {!this.state.loading && (
+                              <Username
+                                username={this.state.username}
+                                onChange={this.onUsernameChange}
+                              />
+                            )}
+                            {!this.state.loading && (
+                              <ProfilePicture
+                                profilePicture={this.state.profilePicture}
+                              />
+                            )}
+                          </Grid>
+                        </Box>
+                        <Box clone order={{ xs: 3, sm: 3 }}>
+                          <Grid item xs={12} sm={4} align="center">
+                            Follow
+                          </Grid>
+                        </Box>
+                      </React.Fragment>
+                    </Grid>
+                    <Grid justify="center" container item xs={12} spacing={3}>
+                      <React.Fragment>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card1"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card2"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card3"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card4"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card5"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card6"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card7"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card8"
+                          />
+                        </Grid>
+                        <Grid item xs={6} sm={4} align="center">
+                          <ProfileCard
+                            username={this.state.username}
+                            cardNumber="card9"
+                          />
+                        </Grid>
+                      </React.Fragment>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+                  <LinksCard />
+                </Grid>
               </Grid>
-            </Grid>
+            </MediaQuery>
           </div>
         );
       } else {

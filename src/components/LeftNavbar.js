@@ -64,20 +64,26 @@ function LeftNavbar(props) {
   return (
     <Grid container alignItems="center" style={{ margin: "50% 0 0 5%" }}>
       <Grid item xs={12}>
-        <a href="/feed" style={{ textDecoration: "none" }}>
-          <Button className={classes.root}>
-            <HomeIcon className={classes.icon} />
-            Home
-          </Button>
-        </a>
+        <Button
+          onClick={() => {
+            window.location.href = "/feed";
+          }}
+          className={classes.root}
+        >
+          <HomeIcon className={classes.icon} />
+          Home
+        </Button>
       </Grid>
       <Grid item xs={12}>
-        <a href="/exhibitions" style={{ textDecoration: "none" }}>
-          <Button className={classes.root}>
-            <ExhibitionsIcon className={classes.icon} />
-            Exhibitions
-          </Button>
-        </a>
+        <Button
+          onClick={() => {
+            window.location.href = "/feed";
+          }}
+          className={classes.root}
+        >
+          <ExhibitionsIcon className={classes.icon} />
+          Exhibitions
+        </Button>
       </Grid>
       <Grid item xs={12}>
         <Button
