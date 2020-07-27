@@ -354,11 +354,23 @@ class EditBridgeCard extends Component {
                                 width: "100%",
                               }}
                             >
-                              <img
-                                style={{ minHeight: "90%", width: "100%" }}
-                                src={this.state.imagePreviewURL}
-                                alt="preview bridge card img"
+                              <input
+                                type="file"
+                                ref={(fileUpload) => {
+                                  this.fileUpload = fileUpload;
+                                }}
+                                style={{ display: "none" }}
+                                onChange={this.handleImageChange}
                               />
+                              <IconButton
+                                onClick={() => this.fileUpload.click()}
+                              >
+                                <img
+                                  style={{ minHeight: "90%", width: "100%" }}
+                                  src={this.state.imagePreviewURL}
+                                  alt="preview bridge card img"
+                                />
+                              </IconButton>
                             </Grid>
                           )}
                         </div>
