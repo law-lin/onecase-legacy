@@ -73,8 +73,8 @@ function LandingPage(props) {
         }
 
         // Username validation
-        const userNameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
-        if (userNameRegexp.test(username)) {
+        const usernameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
+        if (usernameRegexp.test(username)) {
           if (!snapshot.exists()) {
             setUsernameError(null);
           } else {

@@ -25,6 +25,7 @@ class PersonalProfilePage extends Component {
     super(props);
     this.state = {
       userID: null,
+      oldBio: null,
       oldUsername: null,
       username: null,
       profilePicture: null,
@@ -33,6 +34,7 @@ class PersonalProfilePage extends Component {
       canCancel: false,
       bio: null,
       loading: false,
+      error: null,
     };
   }
 
@@ -63,6 +65,7 @@ class PersonalProfilePage extends Component {
                 if (state.bio) {
                   this.setState({
                     bio: state.bio,
+                    oldBio: state.bio,
                   });
                 } else {
                   this.setState({
@@ -119,25 +122,67 @@ class PersonalProfilePage extends Component {
   };
 
   handleSave = () => {
-    if (
-      this.state.username !== this.state.oldUsername &&
-      this.state.username !== "" &&
-      this.state.username != null
-    )
-      this.props.firebase.editUsername(
-        this.state.oldUsername,
-        this.state.username
-      );
-    if (this.state.bio != null) this.props.firebase.editBio(this.state.bio);
-    this.setState({
-      editing: false,
-      canSave: false,
-      canCancel: false,
-    });
+    const { username, oldUsername, bio, error } = this.state;
+    let formattedUsername = username.toLowerCase();
+
+    let valid = true;
+
+    if (username === oldUsername) {
+      if (bio != null) this.props.firebase.editBio(bio);
+      this.setState({
+        editing: false,
+        canSave: false,
+        canCancel: false,
+      });
+    } else {
+      this.props.firebase
+        .checkDuplicateUsername(formattedUsername)
+        .on("value", (snapshot) => {
+          const usernameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
+          console.log(usernameRegexp.test(username));
+          if (usernameRegexp.test(username)) {
+            if (!snapshot.exists()) {
+              this.setState({
+                error: null,
+              });
+            } else {
+              this.setState({
+                error: "Username is already taken.",
+              });
+              valid = false;
+            }
+          } else {
+            this.setState({
+              error:
+                "Please use only letters (a-z, A-Z), numbers, underscores, and periods. (1-30 characters)",
+            });
+            valid = false;
+          }
+          if (valid) {
+            if (
+              username !== oldUsername &&
+              username !== "" &&
+              username != null
+            ) {
+              this.props.firebase.editUsername(oldUsername, username);
+              window.location.href = "/" + username;
+            }
+
+            if (bio != null) this.props.firebase.editBio(bio);
+            this.setState({
+              editing: false,
+              canSave: false,
+              canCancel: false,
+            });
+          }
+        });
+    }
   };
 
   handleCancel = () => {
     this.setState({
+      username: this.state.oldUsername,
+      bio: this.state.oldBio,
       editing: false,
       canSave: false,
       canCancel: false,
@@ -337,6 +382,7 @@ class PersonalProfilePage extends Component {
                         {this.state.editing && (
                           <Button onClick={this.handleCancel}>Cancel</Button>
                         )}
+                        {this.state.error}
                       </Grid>
                     </Box>
                   </React.Fragment>

@@ -18,7 +18,6 @@ class ProfilePage extends Component {
   }
   componentDidMount() {
     this.setState({ loading: true });
-    console.log("mounting");
     let formattedUsername = this.props.match.params.username
       .toString()
       .toLowerCase();
@@ -30,6 +29,8 @@ class ProfilePage extends Component {
       this.props.firebase.auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           this.props.firebase.currentUser().on("value", (snapshot) => {
+            console.log(snapshot.val().username.toLowerCase());
+            console.log(formattedUsername);
             if (snapshot.val().username.toLowerCase() === formattedUsername) {
               this.setState({
                 personal: true,
