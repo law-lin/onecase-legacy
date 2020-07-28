@@ -81,7 +81,7 @@ class EarlyAccessFormBase extends Component {
           style={{
             backgroundColor: "white",
             width: "70%",
-            margin: "20px 10px 10px 50px",
+            margin: "20px 10px 10px 20px",
           }}
           onChange={this.handleChange}
           helperText={error}
@@ -92,9 +92,10 @@ class EarlyAccessFormBase extends Component {
           type="submit"
           color="primary"
           style={{
-            margin: "20px 50px 10px 5px",
+            margin: "20px 20px 10px 5px",
             maxHeight: "60px",
             width: "30%",
+            padding: "0px",
           }}
         >
           Early Access
