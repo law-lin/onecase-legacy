@@ -15,9 +15,33 @@ import LeftNavbar from "../../LeftNavbar";
 import Card from "@material-ui/core/Card";
 
 import Username from "../Username";
-
+import { withStyles } from "@material-ui/core/styles";
 import { withAuthorization } from "../../Session";
 import NotesCard from "../NotesCard";
+
+const styles = () => ({
+  root: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#C4C4C4",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "grey",
+    color: "white",
+    borderRadius: "15px",
+    width: "25%",
+    height: "25%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
 
 class PersonalBridge extends Component {
   constructor(props) {
@@ -96,7 +120,7 @@ class PersonalBridge extends Component {
                     .cards(userIDState, state)
                     .on("value", (snapshot) => {
                       const state = snapshot.val();
-                      if (state) {
+                      if (state.notes) {
                         this.setState({
                           notes: state.notes,
                           notesLoading: false,
@@ -142,6 +166,7 @@ class PersonalBridge extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
@@ -177,7 +202,9 @@ class PersonalBridge extends Component {
                           backgroundColor: "black",
                           color: "white",
                           fontSize: "30px",
+                          fontWeight: 600,
                           borderRadius: "15px",
+                          alignSelf: "center",
                           width: "100%",
                           height: "50%",
                           display: "flex",
@@ -188,12 +215,30 @@ class PersonalBridge extends Component {
                         {this.state.cardTitle}
                       </Card>
                     </Grid>
-                    <Grid item xs={12} sm={4} align="center">
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={4}
+                      justify="center"
+                      align="center"
+                      direction="column"
+                    >
                       {!this.state.editing && (
-                        <Button onClick={this.handleEdit}>Edit</Button>
+                        <Button
+                          className={classes.root}
+                          onClick={this.handleEdit}
+                        >
+                          Edit
+                        </Button>
                       )}
                       {this.state.editing && (
-                        <Button onClick={this.handleDone}>Done</Button>
+                        <Button
+                          className={classes.root}
+                          onClick={this.handleDone}
+                        >
+                          Done
+                        </Button>
                       )}
                     </Grid>
                   </React.Fragment>
@@ -320,4 +365,4 @@ class PersonalBridge extends Component {
 }
 const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(PersonalBridge);
+export default withAuthorization(condition)(withStyles(styles)(PersonalBridge));

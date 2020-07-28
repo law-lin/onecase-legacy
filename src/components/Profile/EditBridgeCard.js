@@ -53,6 +53,27 @@ const styles = () => ({
     color: "#000000",
     fontSize: "24px",
   },
+  button: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#C4C4C4",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "grey",
+    color: "white",
+    borderRadius: "15px",
+    width: "25%",
+    height: "25%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
 });
 
 class EditBridgeCard extends Component {
@@ -173,8 +194,12 @@ class EditBridgeCard extends Component {
       <div>
         {this.props.editable && (
           <Fragment>
-            <Button tip="Edit Bridge Card" onClick={this.handleOpen}>
-              EDIT BRIDGE CARD
+            <Button
+              className={classes.button}
+              tip="Edit Bridge Card"
+              onClick={this.handleOpen}
+            >
+              Edit
             </Button>
 
             <Dialog

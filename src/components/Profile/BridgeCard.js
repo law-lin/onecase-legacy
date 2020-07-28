@@ -33,7 +33,8 @@ const styles = () => ({
       outline: "none",
     },
     width: "90%",
-    minHeight: 160,
+    minHeight: 200,
+    maxHeight: 300,
   },
   bullet: {
     display: "inline-block",
@@ -162,7 +163,7 @@ class BridgeCard extends Component {
             >
               <CardContent>
                 {loading && <div>Loading...</div>}
-                <h1>{bridgeCardTitle}</h1>
+                <h1 style={{ minHeight: 150 }}>{bridgeCardTitle}</h1>
               </CardContent>
             </CardActionArea>
 
@@ -324,7 +325,7 @@ class BridgeCard extends Component {
           >
             <CardContent>
               {loading && <div>Loading...</div>}
-              <h1>{bridgeCardTitle}</h1>
+              <h1 style={{ minHeight: 80 }}>{bridgeCardTitle}</h1>
             </CardContent>
             <CardActions>
               <EditBridgeCard
