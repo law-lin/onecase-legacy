@@ -123,8 +123,8 @@ export default function EarlyAccessLandingPage() {
           item
           xs={12}
           style={{
-            width: "700px",
-            minHeight: "250px",
+            minWidth: "35%",
+            maxWidth: "80%",
             backgroundColor: "#3e4e55",
             borderRadius: "15px",
             borderStyle: "solid",

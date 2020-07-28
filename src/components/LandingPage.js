@@ -177,7 +177,8 @@ function LandingPage(props) {
             item
             xs={12}
             style={{
-              width: "700px",
+              minWidth: "35%",
+              maxWidth: "80%",
               minHeight: "200px",
               backgroundColor: "#3e4e55",
               borderRadius: "15px",
