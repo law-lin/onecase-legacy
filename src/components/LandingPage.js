@@ -211,7 +211,9 @@ function LandingPage(props) {
                 color: "#ffffff",
               }}
             >
-              A Personal Archive + Social Network
+              <p style={{ margin: "0 20px 0 20px" }}>
+                A Personal Archive + Social Network
+              </p>
             </Grid>
             <Grid
               item
@@ -221,7 +223,7 @@ function LandingPage(props) {
             >
               <button
                 type="button"
-                className="btn btn-primary btn-lg signup"
+                className="button"
                 onClick={handleClickOpen}
               >
                 Sign Up

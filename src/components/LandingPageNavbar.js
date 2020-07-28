@@ -69,11 +69,7 @@ function LandingPageNavbar(props) {
           </Link>
         </li>
         <li className="push">
-          <button
-            type="button"
-            className="btn btn-primary log"
-            onClick={handleClickOpen}
-          >
+          <button type="button" className="button" onClick={handleClickOpen}>
             Login
           </button>
         </li>
