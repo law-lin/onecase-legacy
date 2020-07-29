@@ -100,13 +100,14 @@ class Firebase {
   // *** Edit Profile Functions (Setters) ***
 
   editUsername = (oldUsername, username) => {
+    this.db.ref("usernames").child(`${oldUsername.toLowerCase()}`).remove();
+
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       username,
     });
-
     let formattedUsername = username.toLowerCase();
-    this.db.ref("usernames").child(`${oldUsername.toLowerCase()}`).remove();
-    return this.db.ref(`usernames`).update({
+
+    this.db.ref(`usernames`).update({
       [formattedUsername]: this.auth.currentUser.uid,
     });
   };

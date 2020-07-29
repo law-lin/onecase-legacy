@@ -19,6 +19,7 @@ import MediaQuery from "react-responsive";
 
 import { withAuthorization } from "../../Session";
 import BottomNavbar from "../../BottomNavbar";
+import { Typography } from "@material-ui/core";
 
 class PersonalProfilePage extends Component {
   constructor(props) {
@@ -154,7 +155,7 @@ class PersonalProfilePage extends Component {
           } else {
             this.setState({
               error:
-                "Please use only letters (a-z, A-Z), numbers, underscores, and periods. (1-30 characters)",
+                "Please use only letters (a-z, A-Z), numbers, underscores, and periods for username. (1-30 characters)",
             });
             valid = false;
           }
@@ -382,7 +383,15 @@ class PersonalProfilePage extends Component {
                         {this.state.editing && (
                           <Button onClick={this.handleCancel}>Cancel</Button>
                         )}
-                        {this.state.error}
+                        <Typography
+                          style={{
+                            color: "red",
+                            fontSize: "20px",
+                            fontFamily: ["Montserrat", "sans-serif"],
+                          }}
+                        >
+                          {this.state.error}
+                        </Typography>
                       </Grid>
                     </Box>
                   </React.Fragment>
