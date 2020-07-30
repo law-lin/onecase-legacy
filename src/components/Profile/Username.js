@@ -8,6 +8,7 @@ const useStyles = makeStyles({
   edit: {
     backgroundColor: "white",
     width: "60%",
+    display: "block",
   },
   input: {
     fontSize: "28px",

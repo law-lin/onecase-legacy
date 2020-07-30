@@ -1,57 +1,87 @@
-import React, { Component } from "react";
-import { ButtonBase } from "@material-ui/core";
+import React, { useState, Fragment } from "react";
+import { ButtonBase, Typography } from "@material-ui/core";
+
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+
 import DefaultProfilePic from "../../images/default-profile-pic.png";
 import { withFirebase } from "../Firebase";
+import ImageUploader from "react-images-upload";
+import Avatar from "react-avatar";
 
-import { withStyles } from "@material-ui/core/styles";
-const styles = () => ({
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
   root: {
-    width: 350,
-    height: 160,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  input: {
-    display: "none",
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    borderRadius: "50px",
   },
   profilePic: {
     width: 100,
     height: 100,
     verticalAlign: "middle",
   },
+  change: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#2D2C2C",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    textTransform: "none",
+    width: "100px",
+    height: "50px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    color: "#FFFFFF",
+    fontSize: "12px",
+    position: "absolute",
+    bottom: 0,
+    background: "#000000",
+
+    opacity: 0.65,
+    boxSizing: "border-box",
+    borderBottomLeftRadius: "50px",
+    borderBottomRightRadius: "50px",
+  },
 });
 
-class ProfilePicture extends Component {
-  constructor(props) {
-    super(props);
+function ProfilePicture(props) {
+  const classes = useStyles();
 
-    this.state = {
-      username: this.props.username,
-      profilePicture: null,
-      loading: false,
-    };
-  }
+  const [open, setOpen] = useState(false);
+  const { profilePicture } = props;
 
-  handleChange = (e) => {
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleChange = (e) => {
     if (e.target.files[0]) {
       const profilePicture = e.target.files[0];
-      this.props.firebase.uploadProfilePicture(profilePicture).on(
+      props.firebase.uploadProfilePicture(profilePicture).on(
         "state_changed",
         (snapshot) => {
           // progress function ...
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
-          this.setState({ progress });
         },
         (error) => {
           // Error function ...
@@ -59,50 +89,54 @@ class ProfilePicture extends Component {
         },
         () => {
           // complete function ...
-          this.props.firebase.uploadProfilePictureURL(profilePicture);
+          props.firebase.uploadProfilePictureURL(profilePicture);
         }
       );
     }
   };
 
-  render() {
-    const { classes, profilePicture } = this.props;
-
-    return (
-      <React.Fragment>
-        {this.props.editable && (
-          <div>
-            <input
-              type="file"
-              ref={"profile-pic"}
-              className={classes.input}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="profile-pic">
-              <ButtonBase
-                onClick={(e) => {
-                  this.refs["profile-pic"].click();
-                }}
-              >
-                <img
-                  className={classes.profilePic}
-                  src={profilePicture}
-                  alt="profile pic"
-                />
-                {/* <span style={{ backgroundImage: profilePicture }} /> */}
-              </ButtonBase>
-            </label>
-          </div>
-        )}
-        {!this.props.editable && (
-          <img
-            className={classes.profilePic}
+  return (
+    <React.Fragment>
+      {props.editable && (
+        <div
+          style={{
+            display: "inline-flex",
+            position: "relative",
+            verticalAlign: "middle",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Avatar
+            round="50px"
+            style={{ position: "relative" }}
             src={profilePicture}
-            alt="profile pic"
-          />
-        )}
-      </React.Fragment>
-    );
-  }
+          ></Avatar>
+          <Button className={classes.change} onClick={handleOpen}>
+            change profile picture
+          </Button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            fullWidth={true}
+            maxWidth={"lg"}
+            PaperProps={{
+              style: { backgroundColor: "#E4E4E4" },
+            }}
+          >
+            <DialogTitle></DialogTitle>
+            <DialogContent dividers></DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button color="primary">Save</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      )}
+      {!props.editable && <Avatar round="50px" src={profilePicture} />}
+    </React.Fragment>
+  );
 }
-export default withFirebase(withStyles(styles)(ProfilePicture));
+export default withFirebase(ProfilePicture);

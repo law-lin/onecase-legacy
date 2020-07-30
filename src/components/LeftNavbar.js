@@ -3,7 +3,7 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import SignOutButton from "./Profile/SignOutButton";
-
+import Avatar from "react-avatar";
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
 import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
 import { withFirebase } from "./Firebase";
@@ -91,10 +91,11 @@ function LeftNavbar(props) {
           className={classes.root}
         >
           {!loading && (
-            <img
-              className={classes.icon}
+            <Avatar
+              round="50px"
+              size="50"
+              style={{ marginRight: "20px" }}
               src={profilePicture}
-              alt="profile pic"
             />
           )}
           Profile
