@@ -34,9 +34,9 @@ const useStyles = makeStyles({
     borderRadius: "50px",
   },
   profilePic: {
-    width: 100,
-    height: 100,
-    verticalAlign: "middle",
+    "&:hover $change": {
+      display: "block",
+    },
   },
   change: {
     "&:hover": {
@@ -46,6 +46,7 @@ const useStyles = makeStyles({
     "&:focus": {
       outline: "none",
     },
+    display: "none",
     textTransform: "none",
     width: "100px",
     height: "50px",
@@ -194,6 +195,7 @@ function ProfilePicture(props) {
     <React.Fragment>
       {props.editable && (
         <div
+          className={classes.profilePic}
           style={{
             display: "inline-flex",
             position: "relative",
@@ -214,7 +216,6 @@ function ProfilePicture(props) {
             onChange={handleChange}
           />
           <Button
-            style={{ display: "none" }}
             className={classes.change}
             onClick={() => fileUpload.current.click()}
           >
