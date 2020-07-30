@@ -1,37 +1,60 @@
 import React, { Component } from "react";
-
+import Typography from "@material-ui/core/Typography";
 import { withFirebase } from "../Firebase";
-
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
-class Biography extends Component {
-  handleChange = (event) => {
-    this.props.onChange(event.target.value);
+const useStyles = makeStyles({
+  input: {
+    fontSize: "20px",
+    fontFamily: ["Montserrat", "sans-serif"],
+  },
+  display: {
+    fontSize: "20px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    whiteSpace: "pre-line",
+  },
+});
+
+function Biography(props) {
+  const classes = useStyles();
+
+  const handleChange = (event) => {
+    props.onChange(event.target.value);
   };
 
-  render() {
-    return (
-      <React.Fragment>
-        {this.props.editable && (
-          <TextField
-            label="Biography"
-            defaultValue={this.props.bio}
-            onChange={this.handleChange}
-            multiline
-            style={{ backgroundColor: "white", width: "100%" }}
-            rows={6}
-            rowsMax="6"
-            InputProps={{ disableUnderline: true }}
-          />
-        )}
-        {!this.props.editable && (
-          <p style={{ fontSize: "20px", marginLeft: this.props.margin }}>
-            {this.props.bio}
-          </p>
-        )}
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      {props.editable && (
+        <TextField
+          label="Biography"
+          defaultValue={props.bio}
+          onChange={handleChange}
+          multiline
+          style={{
+            backgroundColor: "white",
+            width: "100%",
+            marginLeft: props.margin,
+          }}
+          rows={6}
+          rowsMax="6"
+          InputProps={{
+            disableUnderline: true,
+          }}
+          inputProps={{ className: classes.input }}
+        />
+      )}
+      {!props.editable && (
+        <Typography
+          className={classes.display}
+          style={{ marginLeft: props.margin }}
+        >
+          {props.bio}
+          <br />
+        </Typography>
+      )}
+    </React.Fragment>
+  );
 }
 
 export default withFirebase(Biography);

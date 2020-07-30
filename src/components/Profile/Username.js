@@ -1,39 +1,50 @@
 import React, { Component } from "react";
 
 import { withFirebase } from "../Firebase";
-
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
-class Username extends Component {
-  constructor(props) {
-    super(props);
+const useStyles = makeStyles({
+  edit: {
+    backgroundColor: "white",
+    width: "60%",
+  },
+  input: {
+    fontSize: "28px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 700,
+  },
+  display: {
+    fontSize: "28px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 700,
+  },
+});
+function Username(props) {
+  const classes = useStyles();
 
-    this.state = {
-      loading: false,
-    };
-  }
-
-  handleChange = (event) => {
-    this.props.onChange(event.target.value);
+  const handleChange = (event) => {
+    props.onChange(event.target.value);
   };
 
-  render() {
-    return (
-      <React.Fragment>
-        {this.props.editable && (
-          <TextField
-            defaultValue={this.props.username}
-            onChange={this.handleChange}
-            style={{ backgroundColor: "white", width: "30%" }}
-            InputProps={{ disableUnderline: true }}
-          />
-        )}
-        {!this.props.editable && (
-          <h2 style={{ display: this.props.display }}>{this.props.username}</h2>
-        )}
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      {props.editable && (
+        <TextField
+          className={classes.edit}
+          defaultValue={props.username}
+          onChange={handleChange}
+          InputProps={{ disableUnderline: true }}
+          inputProps={{ className: classes.input }}
+        />
+      )}
+      {!props.editable && (
+        <h2 className={classes.display} style={{ display: props.display }}>
+          {props.username}
+        </h2>
+      )}
+    </React.Fragment>
+  );
 }
 
 export default withFirebase(Username);

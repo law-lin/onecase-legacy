@@ -20,6 +20,65 @@ import MediaQuery from "react-responsive";
 import { withAuthorization } from "../../Session";
 import BottomNavbar from "../../BottomNavbar";
 import { Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = () => ({
+  root: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#C4C4C4",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "grey",
+    color: "white",
+    borderRadius: "15px",
+    width: "25%",
+    height: "25%",
+  },
+  save: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#52bf75",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#05872e",
+    color: "white",
+    borderRadius: "15px",
+    width: "25%",
+    height: "25%",
+    marginRight: "1.5%",
+  },
+  cancel: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#f07171",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#f03737",
+    color: "white",
+    borderRadius: "15px",
+    width: "25%",
+    height: "25%",
+  },
+});
 
 class PersonalProfilePage extends Component {
   constructor(props) {
@@ -191,6 +250,7 @@ class PersonalProfilePage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div className="bg">
         <MediaQuery maxDeviceWidth={1224}>
@@ -219,15 +279,28 @@ class PersonalProfilePage extends Component {
                       </Grid>
                       <Grid item xs={4}>
                         {!this.state.editing && (
-                          <Button onClick={this.handleEdit}>
-                            Edit Profile
+                          <Button
+                            className={classes.root}
+                            onClick={this.handleEdit}
+                          >
+                            Edit
                           </Button>
                         )}
                         {this.state.editing && (
-                          <Button onClick={this.handleSave}>Save</Button>
+                          <Button
+                            className={classes.save}
+                            onClick={this.handleSave}
+                          >
+                            Save
+                          </Button>
                         )}
                         {this.state.editing && (
-                          <Button onClick={this.handleCancel}>Cancel</Button>
+                          <Button
+                            className={classes.cancel}
+                            onClick={this.handleCancel}
+                          >
+                            Cancel
+                          </Button>
                         )}
                       </Grid>
                       <Grid item xs={6}>
@@ -373,15 +446,28 @@ class PersonalProfilePage extends Component {
                     <Box clone order={{ xs: 3, sm: 3 }}>
                       <Grid item xs={12} sm={4} align="center">
                         {!this.state.editing && (
-                          <Button onClick={this.handleEdit}>
-                            Edit Profile
+                          <Button
+                            className={classes.root}
+                            onClick={this.handleEdit}
+                          >
+                            Edit
                           </Button>
                         )}
                         {this.state.editing && (
-                          <Button onClick={this.handleSave}>Save</Button>
+                          <Button
+                            className={classes.save}
+                            onClick={this.handleSave}
+                          >
+                            Save
+                          </Button>
                         )}
                         {this.state.editing && (
-                          <Button onClick={this.handleCancel}>Cancel</Button>
+                          <Button
+                            className={classes.cancel}
+                            onClick={this.handleCancel}
+                          >
+                            Cancel
+                          </Button>
                         )}
                         <Typography
                           style={{
@@ -476,4 +562,6 @@ class PersonalProfilePage extends Component {
 }
 const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(PersonalProfilePage);
+export default withAuthorization(condition)(
+  withStyles(styles)(PersonalProfilePage)
+);
