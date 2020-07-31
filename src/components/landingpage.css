@@ -7,9 +7,9 @@ body {
   overflow-x: hidden;
 }
 
-.container {
+.main-container {
   margin: 0 auto;
-  width: 2000px;
+  max-width: 2000px;
 }
 .push {
   margin-left: auto;
