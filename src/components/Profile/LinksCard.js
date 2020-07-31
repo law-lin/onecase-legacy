@@ -90,10 +90,13 @@ function LinksCard(props) {
   }, []);
 
   const handleClick = (linkURL) => {
-    if (!~linkURL.indexOf("http")) {
-      linkURL = "http://" + linkURL;
+    const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+    if (urlregexp.test(linkURL)) {
+      if (!~linkURL.indexOf("http")) {
+        linkURL = "http://" + linkURL;
+      }
+      window.location.href = linkURL;
     }
-    window.location.href = linkURL;
   };
   return (
     <React.Fragment>
