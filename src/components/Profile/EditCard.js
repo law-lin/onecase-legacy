@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useState } from "react";
 
 // MUI Stuff
 import Button from "@material-ui/core/Button";
@@ -7,84 +7,235 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 import { withFirebase } from "../Firebase";
 // Icons
 
-class EditCard extends Component {
-  state = {
-    name: "",
-    open: false,
-  };
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-  handleClose = () => {
-    this.setState({ open: false });
+const useStyles = makeStyles({
+  root: {
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontWeight: 700,
+    fontSize: "100px",
+  },
+  button: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#C4C4C4",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "grey",
+    color: "white",
+    borderRadius: "15px",
+  },
+  category: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#72b1cc",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    fontWeight: 700,
+    backgroundColor: "#3E4E55",
+    color: "#D4F1F3",
+    borderRadius: "15px",
+    height: "100px",
+    width: "250px",
+  },
+  dialogPaper: {
+    minHeight: "70vh",
+    maxHeight: "80vh",
+  },
+});
+
+function EditCard(props) {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [cardTitle, setCardTitle] = useState(null);
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+  const handleClose = () => {
+    setOpen(false);
   };
-  handleSubmit = () => {
-    const { cardTitle } = this.state;
-    this.props.firebase.editCard(
-      this.props.oldCardTitle,
-      this.props.cardNumber,
-      cardTitle
-    );
-    this.handleClose();
-  };
-  render() {
-    return (
-      <div>
-        {this.props.editable && (
-          <Fragment>
-            <Button tip="Edit Card" onClick={this.handleOpen}>
-              EDIT CARD
-            </Button>
 
-            <Dialog
-              open={this.state.open}
-              onClose={this.handleClose}
-              fullWidth
-              maxWidth="sm"
-            >
-              <DialogTitle>Edit this card</DialogTitle>
-              <DialogContent>
-                <form>
-                  <TextField
-                    name="cardTitle"
-                    type="text"
-                    label="Card Title"
-                    multiline
-                    rows={1}
-                    rowsMax={2}
-                    styles={{ height: 500 }}
-                    defaultValue={this.props.cardTitle}
-                    placeholder="Update card title"
-                    value={this.state.cardTitle}
-                    onChange={this.handleChange}
-                    fullWidth
-                  />
-                </form>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
-                  Cancel
-                </Button>
-                <Button onClick={this.handleSubmit} color="primary">
-                  Save
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </Fragment>
-        )}
-      </div>
-    );
-  }
+  const handleClick = (category) => {
+    props.firebase.editCard(props.oldCardTitle, props.cardNumber, category);
+    setOpen(false)
+    handleClose()
+  };
+
+  return (
+    <div>
+      {props.editable && (
+        <Fragment>
+          <Button
+            className={classes.button}
+            tip="Edit Card"
+            onClick={handleOpen}
+          >
+            Edit Card
+          </Button>
+
+          <Dialog
+            classes={{ paper: classes.dialogPaper }}
+            PaperProps={{
+              style: { backgroundColor: "#E4E4E4" },
+            }}
+            open={open}
+            onClose={handleClose}
+            fullWidth
+            maxWidth="md"
+          >
+            <DialogTitle>Choose this card's category!</DialogTitle>
+            <DialogContent>
+              <Grid container spacing={3} alignItems="center">
+                <Grid container item xs={12} spacing={3} align="center">
+                  <Grid item xs={4} sm={4}>
+                    <Button
+                 
+                      className={classes.category} onClick={() => handleClick("School Projects")}
+                    >
+                      School Projects
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => () => handleClick("Art")}>
+                      Art
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Food")}>
+                      Food
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={1} align="center">
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Tech")}>
+                      Tech
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Music")}>
+                      Music
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Fashion")}>
+                      Fashion
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={3} align="center">
+                  <Grid item xs={6} sm={4}>
+                    <Button
+                      className={classes.category} onClick={() => handleClick("Self-Improvement")}
+                    >
+                      Self-Improvement
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Fitness")}>
+                      Fitness
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("About Me")}>
+                      About Me
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={3} align="center">
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Photography")}>
+                      Photography
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Time Capsule")}>
+                      Time Capsule
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Pets/Animals")}>
+                      Pets/Animals
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={3} align="center">
+                  <Grid item xs={6} sm={4}>
+                    <Button className={classes.category} onClick={() => handleClick("Funny Stuff")}>
+                      Funny Stuff
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button  className={classes.category} onClick={() => handleClick("Video Games")}>
+                      Video Games
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button
+                  
+                      className={classes.category} onClick={() => handleClick("Shows/Movies/Books")}
+                    >
+                      Shows/Movies/Books
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+              {/* <FormControl>
+                  <Select
+                    defaultValue={props.cardTitle}
+                    value={state.cardTitle}
+                    onChange={handleChange}
+                    input={<Input />}
+                  >
+                    <MenuItem value="School Projects">School Projects</MenuItem>
+                    <MenuItem value="Photography">Photography</MenuItem>
+                    <MenuItem value="Art">Art</MenuItem>
+                    <MenuItem value="Music">Music</MenuItem>
+                    <MenuItem value="Fashion">Fashion</MenuItem>
+                    <MenuItem value="Funny Stuff">Funny Stuff</MenuItem>
+                    <MenuItem value="About Me">About Me</MenuItem>
+                    <MenuItem value="Self-Improvement">
+                      Self-Improvement
+                    </MenuItem>
+                    <MenuItem value="Time Capsule">Time Capsule</MenuItem>
+                    <MenuItem value="Pets/Animals">Pets/Animals</MenuItem>
+                    <MenuItem value="Photos of Self">Photos of Self</MenuItem>
+                    <MenuItem value="Favorite Shows/Movies">
+                      Favorite Shows/Movies
+                    </MenuItem>
+                    <MenuItem value="Favorite Books">Favorite Books</MenuItem>
+                    <MenuItem value="Video Games">Video Games</MenuItem>
+                    <MenuItem value="Tech">Tech</MenuItem>
+                    <MenuItem value="Food">Food</MenuItem>)
+                  </Select>
+                </FormControl> */}
+            </DialogContent>
+          </Dialog>
+        </Fragment>
+      )}
+    </div>
+  );
 }
 
 export default withFirebase(EditCard);

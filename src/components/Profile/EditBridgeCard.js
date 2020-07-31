@@ -21,7 +21,7 @@ import { IconButton } from "@material-ui/core";
 
 const styles = () => ({
   root: {
-    fontFamily: "Mukta Mahee",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 700,
     fontSize: "100px",
   },

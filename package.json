@@ -18,7 +18,8 @@
     "react-responsive": "^8.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "recompose": "^0.30.0"
+    "recompose": "^0.30.0",
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "svgr": "svgr -d src/icons assets/",

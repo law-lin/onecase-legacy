@@ -13,6 +13,7 @@ import { getCroppedImg, getRotatedImage } from "../canvasUtils";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import { v4 as uuidv4 } from "uuid";
 
 import DefaultProfilePic from "../../images/default-profile-pic.png";
 import { withFirebase } from "../Firebase";
@@ -34,6 +35,11 @@ const useStyles = makeStyles({
     borderRadius: "50px",
   },
   profilePic: {
+    display: "inline-flex",
+    position: "relative",
+    verticalAlign: "middle",
+    alignItems: "center",
+    justifyContent: "center",
     "&:hover $change": {
       display: "block",
     },
@@ -103,7 +109,6 @@ const useStyles = makeStyles({
 function ProfilePicture(props) {
   const classes = useStyles();
 
-  const [newProfilePicture, setNewProfilePicture] = useState(null);
   const [open, setOpen] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -144,6 +149,7 @@ function ProfilePicture(props) {
   const handleChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      console.log(file);
       let imageDataUrl = await readFile(file);
 
       // apply rotation if needed
@@ -164,10 +170,10 @@ function ProfilePicture(props) {
         croppedAreaPixels,
         rotation
       );
-      console.log("done!", { croppedImage });
-      setNewProfilePicture(croppedImage);
-
-      props.firebase.uploadProfilePicture(croppedImage.croppedImage).on(
+      let blob = await fetch(croppedImage).then((r) => r.blob());
+      let uuid = uuidv4();
+      let file = new File([blob], uuid);
+      props.firebase.uploadProfilePicture(file).on(
         "state_changed",
         (snapshot) => {
           // progress function ...
@@ -181,7 +187,7 @@ function ProfilePicture(props) {
         },
         () => {
           // complete function ...
-          props.firebase.uploadProfilePictureURL(croppedImage);
+          props.firebase.uploadProfilePictureURL(file);
           setOpen(false);
         }
       );
@@ -194,16 +200,7 @@ function ProfilePicture(props) {
   return (
     <React.Fragment>
       {props.editable && (
-        <div
-          className={classes.profilePic}
-          style={{
-            display: "inline-flex",
-            position: "relative",
-            verticalAlign: "middle",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <div className={classes.profilePic}>
           <Avatar
             round="50px"
             style={{ position: "relative" }}
