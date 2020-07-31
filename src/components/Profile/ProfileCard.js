@@ -26,16 +26,7 @@ const styles = () => ({
       outline: "none",
     },
     width: "90%",
-    minHeight: 160,
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  input: {
-    display: "none",
+    minHeight: 130,
   },
 });
 

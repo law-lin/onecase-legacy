@@ -127,7 +127,7 @@ function EditCard(props) {
                     </Button>
                   </Grid>
                 </Grid>
-                <Grid container item xs={12} spacing={1} align="center">
+                <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
                     <Button className={classes.category} onClick={() => handleClick("Tech")}>
                       Tech

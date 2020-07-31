@@ -141,6 +141,12 @@ class Firebase {
     });
   };
 
+  editLinkCard = (linkCardNumber, linkTitle, linkURL) => {
+    this.db.ref(`users/${this.auth.currentUser.uid}/${linkCardNumber}`).update({
+      linkTitle,
+      linkURL,
+    });
+  };
   editBridgeCard = (
     cardNumber,
     bridgeCardNumber,

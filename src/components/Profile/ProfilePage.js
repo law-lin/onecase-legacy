@@ -29,8 +29,6 @@ class ProfilePage extends Component {
       this.props.firebase.auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           this.props.firebase.currentUser().on("value", (snapshot) => {
-            console.log(snapshot.val().username.toLowerCase());
-            console.log(formattedUsername);
             if (snapshot.val().username.toLowerCase() === formattedUsername) {
               this.setState({
                 personal: true,
@@ -54,7 +52,6 @@ class ProfilePage extends Component {
   }
 
   render() {
-    console.log("render profile");
     if (this.state.valid) {
       if (!this.state.loading) {
         if (this.state.personal) {

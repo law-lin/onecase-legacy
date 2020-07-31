@@ -109,14 +109,12 @@ class PersonalProfilePage extends Component {
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
           const userIDState = snapshot.val();
-          console.log(userIDState);
           if (userIDState) {
             this.setState({
               userID: userIDState,
             });
             this.props.firebase.user(userIDState).on("value", (snapshot) => {
               const state = snapshot.val();
-              console.log(state);
               if (state) {
                 this.setState({
                   oldUsername: state.username,
@@ -199,7 +197,6 @@ class PersonalProfilePage extends Component {
         .checkDuplicateUsername(formattedUsername)
         .on("value", (snapshot) => {
           const usernameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
-          console.log(usernameRegexp.test(username));
           if (usernameRegexp.test(username)) {
             if (!snapshot.exists()) {
               this.setState({
@@ -392,7 +389,7 @@ class PersonalProfilePage extends Component {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-              <LinksCard />
+              <LinksCard editable={this.state.editing} />
             </Grid>
           </Grid>
           <BottomNavbar />
@@ -552,7 +549,7 @@ class PersonalProfilePage extends Component {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-              <LinksCard />
+              <LinksCard editable={this.state.editing} />
             </Grid>
           </Grid>
         </MediaQuery>
