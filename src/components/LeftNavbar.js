@@ -25,8 +25,8 @@ const useStyles = makeStyles({
     color: "#3E4E56",
     textDecoration: "none",
     textTransform: "none",
-    fontSize: "30px",
-    width: "100%",
+    fontSize: "20px",
+    width: "90%",
     justifyContent: "left",
   },
   icon: {
@@ -57,12 +57,12 @@ function LeftNavbar(props) {
   }, []);
 
   function redirectTo(route) {
-    props.history.push(route);
-    props.history.go();
+    window.location.href = route;
+    // props.history.push(route);
   }
 
   return (
-    <Grid container alignItems="center" style={{ margin: "50% 0 0 5%" }}>
+    <Grid container alignItems="center" style={{ margin: "50% 0 0 0" }}>
       <Grid item xs={12}>
         <Button
           onClick={() => {

@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     color: "#3E4E56",
     textDecoration: "none",
     textTransform: "none",
-    fontSize: "30px",
+    fontSize: "20px",
     width: "100%",
     justifyContent: "left",
   },

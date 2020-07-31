@@ -14,21 +14,22 @@ import { Divider, TextField, CardActionArea } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     margin: "0 5% 0 5%",
-    minWidth: "90%",
-    height: 700,
-    backgroundColor: "#3E4E55",
+    maxWidth: "85%",
+    height: 650,
+    backgroundColor: "#464646",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
     borderRadius: "25px",
   },
   header: {
+    textAlign: "left",
     fontWeight: 800,
   },
   divider: {
     backgroundColor: "white",
     height: "5px",
     borderRadius: "20px",
-    marginBottom: "20px",
+    marginBottom: "60px",
   },
   link: {
     "&:hover": {
@@ -38,9 +39,9 @@ const useStyles = makeStyles({
       outline: "none",
     },
     fontFamily: ["Montserrat", "sans-serif"],
-    backgroundColor: "#859EA9",
+    backgroundColor: "#3E4E55",
     borderRadius: "20px",
-    color: "#000000",
+    color: "#FFFFFF",
     fontSize: 30,
     fontWeight: 600,
     minHeight: 130,

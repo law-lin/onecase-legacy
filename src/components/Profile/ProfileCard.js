@@ -25,8 +25,13 @@ const styles = () => ({
     "&:focus": {
       outline: "none",
     },
-    width: "90%",
-    minHeight: 130,
+    minHeight: "140px",
+    borderRadius: "20px",
+  },
+  cardTitle: {
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontSize: "36px",
+    fontWeight: 800,
   },
 });
 
@@ -102,11 +107,11 @@ class ProfileCard extends Component {
             onClick={this.handleClick}
             disabled={this.props.editable}
             className={classes.root}
-            style={{ borderRadius: "20px", backgroundColor: "#ffffff" }}
+            style={{ backgroundColor: "#ffffff" }}
           >
             <CardContent>
               {loading && <div>Loading...</div>}
-              <h1>{cardTitle}</h1>
+              <Typography className={classes.cardTitle}>{cardTitle}</Typography>
             </CardContent>
           </CardActionArea>
         )}
@@ -114,7 +119,6 @@ class ProfileCard extends Component {
           <Card
             className={classes.root}
             style={{
-              borderRadius: "20px",
               backgroundImage: `url(${cardImageURL})`,
             }}
           >

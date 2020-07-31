@@ -388,7 +388,13 @@ class PersonalProfilePage extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+            <Grid
+              item
+              xs={12}
+              sm={3}
+              style={{ marginTop: "10px" }}
+              align="center"
+            >
               <LinksCard editable={this.state.editing} />
             </Grid>
           </Grid>
@@ -396,7 +402,10 @@ class PersonalProfilePage extends Component {
         </MediaQuery>
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Grid container style={{ marginTop: "10px" }}>
+          <Grid
+            container
+            style={{ margin: "0 auto", width: "1500px", maxWidth: "2000px" }}
+          >
             <Grid item xs={12} sm={2}>
               <LeftNavbar />
             </Grid>
@@ -408,7 +417,7 @@ class PersonalProfilePage extends Component {
                   item
                   xs={12}
                   spacing={3}
-                  style={{ minHeight: "20vh" }}
+                  style={{ maxHeight: "200px" }}
                 >
                   <React.Fragment>
                     <Box clone order={{ xs: 2, sm: 1 }}>
@@ -548,7 +557,13 @@ class PersonalProfilePage extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+            <Grid
+              item
+              xs={12}
+              sm={3}
+              style={{ marginTop: "10px" }}
+              align="center"
+            >
               <LinksCard editable={this.state.editing} />
             </Grid>
           </Grid>
