@@ -95,7 +95,7 @@ function LinksCard(props) {
       if (!~linkURL.indexOf("http")) {
         linkURL = "http://" + linkURL;
       }
-      window.location.href = linkURL;
+      window.open(linkURL);
     }
   };
   return (

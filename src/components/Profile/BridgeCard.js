@@ -33,15 +33,8 @@ const styles = () => ({
       outline: "none",
     },
     width: "90%",
-    minHeight: 200,
-    maxHeight: 300,
-  },
-  bullet: {
-    display: "inline-block",
-    transform: "scale(0.8)",
-  },
-  pos: {
-    marginBottom: 12,
+    minHeight: 130,
+    maxHeight: 200,
   },
   input: {
     display: "none",
