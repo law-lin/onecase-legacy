@@ -106,7 +106,7 @@ class EarlyAccessFormBase extends Component {
 }
 export default function EarlyAccessLandingPage() {
   return (
-    <div>
+    <div className="container">
       <EarlyAccessNavbar />
       <Grid
         container

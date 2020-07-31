@@ -6,6 +6,11 @@ body {
   padding: 0px;
   overflow-x: hidden;
 }
+
+.container {
+  margin: 0 auto;
+  width: 2000px;
+}
 .push {
   margin-left: auto;
   padding: 20px;

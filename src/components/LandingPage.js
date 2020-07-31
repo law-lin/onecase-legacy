@@ -158,7 +158,7 @@ function LandingPage(props) {
 
   if (!loading) {
     return (
-      <div>
+      <div className="container">
         <LandingPageNavbar />
         <Grid
           container
