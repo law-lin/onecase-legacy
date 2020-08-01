@@ -32,9 +32,7 @@ const styles = () => ({
     "&:focus": {
       outline: "none",
     },
-    width: "90%",
-    minHeight: 130,
-    maxHeight: 200,
+    minHeight: "140px",
   },
   input: {
     display: "none",

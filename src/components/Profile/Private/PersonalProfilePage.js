@@ -41,6 +41,11 @@ const styles = () => ({
     width: "25%",
     height: "25%",
   },
+  container: {
+    margin: "20px auto 0 auto",
+    minWidth: "1224px",
+    maxWidth: "1800px",
+  },
   save: {
     "&:hover": {
       outline: "none",
@@ -250,7 +255,7 @@ class PersonalProfilePage extends Component {
     const { classes } = this.props;
     return (
       <div className="bg">
-        <MediaQuery maxDeviceWidth={1224}>
+        <MediaQuery maxDeviceWidth={1223}>
           <Navbar />
           <Grid container style={{ marginTop: "10px" }}>
             <Grid item xs={12} sm={9}>
@@ -402,10 +407,7 @@ class PersonalProfilePage extends Component {
         </MediaQuery>
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Grid
-            container
-            style={{ margin: "0 auto", width: "1500px", maxWidth: "2000px" }}
-          >
+          <Grid container className={classes.container}>
             <Grid item xs={12} sm={2}>
               <LeftNavbar />
             </Grid>

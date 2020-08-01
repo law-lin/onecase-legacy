@@ -122,7 +122,14 @@ class PublicBridge extends Component {
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Grid container style={{ marginTop: "10px" }}>
+          <Grid
+            container
+            style={{
+              margin: "0 auto",
+              minWidth: "1224px",
+              maxWidth: "1800px",
+            }}
+          >
             <Grid item xs={12} sm={2}>
               <LeftNavbar />
             </Grid>

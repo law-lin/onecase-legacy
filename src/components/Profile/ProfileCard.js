@@ -32,6 +32,7 @@ const styles = () => ({
     fontFamily: ["Montserrat", "sans-serif"],
     fontSize: "36px",
     fontWeight: 800,
+    overflowWrap: "break-word",
   },
 });
 
@@ -124,7 +125,7 @@ class ProfileCard extends Component {
           >
             <CardContent>
               {loading && <div>Loading...</div>}
-              <h1>{cardTitle}</h1>
+              <Typography className={classes.cardTitle}>{cardTitle}</Typography>
             </CardContent>
             <CardActions>
               <EditCard
