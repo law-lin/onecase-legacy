@@ -22,8 +22,9 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textTransform: "none",
     fontSize: "20px",
-    width: "100%",
+    width: "90%",
     justifyContent: "left",
+    marginRight: "20px",
   },
   icon: {
     width: "50px",

@@ -32,10 +32,15 @@ const styles = () => ({
     "&:focus": {
       outline: "none",
     },
-    minHeight: "140px",
+    minHeight: "120px",
+    width: "89.25%",
+    borderRadius: "20px",
   },
-  input: {
-    display: "none",
+  cardTitle: {
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontSize: "30px",
+    fontWeight: 800,
+    overflowWrap: "break-word",
   },
   title: {
     fontSize: "36px",
@@ -154,7 +159,9 @@ class BridgeCard extends Component {
             >
               <CardContent>
                 {loading && <div>Loading...</div>}
-                <h1 style={{ minHeight: 150 }}>{bridgeCardTitle}</h1>
+                <Typography className={classes.cardTitle}>
+                  {bridgeCardTitle}
+                </Typography>
               </CardContent>
             </CardActionArea>
 
@@ -316,7 +323,9 @@ class BridgeCard extends Component {
           >
             <CardContent>
               {loading && <div>Loading...</div>}
-              <h1 style={{ minHeight: 80 }}>{bridgeCardTitle}</h1>
+              <Typography className={classes.cardTitle}>
+                {bridgeCardTitle}
+              </Typography>
             </CardContent>
             <CardActions>
               <EditBridgeCard

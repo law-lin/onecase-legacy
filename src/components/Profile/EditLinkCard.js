@@ -53,9 +53,27 @@ const useStyles = makeStyles({
     backgroundColor: "#05872e",
     color: "white",
     borderRadius: "15px",
-    width: "25%",
+    width: "10%",
     height: "25%",
     marginRight: "1.5%",
+  },
+  cancel: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#f07171",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#f03737",
+    color: "white",
+    borderRadius: "15px",
+    width: "10%",
+    height: "25%",
   },
   dialogPaper: {
     minHeight: "70vh",
@@ -118,6 +136,7 @@ function EditLinkCard(props) {
             <TextField
               type="text"
               name="linkTitle"
+              defaultValue={props.linkTitle}
               placeholder=""
               InputProps={{
                 disableUnderline: true,
@@ -137,6 +156,7 @@ function EditLinkCard(props) {
               type="text"
               name="linkURL"
               placeholder="Ex: https://www.youtube.com/user/Vsauce"
+              defaultValue={props.linkURL}
               InputProps={{
                 disableUnderline: true,
               }}
@@ -146,6 +166,9 @@ function EditLinkCard(props) {
             />
           </DialogContent>
           <DialogActions>
+            <Button className={classes.cancel} onClick={handleClose}>
+              Cancel
+            </Button>
             <Button className={classes.save} onClick={handleSave}>
               Save
             </Button>

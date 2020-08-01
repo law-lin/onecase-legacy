@@ -34,6 +34,7 @@ function Biography(props) {
           style={{
             backgroundColor: "white",
             width: "100%",
+            height: "50%",
             marginLeft: props.margin,
           }}
           rows={6}

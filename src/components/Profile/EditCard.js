@@ -78,8 +78,8 @@ function EditCard(props) {
 
   const handleClick = (category) => {
     props.firebase.editCard(props.oldCardTitle, props.cardNumber, category);
-    setOpen(false)
-    handleClose()
+    setOpen(false);
+    handleClose();
   };
 
   return (
@@ -110,36 +110,51 @@ function EditCard(props) {
                 <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={4} sm={4}>
                     <Button
-                 
-                      className={classes.category} onClick={() => handleClick("School Projects")}
+                      className={classes.category}
+                      onClick={() => handleClick("School Projects")}
                     >
                       School Projects
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => () => handleClick("Art")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Art")}
+                    >
                       Art
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Food")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Food")}
+                    >
                       Food
                     </Button>
                   </Grid>
                 </Grid>
                 <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Tech")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Tech")}
+                    >
                       Tech
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Music")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Music")}
+                    >
                       Music
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Fashion")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Fashion")}
+                    >
                       Fashion
                     </Button>
                   </Grid>
@@ -147,56 +162,78 @@ function EditCard(props) {
                 <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
                     <Button
-                      className={classes.category} onClick={() => handleClick("Self-Improvement")}
+                      className={classes.category}
+                      onClick={() => handleClick("Self-Improvement")}
                     >
                       Self-Improvement
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Fitness")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Fitness")}
+                    >
                       Fitness
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("About Me")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("About Me")}
+                    >
                       About Me
                     </Button>
                   </Grid>
                 </Grid>
                 <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Photography")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Photography")}
+                    >
                       Photography
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Time Capsule")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Time Capsule")}
+                    >
                       Time Capsule
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Pets/Animals")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Pets/Animals")}
+                    >
                       Pets/Animals
                     </Button>
                   </Grid>
                 </Grid>
                 <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
-                    <Button className={classes.category} onClick={() => handleClick("Funny Stuff")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Funny Stuff")}
+                    >
                       Funny Stuff
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
-                    <Button  className={classes.category} onClick={() => handleClick("Video Games")}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Video Games")}
+                    >
                       Video Games
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
                     <Button
-                  
-                      className={classes.category} onClick={() => handleClick("Shows/Movies/Books")}
+                      className={classes.category}
+                      onClick={() => handleClick("Entertainment")}
                     >
-                      Shows/Movies/Books
+                      Entertainment
                     </Button>
                   </Grid>
                 </Grid>

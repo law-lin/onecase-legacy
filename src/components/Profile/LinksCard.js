@@ -13,7 +13,7 @@ import { Divider, TextField, CardActionArea } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    margin: "0 5% 0 5%",
+    margin: "10% 5% 0 5%",
     maxWidth: "85%",
     height: 650,
     backgroundColor: "#464646",
@@ -152,7 +152,11 @@ function LinksCard(props) {
                     URL: {linkCard1URL}
                   </CardContent>
                   <CardActions>
-                    <EditLinkCard linkCardNumber="linkCard1" />
+                    <EditLinkCard
+                      linkCardNumber="linkCard1"
+                      linkTitle={linkCard1Title}
+                      linkURL={linkCard1URL}
+                    />
                   </CardActions>
                 </Card>
               </Grid>
@@ -164,7 +168,11 @@ function LinksCard(props) {
                     URL: {linkCard2URL}
                   </CardContent>
                   <CardActions>
-                    <EditLinkCard linkCardNumber="linkCard2" />
+                    <EditLinkCard
+                      linkCardNumber="linkCard2"
+                      linkTitle={linkCard2Title}
+                      linkURL={linkCard2URL}
+                    />
                   </CardActions>
                 </Card>
               </Grid>
@@ -176,7 +184,11 @@ function LinksCard(props) {
                     URL: {linkCard3URL}
                   </CardContent>
                   <CardActions>
-                    <EditLinkCard linkCardNumber="linkCard3" />
+                    <EditLinkCard
+                      linkCardNumber="linkCard3"
+                      linkTitle={linkCard3Title}
+                      linkURL={linkCard3URL}
+                    />
                   </CardActions>
                 </Card>
               </Grid>

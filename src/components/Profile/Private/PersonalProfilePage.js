@@ -36,7 +36,7 @@ const styles = () => ({
     textTransform: "none",
     fontSize: "20px",
     backgroundColor: "grey",
-    color: "white",
+    color: "#000000",
     borderRadius: "15px",
     width: "25%",
     height: "25%",
@@ -412,7 +412,7 @@ class PersonalProfilePage extends Component {
               <LeftNavbar />
             </Grid>
             <Grid item xs={12} sm={7}>
-              <Grid container spacing={3}>
+              <Grid container spacing={3} style={{ marginTop: "40px" }}>
                 <Grid
                   justify="center"
                   container
@@ -458,7 +458,7 @@ class PersonalProfilePage extends Component {
                             className={classes.root}
                             onClick={this.handleEdit}
                           >
-                            Edit
+                            edit
                           </Button>
                         )}
                         {this.state.editing && (
@@ -490,8 +490,8 @@ class PersonalProfilePage extends Component {
                     </Box>
                   </React.Fragment>
                 </Grid>
-                <Grid justify="center" container item xs={12} spacing={3}>
-                  <React.Fragment>
+                <Grid justify="center" container xs={12} spacing={3}>
+                  <Grid container item xs={12}>
                     <Grid item xs={6} sm={4} align="center">
                       <ProfileCard
                         username={this.state.username}
@@ -513,6 +513,8 @@ class PersonalProfilePage extends Component {
                         editable={this.state.editing}
                       />
                     </Grid>
+                  </Grid>
+                  <Grid container item xs={12}>
                     <Grid item xs={6} sm={4} align="center">
                       <ProfileCard
                         username={this.state.username}
@@ -534,6 +536,8 @@ class PersonalProfilePage extends Component {
                         editable={this.state.editing}
                       />
                     </Grid>
+                  </Grid>
+                  <Grid container item xs={12}>
                     <Grid item xs={6} sm={4} align="center">
                       <ProfileCard
                         username={this.state.username}
@@ -555,7 +559,7 @@ class PersonalProfilePage extends Component {
                         editable={this.state.editing}
                       />
                     </Grid>
-                  </React.Fragment>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

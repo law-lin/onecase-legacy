@@ -25,12 +25,13 @@ const styles = () => ({
     "&:focus": {
       outline: "none",
     },
-    minHeight: "140px",
+    minHeight: "110px",
+    width: "89.25%",
     borderRadius: "20px",
   },
   cardTitle: {
-    fontFamily: ["Montserrat", "sans-serif"],
-    fontSize: "36px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontSize: "30px",
     fontWeight: 800,
     overflowWrap: "break-word",
   },
