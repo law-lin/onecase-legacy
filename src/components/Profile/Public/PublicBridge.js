@@ -20,7 +20,15 @@ import { withAuthorization } from "../../Session";
 import NotesCard from "../NotesCard";
 import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
 
+const styles = () => ({
+  container: {
+    margin: "0 auto",
+    minWidth: "1224px",
+    maxWidth: "1800px",
+  },
+});
 class PublicBridge extends Component {
   constructor(props) {
     super(props);
@@ -118,18 +126,12 @@ class PublicBridge extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Grid
-            container
-            style={{
-              margin: "0 auto",
-              minWidth: "1224px",
-              maxWidth: "1800px",
-            }}
-          >
+          <Grid container className={classes.container}>
             <Grid item xs={12} sm={2}>
               <LeftNavbar />
             </Grid>
@@ -160,7 +162,9 @@ class PublicBridge extends Component {
                           backgroundColor: "black",
                           color: "white",
                           fontSize: "30px",
+                          fontWeight: 600,
                           borderRadius: "15px",
+                          alignSelf: "center",
                           width: "100%",
                           height: "50%",
                           display: "flex",
@@ -171,7 +175,15 @@ class PublicBridge extends Component {
                         {this.state.cardTitle}
                       </Card>
                     </Grid>
-                    <Grid item xs={12} sm={4} align="center"></Grid>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={4}
+                      justify="center"
+                      align="center"
+                      direction="column"
+                    ></Grid>
                   </React.Fragment>
                 </Grid>
                 {!this.state.cardNumberLoading && (
@@ -202,7 +214,6 @@ class PublicBridge extends Component {
                         />
                       </Grid>
                     </React.Fragment>
-
                     <React.Fragment>
                       <Grid item xs={6} sm={4} align="center">
                         <BridgeCard
@@ -268,7 +279,12 @@ class PublicBridge extends Component {
                   <ProfilePicture profilePicture={this.state.profilePicture} />
                 </Grid>
                 <Grid item xs={12}>
-                  <NotesCard notes={this.state.notes} />
+                  {!this.state.notesLoading && (
+                    <NotesCard
+                      notes={this.state.notes}
+                      cardNumber={this.state.cardNumber}
+                    />
+                  )}
                 </Grid>
               </Grid>
             </Grid>
@@ -279,4 +295,4 @@ class PublicBridge extends Component {
   }
 }
 
-export default withFirebase(withRouter(PublicBridge));
+export default withFirebase(withRouter(withStyles(styles)(PublicBridge)));

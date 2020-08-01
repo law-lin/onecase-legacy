@@ -13,7 +13,7 @@ import LinksCard from "../LinksCard";
 import Biography from "../Biography";
 import Username from "../Username";
 import Box from "@material-ui/core/Box";
-
+import Typography from "@material-ui/core/Typography";
 import MediaQuery from "react-responsive";
 import LeftNavbar from "../../LeftNavbar";
 import BottomNavbar from "../../BottomNavbar";
@@ -22,6 +22,15 @@ import { withAuthorization } from "../../Session";
 import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
 
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = () => ({
+  container: {
+    margin: "20px auto 0 auto",
+    minWidth: "1224px",
+    maxWidth: "1800px",
+  },
+});
 class PublicProfilePage extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +46,7 @@ class PublicProfilePage extends Component {
 
   componentDidMount() {
     this.setState({ loading: true });
+
     let username = this.props.match.params.username.toString().toLowerCase();
 
     this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
@@ -66,22 +76,17 @@ class PublicProfilePage extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     if (!this.state.loading) {
       if (this.state.exists) {
         return (
           <div className="bg">
-            <MediaQuery maxDeviceWidth={1224}>
+            <MediaQuery maxDeviceWidth={1223}>
               <Navbar />
-              <Grid
-                container
-                style={{
-                  margin: "20px auto 0 auto",
-                  minWidth: "1224px",
-                  maxWidth: "1800px",
-                }}
-              >
+              <Grid container style={{ marginTop: "10px" }}>
                 <Grid item xs={12} sm={9}>
-                  <Grid container spacing={3} style={{ marginLeft: "5px" }}>
+                  <Grid container spacing={3}>
                     <Grid justify="center" container item xs={12} spacing={3}>
                       <React.Fragment>
                         <Grid container item xs={12}>
@@ -99,21 +104,7 @@ class PublicProfilePage extends Component {
                               />
                             )}
                           </Grid>
-                          <Grid item xs={4}>
-                            {!this.state.editing && (
-                              <Button onClick={this.handleEdit}>
-                                Edit Profile
-                              </Button>
-                            )}
-                            {this.state.editing && (
-                              <Button onClick={this.handleSave}>Save</Button>
-                            )}
-                            {this.state.editing && (
-                              <Button onClick={this.handleCancel}>
-                                Cancel
-                              </Button>
-                            )}
-                          </Grid>
+                          <Grid item xs={4}></Grid>
                           <Grid item xs={6}>
                             {!this.state.loading && (
                               <Biography
@@ -192,7 +183,13 @@ class PublicProfilePage extends Component {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={3}
+                  style={{ marginTop: "10px" }}
+                  align="center"
+                >
                   <LinksCard />
                 </Grid>
               </Grid>
@@ -200,32 +197,32 @@ class PublicProfilePage extends Component {
             </MediaQuery>
             <MediaQuery minDeviceWidth={1224}>
               <Navbar />
-              <Grid container style={{ marginTop: "10px" }}>
+              <Grid container className={classes.container}>
                 <Grid item xs={12} sm={2}>
                   <LeftNavbar />
                 </Grid>
                 <Grid item xs={12} sm={7}>
-                  <Grid container spacing={3} style={{ marginLeft: "5px" }}>
-                    <Grid justify="center" container item xs={12} spacing={3}>
+                  <Grid container spacing={3} style={{ marginTop: "40px" }}>
+                    <Grid
+                      justify="center"
+                      container
+                      item
+                      xs={12}
+                      spacing={3}
+                      style={{ maxHeight: "200px" }}
+                    >
                       <React.Fragment>
                         <Box clone order={{ xs: 2, sm: 1 }}>
                           <Grid item xs={12} sm={4}>
                             {!this.state.loading && (
-                              <Biography
-                                margin="25px"
-                                bio={this.state.bio}
-                                onChange={this.onBioChange}
-                              />
+                              <Biography margin="25px" bio={this.state.bio} />
                             )}
                           </Grid>
                         </Box>
                         <Box clone order={{ xs: 1, sm: 2 }}>
                           <Grid item xs={12} sm={4} align="center">
                             {!this.state.loading && (
-                              <Username
-                                username={this.state.username}
-                                onChange={this.onUsernameChange}
-                              />
+                              <Username username={this.state.username} />
                             )}
                             {!this.state.loading && (
                               <ProfilePicture
@@ -235,14 +232,12 @@ class PublicProfilePage extends Component {
                           </Grid>
                         </Box>
                         <Box clone order={{ xs: 3, sm: 3 }}>
-                          <Grid item xs={12} sm={4} align="center">
-                            Follow
-                          </Grid>
+                          <Grid item xs={12} sm={4} align="center"></Grid>
                         </Box>
                       </React.Fragment>
                     </Grid>
-                    <Grid justify="center" container item xs={12} spacing={3}>
-                      <React.Fragment>
+                    <Grid justify="center" container xs={12} spacing={3}>
+                      <Grid container item xs={12}>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
@@ -261,6 +256,8 @@ class PublicProfilePage extends Component {
                             cardNumber="card3"
                           />
                         </Grid>
+                      </Grid>
+                      <Grid container item xs={12}>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
@@ -279,6 +276,8 @@ class PublicProfilePage extends Component {
                             cardNumber="card6"
                           />
                         </Grid>
+                      </Grid>
+                      <Grid container item xs={12}>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
@@ -297,11 +296,17 @@ class PublicProfilePage extends Component {
                             cardNumber="card9"
                           />
                         </Grid>
-                      </React.Fragment>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={3}
+                  style={{ marginTop: "10px" }}
+                  align="center"
+                >
                   <LinksCard />
                 </Grid>
               </Grid>
@@ -328,4 +333,4 @@ class PublicProfilePage extends Component {
   }
 }
 
-export default withFirebase(withRouter(PublicProfilePage));
+export default withFirebase(withRouter(withStyles(styles)(PublicProfilePage)));

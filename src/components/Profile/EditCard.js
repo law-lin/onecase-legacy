@@ -205,9 +205,9 @@ function EditCard(props) {
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
-                      onClick={() => handleClick("Pets/Animals")}
+                      onClick={() => handleClick("Pets & Animals")}
                     >
-                      Pets/Animals
+                      Pets & Animals
                     </Button>
                   </Grid>
                 </Grid>

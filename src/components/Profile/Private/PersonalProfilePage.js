@@ -19,7 +19,7 @@ import MediaQuery from "react-responsive";
 
 import { withAuthorization } from "../../Session";
 import BottomNavbar from "../../BottomNavbar";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = () => ({
