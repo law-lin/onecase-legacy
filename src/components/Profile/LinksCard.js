@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   root: {
     margin: "10% 5% 0 5%",
     maxWidth: "73%",
-    height: 650,
+    height: 560,
     backgroundColor: "#464646",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     backgroundColor: "white",
     height: "5px",
     borderRadius: "20px",
-    marginBottom: "60px",
+    marginBottom: "20px",
   },
   link: {
     "&:hover": {

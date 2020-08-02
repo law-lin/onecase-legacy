@@ -10,6 +10,8 @@ const useStyles = makeStyles({
     fontFamily: ["Montserrat", "sans-serif"],
   },
   display: {
+    height: "70px",
+    marginTop: "70px",
     fontSize: "20px",
     fontFamily: ["Montserrat", "sans-serif"],
     whiteSpace: "pre-line",
@@ -32,9 +34,10 @@ function Biography(props) {
           onChange={handleChange}
           multiline
           style={{
+            marginTop: "70px",
+            height: "70px",
             backgroundColor: "white",
             width: "100%",
-            height: "50%",
             marginLeft: props.margin,
           }}
           rows={6}

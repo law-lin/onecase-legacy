@@ -412,7 +412,7 @@ class PersonalProfilePage extends Component {
               <LeftNavbar />
             </Grid>
             <Grid item xs={12} sm={7}>
-              <Grid container spacing={3} style={{ marginTop: "40px" }}>
+              <Grid container spacing={5} style={{ marginTop: "40px" }}>
                 <Grid
                   justify="center"
                   container
@@ -490,7 +490,7 @@ class PersonalProfilePage extends Component {
                     </Box>
                   </React.Fragment>
                 </Grid>
-                <Grid justify="center" container xs={12} spacing={3}>
+                <Grid justify="center" container item xs={12} spacing={3}>
                   <Grid container item xs={12}>
                     <Grid item xs={6} sm={4} align="center">
                       <ProfileCard
