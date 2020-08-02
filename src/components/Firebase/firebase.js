@@ -93,6 +93,15 @@ class Firebase {
   getCardNumberWithCardTitle = (userID, cardTitle) =>
     this.db.ref(`cards/${userID}/${cardTitle}`);
 
+  checkDuplicateCardTitle = (cardTitle) => {
+    let strCardTitle = cardTitle + "";
+    let formattedCardTitle = strCardTitle.split(" ").join("_");
+    return this.db
+      .ref(`cards/${this.auth.currentUser.uid}`)
+      .orderByKey()
+      .equalTo(formattedCardTitle);
+  };
+
   // this.db.ref(`users/${userID}`).orderByChild("card2").equalTo(cardTitle);
 
   bridgeCards = (userID, cardNumber, cardBridgeNumber) =>

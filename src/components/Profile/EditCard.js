@@ -66,20 +66,33 @@ const useStyles = makeStyles({
 function EditCard(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState(null);
+  const [oldCardTitle, setOldCardTitle] = useState(props.oldCardTitle);
   const [cardTitle, setCardTitle] = useState(null);
 
   const handleOpen = () => {
+    setError(null);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setError(null);
   };
 
   const handleClick = (category) => {
-    props.firebase.editCard(props.oldCardTitle, props.cardNumber, category);
-    setOpen(false);
-    handleClose();
+    props.firebase
+      .checkDuplicateCardTitle(category)
+      .once("value", (snapshot) => {
+        if (!snapshot.exists()) {
+          setError(null);
+          setOldCardTitle(category);
+          props.firebase.editCard(oldCardTitle, props.cardNumber, category);
+          handleClose();
+        } else {
+          setError("A card with this category already exists!");
+        }
+      });
   };
 
   return (
@@ -267,6 +280,7 @@ function EditCard(props) {
                     <MenuItem value="Food">Food</MenuItem>)
                   </Select>
                 </FormControl> */}
+              {error && <p style={{ color: "red" }}>{error}</p>}
             </DialogContent>
           </Dialog>
         </Fragment>
