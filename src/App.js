@@ -8,6 +8,7 @@ import ProfilePage from "./components/Profile/ProfilePage";
 import AdminPage from "./components/AdminPage";
 import FeedPage from "./components/FeedPage";
 import ExhibitionsPage from "./components/ExhibitionsPage";
+import SearchResultsPage from "./components/SearchResults";
 import Bridge from "./components/Profile/Bridge";
 import * as ROUTES from "./constants/routes";
 
@@ -26,6 +27,7 @@ class App extends Component {
         <Route exact path={ROUTES.FEED} component={FeedPage} />
         <Route exact path={ROUTES.EXHIBITIONS} component={ExhibitionsPage} />
         <Route exact path={ROUTES.USERNAME} component={ProfilePage} />
+        <Route exact path={"/search"} component={SearchResultsPage} />
         <Route exact path={ROUTES.USERNAME_CARD} component={Bridge} />
         <Route path={ROUTES.ADMIN} component={AdminPage} />
       </Router>

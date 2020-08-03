@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import "../profile.css";
 import Navbar from "../../Navbar";
+import LeftNavbar from "../../LeftNavbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
 import UsernameButton from "../../UsernameButton";
@@ -10,7 +11,6 @@ import Grid from "@material-ui/core/Grid";
 import BridgeCard from "../BridgeCard";
 import Button from "@material-ui/core/Button";
 import MediaQuery from "react-responsive";
-import LeftNavbar from "../../LeftNavbar";
 
 import Card from "@material-ui/core/Card";
 
@@ -42,7 +42,7 @@ const styles = () => ({
     justifyContent: "center",
   },
   container: {
-    margin: "0 auto",
+    margin: "80px auto 0 auto",
     minWidth: "1224px",
     maxWidth: "1800px",
   },

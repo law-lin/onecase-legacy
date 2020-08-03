@@ -102,6 +102,12 @@ class Firebase {
       .equalTo(formattedCardTitle);
   };
 
+  searchUsernames = (queryText) =>
+    this.db
+      .ref("usernames")
+      .orderByKey()
+      .startAt(queryText)
+      .endAt(queryText + "\uf8ff");
   // this.db.ref(`users/${userID}`).orderByChild("card2").equalTo(cardTitle);
 
   bridgeCards = (userID, cardNumber, cardBridgeNumber) =>

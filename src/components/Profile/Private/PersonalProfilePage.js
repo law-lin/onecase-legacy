@@ -42,7 +42,7 @@ const styles = () => ({
     height: "25%",
   },
   container: {
-    margin: "20px auto 0 auto",
+    margin: "80px auto 0 auto",
     minWidth: "1224px",
     maxWidth: "1800px",
   },
@@ -253,6 +253,7 @@ class PersonalProfilePage extends Component {
 
   render() {
     const { classes } = this.props;
+    console.log(this.props.location.search);
     return (
       <div className="bg">
         <MediaQuery maxDeviceWidth={1223}>

@@ -26,11 +26,12 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = () => ({
   container: {
-    margin: "20px auto 0 auto",
+    margin: "80px auto 0 auto",
     minWidth: "1224px",
     maxWidth: "1800px",
   },
 });
+
 class PublicProfilePage extends Component {
   constructor(props) {
     super(props);
