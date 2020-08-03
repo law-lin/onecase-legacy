@@ -100,18 +100,15 @@ class PublicProfilePage extends Component {
                               <Username
                                 display="inline"
                                 username={this.state.username}
-                                onChange={this.onUsernameChange}
                               />
                             )}
                           </Grid>
-                          <Grid item xs={4}></Grid>
+                          <Grid item xs={4}>
+                            follow
+                          </Grid>
                           <Grid item xs={6}>
                             {!this.state.loading && (
-                              <Biography
-                                margin="0px"
-                                bio={this.state.bio}
-                                onChange={this.onBioChange}
-                              />
+                              <Biography margin="0px" bio={this.state.bio} />
                             )}
                           </Grid>
                           <Grid item xs={6}>
@@ -202,7 +199,7 @@ class PublicProfilePage extends Component {
                   <LeftNavbar />
                 </Grid>
                 <Grid item xs={12} sm={7}>
-                  <Grid container spacing={3} style={{ marginTop: "40px" }}>
+                  <Grid container spacing={5} style={{ marginTop: "40px" }}>
                     <Grid
                       justify="center"
                       container
@@ -232,11 +229,22 @@ class PublicProfilePage extends Component {
                           </Grid>
                         </Box>
                         <Box clone order={{ xs: 3, sm: 3 }}>
-                          <Grid item xs={12} sm={4} align="center"></Grid>
+                          <Grid item xs={12} sm={4} align="center">
+                            Follow
+                            <Typography
+                              style={{
+                                color: "red",
+                                fontSize: "20px",
+                                fontFamily: ["Montserrat", "sans-serif"],
+                              }}
+                            >
+                              {this.state.error}
+                            </Typography>
+                          </Grid>
                         </Box>
                       </React.Fragment>
                     </Grid>
-                    <Grid justify="center" container xs={12} spacing={3}>
+                    <Grid justify="center" container item xs={12} spacing={3}>
                       <Grid container item xs={12}>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard

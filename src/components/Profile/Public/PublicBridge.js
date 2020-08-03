@@ -136,14 +136,14 @@ class PublicBridge extends Component {
               <LeftNavbar />
             </Grid>
             <Grid item xs={12} sm={7}>
-              <Grid container spacing={3}>
+              <Grid container spacing={3} style={{ marginTop: "40px" }}>
                 <Grid
                   justify="center"
                   container
                   item
                   xs={12}
                   spacing={3}
-                  style={{ minHeight: "20vh" }}
+                  style={{ minHeight: "200px", maxHeight: "200px" }}
                 >
                   <React.Fragment>
                     <Grid item xs={12} sm={4}></Grid>
@@ -166,7 +166,6 @@ class PublicBridge extends Component {
                           borderRadius: "15px",
                           alignSelf: "center",
                           width: "100%",
-                          height: "50%",
                           display: "flex",
                           flexDirection: "column",
                           justifyContent: "center",
@@ -188,7 +187,7 @@ class PublicBridge extends Component {
                 </Grid>
                 {!this.state.cardNumberLoading && (
                   <Grid justify="center" container item xs={12} spacing={3}>
-                    <React.Fragment>
+                    <Grid container item xs={12}>
                       <Grid item xs={6} sm={4} align="center">
                         <BridgeCard
                           userID={this.state.userID}
@@ -213,8 +212,9 @@ class PublicBridge extends Component {
                           bridgeCardNumber="bridgeCard3"
                         />
                       </Grid>
-                    </React.Fragment>
-                    <React.Fragment>
+                    </Grid>
+
+                    <Grid container item xs={12}>
                       <Grid item xs={6} sm={4} align="center">
                         <BridgeCard
                           userID={this.state.userID}
@@ -239,7 +239,8 @@ class PublicBridge extends Component {
                           bridgeCardNumber="bridgeCard6"
                         />
                       </Grid>
-
+                    </Grid>
+                    <Grid container item xs={12}>
                       <Grid item xs={6} sm={4} align="center">
                         <BridgeCard
                           userID={this.state.userID}
@@ -264,13 +265,13 @@ class PublicBridge extends Component {
                           bridgeCardNumber="bridgeCard9"
                         />
                       </Grid>
-                    </React.Fragment>
+                    </Grid>
                   </Grid>
                 )}
               </Grid>
             </Grid>
             <Grid item xs={12} sm={3} align="center">
-              <Grid container>
+              <Grid container style={{ marginTop: "10px" }}>
                 <Grid item xs={12}>
                   <UsernameButton
                     display="block"
