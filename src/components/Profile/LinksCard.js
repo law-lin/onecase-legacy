@@ -148,7 +148,7 @@ function LinksCard(props) {
               <Grid item xs={12}>
                 <Card className={classes.link}>
                   <CardHeader
-                    style={{ padding: "10px 16px 10px 0", height: "0" }}
+                    style={{ padding: "5px 12px 0 0", height: "0" }}
                     action={
                       <EditLinkCard
                         linkCardNumber="linkCard1"
@@ -163,7 +163,7 @@ function LinksCard(props) {
               <Grid item xs={12}>
                 <Card className={classes.link}>
                   <CardHeader
-                    style={{ padding: "10px 16px 10px 0", height: "0" }}
+                    style={{ padding: "5px 12px 0 0", height: "0" }}
                     action={
                       <EditLinkCard
                         linkCardNumber="linkCard2"
@@ -178,7 +178,7 @@ function LinksCard(props) {
               <Grid item xs={12}>
                 <Card className={classes.link}>
                   <CardHeader
-                    style={{ padding: "10px 16px 10px 0", height: "0" }}
+                    style={{ padding: "5px 12px 0 0", height: "0" }}
                     action={
                       <EditLinkCard
                         linkCardNumber="linkCard3"

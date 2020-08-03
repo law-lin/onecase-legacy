@@ -89,8 +89,8 @@ const useStyles = makeStyles({
 function EditLinkCard(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [linkTitle, setLinkTitle] = useState(null);
-  const [linkURL, setLinkURL] = useState(null);
+  const [linkTitle, setLinkTitle] = useState(props.linkTitle);
+  const [linkURL, setLinkURL] = useState(props.linkURL);
   const [error, setError] = useState(null);
 
   const handleOpen = () => {
