@@ -44,16 +44,16 @@ function LeftNavbar(props) {
 
   useEffect(() => {
     setLoading(true);
-    // props.firebase.currentUser().once("value", (snapshot) => {
-    //   if (snapshot) {
-    //     setUsername(snapshot.val().username);
-    //     setProfilePicture(snapshot.val().profilePicture);
-    //     setLoading(false);
-    //   } else {
-    //     setProfilePicture(null);
-    //     setLoading(false);
-    //   }
-    // });
+    props.firebase.currentUser().once("value", (snapshot) => {
+      if (snapshot) {
+        setUsername(snapshot.val().username);
+        setProfilePicture(snapshot.val().profilePicture);
+        setLoading(false);
+      } else {
+        setProfilePicture(null);
+        setLoading(false);
+      }
+    });
   }, []);
 
   function redirectTo(route) {
