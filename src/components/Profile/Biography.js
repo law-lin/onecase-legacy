@@ -40,8 +40,8 @@ function Biography(props) {
             width: "100%",
             marginLeft: props.margin,
           }}
-          rows={6}
-          rowsMax="6"
+          rows={2}
+          rowsMax="2"
           InputProps={{
             disableUnderline: true,
           }}

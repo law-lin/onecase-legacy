@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import CardHeader from "@material-ui/core/CardHeader";
 import EditLinkCard from "./EditLinkCard";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
@@ -38,11 +39,11 @@ const useStyles = makeStyles({
     "&:focus": {
       outline: "none",
     },
-    fontFamily: ["Montserrat", "sans-serif"],
+    fontFamily: ["Mukta Mahee", "sans-serif"],
     backgroundColor: "#3E4E55",
     borderRadius: "20px",
     color: "#FFFFFF",
-    fontSize: 30,
+    fontSize: "30px",
     fontWeight: 600,
     minHeight: 130,
     textAlign: "center",
@@ -145,51 +146,48 @@ function LinksCard(props) {
             <Divider className={classes.divider} />
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Card>
-                  <CardContent>
-                    Title: {linkCard1Title}
-                    <br />
-                    URL: {linkCard1URL}
-                  </CardContent>
-                  <CardActions>
-                    <EditLinkCard
-                      linkCardNumber="linkCard1"
-                      linkTitle={linkCard1Title}
-                      linkURL={linkCard1URL}
-                    />
-                  </CardActions>
+                <Card className={classes.link}>
+                  <CardHeader
+                    style={{ padding: "10px 16px 10px 0", height: "0" }}
+                    action={
+                      <EditLinkCard
+                        linkCardNumber="linkCard1"
+                        linkTitle={linkCard1Title}
+                        linkURL={linkCard1URL}
+                      />
+                    }
+                  />
+                  <CardContent>{linkCard1Title}</CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                <Card>
-                  <CardContent>
-                    Title: {linkCard2Title}
-                    <br />
-                    URL: {linkCard2URL}
-                  </CardContent>
-                  <CardActions>
-                    <EditLinkCard
-                      linkCardNumber="linkCard2"
-                      linkTitle={linkCard2Title}
-                      linkURL={linkCard2URL}
-                    />
-                  </CardActions>
+                <Card className={classes.link}>
+                  <CardHeader
+                    style={{ padding: "10px 16px 10px 0", height: "0" }}
+                    action={
+                      <EditLinkCard
+                        linkCardNumber="linkCard2"
+                        linkTitle={linkCard2Title}
+                        linkURL={linkCard2URL}
+                      />
+                    }
+                  />
+                  <CardContent>{linkCard2Title}</CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                <Card>
-                  <CardContent>
-                    Title: {linkCard3Title}
-                    <br />
-                    URL: {linkCard3URL}
-                  </CardContent>
-                  <CardActions>
-                    <EditLinkCard
-                      linkCardNumber="linkCard3"
-                      linkTitle={linkCard3Title}
-                      linkURL={linkCard3URL}
-                    />
-                  </CardActions>
+                <Card className={classes.link}>
+                  <CardHeader
+                    style={{ padding: "10px 16px 10px 0", height: "0" }}
+                    action={
+                      <EditLinkCard
+                        linkCardNumber="linkCard3"
+                        linkTitle={linkCard3Title}
+                        linkURL={linkCard3URL}
+                      />
+                    }
+                  />
+                  <CardContent>{linkCard3Title}</CardContent>
                 </Card>
               </Grid>
             </Grid>

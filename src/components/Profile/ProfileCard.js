@@ -5,6 +5,7 @@ import { withFirebase } from "../Firebase";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
+import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
@@ -124,19 +125,22 @@ class ProfileCard extends Component {
               backgroundImage: `url(${cardImageURL})`,
             }}
           >
+            <CardHeader
+              style={{ padding: "16px 16px 0 0", height: "0px" }}
+              action={
+                <EditCard
+                  oldCardTitle={oldCardTitle}
+                  cardTitle={cardTitle}
+                  cardNumber={this.props.cardNumber}
+                  editable={this.props.editable}
+                  size="small"
+                />
+              }
+            />
             <CardContent>
               {loading && <div>Loading...</div>}
               <Typography className={classes.cardTitle}>{cardTitle}</Typography>
             </CardContent>
-            <CardActions>
-              <EditCard
-                oldCardTitle={oldCardTitle}
-                cardTitle={cardTitle}
-                cardNumber={this.props.cardNumber}
-                editable={this.props.editable}
-                size="small"
-              />
-            </CardActions>
           </Card>
         )}
       </div>

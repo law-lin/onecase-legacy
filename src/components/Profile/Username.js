@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles({
   edit: {
     backgroundColor: "white",
+    marginBottom: "10px",
     width: "60%",
     display: "block",
   },
