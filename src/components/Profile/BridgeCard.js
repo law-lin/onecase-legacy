@@ -7,6 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -57,10 +58,6 @@ class BridgeCard extends Component {
       bridgeCardNumber: null,
       parentCardTitle: null,
       bridgeCardTitle: "",
-      yearCreated: "",
-      isProud: "",
-      coworkers: "",
-      whyMake: "",
       description: "",
       cardImageURL: "",
       loading: false,
@@ -88,10 +85,6 @@ class BridgeCard extends Component {
           if (state) {
             this.setState({
               bridgeCardTitle: state.bridgeCardTitle,
-              yearCreated: state.yearCreated,
-              isProud: state.isProud,
-              coworkers: state.coworkers,
-              whyMake: state.whyMake,
               description: state.description,
               cardImageURL: state.cardImageURL,
               loading: false,
@@ -133,16 +126,7 @@ class BridgeCard extends Component {
 
   render() {
     const { classes } = this.props;
-    const {
-      bridgeCardTitle,
-      yearCreated,
-      isProud,
-      coworkers,
-      whyMake,
-      description,
-      cardImageURL,
-      loading,
-    } = this.state;
+    const { bridgeCardTitle, description, cardImageURL, loading } = this.state;
 
     return (
       <div>
@@ -180,121 +164,16 @@ class BridgeCard extends Component {
               <DialogContent dividers>
                 <DialogContentText>
                   <Grid container>
-                    <Grid item xs={12}>
-                      <Grid container>
-                        <Grid item xs={12} sm={6}>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#0FA9FF",
-                              fontSize: "24px",
-                              fontWeight: 700,
-                            }}
-                          >
-                            Year created:
-                          </Typography>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#0FA9FF",
-                              fontSize: "24px",
-                              fontWeight: 20,
-                            }}
-                          >
-                            {yearCreated}
-                          </Typography>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#FF0000",
-                              fontSize: "24px",
-                              fontWeight: 700,
-                            }}
-                          >
-                            Am I proud of this?
-                          </Typography>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#FF0000",
-                              fontSize: "24px",
-                              fontWeight: 20,
-                            }}
-                          >
-                            {isProud}
-                          </Typography>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#137212",
-                              fontSize: "24px",
-                              fontWeight: 700,
-                            }}
-                          >
-                            People I worked with:
-                          </Typography>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#137212",
-                              fontSize: "24px",
-                              fontWeight: 20,
-                            }}
-                          >
-                            {coworkers}
-                          </Typography>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#FF9900",
-                              fontSize: "24px",
-                              fontWeight: 700,
-                            }}
-                          >
-                            Why'd you make it?
-                          </Typography>
-                          <Typography
-                            gutterBottom
-                            style={{
-                              fontFamily: "Mukta Mahee",
-                              color: "#FF9900",
-                              fontSize: "24px",
-                              fontWeight: 20,
-                            }}
-                          >
-                            {whyMake}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          {cardImageURL && (
-                            <img
-                              style={{ height: "100%", width: "100%" }}
-                              src={cardImageURL}
-                              alt="Show off your project!"
-                            />
-                          )}
-                        </Grid>
-                      </Grid>
+                    <Grid item xs={6}>
+                      {cardImageURL && (
+                        <img
+                          style={{ height: "100%", width: "100%" }}
+                          src={cardImageURL}
+                          alt="Show off your project!"
+                        />
+                      )}
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography
-                        gutterBottom
-                        style={{
-                          fontFamily: "Mukta Mahee",
-                          color: "#000000",
-                          fontSize: "24px",
-                          fontWeight: 700,
-                        }}
-                      >
-                        Description:
-                      </Typography>
+                    <Grid item xs={6}>
                       <Typography
                         gutterBottom
                         style={{
@@ -321,27 +200,26 @@ class BridgeCard extends Component {
               backgroundColor: "white",
             }}
           >
+            <CardHeader
+              style={{ padding: "12px 12px 0 0", height: "0" }}
+              action={
+                <EditBridgeCard
+                  bridgeCardTitle={bridgeCardTitle}
+                  description={description}
+                  cardImageURL={cardImageURL}
+                  cardNumber={this.props.cardNumber}
+                  bridgeCardNumber={this.props.bridgeCardNumber}
+                  editable={this.props.editable}
+                  size="small"
+                />
+              }
+            />
             <CardContent>
               {loading && <div>Loading...</div>}
               <Typography className={classes.cardTitle}>
                 {bridgeCardTitle}
               </Typography>
             </CardContent>
-            <CardActions>
-              <EditBridgeCard
-                bridgeCardTitle={bridgeCardTitle}
-                yearCreated={yearCreated}
-                isProud={isProud}
-                coworkers={coworkers}
-                whyMake={whyMake}
-                description={description}
-                cardImageURL={cardImageURL}
-                cardNumber={this.props.cardNumber}
-                bridgeCardNumber={this.props.bridgeCardNumber}
-                editable={this.props.editable}
-                size="small"
-              />
-            </CardActions>
           </Card>
         )}
       </div>
