@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import CardHeader from "@material-ui/core/CardHeader";
 import EditLinkCard from "./EditLinkCard";
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     borderRadius: "20px",
     marginBottom: "20px",
   },
-  link: {
+  button: {
     "&:hover": {
       outline: "none",
     },
@@ -91,6 +91,7 @@ function LinksCard(props) {
     });
   }, []);
 
+  /*
   const handleClick = (linkURL) => {
     const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
     if (urlregexp.test(linkURL)) {
@@ -100,6 +101,8 @@ function LinksCard(props) {
       window.open(linkURL);
     }
   };
+  */
+
   return (
     <React.Fragment>
       {!props.editable && (
@@ -109,28 +112,37 @@ function LinksCard(props) {
             <Divider className={classes.divider} />
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <CardActionArea
-                  className={classes.link}
-                  onClick={() => handleClick(linkCard1URL)}
+                <Link
+                  target="_blank"
+                  href={"//" + linkCard1URL}
+                  style={{ textDecoration: "none" }}
                 >
-                  <CardContent>{linkCard1Title}</CardContent>
-                </CardActionArea>
+                  <CardActionArea className={classes.button}>
+                    <CardContent>{linkCard1Title}</CardContent>
+                  </CardActionArea>
+                </Link>
               </Grid>
               <Grid item xs={12}>
-                <CardActionArea
-                  className={classes.link}
-                  onClick={() => handleClick(linkCard2URL)}
+                <Link
+                  target="_blank"
+                  href={"//" + linkCard2URL}
+                  style={{ textDecoration: "none" }}
                 >
-                  <CardContent>{linkCard2Title}</CardContent>
-                </CardActionArea>
+                  <CardActionArea className={classes.button}>
+                    <CardContent>{linkCard2Title}</CardContent>
+                  </CardActionArea>
+                </Link>
               </Grid>
               <Grid item xs={12}>
-                <CardActionArea
-                  className={classes.link}
-                  onClick={() => handleClick(linkCard3URL)}
+                <Link
+                  target="_blank"
+                  href={"//" + linkCard3URL}
+                  style={{ textDecoration: "none" }}
                 >
-                  <CardContent>{linkCard3Title}</CardContent>
-                </CardActionArea>
+                  <CardActionArea className={classes.button}>
+                    <CardContent>{linkCard3Title}</CardContent>
+                  </CardActionArea>
+                </Link>
               </Grid>
             </Grid>
           </CardContent>
