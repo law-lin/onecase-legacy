@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
 
 import { withStyles } from "@material-ui/core/styles";
+import Link from "@material-ui/core/Link";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -22,10 +23,15 @@ const styles = () => ({
   root: {
     "&:hover": {
       outline: "none",
+      color: "#FFFFFF",
+      backgroundColor: "#3E4E55",
     },
     "&:focus": {
       outline: "none",
     },
+    color: "#000000",
+
+    backgroundColor: "#FFFFFF",
     minHeight: "110px",
     width: "89.25%",
     borderRadius: "20px",
@@ -106,17 +112,27 @@ class ProfileCard extends Component {
     return (
       <div>
         {!this.props.editable && (
-          <CardActionArea
-            onClick={this.handleClick}
-            disabled={this.props.editable}
-            className={classes.root}
-            style={{ backgroundColor: "#ffffff" }}
+          <Link
+            href={
+              "/" +
+              this.props.match.params.username.toString() +
+              "/" +
+              this.state.cardTitle.split(" ").join("_")
+            }
+            style={{ textDecoration: "none" }}
           >
-            <CardContent>
-              {loading && <div>Loading...</div>}
-              <Typography className={classes.cardTitle}>{cardTitle}</Typography>
-            </CardContent>
-          </CardActionArea>
+            <CardActionArea
+              disabled={this.props.editable}
+              className={classes.root}
+            >
+              <CardContent>
+                {loading && <div>Loading...</div>}
+                <Typography className={classes.cardTitle}>
+                  {cardTitle}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Link>
         )}
         {this.props.editable && (
           <Card

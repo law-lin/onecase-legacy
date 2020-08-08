@@ -64,42 +64,35 @@ function LeftNavbar(props) {
   return (
     <Grid container alignItems="center" style={{ margin: "50% 0 0 0" }}>
       <Grid item xs={12}>
-        <Button
-          onClick={() => {
-            window.location.href = "/feed";
-          }}
-          className={classes.root}
-        >
-          <HomeIcon className={classes.icon} />
-          Home
-        </Button>
+        <Link href={"/feed"} style={{ textDecoration: "none" }}>
+          <Button className={classes.root}>
+            <HomeIcon className={classes.icon} />
+            Home
+          </Button>
+        </Link>
       </Grid>
       <Grid item xs={12}>
-        <Button
-          onClick={() => {
-            window.location.href = "/feed";
-          }}
-          className={classes.root}
-        >
-          <ExhibitionsIcon className={classes.icon} />
-          Exhibitions
-        </Button>
+        <Link href={"/feed"} style={{ textDecoration: "none" }}>
+          <Button className={classes.root}>
+            <ExhibitionsIcon className={classes.icon} />
+            Exhibitions
+          </Button>
+        </Link>
       </Grid>
       <Grid item xs={12}>
-        <Button
-          onClick={() => redirectTo("/" + username)}
-          className={classes.root}
-        >
-          {!loading && (
-            <Avatar
-              round="50px"
-              size="50"
-              style={{ marginRight: "20px" }}
-              src={profilePicture}
-            />
-          )}
-          Profile
-        </Button>
+        <Link href={"/" + username} style={{ textDecoration: "none" }}>
+          <Button className={classes.root}>
+            {!loading && (
+              <Avatar
+                round="50px"
+                size="50"
+                style={{ marginRight: "20px" }}
+                src={profilePicture}
+              />
+            )}
+            Profile
+          </Button>
+        </Link>
       </Grid>
       <Grid item xs={12} align="center">
         <SignOutButton />

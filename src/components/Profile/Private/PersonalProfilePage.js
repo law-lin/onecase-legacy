@@ -459,7 +459,7 @@ class PersonalProfilePage extends Component {
                             className={classes.root}
                             onClick={this.handleEdit}
                           >
-                            edit
+                            Edit
                           </Button>
                         )}
                         {this.state.editing && (
