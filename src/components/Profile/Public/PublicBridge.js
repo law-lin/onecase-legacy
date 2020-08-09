@@ -229,7 +229,7 @@ class PublicBridge extends Component {
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="5"
+                          bridgeCardNumber="bridgeCard5"
                         />
                       </Grid>
                       <Grid item xs={6} sm={4} align="center">

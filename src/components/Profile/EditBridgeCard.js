@@ -136,16 +136,11 @@ class EditBridgeCard extends Component {
   };
 
   handleSubmit = () => {
-    const {
-      cardImage,
-      bridgeCardTitle,
-      cardNumber,
-      bridgeCardNumber,
-      description,
-    } = this.state;
+    const { cardImage, bridgeCardTitle, description } = this.state;
+
     this.props.firebase.editBridgeCard(
-      cardNumber,
-      bridgeCardNumber,
+      this.props.cardNumber,
+      this.props.bridgeCardNumber,
       bridgeCardTitle,
       description
     );
@@ -178,10 +173,6 @@ class EditBridgeCard extends Component {
   render() {
     const CHARACTER_LIMIT = 600;
     const { classes } = this.props;
-    console.log("ok");
-    console.log(this.state.yearCreated);
-    console.log(this.state.isProud);
-    console.log(this.state.whyMake);
     return (
       <div>
         {this.props.editable && (
@@ -217,7 +208,6 @@ class EditBridgeCard extends Component {
                   rowsMax={2}
                   styles={{ height: 500 }}
                   defaultValue={this.props.bridgeCardTitle}
-                  value={this.state.bridgeCardTitle}
                   onChange={this.handleChange}
                   fullWidth
                 />
@@ -245,7 +235,10 @@ class EditBridgeCard extends Component {
                             style={{ display: "none" }}
                             onChange={this.handleImageChange}
                           />
-                          <IconButton onClick={() => this.fileUpload.click()}>
+                          <IconButton
+                            className={classes.button}
+                            onClick={() => this.fileUpload.click()}
+                          >
                             <CameraAltIcon />
                           </IconButton>
                         </Grid>
@@ -292,7 +285,7 @@ class EditBridgeCard extends Component {
                         disableUnderline: true,
                       }}
                       inputProps={{
-                        maxlength: CHARACTER_LIMIT,
+                        maxLength: CHARACTER_LIMIT,
                       }}
                       defaultValue={this.props.description}
                       onChange={this.handleChange}

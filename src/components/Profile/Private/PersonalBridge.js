@@ -33,7 +33,7 @@ const styles = () => ({
     textTransform: "none",
     fontSize: "20px",
     backgroundColor: "grey",
-    color: "white",
+    color: "#FFFFFF",
     borderRadius: "15px",
     width: "25%",
     height: "25%",
@@ -295,7 +295,7 @@ class PersonalBridge extends Component {
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="5"
+                          bridgeCardNumber="bridgeCard5"
                           editable={this.state.editing}
                         />
                       </Grid>

@@ -30,15 +30,16 @@ const useStyles = makeStyles({
     fontWeight: 500,
     marginTop: "10px",
     textAlign: "left",
+    overflowWrap: "break-word",
   },
   editNotes: {
     marginTop: "10px",
     textAlign: "left",
-
     width: "100%",
   },
   input: {
-    color: "#FFFFFF",
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
   },
 });
 
@@ -56,7 +57,7 @@ function NotesCard(props) {
           <CardContent>
             <h1 className={classes.header}>Notes</h1>
             <Divider className={classes.divider} />
-            <p className={classes.notes}>{props.notes}</p>
+            <Typography className={classes.notes}>{props.notes}</Typography>
           </CardContent>
           <CardActions>
             <Button size="small"></Button>
@@ -73,10 +74,10 @@ function NotesCard(props) {
               onChange={handleChange}
               defaultValue={props.notes}
               multiline
-              rows={30}
+              rows={27}
               rowsMax="30"
               inputProps={{
-                maxLength: 1700,
+                maxLength: 540,
                 className: classes.input,
               }}
               InputProps={{

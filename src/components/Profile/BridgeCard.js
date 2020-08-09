@@ -33,9 +33,12 @@ const styles = () => ({
     "&:focus": {
       outline: "none",
     },
-    minHeight: "120px",
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    minHeight: "110px",
     width: "89.25%",
     borderRadius: "20px",
+    boxShadow: "none",
   },
   cardTitle: {
     fontFamily: ["Mukta Mahee", "sans-serif"],
@@ -91,7 +94,7 @@ class BridgeCard extends Component {
             });
           } else {
             this.setState({
-              bridgeCardTitle: "Edit this bridge card!",
+              bridgeCardTitle: null,
               cardImageURL: null,
               loading: false,
             });
@@ -128,13 +131,14 @@ class BridgeCard extends Component {
     const { classes } = this.props;
     const { bridgeCardTitle, description, cardImageURL, loading } = this.state;
 
+    console.log(this.props.cardNumber);
+    console.log(this.props.bridgeCardNumber);
     return (
       <div>
-        {!this.props.editable && (
-          <div>
+        {!this.props.editable && bridgeCardTitle && (
+          <React.Fragment>
             <CardActionArea
               onClick={this.handleClick}
-              disabled={this.props.editable}
               className={classes.root}
               style={{
                 borderRadius: "20px",
@@ -177,6 +181,7 @@ class BridgeCard extends Component {
                       <Typography
                         gutterBottom
                         style={{
+                          minHeight: "350px",
                           fontFamily: "Mukta Mahee",
                           color: "#000000",
                           fontSize: "24px",
@@ -190,18 +195,15 @@ class BridgeCard extends Component {
                 </DialogContentText>
               </DialogContent>
             </Dialog>
-          </div>
+          </React.Fragment>
+        )}
+        {!this.props.editable && !bridgeCardTitle && (
+          <Card className={classes.root}></Card>
         )}
         {this.props.editable && (
-          <Card
-            className={classes.root}
-            style={{
-              borderRadius: "20px",
-              backgroundColor: "white",
-            }}
-          >
+          <Card className={classes.root}>
             <CardHeader
-              style={{ padding: "12px 12px 0 0", height: "0" }}
+              style={{ padding: "16px 16px 0 0", height: "0px" }}
               action={
                 <EditBridgeCard
                   bridgeCardTitle={bridgeCardTitle}

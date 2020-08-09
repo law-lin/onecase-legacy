@@ -44,14 +44,21 @@ function LeftNavbar(props) {
 
   useEffect(() => {
     setLoading(true);
-    props.firebase.currentUser().once("value", (snapshot) => {
-      if (snapshot) {
-        setUsername(snapshot.val().username);
-        setProfilePicture(snapshot.val().profilePicture);
-        setLoading(false);
+
+    props.firebase.auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        props.firebase.currentUser().once("value", (snapshot) => {
+          if (snapshot) {
+            setUsername(snapshot.val().username);
+            setProfilePicture(snapshot.val().profilePicture);
+            setLoading(false);
+          } else {
+            setProfilePicture(null);
+            setLoading(false);
+          }
+        });
       } else {
-        setProfilePicture(null);
-        setLoading(false);
+        setUsername(null);
       }
     });
   }, []);
@@ -79,24 +86,28 @@ function LeftNavbar(props) {
           </Button>
         </Link>
       </Grid>
-      <Grid item xs={12}>
-        <Link href={"/" + username} style={{ textDecoration: "none" }}>
-          <Button className={classes.root}>
-            {!loading && (
-              <Avatar
-                round="50px"
-                size="50"
-                style={{ marginRight: "20px" }}
-                src={profilePicture}
-              />
-            )}
-            Profile
-          </Button>
-        </Link>
-      </Grid>
-      <Grid item xs={12} align="center">
-        <SignOutButton />
-      </Grid>
+      {username && (
+        <Grid item xs={12}>
+          <Link href={"/" + username} style={{ textDecoration: "none" }}>
+            <Button className={classes.root}>
+              {!loading && (
+                <Avatar
+                  round="50px"
+                  size="50"
+                  style={{ marginRight: "20px" }}
+                  src={profilePicture}
+                />
+              )}
+              Profile
+            </Button>
+          </Link>
+        </Grid>
+      )}
+      {username && (
+        <Grid item xs={12} align="center">
+          <SignOutButton />
+        </Grid>
+      )}
     </Grid>
   );
 }

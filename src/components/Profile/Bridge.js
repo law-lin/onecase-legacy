@@ -53,7 +53,6 @@ class Bridge extends Component {
                   .getCardNumberWithCardTitle(userIDState, cardTitle)
                   .on("value", (snapshot) => {
                     const state = snapshot.val();
-                    console.log(state);
                     if (state) {
                       this.setState({
                         exists: true,
@@ -111,7 +110,6 @@ class Bridge extends Component {
   }
 
   render() {
-    console.log(this.state.exists);
     if (!this.state.loading && this.state.valid) {
       if (this.state.exists) {
         if (this.state.personal) {
