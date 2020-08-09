@@ -199,9 +199,13 @@ function ProfilePicture(props) {
   const fileUpload = useRef(null);
   return (
     <React.Fragment>
+      {!props.editable && (
+        <Avatar size="110" round="50px" src={profilePicture} />
+      )}
       {props.editable && (
         <div className={classes.profilePic}>
           <Avatar
+            size="110"
             round="50px"
             style={{ position: "relative" }}
             src={profilePicture}
@@ -291,7 +295,6 @@ function ProfilePicture(props) {
           </Dialog>
         </div>
       )}
-      {!props.editable && <Avatar round="50px" src={profilePicture} />}
     </React.Fragment>
   );
 }
