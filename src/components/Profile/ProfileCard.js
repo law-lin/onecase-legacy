@@ -38,10 +38,9 @@ const styles = () => ({
       outline: "none",
     },
     color: "#000000",
-
     backgroundColor: "#FFFFFF",
     minHeight: "110px",
-    width: "89.25%",
+    width: "88%",
     borderRadius: "20px",
   },
   cardTitle: {

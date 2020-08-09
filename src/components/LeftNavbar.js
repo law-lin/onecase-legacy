@@ -69,7 +69,7 @@ function LeftNavbar(props) {
   }
 
   return (
-    <Grid container alignItems="center" style={{ margin: "50% 0 0 0" }}>
+    <Grid container alignItems="center" style={{ margin: "85% 0 0 0" }}>
       <Grid item xs={12}>
         <Link href={"/feed"} style={{ textDecoration: "none" }}>
           <Button className={classes.root}>
