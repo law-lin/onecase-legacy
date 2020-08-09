@@ -27,8 +27,18 @@ import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
   root: {
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    minHeight: "110px",
+    width: "89.25%",
+    borderRadius: "20px",
+    boxShadow: "none",
+  },
+  button: {
     "&:hover": {
       outline: "none",
+      color: "#FFFFFF",
+      backgroundColor: "#3E4E55",
     },
     "&:focus": {
       outline: "none",
@@ -139,11 +149,7 @@ class BridgeCard extends Component {
           <React.Fragment>
             <CardActionArea
               onClick={this.handleClick}
-              className={classes.root}
-              style={{
-                borderRadius: "20px",
-                backgroundColor: "white",
-              }}
+              className={classes.button}
             >
               <CardContent>
                 {loading && <div>Loading...</div>}
