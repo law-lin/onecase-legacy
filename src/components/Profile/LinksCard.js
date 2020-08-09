@@ -15,8 +15,8 @@ import { Divider, TextField, CardActionArea } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     margin: "10% 5% 0 5%",
-    maxWidth: "73%",
-    height: 560,
+    maxWidth: "80%",
+
     backgroundColor: "#464646",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],

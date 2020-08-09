@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   root: {
     margin: "80px auto 0 auto",
     minWidth: "1224px",
-    maxWidth: "1800px",
+    maxWidth: "1500px",
   },
 });
 
