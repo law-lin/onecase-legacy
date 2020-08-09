@@ -47,6 +47,7 @@ const useStyles = makeStyles({
     fontWeight: 600,
     minHeight: 130,
     textAlign: "center",
+    boxShadow: "none",
   },
 });
 
@@ -158,9 +159,9 @@ function LinksCard(props) {
             <Divider className={classes.divider} />
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Card className={classes.link}>
+                <Card className={classes.button}>
                   <CardHeader
-                    style={{ padding: "5px 12px 0 0", height: "0" }}
+                    style={{ padding: "5px 12px 10px 0", height: "0" }}
                     action={
                       <EditLinkCard
                         linkCardNumber="linkCard1"
@@ -173,9 +174,9 @@ function LinksCard(props) {
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                <Card className={classes.link}>
+                <Card className={classes.button}>
                   <CardHeader
-                    style={{ padding: "5px 12px 0 0", height: "0" }}
+                    style={{ padding: "5px 12px 10px 0", height: "0" }}
                     action={
                       <EditLinkCard
                         linkCardNumber="linkCard2"
@@ -188,9 +189,9 @@ function LinksCard(props) {
                 </Card>
               </Grid>
               <Grid item xs={12}>
-                <Card className={classes.link}>
+                <Card className={classes.button}>
                   <CardHeader
-                    style={{ padding: "5px 12px 0 0", height: "0" }}
+                    style={{ padding: "5px 12px 10px 0", height: "0" }}
                     action={
                       <EditLinkCard
                         linkCardNumber="linkCard3"

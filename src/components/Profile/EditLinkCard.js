@@ -112,79 +112,77 @@ function EditLinkCard(props) {
   };
 
   return (
-    <div>
-      <Fragment>
-        <IconButton
-          className={classes.button}
-          tip="Edit Card"
-          onClick={handleOpen}
-        >
-          <PencilIcon />
-        </IconButton>
-        <Dialog
-          classes={{ paper: classes.dialogPaper }}
-          PaperProps={{
-            style: { backgroundColor: "#E4E4E4" },
-          }}
-          open={open}
-          onClose={handleClose}
-          fullWidth
-          maxWidth="md"
-        >
-          <DialogTitle>Edit this link!</DialogTitle>
-          <DialogContent>
-            <Typography
-              style={{
-                color: "#0FA9FF",
-                fontSize: "24px",
-                fontWeight: 700,
-              }}
-            >
-              Title:
-            </Typography>
-            <TextField
-              type="text"
-              name="linkTitle"
-              defaultValue={props.linkTitle}
-              placeholder=""
-              InputProps={{
-                disableUnderline: true,
-              }}
-              onChange={(e) => setLinkTitle(e.target.value)}
-            />
-            <Typography
-              style={{
-                color: "#0FA9FF",
-                fontSize: "24px",
-                fontWeight: 700,
-              }}
-            >
-              Link
-            </Typography>
-            <TextField
-              type="text"
-              name="linkURL"
-              placeholder="Ex: https://www.youtube.com/user/Vsauce"
-              defaultValue={props.linkURL}
-              InputProps={{
-                disableUnderline: true,
-              }}
-              onChange={(e) => setLinkURL(e.target.value)}
-              error={error}
-              helperText={error}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button className={classes.cancel} onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button className={classes.save} onClick={handleSave}>
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Fragment>
-    </div>
+    <Fragment>
+      <IconButton
+        className={classes.button}
+        tip="Edit Card"
+        onClick={handleOpen}
+      >
+        <PencilIcon />
+      </IconButton>
+      <Dialog
+        classes={{ paper: classes.dialogPaper }}
+        PaperProps={{
+          style: { backgroundColor: "#E4E4E4" },
+        }}
+        open={open}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="md"
+      >
+        <DialogTitle>Edit this link!</DialogTitle>
+        <DialogContent>
+          <Typography
+            style={{
+              color: "#0FA9FF",
+              fontSize: "24px",
+              fontWeight: 700,
+            }}
+          >
+            Title:
+          </Typography>
+          <TextField
+            type="text"
+            name="linkTitle"
+            defaultValue={props.linkTitle}
+            placeholder=""
+            InputProps={{
+              disableUnderline: true,
+            }}
+            onChange={(e) => setLinkTitle(e.target.value)}
+          />
+          <Typography
+            style={{
+              color: "#0FA9FF",
+              fontSize: "24px",
+              fontWeight: 700,
+            }}
+          >
+            Link
+          </Typography>
+          <TextField
+            type="text"
+            name="linkURL"
+            placeholder="Ex: https://www.youtube.com/user/Vsauce"
+            defaultValue={props.linkURL}
+            InputProps={{
+              disableUnderline: true,
+            }}
+            onChange={(e) => setLinkURL(e.target.value)}
+            error={error}
+            helperText={error}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button className={classes.cancel} onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button className={classes.save} onClick={handleSave}>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Fragment>
   );
 }
 
