@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import PencilIcon from "@material-ui/icons/Create";
 import { makeStyles } from "@material-ui/core/styles";
 import { withFirebase } from "../Firebase";
+import { Typography } from "@material-ui/core";
 // Icons
 
 const useStyles = makeStyles({
@@ -61,6 +62,9 @@ const useStyles = makeStyles({
     borderRadius: "15px",
     height: "100px",
     width: "250px",
+  },
+  confirmation: {
+    fontSize: "24px",
   },
   yes: {
     "&:hover": {
@@ -186,9 +190,11 @@ function EditCard(props) {
                     </Button>
                     <Dialog open={confirmation}>
                       <DialogContent>
-                        Are you sure you want to remove this card's category?
-                        All associated bridge cards with this card will also be
-                        erased.
+                        <Typography className={classes.confirmation}>
+                          Are you sure you want to set no category for this
+                          card? All associated bridge cards with this card will
+                          also be erased.
+                        </Typography>
                       </DialogContent>
                       <DialogActions>
                         <Button
