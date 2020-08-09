@@ -21,6 +21,14 @@ import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
   root: {
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    minHeight: "110px",
+    width: "89.25%",
+    borderRadius: "20px",
+    boxShadow: "none",
+  },
+  button: {
     "&:hover": {
       outline: "none",
       color: "#FFFFFF",
@@ -51,8 +59,7 @@ class ProfileCard extends Component {
     this.state = {
       username: null,
       oldCardTitle: "",
-      cardTitle: "",
-      cardImageURL: null,
+      cardTitle: null,
       loading: false,
       progress: 0,
     };
@@ -76,14 +83,12 @@ class ProfileCard extends Component {
               this.setState({
                 cardTitle: state.cardTitle,
                 oldCardTitle: state.cardTitle,
-                cardImageURL: state.cardImageURL,
                 loading: false,
               });
             } else {
               this.setState({
-                cardTitle: "Edit this card!",
-                oldCardTitle: "Edit this card!",
-                cardImageURL: null,
+                cardTitle: null,
+                oldCardTitle: "placeholder",
                 loading: false,
               });
             }
@@ -107,11 +112,12 @@ class ProfileCard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { oldCardTitle, cardTitle, cardImageURL, loading } = this.state;
+    const { oldCardTitle, cardTitle, loading } = this.state;
 
+    console.log(cardTitle);
     return (
       <div>
-        {!this.props.editable && (
+        {!this.props.editable && cardTitle && (
           <Link
             href={
               "/" +
@@ -121,10 +127,7 @@ class ProfileCard extends Component {
             }
             style={{ textDecoration: "none" }}
           >
-            <CardActionArea
-              disabled={this.props.editable}
-              className={classes.root}
-            >
+            <CardActionArea className={classes.button}>
               <CardContent>
                 {loading && <div>Loading...</div>}
                 <Typography className={classes.cardTitle}>
@@ -134,13 +137,11 @@ class ProfileCard extends Component {
             </CardActionArea>
           </Link>
         )}
+        {!this.props.editable && !cardTitle && (
+          <Card className={classes.root}></Card>
+        )}
         {this.props.editable && (
-          <Card
-            className={classes.root}
-            style={{
-              backgroundImage: `url(${cardImageURL})`,
-            }}
-          >
+          <Card className={classes.root}>
             <CardHeader
               style={{ padding: "16px 16px 0 0", height: "0px" }}
               action={

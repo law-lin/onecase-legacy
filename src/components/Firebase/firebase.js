@@ -156,6 +156,17 @@ class Firebase {
     });
   };
 
+  deleteCard = (oldCardTitle, cardNumber) => {
+    this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).remove();
+
+    let strOldCardTitle = oldCardTitle + "";
+    let formattedOldCardTitle = strOldCardTitle.split(" ").join("_");
+
+    this.db
+      .ref(`cards/${this.auth.currentUser.uid}`)
+      .child(`${formattedOldCardTitle}`)
+      .remove();
+  };
   editLinkCard = (linkCardNumber, linkTitle, linkURL) => {
     this.db.ref(`users/${this.auth.currentUser.uid}/${linkCardNumber}`).update({
       linkTitle,

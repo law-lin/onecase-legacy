@@ -86,18 +86,23 @@ function EditCard(props) {
   };
 
   const handleClick = (category) => {
-    props.firebase
-      .checkDuplicateCardTitle(category)
-      .once("value", (snapshot) => {
-        if (!snapshot.exists()) {
-          setError(null);
-          setOldCardTitle(category);
-          props.firebase.editCard(oldCardTitle, props.cardNumber, category);
-          handleClose();
-        } else {
-          setError("A card with this category already exists!");
-        }
-      });
+    if (category === "None") {
+      props.firebase.deleteCard(oldCardTitle, props.cardNumber);
+      handleClose();
+    } else {
+      props.firebase
+        .checkDuplicateCardTitle(category)
+        .once("value", (snapshot) => {
+          if (!snapshot.exists()) {
+            setError(null);
+            setOldCardTitle(category);
+            props.firebase.editCard(oldCardTitle, props.cardNumber, category);
+            handleClose();
+          } else {
+            setError("A card with this category already exists!");
+          }
+        });
+    }
   };
 
   return (
@@ -129,9 +134,9 @@ function EditCard(props) {
                   <Grid item xs={4} sm={4}>
                     <Button
                       className={classes.category}
-                      onClick={() => handleClick("School Projects")}
+                      onClick={() => handleClick("None")}
                     >
-                      School Projects
+                      None
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
@@ -241,9 +246,9 @@ function EditCard(props) {
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
-                      onClick={() => handleClick("Video Games")}
+                      onClick={() => handleClick("School Projects")}
                     >
-                      Video Games
+                      School Projects
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
