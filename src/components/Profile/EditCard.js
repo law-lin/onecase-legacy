@@ -62,6 +62,43 @@ const useStyles = makeStyles({
     height: "100px",
     width: "250px",
   },
+  yes: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#52bf75",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#05872e",
+    color: "white",
+    borderRadius: "15px",
+    width: "10%",
+    height: "25%",
+    marginRight: "1.5%",
+  },
+  no: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#f07171",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#f03737",
+    color: "white",
+    borderRadius: "15px",
+    width: "10%",
+    height: "25%",
+  },
   dialogPaper: {
     minHeight: "70vh",
     maxHeight: "80vh",
@@ -73,7 +110,7 @@ function EditCard(props) {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [oldCardTitle, setOldCardTitle] = useState(props.oldCardTitle);
-  const [cardTitle, setCardTitle] = useState(null);
+  const [confirmation, setConfirmation] = useState(false);
 
   const handleOpen = () => {
     setError(null);
@@ -87,8 +124,7 @@ function EditCard(props) {
 
   const handleClick = (category) => {
     if (category === "None") {
-      props.firebase.deleteCard(oldCardTitle, props.cardNumber);
-      handleClose();
+      setConfirmation(true);
     } else {
       props.firebase
         .checkDuplicateCardTitle(category)
@@ -102,6 +138,16 @@ function EditCard(props) {
             setError("A card with this category already exists!");
           }
         });
+    }
+  };
+
+  const handleConfirmation = (selection) => {
+    if (selection === "Yes") {
+      setConfirmation(false);
+      props.firebase.deleteCard(oldCardTitle, props.cardNumber);
+      handleClose();
+    } else {
+      setConfirmation(false);
     }
   };
 
@@ -138,6 +184,27 @@ function EditCard(props) {
                     >
                       None
                     </Button>
+                    <Dialog open={confirmation}>
+                      <DialogContent>
+                        Are you sure you want to remove this card's category?
+                        All associated bridge cards with this card will also be
+                        erased.
+                      </DialogContent>
+                      <DialogActions>
+                        <Button
+                          className={classes.yes}
+                          onClick={() => handleConfirmation("Yes")}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          className={classes.no}
+                          onClick={() => handleConfirmation("No")}
+                        >
+                          No
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
                   </Grid>
                   <Grid item xs={6} sm={4}>
                     <Button
