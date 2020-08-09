@@ -13,7 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
-
+import CardActionArea from "@material-ui/core/CardActionArea";
 import PencilIcon from "@material-ui/icons/Create";
 import { makeStyles } from "@material-ui/core/styles";
 import { withFirebase } from "../Firebase";
@@ -107,6 +107,21 @@ const useStyles = makeStyles({
     minHeight: "70vh",
     maxHeight: "80vh",
   },
+  card: {
+    "&:hover": {
+      outline: "none",
+      color: "#FFFFFF",
+      backgroundColor: "#3E4E55",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    minHeight: "110px",
+    width: "88%",
+    borderRadius: "20px",
+  },
 });
 
 function EditCard(props) {
@@ -159,13 +174,22 @@ function EditCard(props) {
     <div>
       {props.editable && (
         <Fragment>
-          <IconButton
-            className={classes.button}
-            tip="Edit Card"
-            onClick={handleOpen}
-          >
-            <PencilIcon />
-          </IconButton>
+          {props.display === "none" && (
+            <CardActionArea
+              className={classes.card}
+              style={{ padding: "16px 16px 0 0", height: "0px" }}
+              onClick={handleOpen}
+            ></CardActionArea>
+          )}
+          {!props.display && (
+            <IconButton
+              className={classes.button}
+              tip="Edit Card"
+              onClick={handleOpen}
+            >
+              <PencilIcon />
+            </IconButton>
+          )}
 
           <Dialog
             classes={{ paper: classes.dialogPaper }}
