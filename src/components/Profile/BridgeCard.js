@@ -172,33 +172,43 @@ class BridgeCard extends Component {
               </DialogTitle>
 
               <DialogContent dividers>
-                <DialogContentText>
-                  <Grid container>
-                    <Grid item xs={6}>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <React.Fragment>
                       {cardImageURL && (
-                        <img
-                          style={{ height: "100%", width: "100%" }}
-                          src={cardImageURL}
-                          alt="Show off your project!"
-                        />
+                        <Grid
+                          container
+                          justify="center"
+                          alignItems="center"
+                          style={{
+                            minHeight: "350px",
+                            width: "100%",
+                          }}
+                        >
+                          <img
+                            src={cardImageURL}
+                            alt="Show off your project!"
+                          />
+                        </Grid>
                       )}
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography
-                        gutterBottom
-                        style={{
-                          minHeight: "350px",
-                          fontFamily: "Mukta Mahee",
-                          color: "#000000",
-                          fontSize: "24px",
-                          fontWeight: 20,
-                        }}
-                      >
-                        {description}
-                      </Typography>
-                    </Grid>
+                      {!cardImageURL && <p>No image to display</p>}
+                    </React.Fragment>
                   </Grid>
-                </DialogContentText>
+                  <Grid item xs={6}>
+                    <Typography
+                      gutterBottom
+                      style={{
+                        minHeight: "350px",
+                        fontFamily: "Mukta Mahee",
+                        color: "#000000",
+                        fontSize: "24px",
+                        fontWeight: 20,
+                      }}
+                    >
+                      {description}
+                    </Typography>
+                  </Grid>
+                </Grid>
               </DialogContent>
             </Dialog>
           </React.Fragment>
