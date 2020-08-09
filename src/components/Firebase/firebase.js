@@ -166,10 +166,6 @@ class Firebase {
     cardNumber,
     bridgeCardNumber,
     bridgeCardTitle,
-    yearCreated,
-    isProud,
-    coworkers,
-    whyMake,
     description
   ) =>
     this.db
@@ -178,10 +174,6 @@ class Firebase {
       )
       .update({
         bridgeCardTitle,
-        yearCreated,
-        isProud,
-        coworkers,
-        whyMake,
         description,
       });
 
