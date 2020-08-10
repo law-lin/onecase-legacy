@@ -127,54 +127,63 @@ class PublicProfilePage extends Component {
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card1"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card2"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card3"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card4"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card5"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card6"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card7"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card8"
+                            personal={false}
                           />
                         </Grid>
                         <Grid item xs={6} sm={4} align="center">
                           <ProfileCard
                             username={this.state.username}
                             cardNumber="card9"
+                            personal={false}
                           />
                         </Grid>
                       </React.Fragment>

@@ -135,7 +135,7 @@ class ProfileCard extends Component {
             </CardActionArea>
           </Link>
         )}
-        {!this.props.editable && !cardTitle && (
+        {!this.props.editable && this.props.personal && !cardTitle && (
           <EditCard
             display="none"
             oldCardTitle={oldCardTitle}
@@ -144,6 +144,9 @@ class ProfileCard extends Component {
             editable={true}
             size="small"
           />
+        )}
+        {!this.props.editable && !this.props.personal && !cardTitle && (
+          <Card className={classes.root} />
         )}
         {this.props.editable && (
           <Card className={classes.root}>

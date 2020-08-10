@@ -500,6 +500,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card1"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -507,6 +508,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card2"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -514,6 +516,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card3"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -523,6 +526,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card4"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -530,6 +534,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card5"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -537,6 +542,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card6"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -546,6 +552,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card7"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -553,6 +560,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card8"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
@@ -560,6 +568,7 @@ class PersonalProfilePage extends Component {
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card9"
+                        personal={true}
                         editable={this.state.editing}
                       />
                     </Grid>
