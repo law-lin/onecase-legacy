@@ -7,6 +7,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -174,6 +176,12 @@ function EditCard(props) {
     }
   };
 
+  const handleAlertClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setError(null);
+  };
   return (
     <div>
       {props.editable && (
@@ -391,7 +399,15 @@ function EditCard(props) {
                     <MenuItem value="Food">Food</MenuItem>)
                   </Select>
                 </FormControl> */}
-              {error && <p style={{ color: "red" }}>{error}</p>}
+              <Snackbar
+                open={error}
+                autoHideDuration={6000}
+                onClose={handleAlertClose}
+              >
+                <MuiAlert onClose={handleAlertClose} severity="error">
+                  {error}
+                </MuiAlert>
+              </Snackbar>
             </DialogContent>
           </Dialog>
         </Fragment>
