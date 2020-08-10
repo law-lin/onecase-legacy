@@ -57,7 +57,7 @@ class ProfileCard extends Component {
 
     this.state = {
       username: null,
-      oldCardTitle: "",
+      oldCardTitle: "placeholder",
       cardTitle: null,
       loading: false,
       progress: 0,
@@ -113,7 +113,6 @@ class ProfileCard extends Component {
     const { classes } = this.props;
     const { oldCardTitle, cardTitle, loading } = this.state;
 
-    console.log(cardTitle);
     return (
       <div>
         {!this.props.editable && cardTitle && (

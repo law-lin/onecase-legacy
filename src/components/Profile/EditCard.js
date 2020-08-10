@@ -143,7 +143,11 @@ function EditCard(props) {
 
   const handleClick = (category) => {
     if (category === "None") {
-      setConfirmation(true);
+      if (oldCardTitle !== "placeholder") {
+        setConfirmation(true);
+      } else {
+        handleClose();
+      }
     } else {
       props.firebase
         .checkDuplicateCardTitle(category)
