@@ -191,7 +191,7 @@ function EditCard(props) {
               className={classes.card}
               style={{ padding: "16px 16px 0 0", height: "0px" }}
               onClick={handleOpen}
-            ></CardActionArea>
+            />
           )}
           {!props.display && (
             <IconButton

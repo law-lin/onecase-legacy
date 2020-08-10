@@ -213,7 +213,19 @@ class BridgeCard extends Component {
             </Dialog>
           </React.Fragment>
         )}
-        {!this.props.editable && !bridgeCardTitle && (
+        {!this.props.editable && !bridgeCardTitle && this.props.personal && (
+          <EditBridgeCard
+            display="none"
+            bridgeCardTitle={bridgeCardTitle}
+            description={description}
+            cardImageURL={cardImageURL}
+            cardNumber={this.props.cardNumber}
+            bridgeCardNumber={this.props.bridgeCardNumber}
+            editable={true}
+            size="small"
+          />
+        )}
+        {!this.props.editable && !bridgeCardTitle && !this.props.personal && (
           <Card className={classes.root}></Card>
         )}
         {this.props.editable && (

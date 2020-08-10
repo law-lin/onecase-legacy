@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import IconButton from "@material-ui/core/IconButton";
 import Slider from "@material-ui/core/Slider";
 import PencilIcon from "@material-ui/icons/Create";
@@ -33,11 +34,12 @@ const useStyles = makeStyles({
   },
   input: {
     fontSize: "36px",
+    backgroundColor: "#FFFFFF",
   },
   description: {
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#000000",
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     fontSize: "24px",
   },
   button: {
@@ -163,6 +165,21 @@ const useStyles = makeStyles({
   dialogPaper: {
     minHeight: "80vh",
     maxHeight: "80vh",
+  },
+  card: {
+    "&:hover": {
+      outline: "none",
+      color: "#FFFFFF",
+      backgroundColor: "#3E4E55",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    minHeight: "110px",
+    width: "88%",
+    borderRadius: "20px",
   },
 });
 
@@ -318,17 +335,28 @@ function EditBridgeCard(props) {
 
   const CHARACTER_LIMIT = 600;
   const fileUpload = useRef(null);
+
+  console.log(props.display);
   return (
     <div>
       {props.editable && (
         <React.Fragment>
-          <IconButton
-            className={classes.button}
-            tip="Edit Card"
-            onClick={handleOpen}
-          >
-            <PencilIcon />
-          </IconButton>
+          {props.display === "none" && (
+            <CardActionArea
+              className={classes.card}
+              style={{ padding: "16px 16px 0 0", height: "0px" }}
+              onClick={handleOpen}
+            />
+          )}
+          {!props.display && (
+            <IconButton
+              className={classes.button}
+              tip="Edit Card"
+              onClick={handleOpen}
+            >
+              <PencilIcon />
+            </IconButton>
+          )}
 
           <Dialog
             open={open}

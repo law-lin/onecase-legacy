@@ -258,6 +258,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard1"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                       <Grid item xs={6} sm={4} align="center">
@@ -267,6 +268,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard2"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                       <Grid item xs={6} sm={4} align="center">
@@ -276,6 +278,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard3"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                     </Grid>
@@ -288,6 +291,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard4"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                       <Grid item xs={6} sm={4} align="center">
@@ -297,6 +301,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard5"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                       <Grid item xs={6} sm={4} align="center">
@@ -306,6 +311,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard6"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                     </Grid>
@@ -317,6 +323,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard7"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                       <Grid item xs={12} sm={4} align="center">
@@ -326,6 +333,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard8"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                       <Grid item xs={12} sm={4} align="center">
@@ -335,6 +343,7 @@ class PersonalBridge extends Component {
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard9"
                           editable={this.state.editing}
+                          personal={true}
                         />
                       </Grid>
                     </Grid>
@@ -357,6 +366,7 @@ class PersonalBridge extends Component {
                       notes={this.state.notes}
                       cardNumber={this.state.cardNumber}
                       editable={this.state.editing}
+                      personal={true}
                       onChange={this.onNotesChange}
                     />
                   )}
