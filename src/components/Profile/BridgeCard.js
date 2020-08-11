@@ -29,34 +29,35 @@ const styles = () => ({
   root: {
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    minHeight: "110px",
-    width: "89.25%",
-    borderRadius: "20px",
+    minHeight: "200px",
+    width: "70%",
+    opacity: 0.5,
     boxShadow: "none",
+    backgroundSize: "200px 200px",
+    backgroundRepeat: "no-repeat",
   },
   button: {
     "&:hover": {
       outline: "none",
-      color: "#FFFFFF",
       backgroundColor: "#3E4E55",
     },
     "&:focus": {
       outline: "none",
     },
     color: "#000000",
-    backgroundColor: "#FFFFFF",
-    minHeight: "110px",
-    width: "89.25%",
-    borderRadius: "20px",
+    minHeight: "200px",
+    width: "70%",
     boxShadow: "none",
   },
   cardTitle: {
+    opacity: 1,
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontSize: "30px",
     fontWeight: 800,
     overflowWrap: "break-word",
   },
   title: {
+    opacity: 1,
     fontSize: "36px",
   },
 });
@@ -72,7 +73,8 @@ class BridgeCard extends Component {
       parentCardTitle: null,
       bridgeCardTitle: "",
       description: "",
-      cardImageURL: "",
+      cardImageURL: null,
+      coverCardImageURL: null,
       loading: false,
       open: false,
       progress: 0,
@@ -84,7 +86,7 @@ class BridgeCard extends Component {
     const username = this.props.match.params.username;
     const parentCardTitle = this.props.match.params.cardTitle;
 
-    this.setState({ parentCardTitle });
+    this.setState({ parentCardTitle, loading: true });
     if (this.state.userID == null || this.state.cardTitle == null) {
       this.props.firebase
         .bridgeCards(
@@ -99,6 +101,7 @@ class BridgeCard extends Component {
             this.setState({
               bridgeCardTitle: state.bridgeCardTitle,
               description: state.description,
+              cardCoverImageURL: state.cardCoverImageURL,
               cardImageURL: state.cardImageURL,
               loading: false,
             });
@@ -139,10 +142,15 @@ class BridgeCard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { bridgeCardTitle, description, cardImageURL, loading } = this.state;
+    const {
+      bridgeCardTitle,
+      description,
+      cardImageURL,
+      cardCoverImageURL,
+      loading,
+    } = this.state;
 
-    console.log(this.props.cardNumber);
-    console.log(this.props.bridgeCardNumber);
+    console.log(cardCoverImageURL);
     return (
       <div>
         {!this.props.editable && bridgeCardTitle && (
@@ -150,6 +158,17 @@ class BridgeCard extends Component {
             <CardActionArea
               onClick={this.handleClick}
               className={classes.button}
+              style={{
+                background: cardCoverImageURL
+                  ? `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${cardCoverImageURL})`
+                  : "#FFFFFF",
+                backgroundSize: "200px 200px",
+                backgroundRepeat: "no-repeat",
+                "&:hover": {
+                  outline: "none",
+                  backgroundColor: "#3E4E55",
+                },
+              }}
             >
               <CardContent>
                 {loading && <div>Loading...</div>}
@@ -219,6 +238,7 @@ class BridgeCard extends Component {
             bridgeCardTitle={bridgeCardTitle}
             description={description}
             cardImageURL={cardImageURL}
+            cardCoverImageURL={cardCoverImageURL}
             cardNumber={this.props.cardNumber}
             bridgeCardNumber={this.props.bridgeCardNumber}
             editable={true}
@@ -229,7 +249,10 @@ class BridgeCard extends Component {
           <Card className={classes.root}></Card>
         )}
         {this.props.editable && (
-          <Card className={classes.root}>
+          <Card
+            className={classes.root}
+            style={{ backgroundImage: `url(${cardCoverImageURL})` }}
+          >
             <CardHeader
               style={{ padding: "16px 16px 0 0", height: "0px" }}
               action={

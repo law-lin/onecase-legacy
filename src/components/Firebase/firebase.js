@@ -191,6 +191,9 @@ class Firebase {
   uploadCardImage = (image) =>
     this.storage.ref(`card_images/${image.name}`).put(image);
 
+  uploadCardCoverImage = (image) =>
+    this.storage.ref(`cover_card_images/${image.name}`).put(image);
+
   uploadCardImageURL = (cardNumber, bridgeCardNumber, image) => {
     this.storage
       .ref("card_images")
@@ -203,6 +206,22 @@ class Firebase {
           )
           .update({
             cardImageURL,
+          });
+      });
+  };
+
+  uploadCardCoverImageURL = (cardNumber, bridgeCardNumber, image) => {
+    this.storage
+      .ref("cover_card_images")
+      .child(image.name)
+      .getDownloadURL()
+      .then((cardCoverImageURL) => {
+        this.db
+          .ref(
+            `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
+          )
+          .update({
+            cardCoverImageURL,
           });
       });
   };

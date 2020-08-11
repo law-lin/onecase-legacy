@@ -169,17 +169,14 @@ const useStyles = makeStyles({
   card: {
     "&:hover": {
       outline: "none",
-      color: "#FFFFFF",
-      backgroundColor: "#3E4E55",
     },
     "&:focus": {
       outline: "none",
     },
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    minHeight: "110px",
-    width: "88%",
-    borderRadius: "20px",
+    minHeight: "200px",
+    width: "70%",
   },
 });
 
@@ -188,8 +185,10 @@ function EditBridgeCard(props) {
 
   const [open, setOpen] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
+  const [coverImageOpen, setCoverImageOpen] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [coverImageSrc, setCoverImageSrc] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -198,6 +197,7 @@ function EditBridgeCard(props) {
   const [cardImage, setCardImage] = useState(null);
   const [bridgeCardTitle, setBridgeCardTitle] = useState(null);
   const [description, setDescription] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   // state = {
   //   name: "",
@@ -234,10 +234,28 @@ function EditBridgeCard(props) {
     }
   }, [imageSrc, croppedAreaPixels, rotation]);
 
+  const handleCoverImageSave = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        coverImageSrc,
+        croppedAreaPixels,
+        rotation
+      );
+      setCoverImagePreview(croppedImage);
+      setCoverImageOpen(false);
+    } catch (e) {
+      console.error(e);
+      setCoverImageOpen(false);
+    }
+  }, [imageSrc, croppedAreaPixels, rotation]);
+
   const handleImageClose = () => {
     setImageOpen(false);
   };
 
+  const handleCoverImageClose = () => {
+    setCoverImageOpen(false);
+  };
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -259,7 +277,7 @@ function EditBridgeCard(props) {
   const handleImageChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      console.log(file);
+
       let imageDataUrl = await readFile(file);
 
       // apply rotation if needed
@@ -271,20 +289,23 @@ function EditBridgeCard(props) {
       setImageSrc(imageDataUrl);
       setImageOpen(true);
     }
+  };
 
-    // e.preventDefault();
+  const handleCoverImageChange = async (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
 
-    // let reader = new FileReader();
-    // let cardImage = e.target.files[0];
+      let imageDataUrl = await readFile(file);
 
-    // reader.onloadend = () => {
-    //   setState({
-    //     cardImage,
-    //     imagePreviewURL: reader.result,
-    //   });
-    // };
-
-    // reader.readAsDataURL(cardImage);
+      // apply rotation if needed
+      const orientation = await getOrientation(file);
+      const rotation = ORIENTATION_TO_ANGLE[orientation];
+      if (rotation) {
+        imageDataUrl = await getRotatedImage(imageDataUrl, rotation);
+      }
+      setCoverImageSrc(imageDataUrl);
+      setCoverImageOpen(true);
+    }
   };
 
   const handleAlertClose = (event, reason) => {
@@ -330,12 +351,39 @@ function EditBridgeCard(props) {
           }
         );
       }
+
+      if (coverImagePreview != null) {
+        let blob = await fetch(coverImagePreview).then((r) => r.blob());
+        let uuid = uuidv4();
+        let file = new File([blob], uuid);
+
+        props.firebase.uploadCardCoverImage(file).on(
+          "state_changed",
+          (snapshot) => {
+            // progress function ...
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            props.firebase.uploadCardCoverImageURL(
+              props.cardNumber,
+              props.bridgeCardNumber,
+              file
+            );
+            handleClose();
+          }
+        );
+      }
     }
   });
 
   const CHARACTER_LIMIT = 600;
   const fileUpload = useRef(null);
-
+  const coverImageUpload = useRef(null);
   console.log(props.display);
   return (
     <div>
@@ -396,6 +444,107 @@ function EditBridgeCard(props) {
             </DialogTitle>
             <DialogContent dividers>
               <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <input
+                    type="file"
+                    ref={coverImageUpload}
+                    style={{ display: "none" }}
+                    onChange={handleCoverImageChange}
+                  />
+                  {coverImagePreview && (
+                    <IconButton
+                      className={classes.imageUpload}
+                      onClick={() => coverImageUpload.current.click()}
+                    >
+                      <img
+                        style={{ height: "100%", width: "100%" }}
+                        src={coverImagePreview}
+                        alt="preview bridge card img"
+                      />
+                    </IconButton>
+                  )}
+                  {!coverImagePreview && (
+                    <IconButton
+                      className={classes.imageUpload}
+                      onClick={() => coverImageUpload.current.click()}
+                    >
+                      Select Cover Image
+                    </IconButton>
+                  )}
+
+                  <Dialog
+                    open={coverImageOpen}
+                    onClose={handleClose}
+                    fullWidth={true}
+                    maxWidth={"lg"}
+                    height
+                    classes={{ paper: classes.dialogPaper }}
+                    PaperProps={{
+                      style: { backgroundColor: "#E4E4E4" },
+                    }}
+                  >
+                    <DialogContent>
+                      <div className={classes.crop}>
+                        <Cropper
+                          image={coverImageSrc}
+                          crop={crop}
+                          rotation={rotation}
+                          zoom={zoom}
+                          aspect={3 / 3}
+                          cropSize={{ width: 200, height: 200 }}
+                          onCropChange={setCrop}
+                          onRotationChange={setRotation}
+                          onCropComplete={onCropComplete}
+                          onZoomChange={setZoom}
+                        />
+                      </div>
+                      <div className={classes.controls}>
+                        <div className={classes.sliderContainer}>
+                          <Typography
+                            variant="overline"
+                            classes={{ root: classes.sliderLabel }}
+                          >
+                            Zoom
+                          </Typography>
+                          <Slider
+                            value={zoom}
+                            min={1}
+                            max={3}
+                            step={0.1}
+                            aria-labelledby="Zoom"
+                            onChange={(e, zoom) => setZoom(zoom)}
+                            classes={{ container: classes.slider }}
+                          />
+                        </div>
+                        <div className={classes.sliderContainer}>
+                          <Typography
+                            variant="overline"
+                            classes={{ root: classes.sliderLabel }}
+                          >
+                            Rotation
+                          </Typography>
+                          <Slider
+                            value={rotation}
+                            min={0}
+                            max={360}
+                            step={1}
+                            aria-labelledby="Rotation"
+                            classes={{ container: classes.slider }}
+                            onChange={(e, rotation) => setRotation(rotation)}
+                          />
+                        </div>
+                      </div>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleCoverImageClose} color="primary">
+                        Cancel
+                      </Button>
+                      <Button onClick={handleCoverImageSave} color="primary">
+                        Save
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </Grid>
                 <Grid item xs={6}>
                   <React.Fragment>
                     {!imagePreview && (
