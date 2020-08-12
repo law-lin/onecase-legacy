@@ -28,7 +28,7 @@ const styles = () => ({
   container: {
     margin: "80px auto 0 auto",
     minWidth: "1224px",
-    maxWidth: "1500px",
+    maxWidth: "1400px",
   },
 });
 
