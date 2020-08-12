@@ -10,8 +10,8 @@ import { Divider, TextField } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     margin: "5% 5% 0 5%",
-    maxWidth: "60%",
-    height: 600,
+    maxWidth: "77%",
+    height: 630,
     backgroundColor: "#232323",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
@@ -19,16 +19,20 @@ const useStyles = makeStyles({
   },
   header: {
     fontWeight: 800,
+    margin: "0 0 3% -35%",
   },
   divider: {
     backgroundColor: "white",
     height: "5px",
     borderRadius: "20px",
+    width: "85%",
   },
   notes: {
     fontSize: "25px",
     fontWeight: 300,
     marginTop: "10px",
+    marginLeft: "10px",
+    marginRight: "13px",
     textAlign: "left",
     overflowWrap: "break-word",
     fontFamily: ["Mukta Mahee", "sans-serif"],
@@ -41,6 +45,12 @@ const useStyles = makeStyles({
   input: {
     color: "#000000",
     backgroundColor: "#FFFFFF",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontWeight: 300,
+    fontSize: "25px",
+    lineHeight: 1.6,
+    borderRadius: 10,
+    height: "1px",
   },
 });
 
