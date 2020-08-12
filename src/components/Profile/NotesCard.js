@@ -26,10 +26,12 @@ const useStyles = makeStyles({
     borderRadius: "20px",
   },
   notes: {
-    fontWeight: 500,
+    fontSize: "25px",
+    fontWeight: 300,
     marginTop: "10px",
     textAlign: "left",
     overflowWrap: "break-word",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
   },
   editNotes: {
     marginTop: "10px",
