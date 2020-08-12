@@ -50,6 +50,7 @@ const styles = () => ({
   cardTitle: {
     opacity: 1,
     fontFamily: ["Montserrat", "sans-serif"],
+    textAlign: "center",
     fontSize: "30px",
     fontWeight: 700,
     overflowWrap: "break-word",

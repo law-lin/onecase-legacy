@@ -9,8 +9,8 @@ import { Divider, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    margin: "5% 5% 0 5%",
-    maxWidth: "77%",
+    margin: "5% 0 0 0",
+    minWidth: "280px",
     height: 630,
     backgroundColor: "#232323",
     color: "#FFFFFF",
@@ -88,7 +88,7 @@ function NotesCard(props) {
               rows={13}
               rowsMax="14"
               inputProps={{
-                maxLength: 300,
+                maxLength: 250,
                 className: classes.input,
               }}
               InputProps={{

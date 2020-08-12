@@ -45,7 +45,7 @@ const styles = () => ({
   container: {
     margin: "80px auto 0 auto",
     minWidth: "1224px",
-    maxWidth: "1400px",
+    maxWidth: "1224px",
   },
 });
 
@@ -177,11 +177,11 @@ class PersonalBridge extends Component {
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Grid container className={classes.container}>
-            <Grid item xs={12} sm={2}>
+          <Box display="flex" flexDirection="row" className={classes.container}>
+            <Box>
               <LeftNavbar />
-            </Grid>
-            <Grid item xs={12} sm={7}>
+            </Box>
+            <Box ml={3} mr={7}>
               <Grid container spacing={3}>
                 <Grid
                   justify="center"
@@ -350,9 +350,9 @@ class PersonalBridge extends Component {
                   </Grid>
                 )}
               </Grid>
-            </Grid>
-            <Grid item xs={12} sm={3} align="center">
-              <Grid container style={{ marginTop: "10px" }}>
+            </Box>
+            <Box>
+              <Grid container style={{ marginTop: "10px" }} align="center">
                 <Grid item xs={12}>
                   <UsernameButton
                     display="block"
@@ -360,7 +360,7 @@ class PersonalBridge extends Component {
                   />
                   <ProfilePicture profilePicture={this.state.profilePicture} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} align="center">
                   {!this.state.notesLoading && (
                     <NotesCard
                       notes={this.state.notes}
@@ -372,8 +372,8 @@ class PersonalBridge extends Component {
                   )}
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </MediaQuery>
       </div>
     );
