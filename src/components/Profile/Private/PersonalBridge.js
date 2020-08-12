@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import BridgeCard from "../BridgeCard";
 import Button from "@material-ui/core/Button";
 import MediaQuery from "react-responsive";
+import Box from "@material-ui/core/Box";
 
 import Card from "@material-ui/core/Card";
 
@@ -44,7 +45,7 @@ const styles = () => ({
   container: {
     margin: "80px auto 0 auto",
     minWidth: "1224px",
-    maxWidth: "1500px",
+    maxWidth: "1400px",
   },
 });
 
@@ -250,8 +251,8 @@ class PersonalBridge extends Component {
                 </Grid>
                 {!this.state.cardNumberLoading && (
                   <Grid justify="center" container item xs={12} spacing={3}>
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -260,8 +261,8 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -270,8 +271,8 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -280,11 +281,10 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                    </Grid>
-
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -293,8 +293,8 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -303,8 +303,8 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -313,10 +313,10 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                    </Grid>
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -325,8 +325,8 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -335,8 +335,8 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
@@ -345,8 +345,8 @@ class PersonalBridge extends Component {
                           editable={this.state.editing}
                           personal={true}
                         />
-                      </Grid>
-                    </Grid>
+                      </Box>
+                    </Box>
                   </Grid>
                 )}
               </Grid>

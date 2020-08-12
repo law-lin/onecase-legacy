@@ -30,7 +30,8 @@ const styles = () => ({
     color: "#3B3C3B",
     backgroundColor: "#FFFFFF",
     minHeight: "200px",
-    width: "70%",
+    height: "200px",
+    width: "200px",
     boxShadow: "none",
   },
   button: {
@@ -42,8 +43,8 @@ const styles = () => ({
       outline: "none",
     },
     color: "#3B3C3B",
-    minHeight: "200px",
-    width: "70%",
+    height: "200px",
+    width: "200px",
     boxShadow: "none",
   },
   cardTitle: {
@@ -197,6 +198,7 @@ class BridgeCard extends Component {
                         >
                           <img
                             src={cardImageURL}
+                            style={{ maxWidth: "500px", maxHeight: "500px" }}
                             alt="Show off your project!"
                           />
                         </Grid>

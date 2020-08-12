@@ -75,10 +75,10 @@ function NotesCard(props) {
               onChange={handleChange}
               defaultValue={props.notes}
               multiline
-              rows={27}
-              rowsMax="30"
+              rows={13}
+              rowsMax="14"
               inputProps={{
-                maxLength: 540,
+                maxLength: 300,
                 className: classes.input,
               }}
               InputProps={{

@@ -176,7 +176,7 @@ const useStyles = makeStyles({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: "200px",
-    width: "70%",
+    width: "200px",
   },
 });
 
