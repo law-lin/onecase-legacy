@@ -6,7 +6,7 @@ function UsernameButton(props) {
     <Link
       style={{
         display: props.display,
-        color: "#A82F2F",
+        color: "#000000",
         fontSize: "32px",
         fontFamily: ["Montserrat", "sans-serif"],
         fontWeight: 700,
