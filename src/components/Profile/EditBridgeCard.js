@@ -491,7 +491,6 @@ function EditBridgeCard(props) {
                           rotation={rotation}
                           zoom={zoom}
                           aspect={3 / 3}
-                          cropSize={{ width: 200, height: 200 }}
                           onCropChange={setCrop}
                           onRotationChange={setRotation}
                           onCropComplete={onCropComplete}
