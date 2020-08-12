@@ -181,7 +181,7 @@ class PersonalBridge extends Component {
               <LeftNavbar />
             </Grid>
             <Grid item xs={12} sm={7}>
-              <Grid container spacing={3} style={{ marginTop: "40px" }}>
+              <Grid container spacing={3}>
                 <Grid
                   justify="center"
                   container
