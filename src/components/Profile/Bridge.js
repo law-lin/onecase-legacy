@@ -48,7 +48,6 @@ class Bridge extends Component {
             .on("value", (snapshot) => {
               const userIDState = snapshot.val();
               if (userIDState) {
-                console.log(userIDState);
                 this.props.firebase
                   .getCardNumberWithCardTitle(userIDState, cardTitle)
                   .on("value", (snapshot) => {

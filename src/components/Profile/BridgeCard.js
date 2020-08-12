@@ -148,8 +148,6 @@ class BridgeCard extends Component {
       cardCoverImageURL,
       loading,
     } = this.state;
-
-    console.log(cardCoverImageURL);
     return (
       <div>
         {!this.props.editable && bridgeCardTitle && (

@@ -384,7 +384,7 @@ function EditBridgeCard(props) {
   const CHARACTER_LIMIT = 600;
   const fileUpload = useRef(null);
   const coverImageUpload = useRef(null);
-  console.log(props.display);
+
   return (
     <div>
       {props.editable && (

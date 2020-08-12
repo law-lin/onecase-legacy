@@ -121,7 +121,7 @@ const useStyles = makeStyles({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: "110px",
-    width: "88%",
+    width: "240px",
     borderRadius: "20px",
   },
 });

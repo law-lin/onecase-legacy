@@ -47,7 +47,7 @@ const styles = () => ({
   container: {
     margin: "80px auto 0 auto",
     minWidth: "1224px",
-    maxWidth: "1500px",
+    maxWidth: "1400px",
   },
   save: {
     "&:hover": {
@@ -329,71 +329,71 @@ class PersonalProfilePage extends Component {
                   </React.Fragment>
                 </Grid>
                 <Grid justify="center" container item xs={12} spacing={3}>
-                  <React.Fragment>
-                    <Grid item xs={6} sm={4} align="center">
+                  <Box display="flex" flexDirection="row">
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card1"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card2"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card3"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card4"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card5"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card6"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card7"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card8"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card9"
                         editable={this.state.editing}
                       />
-                    </Grid>
-                  </React.Fragment>
+                    </Box>
+                  </Box>
                 </Grid>
               </Grid>
             </Grid>
@@ -411,11 +411,11 @@ class PersonalProfilePage extends Component {
         </MediaQuery>
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Grid container className={classes.container}>
-            <Grid item xs={12} sm={2}>
+          <Box display="flex" flexDirection="row" className={classes.container}>
+            <Box>
               <LeftNavbar />
-            </Grid>
-            <Grid item xs={12} sm={7}>
+            </Box>
+            <Box ml={3} mr={7}>
               <Grid container spacing={5} style={{ marginTop: "40px" }}>
                 <Grid
                   justify="center"
@@ -495,97 +495,91 @@ class PersonalProfilePage extends Component {
                   </React.Fragment>
                 </Grid>
                 <Grid justify="center" container item xs={12} spacing={3}>
-                  <Grid container item xs={12}>
-                    <Grid item xs={6} sm={4} align="center">
+                  <Box display="flex" flexDirection="row">
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card1"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card2"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card3"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                  </Grid>
-                  <Grid container item xs={12}>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card4"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card5"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card6"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                  </Grid>
-                  <Grid container item xs={12}>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card7"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card8"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                    <Grid item xs={6} sm={4} align="center">
+                    </Box>
+                    <Box m={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card9"
                         personal={true}
                         editable={this.state.editing}
                       />
-                    </Grid>
-                  </Grid>
+                    </Box>
+                  </Box>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={3}
-              style={{ marginTop: "10px" }}
-              align="center"
-            >
+            </Box>
+            <Box style={{ marginTop: "10px" }}>
               <LinksCard editable={this.state.editing} />
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </MediaQuery>
       </div>
     );

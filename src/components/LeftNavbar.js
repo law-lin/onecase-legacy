@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 import SignOutButton from "./Profile/SignOutButton";
 import Avatar from "react-avatar";
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textTransform: "none",
     fontSize: "20px",
-    width: "90%",
+    width: "220px",
     justifyContent: "left",
   },
   icon: {
@@ -69,25 +70,25 @@ function LeftNavbar(props) {
   }
 
   return (
-    <Grid container alignItems="center" style={{ margin: "85% 0 0 0" }}>
-      <Grid item xs={12}>
+    <Box display="flex" flexDirection="column" style={{ marginTop: "100%" }}>
+      <Box>
         <Link href={"/feed"} style={{ textDecoration: "none" }}>
           <Button className={classes.root}>
             <HomeIcon className={classes.icon} />
             Home
           </Button>
         </Link>
-      </Grid>
-      <Grid item xs={12}>
+      </Box>
+      <Box>
         <Link href={"/feed"} style={{ textDecoration: "none" }}>
           <Button className={classes.root}>
             <ExhibitionsIcon className={classes.icon} />
             Exhibitions
           </Button>
         </Link>
-      </Grid>
+      </Box>
       {username && (
-        <Grid item xs={12}>
+        <Box>
           <Link href={"/" + username} style={{ textDecoration: "none" }}>
             <Button className={classes.root}>
               {!loading && (
@@ -101,14 +102,14 @@ function LeftNavbar(props) {
               Profile
             </Button>
           </Link>
-        </Grid>
+        </Box>
       )}
       {username && (
-        <Grid item xs={12} align="center">
+        <Box>
           <SignOutButton />
-        </Grid>
+        </Box>
       )}
-    </Grid>
+    </Box>
   );
 }
 

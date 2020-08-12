@@ -41,11 +41,12 @@ const styles = () => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    margin: "0 auto",
   },
   container: {
     margin: "80px auto 0 auto",
     minWidth: "1224px",
-    maxWidth: "1224px",
+    maxWidth: "1400px",
   },
 });
 
@@ -177,80 +178,63 @@ class PersonalBridge extends Component {
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Box display="flex" flexDirection="row" className={classes.container}>
-            <Box>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            className={classes.container}
+          >
+            <Box pr={3}>
               <LeftNavbar />
             </Box>
-            <Box ml={3} mr={7}>
-              <Grid container spacing={3}>
+            <Box>
+              <Box display="flex" flexDirection="column">
                 <Grid
-                  justify="center"
                   container
-                  item
-                  xs={12}
-                  spacing={3}
-                  style={{ minHeight: "200px", maxHeight: "200px" }}
+                  style={{ minHeight: "120px", maxHeight: "200px" }}
                 >
-                  <React.Fragment>
-                    <Grid item xs={12} sm={4}></Grid>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sm={4}
-                      justify="center"
-                      align="center"
-                      direction="column"
+                  <Grid item xs={12} sm={4}></Grid>
+                  <Grid container item xs={12} sm={4}>
+                    <Card
+                      style={{
+                        fontFamily: ["Montserrat", "sans-serif"],
+                        backgroundColor: "black",
+                        color: "white",
+                        fontSize: "30px",
+                        fontWeight: 800,
+                        borderRadius: "15px",
+                        alignSelf: "center",
+                        width: "100%",
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
                     >
-                      <Card
-                        style={{
-                          fontFamily: ["Montserrat", "sans-serif"],
-                          backgroundColor: "black",
-                          color: "white",
-                          fontSize: "30px",
-                          fontWeight: 800,
-                          borderRadius: "15px",
-                          alignSelf: "center",
-                          width: "100%",
-
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                        }}
+                      {this.state.cardTitle}
+                    </Card>
+                  </Grid>
+                  <Grid container item xs={12} sm={4}>
+                    {!this.state.editing && (
+                      <Button
+                        className={classes.root}
+                        onClick={this.handleEdit}
                       >
-                        {this.state.cardTitle}
-                      </Card>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sm={4}
-                      justify="center"
-                      align="center"
-                      direction="column"
-                    >
-                      {!this.state.editing && (
-                        <Button
-                          className={classes.root}
-                          onClick={this.handleEdit}
-                        >
-                          Edit
-                        </Button>
-                      )}
-                      {this.state.editing && (
-                        <Button
-                          className={classes.root}
-                          onClick={this.handleDone}
-                        >
-                          Done
-                        </Button>
-                      )}
-                    </Grid>
-                  </React.Fragment>
+                        Edit
+                      </Button>
+                    )}
+                    {this.state.editing && (
+                      <Button
+                        className={classes.root}
+                        onClick={this.handleDone}
+                      >
+                        Done
+                      </Button>
+                    )}
+                  </Grid>
                 </Grid>
                 {!this.state.cardNumberLoading && (
-                  <Grid justify="center" container item xs={12} spacing={3}>
+                  <Box>
                     <Box display="flex" flexDirection="row">
                       <Box m={2}>
                         <BridgeCard
@@ -347,20 +331,24 @@ class PersonalBridge extends Component {
                         />
                       </Box>
                     </Box>
-                  </Grid>
+                  </Box>
                 )}
-              </Grid>
+              </Box>
             </Box>
-            <Box>
-              <Grid container style={{ marginTop: "10px" }} align="center">
-                <Grid item xs={12}>
+            <Box pl={6}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                style={{ marginTop: "10px" }}
+              >
+                <Box style={{ textAlign: "center" }}>
                   <UsernameButton
                     display="block"
                     username={this.state.username}
                   />
                   <ProfilePicture profilePicture={this.state.profilePicture} />
-                </Grid>
-                <Grid item xs={12} align="center">
+                </Box>
+                <Box>
                   {!this.state.notesLoading && (
                     <NotesCard
                       notes={this.state.notes}
@@ -370,8 +358,8 @@ class PersonalBridge extends Component {
                       onChange={this.onNotesChange}
                     />
                   )}
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </Box>
           </Box>
         </MediaQuery>

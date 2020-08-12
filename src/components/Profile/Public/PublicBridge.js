@@ -11,6 +11,7 @@ import BridgeCard from "../BridgeCard";
 import Button from "@material-ui/core/Button";
 import MediaQuery from "react-responsive";
 import LeftNavbar from "../../LeftNavbar";
+import Box from "@material-ui/core/Box";
 
 import Card from "@material-ui/core/Card";
 
@@ -26,7 +27,7 @@ const styles = () => ({
   container: {
     margin: "80px auto 0 auto",
     minWidth: "1224px",
-    maxWidth: "1500px",
+    maxWidth: "1224px",
   },
 });
 
@@ -132,11 +133,11 @@ class PublicBridge extends Component {
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Grid container className={classes.container}>
-            <Grid item xs={12} sm={2}>
+          <Box display="flex" flexDirection="row" className={classes.container}>
+            <Box>
               <LeftNavbar />
-            </Grid>
-            <Grid item xs={12} sm={7}>
+            </Box>
+            <Box ml={3} mr={7}>
               <Grid container spacing={3}>
                 <Grid
                   justify="center"
@@ -163,10 +164,11 @@ class PublicBridge extends Component {
                           backgroundColor: "black",
                           color: "white",
                           fontSize: "30px",
-                          fontWeight: 600,
+                          fontWeight: 800,
                           borderRadius: "15px",
                           alignSelf: "center",
                           width: "100%",
+
                           display: "flex",
                           flexDirection: "column",
                           justifyContent: "center",
@@ -188,91 +190,90 @@ class PublicBridge extends Component {
                 </Grid>
                 {!this.state.cardNumberLoading && (
                   <Grid justify="center" container item xs={12} spacing={3}>
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard1"
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard2"
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard3"
                         />
-                      </Grid>
-                    </Grid>
-
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard4"
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard5"
                         />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard6"
                         />
-                      </Grid>
-                    </Grid>
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard7"
                         />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard8"
                         />
-                      </Grid>
-                      <Grid item xs={12} sm={4} align="center">
+                      </Box>
+                      <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
                           username={this.state.username}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard9"
                         />
-                      </Grid>
-                    </Grid>
+                      </Box>
+                    </Box>
                   </Grid>
                 )}
               </Grid>
-            </Grid>
-            <Grid item xs={12} sm={3} align="center">
-              <Grid container style={{ marginTop: "10px" }}>
+            </Box>
+            <Box>
+              <Grid container style={{ marginTop: "10px" }} align="center">
                 <Grid item xs={12}>
                   <UsernameButton
                     display="block"
@@ -280,7 +281,7 @@ class PublicBridge extends Component {
                   />
                   <ProfilePicture profilePicture={this.state.profilePicture} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} align="center">
                   {!this.state.notesLoading && (
                     <NotesCard
                       notes={this.state.notes}
@@ -289,8 +290,8 @@ class PublicBridge extends Component {
                   )}
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </MediaQuery>
       </div>
     );
