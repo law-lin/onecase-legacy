@@ -195,7 +195,7 @@ function EditBridgeCard(props) {
 
   const [alert, setAlert] = useState(false);
   const [cardImage, setCardImage] = useState(null);
-  const [bridgeCardTitle, setBridgeCardTitle] = useState(null);
+  const [bridgeCardTitle, setBridgeCardTitle] = useState(props.bridgeCardTitle);
   const [description, setDescription] = useState(null);
   const [coverImagePreview, setCoverImagePreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);

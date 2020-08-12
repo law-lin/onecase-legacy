@@ -31,10 +31,7 @@ const styles = () => ({
     backgroundColor: "#FFFFFF",
     minHeight: "200px",
     width: "70%",
-    opacity: 0.5,
     boxShadow: "none",
-    backgroundSize: "200px 200px",
-    backgroundRepeat: "no-repeat",
   },
   button: {
     "&:hover": {
@@ -160,14 +157,8 @@ class BridgeCard extends Component {
               className={classes.button}
               style={{
                 background: cardCoverImageURL
-                  ? `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${cardCoverImageURL})`
-                  : "#FFFFFF",
-                backgroundSize: "200px 200px",
-                backgroundRepeat: "no-repeat",
-                "&:hover": {
-                  outline: "none",
-                  backgroundColor: "#3E4E55",
-                },
+                  ? `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${cardCoverImageURL}) 0 0/200px 200px no-repeat`
+                  : "#FFFFFF 0 0/200px 200px no-repeat",
               }}
             >
               <CardContent>
@@ -251,10 +242,14 @@ class BridgeCard extends Component {
         {this.props.editable && (
           <Card
             className={classes.root}
-            style={{ backgroundImage: `url(${cardCoverImageURL})` }}
+            style={{
+              background: cardCoverImageURL
+                ? `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${cardCoverImageURL}) 0 0/200px 200px no-repeat`
+                : "#FFFFFF 0 0/200px 200px no-repeat",
+            }}
           >
             <CardHeader
-              style={{ padding: "16px 16px 0 0", height: "0px" }}
+              style={{ padding: "16px 16px 48px 0", height: "0px" }}
               action={
                 <EditBridgeCard
                   bridgeCardTitle={bridgeCardTitle}
