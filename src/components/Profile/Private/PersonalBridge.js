@@ -207,7 +207,7 @@ class PersonalBridge extends Component {
                           backgroundColor: "black",
                           color: "white",
                           fontSize: "30px",
-                          fontWeight: 600,
+                          fontWeight: 800,
                           borderRadius: "15px",
                           alignSelf: "center",
                           width: "100%",

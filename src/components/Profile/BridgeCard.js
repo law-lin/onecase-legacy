@@ -27,7 +27,7 @@ import { CardActionArea } from "@material-ui/core";
 
 const styles = () => ({
   root: {
-    color: "#000000",
+    color: "#3B3C3B",
     backgroundColor: "#FFFFFF",
     minHeight: "200px",
     width: "70%",
@@ -41,16 +41,16 @@ const styles = () => ({
     "&:focus": {
       outline: "none",
     },
-    color: "#000000",
+    color: "#3B3C3B",
     minHeight: "200px",
     width: "70%",
     boxShadow: "none",
   },
   cardTitle: {
     opacity: 1,
-    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontFamily: ["Montserrat", "sans-serif"],
     fontSize: "30px",
-    fontWeight: 800,
+    fontWeight: 700,
     overflowWrap: "break-word",
   },
   title: {

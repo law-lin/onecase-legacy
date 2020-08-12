@@ -10,7 +10,6 @@ import { Divider, TextField } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     margin: "5% 5% 0 5%",
-
     maxWidth: "60%",
     height: 600,
     backgroundColor: "#232323",

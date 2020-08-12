@@ -44,9 +44,9 @@ const styles = () => ({
     borderRadius: "20px",
   },
   cardTitle: {
-    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontFamily: ["Montserrat", "sans-serif"],
     fontSize: "30px",
-    fontWeight: 800,
+    fontWeight: 700,
     overflowWrap: "break-word",
   },
 });
