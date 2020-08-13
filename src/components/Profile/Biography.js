@@ -7,13 +7,13 @@ import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles({
   input: {
     fontSize: "20px",
-    fontFamily: ["Montserrat", "sans-serif"],
+    fontFamily: ["Mukta Mahee", "sans-serif"],
   },
   display: {
     height: "70px",
     marginTop: "70px",
     fontSize: "20px",
-    fontFamily: ["Montserrat", "sans-serif"],
+    fontFamily: ["Mukta Mahee", "sans-serif"],
     whiteSpace: "pre-line",
   },
 });
