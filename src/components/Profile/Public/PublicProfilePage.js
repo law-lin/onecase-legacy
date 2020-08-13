@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     maxWidth: "1250px",
   },
   infoBox: {
-    width: "200px",
+    width: "220px",
     height: "120px",
     borderRadius: "15px",
     color: "#FFFFFF",
@@ -61,6 +61,7 @@ const useStyles = makeStyles({
     color: "#FFFFFF",
     backgroundColor: "#000000",
     textTransform: "none",
+    width:"85px"
   },
   center: {
     marginTop: "40px",

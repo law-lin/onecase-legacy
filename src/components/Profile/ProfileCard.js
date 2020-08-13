@@ -24,7 +24,7 @@ const styles = () => ({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: "110px",
-    width: "240px",
+    width: "270px",
     borderRadius: "20px",
     boxShadow: "none",
   },
@@ -40,7 +40,7 @@ const styles = () => ({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: "110px",
-    width: "240px",
+    width: "270px",
     borderRadius: "20px",
   },
   cardTitle: {
