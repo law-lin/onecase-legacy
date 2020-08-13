@@ -162,20 +162,18 @@ function PersonalProfilePage(props) {
               setOldUsername(state.username);
               setUsername(state.username);
               setUsername(state.username);
-              setOldBio(state.bio)
+              setOldBio(state.bio);
               setBio(state.bio);
               setProfilePicture(state.profilePicture);
               setFollowerCount(state.followerCount);
               setFollowingCount(state.followingCount);
               setLoading(false);
-            } 
-            else {
+            } else {
               setLoading(false);
             }
           });
-        }
-        else{
-          setLoading(false)
+        } else {
+          setLoading(false);
         }
       });
     }
@@ -454,7 +452,10 @@ function PersonalProfilePage(props) {
                       <CardHeader
                         style={{ padding: "16px 16px 0 0", height: "0px" }}
                         action={
-                          <Button className={classes.editProfile} onClick={handleEdit}>
+                          <Button
+                            className={classes.editProfile}
+                            onClick={handleEdit}
+                          >
                             Edit
                           </Button>
                         }
@@ -470,7 +471,7 @@ function PersonalProfilePage(props) {
                         Cancel
                       </Button>
                     )}
-              
+
                     <CardContent>
                       <Typography className={classes.text}>
                         <span style={{ fontWeight: 700 }}>{followerCount}</span>{" "}
@@ -496,6 +497,7 @@ function PersonalProfilePage(props) {
                       username={username}
                       cardNumber="card1"
                       editable={editing}
+                      personal={true}
                     />
                   </Box>
                   <Box p={2}>
@@ -503,6 +505,7 @@ function PersonalProfilePage(props) {
                       username={username}
                       cardNumber="card2"
                       editable={editing}
+                      personal={true}
                     />
                   </Box>
                 </Box>
@@ -512,6 +515,7 @@ function PersonalProfilePage(props) {
                       username={username}
                       cardNumber="card3"
                       editable={editing}
+                      personal={true}
                     />
                   </Box>
                   <Box p={2}>
@@ -519,6 +523,7 @@ function PersonalProfilePage(props) {
                       username={username}
                       cardNumber="card4"
                       editable={editing}
+                      personal={true}
                     />
                   </Box>
                 </Box>
@@ -528,6 +533,7 @@ function PersonalProfilePage(props) {
                       username={username}
                       cardNumber="card5"
                       editable={editing}
+                      personal={true}
                     />
                   </Box>
                   <Box p={2}>
@@ -535,6 +541,7 @@ function PersonalProfilePage(props) {
                       username={username}
                       cardNumber="card6"
                       editable={editing}
+                      personal={true}
                     />
                   </Box>
                 </Box>

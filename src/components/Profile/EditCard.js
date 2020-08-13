@@ -46,10 +46,17 @@ const useStyles = makeStyles({
     color: "white",
     borderRadius: "15px",
   },
+  title: {
+    color: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontSize: "30px",
+    fontWeight: 800,
+  },
   category: {
     "&:hover": {
       outline: "none",
-      backgroundColor: "#72b1cc",
+      color: "#3E4E55",
+      backgroundColor: "#D8D8D8",
     },
     "&:focus": {
       outline: "none",
@@ -57,10 +64,10 @@ const useStyles = makeStyles({
     fontFamily: ["Montserrat", "sans-serif"],
     alignSelf: "center",
     textTransform: "none",
-    fontSize: "20px",
-    fontWeight: 700,
-    backgroundColor: "#3E4E55",
-    color: "#D4F1F3",
+    fontSize: "25px",
+    fontWeight: 800,
+    backgroundColor: "#656464",
+    color: "#FFFFFF",
     borderRadius: "15px",
     height: "100px",
     width: "250px",
@@ -206,14 +213,16 @@ function EditCard(props) {
           <Dialog
             classes={{ paper: classes.dialogPaper }}
             PaperProps={{
-              style: { backgroundColor: "#E4E4E4" },
+              style: { backgroundColor: "#232323" },
             }}
             open={open}
             onClose={handleClose}
             fullWidth
             maxWidth="md"
           >
-            <DialogTitle>Choose this card's category!</DialogTitle>
+            <DialogTitle>
+              <Typography className={classes.title}>Choose A Theme</Typography>
+            </DialogTitle>
             <DialogContent>
               <Grid container spacing={3} alignItems="center">
                 <Grid container item xs={12} spacing={3} align="center">
