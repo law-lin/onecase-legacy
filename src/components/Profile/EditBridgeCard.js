@@ -36,7 +36,14 @@ const useStyles = makeStyles({
     fontSize: "36px",
     backgroundColor: "#FFFFFF",
   },
+  caption: {
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    fontSize: "32px",
+  },
   description: {
+    marginTop: "20px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#000000",
     backgroundColor: "#FFFFFF",
@@ -67,6 +74,7 @@ const useStyles = makeStyles({
     "&:focus": {
       outline: "none",
     },
+    color: "#FFFFFF",
   },
 
   save: {
@@ -196,7 +204,9 @@ function EditBridgeCard(props) {
   const [alert, setAlert] = useState(false);
   const [cardImage, setCardImage] = useState(null);
   const [bridgeCardTitle, setBridgeCardTitle] = useState(props.bridgeCardTitle);
-  const [description, setDescription] = useState(null);
+  const [caption, setCaption] = useState(props.caption);
+  const [description, setDescription] = useState(props.description);
+
   const [coverImagePreview, setCoverImagePreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   // state = {
@@ -322,6 +332,7 @@ function EditBridgeCard(props) {
         props.cardNumber,
         props.bridgeCardNumber,
         bridgeCardTitle,
+        caption,
         description
       );
 
@@ -378,6 +389,7 @@ function EditBridgeCard(props) {
           }
         );
       }
+      handleClose();
     }
   });
 
@@ -412,7 +424,9 @@ function EditBridgeCard(props) {
             fullWidth={true}
             maxWidth={"lg"}
             PaperProps={{
-              style: { backgroundColor: "#E4E4E4" },
+              style: {
+                backgroundColor: "#232323",
+              },
             }}
           >
             <DialogTitle>
@@ -674,6 +688,18 @@ function EditBridgeCard(props) {
                   </React.Fragment>
                 </Grid>
                 <Grid item xs={6}>
+                  <TextField
+                    name="caption"
+                    type="text"
+                    placeholder="Insert a caption here"
+                    InputProps={{
+                      className: classes.description,
+                      disableUnderline: true,
+                    }}
+                    defaultValue={props.caption}
+                    onChange={(e) => setCaption(e.target.value)}
+                    fullWidth
+                  />
                   <TextField
                     name="description"
                     type="text"

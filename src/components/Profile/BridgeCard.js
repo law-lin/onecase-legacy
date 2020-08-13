@@ -13,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
+import Box from "@material-ui/core/Box";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -56,8 +57,48 @@ const styles = () => ({
     overflowWrap: "break-word",
   },
   title: {
-    opacity: 1,
+    backgroundColor: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 700,
     fontSize: "36px",
+    padding: "5px 20px",
+    borderRadius: "15px",
+    width: "fit-content",
+  },
+  dialog: {
+    color: "#FFFFFF",
+    backgroundColor: "#232323",
+  },
+  caption: {
+    minHeight: "150px",
+    fontFamily: "Mukta Mahee",
+    color: "#FFFFFF",
+    fontSize: "32px",
+    fontWeight: 700,
+    position: "relative",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      backgroundColor: "white",
+      width: "100%",
+      height: "3px",
+    },
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      backgroundColor: "white",
+      width: "100%",
+      height: "3px",
+      bottom: 0,
+      left: 0,
+    },
+  },
+  description: {
+    marginTop: "20px",
+    minHeight: "350px",
+    fontFamily: "Mukta Mahee",
+    color: "#FFFFFF",
+    fontSize: "24px",
   },
 });
 
@@ -71,6 +112,7 @@ class BridgeCard extends Component {
       bridgeCardNumber: null,
       parentCardTitle: null,
       bridgeCardTitle: "",
+      caption: "",
       description: "",
       cardImageURL: null,
       coverCardImageURL: null,
@@ -99,6 +141,7 @@ class BridgeCard extends Component {
           if (state) {
             this.setState({
               bridgeCardTitle: state.bridgeCardTitle,
+              caption: state.caption,
               description: state.description,
               cardCoverImageURL: state.cardCoverImageURL,
               cardImageURL: state.cardImageURL,
@@ -143,6 +186,7 @@ class BridgeCard extends Component {
     const { classes } = this.props;
     const {
       bridgeCardTitle,
+      caption,
       description,
       cardImageURL,
       cardCoverImageURL,
@@ -174,6 +218,11 @@ class BridgeCard extends Component {
               maxWidth={"lg"}
               open={this.state.open}
               onClose={this.handleClose}
+              PaperProps={{
+                style: {
+                  backgroundColor: "#232323",
+                },
+              }}
             >
               <DialogTitle>
                 <Typography className={classes.title}>
@@ -202,20 +251,23 @@ class BridgeCard extends Component {
                           />
                         </Grid>
                       )}
-                      {!cardImageURL && <p>No image to display</p>}
+                      {!cardImageURL && (
+                        <p
+                          style={{
+                            color: "#FFFFFF",
+                            fontFamily: ["Mukta Mahee", "sans-serif"],
+                          }}
+                        >
+                          No image to display
+                        </p>
+                      )}
                     </React.Fragment>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography
-                      gutterBottom
-                      style={{
-                        minHeight: "350px",
-                        fontFamily: "Mukta Mahee",
-                        color: "#000000",
-                        fontSize: "24px",
-                        fontWeight: 20,
-                      }}
-                    >
+                    <Typography className={classes.caption}>
+                      {caption}
+                    </Typography>
+                    <Typography gutterBottom className={classes.description}>
                       {description}
                     </Typography>
                   </Grid>
@@ -228,6 +280,7 @@ class BridgeCard extends Component {
           <EditBridgeCard
             display="none"
             bridgeCardTitle={bridgeCardTitle}
+            caption={caption}
             description={description}
             cardImageURL={cardImageURL}
             cardCoverImageURL={cardCoverImageURL}
@@ -250,7 +303,7 @@ class BridgeCard extends Component {
             }}
           >
             <CardHeader
-              style={{ padding: "16px 16px 48px 0", height: "0px" }}
+              style={{ padding: "16px 16px 0 0", height: "0px" }}
               action={
                 <EditBridgeCard
                   bridgeCardTitle={bridgeCardTitle}

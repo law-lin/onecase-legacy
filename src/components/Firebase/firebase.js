@@ -178,6 +178,7 @@ class Firebase {
     cardNumber,
     bridgeCardNumber,
     bridgeCardTitle,
+    caption,
     description
   ) =>
     this.db
@@ -186,6 +187,7 @@ class Firebase {
       )
       .update({
         bridgeCardTitle,
+        caption,
         description,
       });
 
