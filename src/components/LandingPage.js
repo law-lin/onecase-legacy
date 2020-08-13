@@ -107,7 +107,9 @@ function LandingPage(props) {
                   .set({
                     username,
                     email,
-                    bio: "Edit your bio with the edit button!",
+                    bio: "",
+                    followerCount: 0,
+                    followingCount: 0,
                     profilePicture: DefaultProfilePicture,
                   })
                   .then(() => {

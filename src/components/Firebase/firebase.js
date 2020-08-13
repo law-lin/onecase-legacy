@@ -21,6 +21,7 @@ class Firebase {
     app.analytics();
 
     this.auth = app.auth();
+    this.database = app.database;
     this.db = app.database();
     this.storage = app.storage();
   }
@@ -241,6 +242,32 @@ class Firebase {
           profilePicture,
         });
       });
+  };
+
+  follow = (followerID, followedID, followerCount) => {
+    this.db.ref(`followers/${followedID}`).update({ [followerID]: true });
+    this.db.ref(`following/${followerID}`).update({ [followedID]: true });
+    this.db.ref(`users/${followedID}`).update({ followerCount });
+    this.db
+      .ref(`users/${followerID}/followingCount`)
+      .set(this.database.ServerValue.increment(1));
+  };
+
+  unfollow = (followerID, followedID, followerCount) => {
+    this.db.ref(`followers/${followedID}`).remove();
+    this.db.ref(`following/${followerID}`).remove();
+    this.db.ref(`users/${followedID}`).update({ followerCount });
+    this.db
+      .ref(`users/${followerID}/followingCount`)
+      .set(this.database.ServerValue.increment(-1));
+  };
+
+  getFollowers = (userID) => {
+    return this.db.ref(`followers/${userID}`);
+  };
+
+  getFollowing = (followerID, followedID) => {
+    return this.db.ref(`following/${followerID}/${followedID}`);
   };
 }
 

@@ -200,7 +200,12 @@ function ProfilePicture(props) {
   return (
     <React.Fragment>
       {!props.editable && (
-        <Avatar size="110" round="50px" src={profilePicture} />
+        <Avatar
+          style={{ margin: "0 auto" }}
+          size="110"
+          round="50px"
+          src={profilePicture}
+        />
       )}
       {props.editable && (
         <div className={classes.profilePic}>
