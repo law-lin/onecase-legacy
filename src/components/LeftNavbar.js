@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textTransform: "none",
     fontSize: "20px",
-    width: "220px",
+    width: "270px",
     justifyContent: "left",
   },
   icon: {
@@ -70,7 +70,7 @@ function LeftNavbar(props) {
   }
 
   return (
-    <Box display="flex" flexDirection="column" style={{ marginTop: "100%" }}>
+    <Box display="flex" flexDirection="column" style={{ marginTop: "75%" }}>
       <Box>
         <Link href={"/feed"} style={{ textDecoration: "none" }}>
           <Button className={classes.root}>

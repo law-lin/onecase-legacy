@@ -46,8 +46,8 @@ const styles = () => ({
   },
   container: {
     margin: "80px auto 0 auto",
-    minWidth: "1224px",
-    maxWidth: "1400px",
+    minWidth: "1250px",
+    maxWidth: "1250px",
   },
   save: {
     "&:hover": {
@@ -85,6 +85,15 @@ const styles = () => ({
     borderRadius: "15px",
     width: "25%",
     height: "25%",
+  },
+  center: {
+    marginTop: "40px",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "15px",
+    minWidth: "625px",
+    minHeight: "450px",
+    backgroundColor: "#232323",
   },
 });
 
@@ -328,9 +337,9 @@ class PersonalProfilePage extends Component {
                     </Grid>
                   </React.Fragment>
                 </Grid>
-                <Grid justify="center" container item xs={12} spacing={3}>
+                <Box display="flex" flexDirection="column">
                   <Box display="flex" flexDirection="row">
-                    <Box m={2}>
+                    <Box p={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card1"
@@ -394,7 +403,7 @@ class PersonalProfilePage extends Component {
                       />
                     </Box>
                   </Box>
-                </Grid>
+                </Box>
               </Grid>
             </Grid>
             <Grid
@@ -409,175 +418,143 @@ class PersonalProfilePage extends Component {
           </Grid>
           <BottomNavbar />
         </MediaQuery>
+
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Box display="flex" flexDirection="row" className={classes.container}>
-            <Box>
+          <Box display="flex" className={classes.container}>
+            <Box flex={1} justifyContent="center">
               <LeftNavbar />
             </Box>
-            <Box ml={3} mr={7}>
-              <Grid container spacing={5} style={{ marginTop: "40px" }}>
-                <Grid
-                  justify="center"
-                  container
-                  item
-                  xs={12}
-                  spacing={3}
-                  style={{ maxHeight: "200px" }}
+            <Box flex={1} justifyContent="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                style={{ marginTop: "40px", width: "700px" }}
+              >
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="center"
+                  width="100%"
                 >
-                  <React.Fragment>
-                    <Box clone order={{ xs: 2, sm: 1 }}>
-                      <Grid item xs={12} sm={4}>
-                        {!this.state.loading && (
-                          <Biography
-                            margin="25px"
-                            bio={this.state.bio}
-                            editable={this.state.editing}
-                            onChange={this.onBioChange}
-                          />
-                        )}
-                      </Grid>
-                    </Box>
-                    <Box clone order={{ xs: 1, sm: 2 }}>
-                      <Grid item xs={12} sm={4} align="center">
-                        {!this.state.loading && (
-                          <Username
-                            username={this.state.username}
-                            editable={this.state.editing}
-                            onChange={this.onUsernameChange}
-                          />
-                        )}
-                        {!this.state.loading && (
-                          <ProfilePicture
-                            profilePicture={this.state.profilePicture}
-                            editable={this.state.editing}
-                          />
-                        )}
-                      </Grid>
-                    </Box>
-                    <Box clone order={{ xs: 3, sm: 3 }}>
-                      <Grid item xs={12} sm={4} align="center">
-                        {!this.state.editing && (
-                          <Button
-                            className={classes.root}
-                            onClick={this.handleEdit}
-                          >
-                            Edit
-                          </Button>
-                        )}
-                        {this.state.editing && (
-                          <Button
-                            className={classes.save}
-                            onClick={this.handleSave}
-                          >
-                            Save
-                          </Button>
-                        )}
-                        {this.state.editing && (
-                          <Button
-                            className={classes.cancel}
-                            onClick={this.handleCancel}
-                          >
-                            Cancel
-                          </Button>
-                        )}
-                        <Typography
-                          style={{
-                            color: "red",
-                            fontSize: "20px",
-                            fontFamily: ["Montserrat", "sans-serif"],
-                          }}
-                        >
-                          {this.state.error}
-                        </Typography>
-                      </Grid>
-                    </Box>
-                  </React.Fragment>
-                </Grid>
-                <Grid justify="center" container item xs={12} spacing={3}>
-                  <Box display="flex" flexDirection="row">
-                    <Box m={2}>
+                  <Box flex={1} flexBasis="100%">
+                    {!this.state.loading && (
+                      <Biography
+                        margin="15px"
+                        bio={this.state.bio}
+                        editable={this.state.editing}
+                      />
+                    )}
+                  </Box>
+                  <Box
+                    flex={1}
+                    flexBasis="100%"
+                    style={{ textAlign: "center" }}
+                  >
+                    {!this.state.loading && (
+                      <React.Fragment>
+                        <Username
+                          username={this.state.username}
+                          editable={this.state.editing}
+                        />
+                        <ProfilePicture
+                          profilePicture={this.state.profilePicture}
+                          editable={this.state.editing}
+                        />
+                      </React.Fragment>
+                    )}
+                  </Box>
+                  <Box
+                    display="flex"
+                    flex={1}
+                    flexBasis="100%"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    {!this.state.editing && (
+                      <Button
+                        className={classes.root}
+                        onClick={this.handleEdit}
+                      >
+                        Edit
+                      </Button>
+                    )}
+                    {this.state.editing && (
+                      <Button
+                        className={classes.save}
+                        onClick={this.handleSave}
+                      >
+                        Save
+                      </Button>
+                    )}
+                    {this.state.editing && (
+                      <Button
+                        className={classes.cancel}
+                        onClick={this.handleCancel}
+                      >
+                        Cancel
+                      </Button>
+                    )}
+                  </Box>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  className={classes.center}
+                >
+                  <Box display="flex">
+                    <Box p={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card1"
-                        personal={true}
                         editable={this.state.editing}
                       />
                     </Box>
-                    <Box m={2}>
+                    <Box p={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card2"
-                        personal={true}
                         editable={this.state.editing}
                       />
                     </Box>
-                    <Box m={2}>
+                  </Box>
+                  <Box display="flex">
+                    <Box p={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card3"
-                        personal={true}
                         editable={this.state.editing}
                       />
                     </Box>
-                  </Box>
-                  <Box display="flex" flexDirection="row">
-                    <Box m={2}>
+                    <Box p={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card4"
-                        personal={true}
                         editable={this.state.editing}
                       />
                     </Box>
-                    <Box m={2}>
+                  </Box>
+                  <Box display="flex">
+                    <Box p={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card5"
-                        personal={true}
                         editable={this.state.editing}
                       />
                     </Box>
-                    <Box m={2}>
+                    <Box p={2}>
                       <ProfileCard
                         username={this.state.username}
                         cardNumber="card6"
-                        personal={true}
                         editable={this.state.editing}
                       />
                     </Box>
                   </Box>
-                  <Box display="flex" flexDirection="row">
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card7"
-                        personal={true}
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card8"
-                        personal={true}
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card9"
-                        personal={true}
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                  </Box>
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </Box>
-            <Box style={{ marginTop: "10px" }}>
-              <LinksCard editable={this.state.editing} />
+            <Box flex={1} justifyContent="center">
+              <LinksCard />
             </Box>
           </Box>
         </MediaQuery>

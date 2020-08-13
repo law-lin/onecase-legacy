@@ -26,8 +26,22 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = () => ({
   container: {
     margin: "80px auto 0 auto",
-    minWidth: "1224px",
-    maxWidth: "1400px",
+    minWidth: "1250px",
+    maxWidth: "1250px",
+  },
+  card: {
+    fontFamily: ["Montserrat", "sans-serif"],
+    backgroundColor: "black",
+    color: "white",
+    fontSize: "30px",
+    fontWeight: 800,
+    borderRadius: "15px",
+    alignSelf: "center",
+    width: "100%",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
 });
 
@@ -133,41 +147,23 @@ class PublicBridge extends Component {
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="center"
-            className={classes.container}
-          >
-            <Box pr={3}>
+          <Box display="flex" className={classes.container}>
+            <Box flex={1} justifyContent="center">
               <LeftNavbar />
             </Box>
-            <Box>
-              <Box display="flex" flexDirection="column">
+            <Box flex={1} justifyContent="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                style={{ width: "700px" }}
+              >
                 <Grid
                   container
                   style={{ minHeight: "120px", maxHeight: "200px" }}
                 >
                   <Grid item xs={12} sm={4}></Grid>
                   <Grid container item xs={12} sm={4}>
-                    <Card
-                      style={{
-                        fontFamily: ["Montserrat", "sans-serif"],
-                        backgroundColor: "black",
-                        color: "white",
-                        fontSize: "30px",
-                        fontWeight: 800,
-                        borderRadius: "15px",
-                        alignSelf: "center",
-                        width: "100%",
-                        textAlign: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {this.state.cardTitle}
-                    </Card>
+                    <Card className={classes.card}>{this.state.cardTitle}</Card>
                   </Grid>
                   <Grid container item xs={12} sm={4}></Grid>
                 </Grid>
@@ -255,11 +251,11 @@ class PublicBridge extends Component {
                 )}
               </Box>
             </Box>
-            <Box pl={6}>
+            <Box flex={1} justifyContent="center" pl={3}>
               <Box
                 display="flex"
                 flexDirection="column"
-                style={{ marginTop: "10px" }}
+                style={{ marginTop: "10px", width: "280px" }}
               >
                 <Box style={{ textAlign: "center" }}>
                   <UsernameButton

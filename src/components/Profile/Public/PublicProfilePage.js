@@ -34,8 +34,8 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   container: {
     margin: "80px auto 0 auto",
-    minWidth: "1224px",
-    maxWidth: "1400px",
+    minWidth: "1250px",
+    maxWidth: "1250px",
   },
   infoBox: {
     width: "200px",
@@ -61,6 +61,15 @@ const useStyles = makeStyles({
     color: "#FFFFFF",
     backgroundColor: "#000000",
     textTransform: "none",
+  },
+  center: {
+    marginTop: "40px",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "15px",
+    minWidth: "625px",
+    minHeight: "450px",
+    backgroundColor: "#232323",
   },
 });
 
@@ -249,14 +258,14 @@ function PublicProfilePage(props) {
           <MediaQuery minDeviceWidth={1224}>
             <Navbar />
             <Box display="flex" className={classes.container}>
-              <Box>
+              <Box flex={1} justifyContent="center">
                 <LeftNavbar />
               </Box>
-              <Box>
+              <Box flex={1} justifyContent="center">
                 <Box
                   display="flex"
                   flexDirection="column"
-                  style={{ marginTop: "40px" }}
+                  style={{ marginTop: "40px", width: "700px" }}
                 >
                   <Box
                     display="flex"
@@ -286,7 +295,7 @@ function PublicProfilePage(props) {
                       alignItems="center"
                       justifyContent="center"
                     >
-                      <Card className={classes.infoBox}>
+                     <Card className={classes.infoBox}>
                         {!isFollowing && (
                           <CardHeader
                             style={{ padding: "16px 16px 0 0", height: "0px" }}
@@ -329,44 +338,39 @@ function PublicProfilePage(props) {
                       </Card>
                     </Box>
                   </Box>
-                  <Box>
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    className={classes.center}
+                  >
+                    <Box display="flex">
+                      <Box p={2}>
                         <ProfileCard username={username} cardNumber="card1" />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box p={2}>
                         <ProfileCard username={username} cardNumber="card2" />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                    </Box>
+                    <Box display="flex">
+                      <Box p={2}>
                         <ProfileCard username={username} cardNumber="card3" />
-                      </Grid>
-                    </Grid>
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box p={2}>
                         <ProfileCard username={username} cardNumber="card4" />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                    </Box>
+                    <Box display="flex">
+                      <Box p={2}>
                         <ProfileCard username={username} cardNumber="card5" />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
+                      </Box>
+                      <Box p={2}>
                         <ProfileCard username={username} cardNumber="card6" />
-                      </Grid>
-                    </Grid>
-                    <Grid container item xs={12}>
-                      <Grid item xs={6} sm={4} align="center">
-                        <ProfileCard username={username} cardNumber="card7" />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
-                        <ProfileCard username={username} cardNumber="card8" />
-                      </Grid>
-                      <Grid item xs={6} sm={4} align="center">
-                        <ProfileCard username={username} cardNumber="card9" />
-                      </Grid>
-                    </Grid>
+                      </Box>
+                    </Box>
                   </Box>
                 </Box>
               </Box>
-              <Box style={{ marginTop: "10px" }}>
+              <Box flex={1} justifyContent="center">
                 <LinksCard />
               </Box>
             </Box>

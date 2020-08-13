@@ -45,8 +45,8 @@ const styles = () => ({
   },
   container: {
     margin: "80px auto 0 auto",
-    minWidth: "1224px",
-    maxWidth: "1400px",
+    minWidth: "1250px",
+    maxWidth: "1250px",
   },
 });
 
@@ -178,17 +178,16 @@ class PersonalBridge extends Component {
       <div className="bg">
         <MediaQuery minDeviceWidth={1224}>
           <Navbar />
-          <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="center"
-            className={classes.container}
-          >
-            <Box pr={3}>
+          <Box display="flex" className={classes.container}>
+            <Box flex={1} justifyContent="center">
               <LeftNavbar />
             </Box>
-            <Box>
-              <Box display="flex" flexDirection="column">
+            <Box flex={1} justifyContent="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                style={{ width: "700px" }}
+              >
                 <Grid
                   container
                   style={{ minHeight: "120px", maxHeight: "200px" }}
@@ -335,11 +334,11 @@ class PersonalBridge extends Component {
                 )}
               </Box>
             </Box>
-            <Box pl={6}>
+            <Box flex={1} justifyContent="center" pl={3}>
               <Box
                 display="flex"
                 flexDirection="column"
-                style={{ marginTop: "10px" }}
+                style={{ marginTop: "10px", width: "280px" }}
               >
                 <Box style={{ textAlign: "center" }}>
                   <UsernameButton

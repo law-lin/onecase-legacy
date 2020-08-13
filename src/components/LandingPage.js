@@ -102,28 +102,14 @@ function LandingPage(props) {
               .doCreateUserWithEmailAndPassword(email, password)
               .then((authUser) => {
                 // Create a user in your Firebase realtime database
-                props.firebase
-                  .user(authUser.user.uid)
-                  .set({
-                    username,
-                    email,
-                    bio: "",
-                    followerCount: 0,
-                    followingCount: 0,
-                    profilePicture: DefaultProfilePicture,
-                  })
-                  .then(() => {
-                    for (var i = 1; i <= 9; i++) {
-                      props.firebase.userCards(authUser.user.uid, i).set({
-                        cardTitle: "Card " + i,
-                      });
-                      props.firebase.newCards(
-                        authUser.user.uid,
-                        "card" + i,
-                        "Card_" + i
-                      );
-                    }
-                  });
+                props.firebase.user(authUser.user.uid).set({
+                  username,
+                  email,
+                  bio: "",
+                  followerCount: 0,
+                  followingCount: 0,
+                  profilePicture: DefaultProfilePicture,
+                });
 
                 return props.firebase.usernames().update({
                   [formattedUsername]: authUser.user.uid,
