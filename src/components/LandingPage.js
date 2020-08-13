@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { ReactComponent as TwitterIcon } from "./icons/twitter.svg";
 import { ReactComponent as InstagramIcon } from "./icons/instagram.svg";
-import { ReactComponent as LinkedinIcon } from "./icons/youtube.svg";
+import { ReactComponent as LinkedinIcon } from "./icons/linkedin.svg";
 
 import "./landingpage.css";
 
@@ -468,19 +468,19 @@ function LandingPage(props) {
                     style={{ marginTop: "10px" }}
                   >
                     {/* Icons provided by https://icons8.com */}
-                    <a
+                    <a target="_window"
                       href="https://twitter.com/onecaseapp"
                       className="social-media-icons"
                     >
                       <TwitterIcon />
                     </a>
-                    <a
+                    <a target="_window"
                       href="https://www.instagram.com/onecaseapp/"
                       className="social-media-icons"
                     >
                       <InstagramIcon />
                     </a>
-                    <a href="https://www.linkedin.com/company/onecaseapp/" className="social-media-icons">
+                    <a target="_window" href="https://www.linkedin.com/company/onecaseapp/" className="social-media-icons">
                       <LinkedinIcon />
                     </a>
                   </Grid>
