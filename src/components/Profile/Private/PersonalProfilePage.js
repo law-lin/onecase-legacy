@@ -91,7 +91,7 @@ const styles = () => ({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "15px",
-    minWidth: "625px",
+    maxWidth: "625px",
     minHeight: "450px",
     backgroundColor: "#232323",
   },
@@ -429,6 +429,8 @@ class PersonalProfilePage extends Component {
               <Box
                 display="flex"
                 flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
                 style={{ marginTop: "40px", width: "700px" }}
               >
                 <Box
@@ -502,7 +504,7 @@ class PersonalProfilePage extends Component {
                   flexDirection="column"
                   className={classes.center}
                 >
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center" j>
                     <Box p={2}>
                       <ProfileCard
                         username={this.state.username}

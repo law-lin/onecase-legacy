@@ -68,7 +68,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "15px",
-    minWidth: "625px",
+    maxWidth: "625px",
     minHeight: "450px",
     backgroundColor: "#232323",
   },
@@ -266,6 +266,8 @@ function PublicProfilePage(props) {
                 <Box
                   display="flex"
                   flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
                   style={{ marginTop: "40px", width: "700px" }}
                 >
                   <Box
