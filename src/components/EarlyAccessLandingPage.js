@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { ReactComponent as TwitterIcon } from "./icons/twitter.svg";
 import { ReactComponent as InstagramIcon } from "./icons/instagram.svg";
-import { ReactComponent as YouTubeIcon } from "./icons/youtube.svg";
+import { ReactComponent as LinkedinIcon } from "./icons/youtube.svg";
 
 import "./landingpage.css";
 import background from "../images/background2.png";
@@ -332,8 +332,8 @@ export default function EarlyAccessLandingPage() {
                   >
                     <InstagramIcon />
                   </a>
-                  <a className="social-media-icons">
-                    <YouTubeIcon />
+                  <a href="https://www.linkedin.com/company/onecaseapp/" className="social-media-icons">
+                    <LinkedinIcon />
                   </a>
                 </Grid>
               </Grid>
