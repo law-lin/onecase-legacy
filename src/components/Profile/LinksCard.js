@@ -114,7 +114,7 @@ function LinksCard(props) {
               <Grid item xs={12}>
                 <Link
                   target="_blank"
-                  href={"//" + linkCard1URL}
+                  href={linkCard1URL}
                   style={{ textDecoration: "none" }}
                 >
                   <CardActionArea className={classes.button}>
@@ -125,7 +125,7 @@ function LinksCard(props) {
               <Grid item xs={12}>
                 <Link
                   target="_blank"
-                  href={"//" + linkCard2URL}
+                  href={linkCard2URL}
                   style={{ textDecoration: "none" }}
                 >
                   <CardActionArea className={classes.button}>
@@ -136,7 +136,7 @@ function LinksCard(props) {
               <Grid item xs={12}>
                 <Link
                   target="_blank"
-                  href={"//" + linkCard3URL}
+                  href={linkCard3URL}
                   style={{ textDecoration: "none" }}
                 >
                   <CardActionArea className={classes.button}>
