@@ -321,23 +321,27 @@ export default function EarlyAccessLandingPage() {
                 >
                   {/* Icons provided by https://icons8.com */}
                   <a
-                    target="_window"
+                    target="_blank"
                     href="https://twitter.com/onecaseapp"
                     className="social-media-icons"
+                    rel="noopener noreferrer"
                   >
                     <TwitterIcon />
                   </a>
                   <a
-                    target="_window"
+                    target="_blank"
                     href="https://www.instagram.com/onecaseapp/"
                     className="social-media-icons"
+                    rel="noopener noreferrer"
                   >
                     <InstagramIcon />
                   </a>
-                  <a 
-                    target="_window"
-                    href="https://www.linkedin.com/company/onecaseapp/" 
-                    className="social-media-icons">
+                  <a
+                    target="_blank"
+                    href="https://www.linkedin.com/company/onecaseapp/"
+                    className="social-media-icons"
+                    rel="noopener noreferrer"
+                  >
                     <LinkedinIcon />
                   </a>
                 </Grid>
