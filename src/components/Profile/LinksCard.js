@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   root: {
     margin: "37% 0 0 20%",
     minWidth: "280px",
-    backgroundColor: "#3E4E55",
+    backgroundColor: "#232323",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
     borderRadius: "25px",

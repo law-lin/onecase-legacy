@@ -144,7 +144,7 @@ class PersonalProfilePage extends Component {
                   });
                 } else {
                   this.setState({
-                    bio: "Edit your bio with the edit button!",
+                    bio: "",
                   });
                 }
                 if (state.profilePicture) {
@@ -161,7 +161,7 @@ class PersonalProfilePage extends Component {
                 });
               } else {
                 this.setState({
-                  bio: "Edit your bio with the edit button!",
+                  bio: "",
                   profilePicture: DefaultProfilePicture,
                   loading: false,
                 });
