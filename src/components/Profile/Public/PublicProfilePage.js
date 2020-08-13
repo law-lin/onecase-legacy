@@ -61,7 +61,7 @@ const useStyles = makeStyles({
     color: "#FFFFFF",
     backgroundColor: "#000000",
     textTransform: "none",
-    width:"85px"
+    width: "85px",
   },
   center: {
     marginTop: "40px",
@@ -69,7 +69,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     borderRadius: "15px",
     minWidth: "625px",
-    maxWidth:"650px",
+    maxWidth: "650px",
     minHeight: "450px",
     backgroundColor: "#232323",
   },
@@ -299,7 +299,7 @@ function PublicProfilePage(props) {
                       alignItems="center"
                       justifyContent="center"
                     >
-                     <Card className={classes.infoBox}>
+                      <Card className={classes.infoBox}>
                         {!isFollowing && (
                           <CardHeader
                             style={{ padding: "16px 16px 0 0", height: "0px" }}

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../profile.css";
 
@@ -6,6 +6,11 @@ import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
 
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
+
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
 
 import Button from "@material-ui/core/Button";
 import ProfilePicture from "../ProfilePicture";
@@ -20,9 +25,9 @@ import MediaQuery from "react-responsive";
 import { withAuthorization } from "../../Session";
 import BottomNavbar from "../../BottomNavbar";
 import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
-const styles = () => ({
+const useStyles = makeStyles({
   root: {
     "&:hover": {
       outline: "none",
@@ -92,145 +97,130 @@ const styles = () => ({
     justifyContent: "center",
     borderRadius: "15px",
     minWidth: "625px",
-    maxWidth:"650px",
+    maxWidth: "650px",
     minHeight: "450px",
     backgroundColor: "#232323",
   },
+  infoBox: {
+    width: "220px",
+    height: "120px",
+    borderRadius: "15px",
+    color: "#FFFFFF",
+    backgroundColor: "#3E4E55",
+  },
+  text: {
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontSize: "16px",
+  },
+  editProfile: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#333232",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    color: "#FFFFFF",
+    backgroundColor: "#000000",
+    textTransform: "none",
+    width: "85px",
+  },
 });
 
-class PersonalProfilePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userID: null,
-      oldBio: null,
-      oldUsername: null,
-      username: null,
-      profilePicture: null,
-      editing: false,
-      canSave: false,
-      canCancel: false,
-      bio: null,
-      loading: false,
-      error: null,
-    };
-  }
+function PersonalProfilePage(props) {
+  const [userID, setUserID] = useState(null);
+  const [oldUsername, setOldUsername] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [oldBio, setOldBio] = useState(null);
+  const [bio, setBio] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [canSave, setCanSave] = useState(false);
+  const [canCancel, setCanCancel] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [followerCount, setFollowerCount] = useState(null);
+  const [followingCount, setFollowingCount] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [error, setError] = useState(null);
 
-  componentDidMount() {
-    let username = this.props.match.params.username.toString().toLowerCase();
+  const classes = useStyles();
 
-    if (!this.state.loading) {
-      this.setState({
-        loading: true,
+  useEffect(() => {
+    let username = props.match.params.username.toString().toLowerCase();
+
+    if (!loading) {
+      setLoading(true);
+      props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+        const userIDState = snapshot.val();
+        if (userIDState) {
+          setUserID(userIDState);
+          props.firebase.user(userIDState).on("value", (snapshot) => {
+            const state = snapshot.val();
+            if (state) {
+              setOldUsername(state.username);
+              setUsername(state.username);
+              setUsername(state.username);
+              setOldBio(state.bio)
+              setBio(state.bio);
+              setProfilePicture(state.profilePicture);
+              setFollowerCount(state.followerCount);
+              setFollowingCount(state.followingCount);
+              setLoading(false);
+            } 
+            else {
+              setLoading(false);
+            }
+          });
+        }
+        else{
+          setLoading(false)
+        }
       });
-      this.props.firebase
-        .getIDWithUsername(username)
-        .on("value", (snapshot) => {
-          const userIDState = snapshot.val();
-          if (userIDState) {
-            this.setState({
-              userID: userIDState,
-            });
-            this.props.firebase.user(userIDState).on("value", (snapshot) => {
-              const state = snapshot.val();
-              if (state) {
-                this.setState({
-                  oldUsername: state.username,
-                  username: state.username,
-                });
-                if (state.bio) {
-                  this.setState({
-                    bio: state.bio,
-                    oldBio: state.bio,
-                  });
-                } else {
-                  this.setState({
-                    bio: "",
-                  });
-                }
-                if (state.profilePicture) {
-                  this.setState({
-                    profilePicture: state.profilePicture,
-                  });
-                } else {
-                  this.setState({
-                    profilePicture: DefaultProfilePicture,
-                  });
-                }
-                this.setState({
-                  loading: false,
-                });
-              } else {
-                this.setState({
-                  bio: "",
-                  profilePicture: DefaultProfilePicture,
-                  loading: false,
-                });
-              }
-            });
-          } else {
-            this.setState({
-              userID: null,
-            });
-          }
-        });
     }
-  }
+  });
 
-  onUsernameChange = (value) => {
-    this.setState({
-      username: value,
-    });
+  const onUsernameChange = (value) => {
+    setUsername(value);
   };
 
-  onBioChange = (value) => {
-    this.setState({
-      bio: value,
-    });
+  const onBioChange = (value) => {
+    setBio(value);
   };
 
-  handleEdit = () => {
-    this.setState({
-      editing: true,
-      canSave: true,
-      canCancel: true,
-    });
+  const handleEdit = () => {
+    setEditing(true);
+    setCanSave(true);
+    setCanCancel(true);
   };
 
-  handleSave = () => {
-    const { username, oldUsername, bio, error } = this.state;
+  const handleSave = () => {
     let formattedUsername = username.toLowerCase();
 
     let valid = true;
 
     if (username === oldUsername) {
-      if (bio != null) this.props.firebase.editBio(bio);
-      this.setState({
-        editing: false,
-        canSave: false,
-        canCancel: false,
-      });
+      if (bio != null) props.firebase.editBio(bio);
+      setEditing(false);
+      setCanSave(false);
+      setCanCancel(false);
     } else {
-      this.props.firebase
+      props.firebase
         .checkDuplicateUsername(formattedUsername)
         .on("value", (snapshot) => {
           const usernameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
           if (usernameRegexp.test(username)) {
             if (!snapshot.exists()) {
-              this.setState({
-                error: null,
-              });
+              setError(null);
             } else {
-              this.setState({
-                error: "Username is already taken.",
-              });
+              setError("Username is already taken.");
               valid = false;
             }
           } else {
-            this.setState({
-              error:
-                "Please use only letters (a-z, A-Z), numbers, underscores, and periods for username. (1-30 characters)",
-            });
+            setError(
+              "Please use only letters (a-z, A-Z), numbers, underscores, and periods for username. (1-30 characters)"
+            );
             valid = false;
           }
           if (valid) {
@@ -239,336 +229,326 @@ class PersonalProfilePage extends Component {
               username !== "" &&
               username != null
             ) {
-              this.props.firebase.editUsername(oldUsername, username);
+              props.firebase.editUsername(oldUsername, username);
               window.location.href = "/" + username;
             }
 
-            if (bio != null) this.props.firebase.editBio(bio);
-            this.setState({
-              editing: false,
-              canSave: false,
-              canCancel: false,
-            });
+            if (bio != null) props.firebase.editBio(bio);
+            setEditing(false);
+            setCanSave(false);
+            setCanCancel(false);
           }
         });
     }
   };
 
-  handleCancel = () => {
-    this.setState({
-      username: this.state.oldUsername,
-      bio: this.state.oldBio,
-      editing: false,
-      canSave: false,
-      canCancel: false,
-    });
+  const handleCancel = () => {
+    setUsername(oldUsername);
+    setBio(oldBio);
+    setEditing(false);
+    setCanSave(false);
+    setCanCancel(false);
   };
 
-  render() {
-    const { classes } = this.props;
-    console.log(this.props.location.search);
-    return (
-      <div className="bg">
-        <MediaQuery maxDeviceWidth={1223}>
-          <Navbar />
-          <Grid container style={{ marginTop: "10px" }}>
-            <Grid item xs={12} sm={9}>
-              <Grid container spacing={3}>
-                <Grid justify="center" container item xs={12} spacing={3}>
-                  <React.Fragment>
-                    <Grid container item xs={12}>
-                      <Grid item xs={8}>
-                        {!this.state.loading && (
-                          <ProfilePicture
-                            profilePicture={this.state.profilePicture}
-                            editable={this.state.editing}
-                          />
-                        )}
-                        {!this.state.loading && (
-                          <Username
-                            display="inline"
-                            username={this.state.username}
-                            editable={this.state.editing}
-                            onChange={this.onUsernameChange}
-                          />
-                        )}
-                      </Grid>
-                      <Grid item xs={4}>
-                        {!this.state.editing && (
-                          <Button
-                            className={classes.root}
-                            onClick={this.handleEdit}
-                          >
-                            Edit
-                          </Button>
-                        )}
-                        {this.state.editing && (
-                          <Button
-                            className={classes.save}
-                            onClick={this.handleSave}
-                          >
-                            Save
-                          </Button>
-                        )}
-                        {this.state.editing && (
-                          <Button
-                            className={classes.cancel}
-                            onClick={this.handleCancel}
-                          >
-                            Cancel
-                          </Button>
-                        )}
-                      </Grid>
-                      <Grid item xs={6}>
-                        {!this.state.loading && (
-                          <Biography
-                            margin="0px"
-                            bio={this.state.bio}
-                            editable={this.state.editing}
-                            onChange={this.onBioChange}
-                          />
-                        )}
-                      </Grid>
-                      <Grid item xs={6}>
-                        follow
-                      </Grid>
-                      <Grid item xs={12} align="right">
-                        switch
-                      </Grid>
+  return (
+    <div className="bg">
+      <MediaQuery maxDeviceWidth={1223}>
+        <Navbar />
+        <Grid container style={{ marginTop: "10px" }}>
+          <Grid item xs={12} sm={9}>
+            <Grid container spacing={3}>
+              <Grid justify="center" container item xs={12} spacing={3}>
+                <React.Fragment>
+                  <Grid container item xs={12}>
+                    <Grid item xs={8}>
+                      {!loading && (
+                        <ProfilePicture
+                          profilePicture={profilePicture}
+                          editable={editing}
+                        />
+                      )}
+                      {!loading && (
+                        <Username
+                          display="inline"
+                          username={username}
+                          editable={editing}
+                          onChange={onUsernameChange}
+                        />
+                      )}
                     </Grid>
-                  </React.Fragment>
-                </Grid>
-                <Box display="flex" flexDirection="column">
-                  <Box display="flex" flexDirection="row">
-                    <Box p={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card1"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card2"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card3"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card4"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card5"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card6"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card7"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card8"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card9"
-                        editable={this.state.editing}
-                      />
-                    </Box>
+                    <Grid item xs={4}>
+                      {!editing && (
+                        <Button className={classes.root} onClick={handleEdit}>
+                          Edit
+                        </Button>
+                      )}
+                      {editing && (
+                        <Button className={classes.save} onClick={handleSave}>
+                          Save
+                        </Button>
+                      )}
+                      {editing && (
+                        <Button
+                          className={classes.cancel}
+                          onClick={handleCancel}
+                        >
+                          Cancel
+                        </Button>
+                      )}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {!loading && (
+                        <Biography
+                          margin="0px"
+                          bio={bio}
+                          editable={editing}
+                          onChange={onBioChange}
+                        />
+                      )}
+                    </Grid>
+                    <Grid item xs={6}>
+                      follow
+                    </Grid>
+                    <Grid item xs={12} align="right">
+                      switch
+                    </Grid>
+                  </Grid>
+                </React.Fragment>
+              </Grid>
+              <Box display="flex" flexDirection="column">
+                <Box display="flex" flexDirection="row">
+                  <Box p={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card1"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card2"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card3"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card4"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card5"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card6"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card7"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card8"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box m={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card9"
+                      editable={editing}
+                    />
                   </Box>
                 </Box>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={3}
-              style={{ marginTop: "10px" }}
-              align="center"
-            >
-              <LinksCard editable={this.state.editing} />
+              </Box>
             </Grid>
           </Grid>
-          <BottomNavbar />
-        </MediaQuery>
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            style={{ marginTop: "10px" }}
+            align="center"
+          >
+            <LinksCard editable={editing} />
+          </Grid>
+        </Grid>
+        <BottomNavbar />
+      </MediaQuery>
 
-        <MediaQuery minDeviceWidth={1224}>
-          <Navbar />
-          <Box display="flex" className={classes.container}>
-            <Box flex={1} justifyContent="center">
-              <LeftNavbar />
-            </Box>
-            <Box flex={1} justifyContent="center">
+      <MediaQuery minDeviceWidth={1224}>
+        <Navbar />
+        <Box display="flex" className={classes.container}>
+          <Box flex={1} justifyContent="center">
+            <LeftNavbar />
+          </Box>
+          <Box flex={1} justifyContent="center">
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              style={{ marginTop: "40px", width: "700px" }}
+            >
               <Box
                 display="flex"
-                flexDirection="column"
-                alignItems="center"
+                flexDirection="row"
                 justifyContent="center"
-                style={{ marginTop: "40px", width: "700px" }}
+                width="100%"
               >
+                <Box flex={1} flexBasis="100%">
+                  {!loading && (
+                    <Biography
+                      margin="50px"
+                      bio={bio}
+                      editable={editing}
+                      onChange={onBioChange}
+                    />
+                  )}
+                </Box>
+                <Box flex={1} flexBasis="100%" style={{ textAlign: "center" }}>
+                  {!loading && (
+                    <React.Fragment>
+                      <Username
+                        username={username}
+                        editable={editing}
+                        onChange={onUsernameChange}
+                      />
+                      <ProfilePicture
+                        profilePicture={profilePicture}
+                        editable={editing}
+                      />
+                    </React.Fragment>
+                  )}
+                </Box>
                 <Box
                   display="flex"
-                  flexDirection="row"
+                  flex={1}
+                  flexBasis="100%"
+                  alignItems="center"
                   justifyContent="center"
-                  width="100%"
                 >
-                  <Box flex={1} flexBasis="100%">
-                    {!this.state.loading && (
-                      <Biography
-                        margin="50px"
-                        bio={this.state.bio}
-                        editable={this.state.editing}
-                        onChange={this.onBioChange}
-                      />
+                  <Card className={classes.infoBox}>
+                    {!editing && (
+                      <CardHeader
+                        style={{ padding: "16px 16px 0 0", height: "0px" }}
+                        action={
+                          <Button className={classes.editProfile} onClick={handleEdit}>
+                            Edit
+                          </Button>
+                        }
+                      ></CardHeader>
                     )}
-                  </Box>
-                  <Box
-                    flex={1}
-                    flexBasis="100%"
-                    style={{ textAlign: "center" }}
-                  >
-                    {!this.state.loading && (
-                      <React.Fragment>
-                        <Username
-                          username={this.state.username}
-                          editable={this.state.editing}
-                          onChange={this.onUsernameChange}
-                        />
-                        <ProfilePicture
-                          profilePicture={this.state.profilePicture}
-                          editable={this.state.editing}
-                        />
-                      </React.Fragment>
-                    )}
-                  </Box>
-                  <Box
-                    display="flex"
-                    flex={1}
-                    flexBasis="100%"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    {!this.state.editing && (
-                      <Button
-                        className={classes.root}
-                        onClick={this.handleEdit}
-                      >
-                        Edit
-                      </Button>
-                    )}
-                    {this.state.editing && (
-                      <Button
-                        className={classes.save}
-                        onClick={this.handleSave}
-                      >
+                    {editing && (
+                      <Button className={classes.save} onClick={handleSave}>
                         Save
                       </Button>
                     )}
-                    {this.state.editing && (
-                      <Button
-                        className={classes.cancel}
-                        onClick={this.handleCancel}
-                      >
+                    {editing && (
+                      <Button className={classes.cancel} onClick={handleCancel}>
                         Cancel
                       </Button>
                     )}
+              
+                    <CardContent>
+                      <Typography className={classes.text}>
+                        <span style={{ fontWeight: 700 }}>{followerCount}</span>{" "}
+                        Followers
+                        <br />
+                        <span style={{ fontWeight: 700 }}>
+                          {followingCount}
+                        </span>{" "}
+                        Following
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                className={classes.center}
+              >
+                <Box display="flex" alignItems="center" j>
+                  <Box p={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card1"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box p={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card2"
+                      editable={editing}
+                    />
                   </Box>
                 </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  className={classes.center}
-                >
-                  <Box display="flex" alignItems="center" j>
-                    <Box p={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card1"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box p={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card2"
-                        editable={this.state.editing}
-                      />
-                    </Box>
+                <Box display="flex">
+                  <Box p={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card3"
+                      editable={editing}
+                    />
                   </Box>
-                  <Box display="flex">
-                    <Box p={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card3"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box p={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card4"
-                        editable={this.state.editing}
-                      />
-                    </Box>
+                  <Box p={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card4"
+                      editable={editing}
+                    />
                   </Box>
-                  <Box display="flex">
-                    <Box p={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card5"
-                        editable={this.state.editing}
-                      />
-                    </Box>
-                    <Box p={2}>
-                      <ProfileCard
-                        username={this.state.username}
-                        cardNumber="card6"
-                        editable={this.state.editing}
-                      />
-                    </Box>
+                </Box>
+                <Box display="flex">
+                  <Box p={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card5"
+                      editable={editing}
+                    />
+                  </Box>
+                  <Box p={2}>
+                    <ProfileCard
+                      username={username}
+                      cardNumber="card6"
+                      editable={editing}
+                    />
                   </Box>
                 </Box>
               </Box>
             </Box>
-            <Box flex={1} justifyContent="center">
-              <LinksCard />
-            </Box>
           </Box>
-        </MediaQuery>
-      </div>
-    );
-  }
+          <Box flex={1} justifyContent="center">
+            <LinksCard />
+          </Box>
+        </Box>
+      </MediaQuery>
+    </div>
+  );
 }
 const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(
-  withStyles(styles)(PersonalProfilePage)
-);
+export default withAuthorization(condition)(PersonalProfilePage);
