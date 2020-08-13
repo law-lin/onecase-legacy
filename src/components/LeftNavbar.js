@@ -104,11 +104,6 @@ function LeftNavbar(props) {
           </Link>
         </Box>
       )}
-      {username && (
-        <Box>
-          <SignOutButton />
-        </Box>
-      )}
     </Box>
   );
 }

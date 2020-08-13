@@ -10,24 +10,19 @@ import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    "&:hover": {
-      outline: "none",
-    },
     "&:focus": {
       outline: "none",
     },
     fontFamily: ["Montserrat", "sans-serif"],
-    fontWeight: 600,
+    fontWeight: 800,
     color: "#3E4E56",
     textDecoration: "none",
     textTransform: "none",
     fontSize: "20px",
-    width: "90%",
-    justifyContent: "left",
-    marginRight: "20px",
+    height:"40px",
   },
   icon: {
-    width: "50px",
+    width: "25px",
     marginRight: "20px",
   },
 });
