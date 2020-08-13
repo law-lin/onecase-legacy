@@ -443,9 +443,10 @@ class PersonalProfilePage extends Component {
                   <Box flex={1} flexBasis="100%">
                     {!this.state.loading && (
                       <Biography
-                        margin="15px"
+                        margin="50px"
                         bio={this.state.bio}
                         editable={this.state.editing}
+                        onChange={this.onBioChange}
                       />
                     )}
                   </Box>
@@ -459,6 +460,7 @@ class PersonalProfilePage extends Component {
                         <Username
                           username={this.state.username}
                           editable={this.state.editing}
+                          onChange={this.onUsernameChange}
                         />
                         <ProfilePicture
                           profilePicture={this.state.profilePicture}

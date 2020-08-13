@@ -278,7 +278,7 @@ function PublicProfilePage(props) {
                     width="100%"
                   >
                     <Box flex={1} flexBasis="100%">
-                      {!loading && <Biography margin="15px" bio={bio} />}
+                      {!loading && <Biography margin="50px" bio={bio} />}
                     </Box>
                     <Box
                       flex={1}
