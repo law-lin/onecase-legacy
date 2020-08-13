@@ -549,7 +549,7 @@ function PersonalProfilePage(props) {
             </Box>
           </Box>
           <Box flex={1} justifyContent="center">
-            <LinksCard />
+            <LinksCard editable={editing} personal={true} />
           </Box>
         </Box>
       </MediaQuery>

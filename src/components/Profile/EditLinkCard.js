@@ -13,6 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import CardActionArea from "@material-ui/core/CardActionArea";
 
 import PencilIcon from "@material-ui/icons/Create";
 import Typography from "@material-ui/core/Typography";
@@ -84,6 +85,23 @@ const useStyles = makeStyles({
     minHeight: "70vh",
     maxHeight: "80vh",
   },
+  card: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    backgroundColor: "#898989",
+    borderRadius: "20px",
+    color: "#FFFFFF",
+    fontSize: "24px",
+    fontWeight: 800,
+    minHeight: 130,
+    textAlign: "center",
+    boxShadow: "none",
+  },
 });
 
 function EditLinkCard(props) {
@@ -104,7 +122,15 @@ function EditLinkCard(props) {
   const handleSave = () => {
     const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
     if (urlregexp.test(linkURL)) {
-      props.firebase.editLinkCard(props.linkCardNumber, linkTitle, linkURL);
+      if (!~linkURL.indexOf("http")) {
+        props.firebase.editLinkCard(
+          props.linkCardNumber,
+          linkTitle,
+          "http://" + linkURL
+        );
+      } else {
+        props.firebase.editLinkCard(props.linkCardNumber, linkTitle, linkURL);
+      }
       handleClose();
     } else {
       setError("Please enter a valid URL!");
@@ -112,14 +138,24 @@ function EditLinkCard(props) {
   };
 
   return (
-    <Fragment>
-      <IconButton
-        className={classes.button}
-        tip="Edit Card"
-        onClick={handleOpen}
-      >
-        <PencilIcon />
-      </IconButton>
+    <React.Fragment>
+      {props.display === "none" && (
+        <CardActionArea
+          className={classes.card}
+          style={{ padding: "16px 16px 0 0", height: "0px" }}
+          onClick={handleOpen}
+        />
+      )}
+      {!props.display && (
+        <IconButton
+          className={classes.button}
+          tip="Edit Card"
+          onClick={handleOpen}
+        >
+          <PencilIcon />
+        </IconButton>
+      )}
+
       <Dialog
         classes={{ paper: classes.dialogPaper }}
         PaperProps={{
@@ -182,7 +218,7 @@ function EditLinkCard(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </Fragment>
+    </React.Fragment>
   );
 }
 

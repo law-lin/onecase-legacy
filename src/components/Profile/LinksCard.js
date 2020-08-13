@@ -105,44 +105,129 @@ function LinksCard(props) {
 
   return (
     <React.Fragment>
-      {!props.editable && (
+      {!props.editable && !props.personal && (
         <Card className={classes.root}>
           <CardContent>
             <h1 className={classes.header}>Links</h1>
             <Divider className={classes.divider} />
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Link
-                  target="_blank"
-                  href={linkCard1URL}
-                  style={{ textDecoration: "none" }}
-                >
-                  <CardActionArea className={classes.button}>
-                    <CardContent>{linkCard1Title}</CardContent>
-                  </CardActionArea>
-                </Link>
+                {linkCard1URL && (
+                  <Link
+                    target="_blank"
+                    href={linkCard1URL}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardActionArea className={classes.button}>
+                      <CardContent>{linkCard1Title}</CardContent>
+                    </CardActionArea>
+                  </Link>
+                )}
+                {!linkCard1URL && <Card className={classes.button}></Card>}
               </Grid>
               <Grid item xs={12}>
-                <Link
-                  target="_blank"
-                  href={linkCard2URL}
-                  style={{ textDecoration: "none" }}
-                >
-                  <CardActionArea className={classes.button}>
-                    <CardContent>{linkCard2Title}</CardContent>
-                  </CardActionArea>
-                </Link>
+                {linkCard2URL && (
+                  <Link
+                    target="_blank"
+                    href={linkCard2URL}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardActionArea className={classes.button}>
+                      <CardContent>{linkCard2Title}</CardContent>
+                    </CardActionArea>
+                  </Link>
+                )}
+                {!linkCard2URL && <Card className={classes.button}></Card>}
               </Grid>
               <Grid item xs={12}>
-                <Link
-                  target="_blank"
-                  href={linkCard3URL}
-                  style={{ textDecoration: "none" }}
-                >
-                  <CardActionArea className={classes.button}>
-                    <CardContent>{linkCard3Title}</CardContent>
-                  </CardActionArea>
-                </Link>
+                {linkCard3URL && (
+                  <Link
+                    target="_blank"
+                    href={linkCard3URL}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardActionArea className={classes.button}>
+                      <CardContent>{linkCard3Title}</CardContent>
+                    </CardActionArea>
+                  </Link>
+                )}
+                {!linkCard3URL && <Card className={classes.button}></Card>}
+              </Grid>
+            </Grid>
+          </CardContent>
+          <CardActions>
+            <Button size="small"></Button>
+          </CardActions>
+        </Card>
+      )}
+      {!props.editable && props.personal && (
+        <Card className={classes.root}>
+          <CardContent>
+            <h1 className={classes.header}>Links</h1>
+            <Divider className={classes.divider} />
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                {linkCard1URL && (
+                  <Link
+                    target="_blank"
+                    href={linkCard1URL}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardActionArea className={classes.button}>
+                      <CardContent>{linkCard1Title}</CardContent>
+                    </CardActionArea>
+                  </Link>
+                )}
+                {!linkCard1URL && (
+                  <EditLinkCard
+                    display="none"
+                    linkCardNumber="linkCard1"
+                    linkTitle={linkCard1Title}
+                    linkURL={linkCard1URL}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                {linkCard2URL && (
+                  <Link
+                    target="_blank"
+                    href={linkCard2URL}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardActionArea className={classes.button}>
+                      <CardContent>{linkCard2Title}</CardContent>
+                    </CardActionArea>
+                  </Link>
+                )}
+                {!linkCard2URL && (
+                  <EditLinkCard
+                    display="none"
+                    linkCardNumber="linkCard2"
+                    linkTitle={linkCard2Title}
+                    linkURL={linkCard2URL}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                {linkCard3URL && (
+                  <Link
+                    target="_blank"
+                    href={linkCard3URL}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardActionArea className={classes.button}>
+                      <CardContent>{linkCard3Title}</CardContent>
+                    </CardActionArea>
+                  </Link>
+                )}
+                {!linkCard3URL && (
+                  <EditLinkCard
+                    display="none"
+                    linkCardNumber="linkCard3"
+                    linkTitle={linkCard3Title}
+                    linkURL={linkCard3URL}
+                  />
+                )}
               </Grid>
             </Grid>
           </CardContent>
