@@ -1,6 +1,7 @@
 import React from "react";
 
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import upleft from "../images/up-left.png";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -32,9 +33,9 @@ const BackButton = () => {
   const classes = useStyles();
   let history = useHistory();
   return (
-    <Button className={classes.root} onClick={() => history.goBack()}>
-      Back
-    </Button>
+    <IconButton className={classes.root} onClick={() => history.goBack()}>
+      <img src={upleft} />
+    </IconButton>
   );
 };
 

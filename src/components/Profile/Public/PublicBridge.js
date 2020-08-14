@@ -4,6 +4,7 @@ import "../profile.css";
 import Navbar from "../../Navbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
+import BackButton from "../../BackButton";
 import UsernameButton from "../../UsernameButton";
 import ProfilePicture from "../ProfilePicture";
 import Grid from "@material-ui/core/Grid";
@@ -161,7 +162,9 @@ class PublicBridge extends Component {
                   container
                   style={{ minHeight: "120px", maxHeight: "200px" }}
                 >
-                  <Grid item xs={12} sm={4}></Grid>
+                  <Grid container item xs={12} sm={4}>
+                    <BackButton />
+                  </Grid>
                   <Grid container item xs={12} sm={4}>
                     <Card className={classes.card}>{this.state.cardTitle}</Card>
                   </Grid>
