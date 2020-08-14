@@ -397,6 +397,8 @@ function EditBridgeCard(props) {
   const fileUpload = useRef(null);
   const coverImageUpload = useRef(null);
 
+  console.log(props.caption);
+  console.log(props.description);
   return (
     <div>
       {props.editable && (

@@ -192,6 +192,7 @@ class BridgeCard extends Component {
       cardCoverImageURL,
       loading,
     } = this.state;
+
     return (
       <div>
         {!this.props.editable && bridgeCardTitle && (
@@ -307,6 +308,7 @@ class BridgeCard extends Component {
               action={
                 <EditBridgeCard
                   bridgeCardTitle={bridgeCardTitle}
+                  caption={caption}
                   description={description}
                   cardImageURL={cardImageURL}
                   cardNumber={this.props.cardNumber}

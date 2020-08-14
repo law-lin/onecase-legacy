@@ -128,10 +128,15 @@ class Firebase {
     });
   };
 
+  editName = (name) => this.db.ref(`users/${this.auth.currentUser.uid}`).update({
+      name,
+    });
+
   editBio = (bio) =>
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       bio,
     });
+
   editNotes = (cardNumber, notes) => {
     this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
       notes,

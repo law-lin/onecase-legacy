@@ -5,7 +5,13 @@ import "../profile.css";
 import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
 
+import Container from "@material-ui/core/Container";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -62,16 +68,18 @@ const useStyles = makeStyles({
     "&:focus": {
       outline: "none",
     },
-    fontFamily: ["Montserrat", "sans-serif"],
+    fontFamily: ["Mukta Mahee", "sans-serif"],
     alignSelf: "center",
     textTransform: "none",
     fontSize: "20px",
-    backgroundColor: "#05872e",
-    color: "white",
+    backgroundColor: "#242424",
+    color: "#FFFFFF",
     borderRadius: "15px",
-    width: "25%",
+    width: "15%",
     height: "25%",
-    marginRight: "1.5%",
+    marginLeft: "48%",
+    display: "inline-block",
+    verticalAlign: "middle",
   },
   cancel: {
     "&:hover": {
@@ -127,12 +135,62 @@ const useStyles = makeStyles({
     textTransform: "none",
     width: "85px",
   },
+  header: {
+    backgroundColor: "#4B4B4B",
+  },
+  title: {
+    width: "fit-content",
+    color: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontSize: "26px",
+    fontWeight: 800,
+    display: "inline-block",
+    verticalAlign: "middle",
+  },
+  dialogPaper: {
+    minWidth: "40vh",
+    maxWidth: "50vh",
+    minHeight: "70vh",
+    maxHeight: "80vh",
+  },
+  box: {
+    color: "#C8C8C8",
+    backgroundColor: "#3E4E55",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "90px",
+    width: "410px",
+    borderRadius: "10px",
+  },
+  textField: {
+    backgroundColor: "#ADB0B1",
+    borderRadius: "3px",
+    marginBottom: "10px",
+    display: "block",
+  },
+  bio: {
+    color: "#C8C8C8",
+    backgroundColor: "#3E4E55",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "150px",
+    width: "410px",
+    borderRadius: "10px",
+  },
+  input: {
+    lineHeight: 1,
+    padding: "5px",
+    color: "#FFFFFF",
+    fontSize: "24px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+  },
 });
 
 function PersonalProfilePage(props) {
   const [userID, setUserID] = useState(null);
   const [oldUsername, setOldUsername] = useState(null);
   const [username, setUsername] = useState(null);
+  const [name, setName] = useState(null);
   const [oldBio, setOldBio] = useState(null);
   const [bio, setBio] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -148,6 +206,7 @@ function PersonalProfilePage(props) {
   const classes = useStyles();
 
   useEffect(() => {
+    console.log("working");
     let username = props.match.params.username.toString().toLowerCase();
 
     if (!loading) {
@@ -159,8 +218,8 @@ function PersonalProfilePage(props) {
           props.firebase.user(userIDState).on("value", (snapshot) => {
             const state = snapshot.val();
             if (state) {
+              setName(state.name);
               setOldUsername(state.username);
-              setUsername(state.username);
               setUsername(state.username);
               setOldBio(state.bio);
               setBio(state.bio);
@@ -177,20 +236,14 @@ function PersonalProfilePage(props) {
         }
       });
     }
-  });
-
-  const onUsernameChange = (value) => {
-    setUsername(value);
-  };
-
-  const onBioChange = (value) => {
-    setBio(value);
-  };
+  }, []);
 
   const handleEdit = () => {
     setEditing(true);
-    setCanSave(true);
-    setCanCancel(true);
+  };
+
+  const handleClose = () => {
+    setEditing(false);
   };
 
   const handleSave = () => {
@@ -200,9 +253,8 @@ function PersonalProfilePage(props) {
 
     if (username === oldUsername) {
       if (bio != null) props.firebase.editBio(bio);
-      setEditing(false);
-      setCanSave(false);
-      setCanCancel(false);
+      if (name != null) props.firebase.editName(name);
+      handleClose();
     } else {
       props.firebase
         .checkDuplicateUsername(formattedUsername)
@@ -241,11 +293,7 @@ function PersonalProfilePage(props) {
   };
 
   const handleCancel = () => {
-    setUsername(oldUsername);
-    setBio(oldBio);
     setEditing(false);
-    setCanSave(false);
-    setCanCancel(false);
   };
 
   return (
@@ -266,12 +314,7 @@ function PersonalProfilePage(props) {
                         />
                       )}
                       {!loading && (
-                        <Username
-                          display="inline"
-                          username={username}
-                          editable={editing}
-                          onChange={onUsernameChange}
-                        />
+                        <Username display="inline" username={oldUsername} />
                       )}
                     </Grid>
                     <Grid item xs={4}>
@@ -296,12 +339,7 @@ function PersonalProfilePage(props) {
                     </Grid>
                     <Grid item xs={6}>
                       {!loading && (
-                        <Biography
-                          margin="0px"
-                          bio={bio}
-                          editable={editing}
-                          onChange={onBioChange}
-                        />
+                        <Biography margin="0px" bio={bio} editable={editing} />
                       )}
                     </Grid>
                     <Grid item xs={6}>
@@ -416,23 +454,12 @@ function PersonalProfilePage(props) {
                 width="100%"
               >
                 <Box flex={1} flexBasis="100%">
-                  {!loading && (
-                    <Biography
-                      margin="50px"
-                      bio={bio}
-                      editable={editing}
-                      onChange={onBioChange}
-                    />
-                  )}
+                  {!loading && <Biography margin="50px" bio={oldBio} />}
                 </Box>
                 <Box flex={1} flexBasis="100%" style={{ textAlign: "center" }}>
                   {!loading && (
                     <React.Fragment>
-                      <Username
-                        username={username}
-                        editable={editing}
-                        onChange={onUsernameChange}
-                      />
+                      <Username username={oldUsername} />
                       <ProfilePicture
                         profilePicture={profilePicture}
                         editable={editing}
@@ -461,17 +488,114 @@ function PersonalProfilePage(props) {
                         }
                       ></CardHeader>
                     )}
-                    {editing && (
-                      <Button className={classes.save} onClick={handleSave}>
-                        Save
-                      </Button>
-                    )}
-                    {editing && (
-                      <Button className={classes.cancel} onClick={handleCancel}>
-                        Cancel
-                      </Button>
-                    )}
-
+                    <Dialog
+                      classes={{ paper: classes.dialogPaper }}
+                      PaperProps={{
+                        style: {
+                          backgroundColor: "#242424",
+                          borderRadius: "15px",
+                        },
+                      }}
+                      onClose={handleClose}
+                      fullWidth
+                      open={editing}
+                      onClose={handleClose}
+                    >
+                      <DialogTitle className={classes.header}>
+                        <Typography className={classes.title}>
+                          Edit Profile
+                        </Typography>
+                        <Button className={classes.save} onClick={handleSave}>
+                          Save
+                        </Button>
+                      </DialogTitle>
+                      <DialogContent>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="center"
+                        >
+                          <Box p={3}>
+                            <ProfilePicture
+                              profilePicture={profilePicture}
+                              editable={editing}
+                            />
+                          </Box>
+                          <Box p={3}>
+                            <Container className={classes.box}>
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Username
+                              </Typography>
+                              <TextField
+                                name="username"
+                                type="text"
+                                className={classes.textField}
+                                defaultValue={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                                helperText={error}
+                              />
+                            </Container>
+                          </Box>
+                          <Box p={3}>
+                            <Container className={classes.box}>
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Name
+                              </Typography>
+                              <TextField
+                                name="name"
+                                type="text"
+                                className={classes.textField}
+                                defaultValue={name}
+                                onChange={(e) => setName(e.target.value)}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                              />
+                            </Container>
+                          </Box>
+                          <Box p={3}>
+                            <Container className={classes.bio}>
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Bio
+                              </Typography>
+                              <TextField
+                                name="bio"
+                                type="text"
+                                className={classes.textField}
+                                fullWidth
+                                multiline
+                                rows={3}
+                                defaultValue={bio}
+                                onChange={(e) => setBio(e.target.value)}
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                              />
+                            </Container>
+                          </Box>
+                        </Box>
+                      </DialogContent>
+                    </Dialog>
                     <CardContent>
                       <Typography className={classes.text}>
                         <span style={{ fontWeight: 700 }}>{followerCount}</span>{" "}

@@ -58,7 +58,7 @@ const useStyles = makeStyles({
     height: "50px",
     fontFamily: ["Montserrat", "sans-serif"],
     color: "#FFFFFF",
-    fontSize: "12px",
+    fontSize: "6px",
     position: "absolute",
     bottom: 0,
     background: "#000000",
@@ -103,6 +103,17 @@ const useStyles = makeStyles({
   dialogPaper: {
     minHeight: "80vh",
     maxHeight: "80vh",
+  },
+  imageUpload: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    position: "absolute",
+    top: 0,
+    bottom: 0,
   },
 });
 
@@ -212,7 +223,7 @@ function ProfilePicture(props) {
           <Avatar
             size="110"
             round="50px"
-            style={{ position: "relative" }}
+            style={{ position: "relative", opacity: 0.5 }}
             src={profilePicture}
           ></Avatar>
           <input
@@ -221,12 +232,12 @@ function ProfilePicture(props) {
             style={{ display: "none" }}
             onChange={handleChange}
           />
-          <Button
-            className={classes.change}
+          <IconButton
+            className={classes.imageUpload}
             onClick={() => fileUpload.current.click()}
           >
-            change profile picture
-          </Button>
+            <CameraAltIcon />
+          </IconButton>
           <Dialog
             open={open}
             onClose={handleClose}
