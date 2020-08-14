@@ -247,7 +247,7 @@ class BridgeCard extends Component {
                         >
                           <img
                             src={cardImageURL}
-                            style={{ maxWidth: "500px", maxHeight: "500px" }}
+                            style={{ width: "500px", height: "500px" }}
                             alt="Show off your project!"
                           />
                         </Grid>

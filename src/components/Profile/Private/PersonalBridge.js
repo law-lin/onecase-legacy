@@ -13,6 +13,7 @@ import Button from "@material-ui/core/Button";
 import MediaQuery from "react-responsive";
 import Box from "@material-ui/core/Box";
 
+import EditCard from "../EditCard";
 import Card from "@material-ui/core/Card";
 
 import Username from "../Username";
@@ -57,6 +58,7 @@ class PersonalBridge extends Component {
       userID: null,
       username: null,
       profilePicture: null,
+      oldCardTitle: null,
       cardTitle: null,
       cardNumber: null,
       notes: "",
@@ -103,7 +105,11 @@ class PersonalBridge extends Component {
       const cardTitle = this.props.match.params.cardTitle;
 
       const modifiedCardTitle = cardTitle.replace(/_/g, " ");
-      if (cardTitle) this.setState({ cardTitle: modifiedCardTitle });
+      if (cardTitle)
+        this.setState({
+          oldCardTitle: modifiedCardTitle,
+          cardTitle: modifiedCardTitle,
+        });
       this.props.firebase
         .getIDWithUsername(username)
         .on("value", (snapshot) => {
@@ -198,7 +204,7 @@ class PersonalBridge extends Component {
                       style={{
                         fontFamily: ["Montserrat", "sans-serif"],
                         backgroundColor: "black",
-                        color: "white",
+                        color: "#FFFFFF",
                         fontSize: "30px",
                         fontWeight: 800,
                         borderRadius: "15px",
@@ -210,7 +216,18 @@ class PersonalBridge extends Component {
                         justifyContent: "center",
                       }}
                     >
-                      {this.state.cardTitle}
+                      {!this.state.editing && (
+                        <span>{this.state.cardTitle}</span>
+                      )}
+                      {this.state.editing && (
+                        <EditCard
+                          display="none"
+                          oldCardTitle={this.state.oldCardTitle}
+                          cardTitle={this.state.cardTitle}
+                          cardNumber={this.state.cardNumber}
+                          editable={true}
+                        />
+                      )}
                     </Card>
                   </Grid>
                   <Grid container item xs={12} sm={4}>

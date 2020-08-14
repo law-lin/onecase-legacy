@@ -105,7 +105,7 @@ function LinksCard(props) {
 
   return (
     <React.Fragment>
-      {!props.editable && !props.personal && (
+      {!props.personal && (
         <Card className={classes.root}>
           <CardContent>
             <h1 className={classes.header}>Links</h1>
@@ -160,7 +160,7 @@ function LinksCard(props) {
           </CardActions>
         </Card>
       )}
-      {!props.editable && props.personal && (
+      {props.personal && (
         <Card className={classes.root}>
           <CardContent>
             <h1 className={classes.header}>Links</h1>
@@ -228,64 +228,6 @@ function LinksCard(props) {
                     linkURL={linkCard3URL}
                   />
                 )}
-              </Grid>
-            </Grid>
-          </CardContent>
-          <CardActions>
-            <Button size="small"></Button>
-          </CardActions>
-        </Card>
-      )}
-      {props.editable && (
-        <Card className={classes.root}>
-          <CardContent>
-            <h1 className={classes.header}>Links</h1>
-            <Divider className={classes.divider} />
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Card className={classes.button}>
-                  <CardHeader
-                    style={{ padding: "5px 12px 10px 0", height: "0" }}
-                    action={
-                      <EditLinkCard
-                        linkCardNumber="linkCard1"
-                        linkTitle={linkCard1Title}
-                        linkURL={linkCard1URL}
-                      />
-                    }
-                  />
-                  <CardContent>{linkCard1Title}</CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12}>
-                <Card className={classes.button}>
-                  <CardHeader
-                    style={{ padding: "5px 12px 10px 0", height: "0" }}
-                    action={
-                      <EditLinkCard
-                        linkCardNumber="linkCard2"
-                        linkTitle={linkCard2Title}
-                        linkURL={linkCard2URL}
-                      />
-                    }
-                  />
-                  <CardContent>{linkCard2Title}</CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12}>
-                <Card className={classes.button}>
-                  <CardHeader
-                    style={{ padding: "5px 12px 10px 0", height: "0" }}
-                    action={
-                      <EditLinkCard
-                        linkCardNumber="linkCard3"
-                        linkTitle={linkCard3Title}
-                        linkURL={linkCard3URL}
-                      />
-                    }
-                  />
-                  <CardContent>{linkCard3Title}</CardContent>
-                </Card>
               </Grid>
             </Grid>
           </CardContent>

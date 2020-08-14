@@ -177,6 +177,15 @@ const useStyles = makeStyles({
     width: "410px",
     borderRadius: "10px",
   },
+  link: {
+    color: "#C8C8C8",
+    backgroundColor: "#3E4E55",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "180px",
+    width: "410px",
+    borderRadius: "10px",
+  },
   input: {
     lineHeight: 1,
     padding: "5px",
@@ -203,6 +212,14 @@ function PersonalProfilePage(props) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [error, setError] = useState(null);
 
+  const [link1Title, setLink1Title] = useState(null);
+  const [link2Title, setLink2Title] = useState(null);
+  const [link3Title, setLink3Title] = useState(null);
+
+  const [link1URL, setLink1URL] = useState(null);
+  const [link2URL, setLink2URL] = useState(null);
+  const [link3URL, setLink3URL] = useState(null);
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -227,6 +244,18 @@ function PersonalProfilePage(props) {
               setFollowerCount(state.followerCount);
               setFollowingCount(state.followingCount);
               setLoading(false);
+              if (state.linkCard1) {
+                setLink1Title(state.linkCard1.linkTitle);
+                setLink1URL(state.linkCard1.linkURL);
+              }
+              if (state.linkCard2) {
+                setLink2Title(state.linkCard2.linkTitle);
+                setLink2URL(state.linkCard2.linkURL);
+              }
+              if (state.linkCard3) {
+                setLink3Title(state.linkCard3.linkTitle);
+                setLink3URL(state.linkCard3.linkURL);
+              }
             } else {
               setLoading(false);
             }
@@ -284,14 +313,39 @@ function PersonalProfilePage(props) {
             }
 
             if (bio != null) props.firebase.editBio(bio);
+            if (name != null) props.firebase.editName(name);
+            if (link1Title && link1URL) {
+              updateLink("linkCard1", link1Title, link1URL);
+            }
+            if (link2Title && link2URL) {
+              updateLink("linkCard2", link2Title, link2URL);
+            }
+            if (link3Title && link3URL) {
+              updateLink("linkCard3", link3Title, link3URL);
+            }
             setEditing(false);
-            setCanSave(false);
-            setCanCancel(false);
           }
         });
     }
   };
 
+  const updateLink = (linkCardNumber, linkTitle, linkURL) => {
+    const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+    if (urlregexp.test(linkURL)) {
+      if (!~linkURL.indexOf("http")) {
+        props.firebase.editLinkCard(
+          props.linkCardNumber,
+          linkTitle,
+          "http://" + linkURL
+        );
+      } else {
+        props.firebase.editLinkCard(props.linkCardNumber, linkTitle, linkURL);
+      }
+      handleClose();
+    } else {
+      setError("Please enter a valid URL!");
+    }
+  };
   const handleCancel = () => {
     setEditing(false);
   };
@@ -308,10 +362,7 @@ function PersonalProfilePage(props) {
                   <Grid container item xs={12}>
                     <Grid item xs={8}>
                       {!loading && (
-                        <ProfilePicture
-                          profilePicture={profilePicture}
-                          editable={editing}
-                        />
+                        <ProfilePicture profilePicture={profilePicture} />
                       )}
                       {!loading && (
                         <Username display="inline" username={oldUsername} />
@@ -460,10 +511,7 @@ function PersonalProfilePage(props) {
                   {!loading && (
                     <React.Fragment>
                       <Username username={oldUsername} />
-                      <ProfilePicture
-                        profilePicture={profilePicture}
-                        editable={editing}
-                      />
+                      <ProfilePicture profilePicture={profilePicture} />
                     </React.Fragment>
                   )}
                 </Box>
@@ -475,19 +523,18 @@ function PersonalProfilePage(props) {
                   justifyContent="center"
                 >
                   <Card className={classes.infoBox}>
-                    {!editing && (
-                      <CardHeader
-                        style={{ padding: "16px 16px 0 0", height: "0px" }}
-                        action={
-                          <Button
-                            className={classes.editProfile}
-                            onClick={handleEdit}
-                          >
-                            Edit
-                          </Button>
-                        }
-                      ></CardHeader>
-                    )}
+                    <CardHeader
+                      style={{ padding: "16px 16px 0 0", height: "0px" }}
+                      action={
+                        <Button
+                          className={classes.editProfile}
+                          onClick={handleEdit}
+                        >
+                          Edit
+                        </Button>
+                      }
+                    ></CardHeader>
+
                     <Dialog
                       classes={{ paper: classes.dialogPaper }}
                       PaperProps={{
@@ -593,6 +640,133 @@ function PersonalProfilePage(props) {
                               />
                             </Container>
                           </Box>
+                          <Box p={3}>
+                            <Container className={classes.link}>
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Link 1 Title
+                              </Typography>
+                              <TextField
+                                type="text"
+                                name="link1Title"
+                                className={classes.textField}
+                                defaultValue={link1Title}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                                onChange={(e) => setLink1Title(e.target.value)}
+                              />
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Link 1 URL
+                              </Typography>
+                              <TextField
+                                type="text"
+                                name="link1URL"
+                                placeholder="Ex: https://www.youtube.com/user/Vsauce"
+                                className={classes.textField}
+                                defaultValue={link1URL}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                                onChange={(e) => setLink1URL(e.target.value)}
+                              />
+                            </Container>
+                          </Box>
+                          <Box p={3}>
+                            <Container className={classes.link}>
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Link 2 Title
+                              </Typography>
+                              <TextField
+                                type="text"
+                                name="link2Title"
+                                className={classes.textField}
+                                defaultValue={link2Title}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                                onChange={(e) => setLink2Title(e.target.value)}
+                              />
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Link 2 URL
+                              </Typography>
+                              <TextField
+                                type="text"
+                                name="link2Title"
+                                className={classes.textField}
+                                defaultValue={link2URL}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                                onChange={(e) => setLink2URL(e.target.value)}
+                              />
+                            </Container>
+                          </Box>
+                          <Box p={3}>
+                            <Container className={classes.link}>
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Link 3 Title
+                              </Typography>
+                              <TextField
+                                type="text"
+                                name="link3Title"
+                                className={classes.textField}
+                                defaultValue={link3Title}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                                onChange={(e) => setLink3Title(e.target.value)}
+                              />
+                              <Typography
+                                style={{
+                                  color: "#C8C8C8",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                  fontSize: "20px",
+                                }}
+                              >
+                                Link 3 URL
+                              </Typography>
+                              <TextField
+                                type="text"
+                                name="link3Title"
+                                className={classes.textField}
+                                defaultValue={link3URL}
+                                fullWidth
+                                InputProps={{ disableUnderline: true }}
+                                inputProps={{ className: classes.input }}
+                                onChange={(e) => setLink3URL(e.target.value)}
+                              />
+                            </Container>
+                          </Box>
                         </Box>
                       </DialogContent>
                     </Dialog>
@@ -619,8 +793,7 @@ function PersonalProfilePage(props) {
                   <Box p={2}>
                     <ProfileCard
                       username={username}
-                      cardNumber="card1"
-                      editable={editing}
+                      cardNumber="card3"
                       personal={true}
                     />
                   </Box>
@@ -628,7 +801,6 @@ function PersonalProfilePage(props) {
                     <ProfileCard
                       username={username}
                       cardNumber="card2"
-                      editable={editing}
                       personal={true}
                     />
                   </Box>
@@ -638,7 +810,6 @@ function PersonalProfilePage(props) {
                     <ProfileCard
                       username={username}
                       cardNumber="card3"
-                      editable={editing}
                       personal={true}
                     />
                   </Box>
@@ -646,7 +817,6 @@ function PersonalProfilePage(props) {
                     <ProfileCard
                       username={username}
                       cardNumber="card4"
-                      editable={editing}
                       personal={true}
                     />
                   </Box>
@@ -656,7 +826,6 @@ function PersonalProfilePage(props) {
                     <ProfileCard
                       username={username}
                       cardNumber="card5"
-                      editable={editing}
                       personal={true}
                     />
                   </Box>
@@ -664,7 +833,6 @@ function PersonalProfilePage(props) {
                     <ProfileCard
                       username={username}
                       cardNumber="card6"
-                      editable={editing}
                       personal={true}
                     />
                   </Box>
@@ -673,7 +841,7 @@ function PersonalProfilePage(props) {
             </Box>
           </Box>
           <Box flex={1} justifyContent="center">
-            <LinksCard editable={editing} personal={true} />
+            <LinksCard personal={true} />
           </Box>
         </Box>
       </MediaQuery>

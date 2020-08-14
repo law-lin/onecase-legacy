@@ -569,8 +569,8 @@ function EditBridgeCard(props) {
                         alignItems="center"
                         style={{
                           backgroundColor: "#C4C4C4",
-                          minHeight: "350px",
-                          width: "100%",
+                          height: "500px",
+                          width: "500px",
                         }}
                       >
                         <input
@@ -594,8 +594,8 @@ function EditBridgeCard(props) {
                         justify="center"
                         alignItems="center"
                         style={{
-                          height: "100%",
-                          width: "100%",
+                          height: "500px",
+                          width: "500px",
                         }}
                       >
                         <input
@@ -609,7 +609,7 @@ function EditBridgeCard(props) {
                           onClick={() => fileUpload.current.click()}
                         >
                           <img
-                            style={{ height: "100%", width: "100%" }}
+                            style={{ height: "500px", width: "500px" }}
                             src={imagePreview}
                             alt="preview bridge card img"
                           />

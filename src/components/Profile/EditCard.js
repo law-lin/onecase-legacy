@@ -125,11 +125,18 @@ const useStyles = makeStyles({
     "&:focus": {
       outline: "none",
     },
-    color: "#000000",
-    backgroundColor: "#FFFFFF",
-    minHeight: "110px",
-    width: "240px",
-    borderRadius: "20px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    backgroundColor: "black",
+    color: "#FFFFFF",
+    fontSize: "30px",
+    fontWeight: 800,
+    borderRadius: "15px",
+    alignSelf: "center",
+    width: "100%",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
 });
 
@@ -165,6 +172,7 @@ function EditCard(props) {
             setError(null);
             setOldCardTitle(category);
             props.firebase.editCard(oldCardTitle, props.cardNumber, category);
+            window.location.href = category;
             handleClose();
           } else {
             setError("A card with this category already exists!");
@@ -194,11 +202,9 @@ function EditCard(props) {
       {props.editable && (
         <Fragment>
           {props.display === "none" && (
-            <CardActionArea
-              className={classes.card}
-              style={{ padding: "16px 16px 0 0", height: "0px" }}
-              onClick={handleOpen}
-            />
+            <CardActionArea className={classes.card} onClick={handleOpen}>
+              {oldCardTitle}
+            </CardActionArea>
           )}
           {!props.display && (
             <IconButton
