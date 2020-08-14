@@ -198,6 +198,8 @@ function ProfilePicture(props) {
   }, [imageSrc, croppedAreaPixels, rotation]);
 
   const fileUpload = useRef(null);
+
+  console.log(profilePicture);
   return (
     <React.Fragment>
       {!props.editable && (

@@ -16,6 +16,7 @@ import Grid from "@material-ui/core/Grid";
 import ProfileCard from "../ProfileCard";
 import LinksCard from "../LinksCard";
 import Biography from "../Biography";
+import Name from "../Name";
 import Username from "../Username";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -30,6 +31,7 @@ import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
+import { setDisplayName } from "recompose";
 
 const useStyles = makeStyles({
   container: {
@@ -77,6 +79,7 @@ const useStyles = makeStyles({
 
 function PublicProfilePage(props) {
   const [userID, setUserID] = useState(null);
+  const [name, setName] = useState(null);
   const [username, setUsername] = useState(null);
   const [bio, setBio] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -101,6 +104,7 @@ function PublicProfilePage(props) {
           const state = snapshot.val();
           if (state) {
             setExists(true);
+            setName(state.name);
             setUsername(state.username);
             setBio(state.bio);
             setProfilePicture(state.profilePicture);
@@ -257,128 +261,137 @@ function PublicProfilePage(props) {
             </Grid>
             <BottomNavbar />
           </MediaQuery>
-          <MediaQuery minDeviceWidth={1224}>
-            <Navbar />
-            <Box display="flex" className={classes.container}>
-              <Box flex={1} justifyContent="center">
-                <LeftNavbar />
-              </Box>
-              <Box flex={1} justifyContent="center">
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  style={{ marginTop: "40px", width: "700px" }}
-                >
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="center"
-                    width="100%"
-                  >
-                    <Box flex={1} flexBasis="100%">
-                      {!loading && <Biography margin="50px" bio={bio} />}
-                    </Box>
-                    <Box
-                      flex={1}
-                      flexBasis="100%"
-                      style={{ textAlign: "center" }}
-                    >
-                      {!loading && (
-                        <React.Fragment>
-                          <Username username={username} />
-                          <ProfilePicture profilePicture={profilePicture} />
-                        </React.Fragment>
-                      )}
-                    </Box>
-                    <Box
-                      display="flex"
-                      flex={1}
-                      flexBasis="100%"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Card className={classes.infoBox}>
-                        {!isFollowing && (
-                          <CardHeader
-                            style={{ padding: "16px 16px 0 0", height: "0px" }}
-                            action={
-                              <Button
-                                className={classes.followButton}
-                                onClick={handleFollow}
-                              >
-                                Follow
-                              </Button>
-                            }
-                          />
-                        )}
-                        {isFollowing && (
-                          <CardHeader
-                            style={{ padding: "16px 16px 0 0", height: "0px" }}
-                            action={
-                              <Button
-                                className={classes.followButton}
-                                onClick={handleUnfollow}
-                              >
-                                Unfollow
-                              </Button>
-                            }
-                          />
-                        )}
-                        <CardContent>
-                          <Typography className={classes.text}>
-                            <span style={{ fontWeight: 700 }}>
-                              {followerCount}
-                            </span>{" "}
-                            Followers
-                            <br />
-                            <span style={{ fontWeight: 700 }}>
-                              {followingCount}
-                            </span>{" "}
-                            Following
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Box>
-                  </Box>
+          {!loading && (
+            <MediaQuery minDeviceWidth={1224}>
+              <Navbar />
+              <Box display="flex" className={classes.container}>
+                <Box flex={1} justifyContent="center">
+                  <LeftNavbar />
+                </Box>
+                <Box flex={1} justifyContent="center">
                   <Box
                     display="flex"
                     flexDirection="column"
-                    className={classes.center}
+                    alignItems="center"
+                    justifyContent="center"
+                    style={{ marginTop: "40px", width: "700px" }}
                   >
-                    <Box display="flex">
-                      <Box p={2}>
-                        <ProfileCard username={username} cardNumber="card1" />
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      width="100%"
+                    >
+                      <Box
+                        flex={1}
+                        flexBasis="100%"
+                        style={{ paddingLeft: "40px" }}
+                      >
+                        <Name name={name} />
+                        <Username username={username} />
+                        <Biography bio={bio} />
                       </Box>
-                      <Box p={2}>
-                        <ProfileCard username={username} cardNumber="card2" />
+                      <Box
+                        flex={1}
+                        flexBasis="100%"
+                        style={{ textAlign: "center" }}
+                      >
+                        <ProfilePicture profilePicture={profilePicture} />
+                      </Box>
+                      <Box
+                        display="flex"
+                        flex={1}
+                        flexBasis="100%"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Card className={classes.infoBox}>
+                          {!isFollowing && (
+                            <CardHeader
+                              style={{
+                                padding: "16px 16px 0 0",
+                                height: "0px",
+                              }}
+                              action={
+                                <Button
+                                  className={classes.followButton}
+                                  onClick={handleFollow}
+                                >
+                                  Follow
+                                </Button>
+                              }
+                            />
+                          )}
+                          {isFollowing && (
+                            <CardHeader
+                              style={{
+                                padding: "16px 16px 0 0",
+                                height: "0px",
+                              }}
+                              action={
+                                <Button
+                                  className={classes.followButton}
+                                  onClick={handleUnfollow}
+                                >
+                                  Unfollow
+                                </Button>
+                              }
+                            />
+                          )}
+                          <CardContent>
+                            <Typography className={classes.text}>
+                              <span style={{ fontWeight: 700 }}>
+                                {followerCount}
+                              </span>{" "}
+                              Followers
+                              <br />
+                              <span style={{ fontWeight: 700 }}>
+                                {followingCount}
+                              </span>{" "}
+                              Following
+                            </Typography>
+                          </CardContent>
+                        </Card>
                       </Box>
                     </Box>
-                    <Box display="flex">
-                      <Box p={2}>
-                        <ProfileCard username={username} cardNumber="card3" />
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      className={classes.center}
+                    >
+                      <Box display="flex">
+                        <Box p={2}>
+                          <ProfileCard username={username} cardNumber="card1" />
+                        </Box>
+                        <Box p={2}>
+                          <ProfileCard username={username} cardNumber="card2" />
+                        </Box>
                       </Box>
-                      <Box p={2}>
-                        <ProfileCard username={username} cardNumber="card4" />
+                      <Box display="flex">
+                        <Box p={2}>
+                          <ProfileCard username={username} cardNumber="card3" />
+                        </Box>
+                        <Box p={2}>
+                          <ProfileCard username={username} cardNumber="card4" />
+                        </Box>
                       </Box>
-                    </Box>
-                    <Box display="flex">
-                      <Box p={2}>
-                        <ProfileCard username={username} cardNumber="card5" />
-                      </Box>
-                      <Box p={2}>
-                        <ProfileCard username={username} cardNumber="card6" />
+                      <Box display="flex">
+                        <Box p={2}>
+                          <ProfileCard username={username} cardNumber="card5" />
+                        </Box>
+                        <Box p={2}>
+                          <ProfileCard username={username} cardNumber="card6" />
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
                 </Box>
+                <Box flex={1} justifyContent="center">
+                  <LinksCard />
+                </Box>
               </Box>
-              <Box flex={1} justifyContent="center">
-                <LinksCard />
-              </Box>
-            </Box>
-          </MediaQuery>
+            </MediaQuery>
+          )}
         </div>
       );
     } else {

@@ -5,6 +5,7 @@ import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
+import BackButton from "../../BackButton";
 import UsernameButton from "../../UsernameButton";
 import ProfilePicture from "../ProfilePicture";
 import Grid from "@material-ui/core/Grid";
@@ -155,6 +156,7 @@ class PersonalBridge extends Component {
             this.props.firebase.user(userIDState).on("value", (snapshot) => {
               const state = snapshot.val();
               if (state) {
+                console.log(state.profilePicture);
                 this.setState({
                   username: state.username,
                   profilePicture: state.profilePicture,
@@ -198,7 +200,9 @@ class PersonalBridge extends Component {
                   container
                   style={{ minHeight: "120px", maxHeight: "200px" }}
                 >
-                  <Grid item xs={12} sm={4}></Grid>
+                  <Grid container item xs={12} sm={4}>
+                    <BackButton />
+                  </Grid>
                   <Grid container item xs={12} sm={4}>
                     <Card
                       style={{
@@ -363,7 +367,11 @@ class PersonalBridge extends Component {
                     display="block"
                     username={this.state.username}
                   />
-                  <ProfilePicture profilePicture={this.state.profilePicture} />
+                  {!this.state.profilePictureLoading && (
+                    <ProfilePicture
+                      profilePicture={this.state.profilePicture}
+                    />
+                  )}
                 </Box>
                 <Box>
                   {!this.state.notesLoading && (

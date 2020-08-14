@@ -262,7 +262,11 @@ class PublicBridge extends Component {
                     display="block"
                     username={this.state.username}
                   />
-                  <ProfilePicture profilePicture={this.state.profilePicture} />
+                  {!this.state.profilePictureLoading && (
+                    <ProfilePicture
+                      profilePicture={this.state.profilePicture}
+                    />
+                  )}
                 </Box>
                 <Box>
                   {!this.state.notesLoading && (
