@@ -19,6 +19,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import Container from "@material-ui/core/Container";
 import background from "../../images/background3.png";
 
 import { compose } from "recompose";
@@ -70,19 +71,15 @@ const styles = () => ({
     backgroundColor: "#232323",
   },
   caption: {
-    minHeight: "150px",
+    textAlign: "center",
+    paddingBottom: "10px",
+    minHeight: "20px",
+    width: "750px",
     fontFamily: "Mukta Mahee",
     color: "#FFFFFF",
     fontSize: "32px",
     fontWeight: 700,
     position: "relative",
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      backgroundColor: "white",
-      width: "100%",
-      height: "3px",
-    },
     "&::after": {
       content: '""',
       position: "absolute",
@@ -95,6 +92,7 @@ const styles = () => ({
   },
   description: {
     marginTop: "20px",
+    paddingLeft: "10px",
     minHeight: "350px",
     fontFamily: "Mukta Mahee",
     color: "#FFFFFF",
@@ -231,9 +229,9 @@ class BridgeCard extends Component {
                 </Typography>
               </DialogTitle>
 
-              <DialogContent dividers>
-                <Grid container spacing={3}>
-                  <Grid item xs={6}>
+              <DialogContent>
+                <Box display="flex">
+                  <Box>
                     <React.Fragment>
                       {cardImageURL && (
                         <Grid
@@ -263,16 +261,18 @@ class BridgeCard extends Component {
                         </p>
                       )}
                     </React.Fragment>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography className={classes.caption}>
-                      {caption}
-                    </Typography>
-                    <Typography gutterBottom className={classes.description}>
-                      {description}
-                    </Typography>
-                  </Grid>
-                </Grid>
+                  </Box>
+                  <Box>
+                    <div>
+                      <Typography className={classes.caption}>
+                        {caption}
+                      </Typography>
+                      <Typography gutterBottom className={classes.description}>
+                        {description}
+                      </Typography>
+                    </div>
+                  </Box>
+                </Box>
               </DialogContent>
             </Dialog>
           </React.Fragment>

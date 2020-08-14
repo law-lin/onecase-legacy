@@ -36,14 +36,8 @@ const useStyles = makeStyles({
     fontSize: "36px",
     backgroundColor: "#FFFFFF",
   },
-  caption: {
-    fontFamily: ["Mukta Mahee", "sans-serif"],
-    color: "#000000",
-    backgroundColor: "#FFFFFF",
-    fontSize: "32px",
-  },
   description: {
-    marginTop: "20px",
+    padding: "20px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#000000",
     backgroundColor: "#FFFFFF",
@@ -185,6 +179,23 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     minHeight: "200px",
     width: "200px",
+  },
+  caption: {
+    marginTop: "40px",
+    padding: "20px",
+    width: "750px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    color: "#FFFFFF",
+    position: "relative",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      backgroundColor: "white",
+      width: "100%",
+      height: "3px",
+      bottom: 0,
+      left: 0,
+    },
   },
 });
 
@@ -458,188 +469,48 @@ function EditBridgeCard(props) {
               </Snackbar>
             </DialogTitle>
             <DialogContent dividers>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <input
-                    type="file"
-                    ref={coverImageUpload}
-                    style={{ display: "none" }}
-                    onChange={handleCoverImageChange}
-                  />
-                  {props.cardCoverImageURL && !coverImagePreview && (
-                    <IconButton
-                      onClick={() => coverImageUpload.current.click()}
-                    >
-                      <img
-                        style={{ height: "100%", width: "100%" }}
-                        src={props.cardCoverImageURL}
-                        alt="preview bridge card img"
-                      />
-                    </IconButton>
-                  )}
-                  {!props.cardCoverImageURL && !coverImagePreview && (
-                    <IconButton
-                      className={classes.imageUpload}
-                      onClick={() => coverImageUpload.current.click()}
-                    >
-                      Select Cover Image
-                    </IconButton>
-                  )}
-                  {coverImagePreview && (
-                    <IconButton
-                      className={classes.imageUpload}
-                      onClick={() => coverImageUpload.current.click()}
-                    >
-                      <img
-                        style={{ height: "100%", width: "100%" }}
-                        src={coverImagePreview}
-                        alt="preview bridge card img"
-                      />
-                    </IconButton>
-                  )}
-                  <Dialog
-                    open={coverImageOpen}
-                    onClose={handleClose}
-                    fullWidth={true}
-                    maxWidth={"lg"}
-                    height
-                    classes={{ paper: classes.dialogPaper }}
-                    PaperProps={{
-                      style: { backgroundColor: "#E4E4E4" },
-                    }}
-                  >
-                    <DialogContent>
-                      <div className={classes.crop}>
-                        <Cropper
-                          image={coverImageSrc}
-                          crop={crop}
-                          rotation={rotation}
-                          zoom={zoom}
-                          aspect={3 / 3}
-                          onCropChange={setCrop}
-                          onRotationChange={setRotation}
-                          onCropComplete={onCropComplete}
-                          onZoomChange={setZoom}
-                        />
-                      </div>
-                      <div className={classes.controls}>
-                        <div className={classes.sliderContainer}>
-                          <Typography
-                            variant="overline"
-                            classes={{ root: classes.sliderLabel }}
-                          >
-                            Zoom
-                          </Typography>
-                          <Slider
-                            value={zoom}
-                            min={1}
-                            max={3}
-                            step={0.1}
-                            aria-labelledby="Zoom"
-                            onChange={(e, zoom) => setZoom(zoom)}
-                            classes={{ container: classes.slider }}
-                          />
-                        </div>
-                        <div className={classes.sliderContainer}>
-                          <Typography
-                            variant="overline"
-                            classes={{ root: classes.sliderLabel }}
-                          >
-                            Rotation
-                          </Typography>
-                          <Slider
-                            value={rotation}
-                            min={0}
-                            max={360}
-                            step={1}
-                            aria-labelledby="Rotation"
-                            classes={{ container: classes.slider }}
-                            onChange={(e, rotation) => setRotation(rotation)}
-                          />
-                        </div>
-                      </div>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleCoverImageClose} color="primary">
-                        Cancel
-                      </Button>
-                      <Button onClick={handleCoverImageSave} color="primary">
-                        Save
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </Grid>
-                <Grid item xs={6}>
-                  <React.Fragment>
-                    {!imagePreview && (
-                      <Grid
-                        container
-                        justify="center"
-                        alignItems="center"
-                        style={{
-                          backgroundColor: "#C4C4C4",
-                          height: "500px",
-                          width: "500px",
-                        }}
+              <Box display="flex">
+                <Box display="flex" flexDirection="column">
+                  <Box>
+                    <input
+                      type="file"
+                      ref={coverImageUpload}
+                      style={{ display: "none" }}
+                      onChange={handleCoverImageChange}
+                    />
+                    {props.cardCoverImageURL && !coverImagePreview && (
+                      <IconButton
+                        onClick={() => coverImageUpload.current.click()}
                       >
-                        <input
-                          type="file"
-                          ref={fileUpload}
-                          style={{ display: "none" }}
-                          onChange={handleImageChange}
+                        <img
+                          style={{ height: "100%", width: "100%" }}
+                          src={props.cardCoverImageURL}
+                          alt="preview bridge card img"
                         />
-                        {props.cardImageURL && (
-                          <IconButton
-                            className={classes.imageUpload}
-                            onClick={() => fileUpload.current.click()}
-                          >
-                            <img
-                              style={{ height: "500px", width: "500px" }}
-                              src={props.cardImageURL}
-                              alt="preview bridge card img"
-                            />
-                          </IconButton>
-                        )}
-                        {!props.cardImageURL && (
-                          <IconButton
-                            className={classes.imageUpload}
-                            onClick={() => fileUpload.current.click()}
-                          >
-                            <CameraAltIcon />
-                          </IconButton>
-                        )}
-                      </Grid>
+                      </IconButton>
                     )}
-                    {imagePreview && (
-                      <Grid
-                        container
-                        justify="center"
-                        alignItems="center"
-                        style={{
-                          height: "500px",
-                          width: "500px",
-                        }}
+                    {!props.cardCoverImageURL && !coverImagePreview && (
+                      <IconButton
+                        className={classes.imageUpload}
+                        onClick={() => coverImageUpload.current.click()}
                       >
-                        <input
-                          type="file"
-                          ref={fileUpload}
-                          style={{ display: "none" }}
-                          onChange={handleImageChange}
+                        Select Cover Image
+                      </IconButton>
+                    )}
+                    {coverImagePreview && (
+                      <IconButton
+                        className={classes.imageUpload}
+                        onClick={() => coverImageUpload.current.click()}
+                      >
+                        <img
+                          style={{ height: "100%", width: "100%" }}
+                          src={coverImagePreview}
+                          alt="preview bridge card img"
                         />
-                        <IconButton
-                          className={classes.imageUpload}
-                          onClick={() => fileUpload.current.click()}
-                        >
-                          <img
-                            style={{ height: "500px", width: "500px" }}
-                            src={imagePreview}
-                            alt="preview bridge card img"
-                          />
-                        </IconButton>
-                      </Grid>
+                      </IconButton>
                     )}
                     <Dialog
-                      open={imageOpen}
+                      open={coverImageOpen}
                       onClose={handleClose}
                       fullWidth={true}
                       maxWidth={"lg"}
@@ -652,7 +523,7 @@ function EditBridgeCard(props) {
                       <DialogContent>
                         <div className={classes.crop}>
                           <Cropper
-                            image={imageSrc}
+                            image={coverImageSrc}
                             crop={crop}
                             rotation={rotation}
                             zoom={zoom}
@@ -701,18 +572,163 @@ function EditBridgeCard(props) {
                         </div>
                       </DialogContent>
                       <DialogActions>
-                        <Button onClick={handleImageClose} color="primary">
+                        <Button onClick={handleCoverImageClose} color="primary">
                           Cancel
                         </Button>
-                        <Button onClick={handleImageSave} color="primary">
+                        <Button onClick={handleCoverImageSave} color="primary">
                           Save
                         </Button>
                       </DialogActions>
                     </Dialog>
-                  </React.Fragment>
-                </Grid>
-                <Grid item xs={6}>
+                  </Box>
+                  <Box>
+                    <React.Fragment>
+                      {!imagePreview && (
+                        <Grid
+                          container
+                          justify="center"
+                          alignItems="center"
+                          style={{
+                            backgroundColor: "#C4C4C4",
+                            height: "500px",
+                            width: "500px",
+                          }}
+                        >
+                          <input
+                            type="file"
+                            ref={fileUpload}
+                            style={{ display: "none" }}
+                            onChange={handleImageChange}
+                          />
+                          {props.cardImageURL && (
+                            <IconButton
+                              className={classes.imageUpload}
+                              onClick={() => fileUpload.current.click()}
+                            >
+                              <img
+                                style={{ height: "500px", width: "500px" }}
+                                src={props.cardImageURL}
+                                alt="preview bridge card img"
+                              />
+                            </IconButton>
+                          )}
+                          {!props.cardImageURL && (
+                            <IconButton
+                              className={classes.imageUpload}
+                              onClick={() => fileUpload.current.click()}
+                            >
+                              <CameraAltIcon />
+                            </IconButton>
+                          )}
+                        </Grid>
+                      )}
+                      {imagePreview && (
+                        <Grid
+                          container
+                          justify="center"
+                          alignItems="center"
+                          style={{
+                            height: "500px",
+                            width: "500px",
+                          }}
+                        >
+                          <input
+                            type="file"
+                            ref={fileUpload}
+                            style={{ display: "none" }}
+                            onChange={handleImageChange}
+                          />
+                          <IconButton
+                            className={classes.imageUpload}
+                            onClick={() => fileUpload.current.click()}
+                          >
+                            <img
+                              style={{ height: "500px", width: "500px" }}
+                              src={imagePreview}
+                              alt="preview bridge card img"
+                            />
+                          </IconButton>
+                        </Grid>
+                      )}
+                      <Dialog
+                        open={imageOpen}
+                        onClose={handleClose}
+                        fullWidth={true}
+                        maxWidth={"lg"}
+                        height
+                        classes={{ paper: classes.dialogPaper }}
+                        PaperProps={{
+                          style: { backgroundColor: "#E4E4E4" },
+                        }}
+                      >
+                        <DialogContent>
+                          <div className={classes.crop}>
+                            <Cropper
+                              image={imageSrc}
+                              crop={crop}
+                              rotation={rotation}
+                              zoom={zoom}
+                              aspect={3 / 3}
+                              onCropChange={setCrop}
+                              onRotationChange={setRotation}
+                              onCropComplete={onCropComplete}
+                              onZoomChange={setZoom}
+                            />
+                          </div>
+                          <div className={classes.controls}>
+                            <div className={classes.sliderContainer}>
+                              <Typography
+                                variant="overline"
+                                classes={{ root: classes.sliderLabel }}
+                              >
+                                Zoom
+                              </Typography>
+                              <Slider
+                                value={zoom}
+                                min={1}
+                                max={3}
+                                step={0.1}
+                                aria-labelledby="Zoom"
+                                onChange={(e, zoom) => setZoom(zoom)}
+                                classes={{ container: classes.slider }}
+                              />
+                            </div>
+                            <div className={classes.sliderContainer}>
+                              <Typography
+                                variant="overline"
+                                classes={{ root: classes.sliderLabel }}
+                              >
+                                Rotation
+                              </Typography>
+                              <Slider
+                                value={rotation}
+                                min={0}
+                                max={360}
+                                step={1}
+                                aria-labelledby="Rotation"
+                                classes={{ container: classes.slider }}
+                                onChange={(e, rotation) =>
+                                  setRotation(rotation)
+                                }
+                              />
+                            </div>
+                          </div>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleImageClose} color="primary">
+                            Cancel
+                          </Button>
+                          <Button onClick={handleImageSave} color="primary">
+                            Save
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                    </React.Fragment>
+                  </Box>
+                </Box>
+                <Box>
                   <TextField
+                    className={classes.caption}
                     name="caption"
                     type="text"
                     placeholder="Insert a caption here"
@@ -730,6 +746,7 @@ function EditBridgeCard(props) {
                     placeholder="Ex: Describe what you did"
                     rows={12}
                     multiline
+                    style={{ padding: "20px" }}
                     InputProps={{
                       className: classes.description,
                       disableUnderline: true,
@@ -741,8 +758,8 @@ function EditBridgeCard(props) {
                     onChange={(e) => setDescription(e.target.value)}
                     fullWidth
                   />
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </DialogContent>
             <DialogActions>
               <Button className={classes.cancel} onClick={handleClose}>
