@@ -310,6 +310,7 @@ class BridgeCard extends Component {
                   bridgeCardTitle={bridgeCardTitle}
                   caption={caption}
                   description={description}
+                  cardCoverImageURL={cardCoverImageURL}
                   cardImageURL={cardImageURL}
                   cardNumber={this.props.cardNumber}
                   bridgeCardNumber={this.props.bridgeCardNumber}

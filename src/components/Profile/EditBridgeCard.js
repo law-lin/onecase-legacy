@@ -397,8 +397,7 @@ function EditBridgeCard(props) {
   const fileUpload = useRef(null);
   const coverImageUpload = useRef(null);
 
-  console.log(props.caption);
-  console.log(props.description);
+  console.log(props.cardCoverImageURL);
   return (
     <div>
       {props.editable && (
@@ -467,6 +466,25 @@ function EditBridgeCard(props) {
                     style={{ display: "none" }}
                     onChange={handleCoverImageChange}
                   />
+                  {props.cardCoverImageURL && !coverImagePreview && (
+                    <IconButton
+                      onClick={() => coverImageUpload.current.click()}
+                    >
+                      <img
+                        style={{ height: "100%", width: "100%" }}
+                        src={props.cardCoverImageURL}
+                        alt="preview bridge card img"
+                      />
+                    </IconButton>
+                  )}
+                  {!props.cardCoverImageURL && !coverImagePreview && (
+                    <IconButton
+                      className={classes.imageUpload}
+                      onClick={() => coverImageUpload.current.click()}
+                    >
+                      Select Cover Image
+                    </IconButton>
+                  )}
                   {coverImagePreview && (
                     <IconButton
                       className={classes.imageUpload}
@@ -479,15 +497,6 @@ function EditBridgeCard(props) {
                       />
                     </IconButton>
                   )}
-                  {!coverImagePreview && (
-                    <IconButton
-                      className={classes.imageUpload}
-                      onClick={() => coverImageUpload.current.click()}
-                    >
-                      Select Cover Image
-                    </IconButton>
-                  )}
-
                   <Dialog
                     open={coverImageOpen}
                     onClose={handleClose}
@@ -579,15 +588,28 @@ function EditBridgeCard(props) {
                           style={{ display: "none" }}
                           onChange={handleImageChange}
                         />
-                        <IconButton
-                          className={classes.imageUpload}
-                          onClick={() => fileUpload.current.click()}
-                        >
-                          <CameraAltIcon />
-                        </IconButton>
+                        {props.cardImageURL && (
+                          <IconButton
+                            className={classes.imageUpload}
+                            onClick={() => fileUpload.current.click()}
+                          >
+                            <img
+                              style={{ height: "500px", width: "500px" }}
+                              src={props.cardImageURL}
+                              alt="preview bridge card img"
+                            />
+                          </IconButton>
+                        )}
+                        {!props.cardImageURL && (
+                          <IconButton
+                            className={classes.imageUpload}
+                            onClick={() => fileUpload.current.click()}
+                          >
+                            <CameraAltIcon />
+                          </IconButton>
+                        )}
                       </Grid>
                     )}
-
                     {imagePreview && (
                       <Grid
                         container
