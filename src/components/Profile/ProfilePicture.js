@@ -120,10 +120,10 @@ const useStyles = makeStyles({
 function ProfilePicture(props) {
   const classes = useStyles();
 
-  const [oldProfilePicture, setOldProfilePicture] = useState(
-    props.oldProfilePicture
-  );
   const [profilePicture, setProfilePicture] = useState(props.profilePicture);
+  const [newProfilePicture, setNewProfilePicture] = useState(
+    props.newProfilePicture
+  );
   const [imagePreview, setImagePreview] = useState(props.profilePicture);
   const [open, setOpen] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -189,7 +189,7 @@ function ProfilePicture(props) {
       let file = new File([blob], uuid);
 
       props.onChange(file);
-      setProfilePicture(croppedImage);
+      setNewProfilePicture(croppedImage);
 
       setOpen(false);
     } catch (e) {
@@ -205,7 +205,7 @@ function ProfilePicture(props) {
           style={{ margin: "0 auto" }}
           size="110"
           round="50px"
-          src={oldProfilePicture}
+          src={profilePicture}
         />
       )}
       {props.editable && (
@@ -214,7 +214,7 @@ function ProfilePicture(props) {
             size="110"
             round="50px"
             style={{ position: "relative", opacity: 0.5 }}
-            src={profilePicture}
+            src={newProfilePicture}
           />
           <input
             type="file"

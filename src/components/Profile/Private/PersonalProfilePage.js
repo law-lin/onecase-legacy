@@ -312,7 +312,6 @@ function PersonalProfilePage(props) {
         updateLink("linkCard3", link3Title, link3URL);
       }
       if (profilePicture !== null) {
-        console.log(profilePicture);
         props.firebase.uploadProfilePicture(profilePicture).on(
           "state_changed",
           (snapshot) => {
@@ -373,7 +372,6 @@ function PersonalProfilePage(props) {
               updateLink("linkCard3", link3Title, link3URL);
             }
             if (profilePicture !== null) {
-              console.log(profilePicture);
               props.firebase.uploadProfilePicture(profilePicture).on(
                 "state_changed",
                 (snapshot) => {
@@ -508,8 +506,8 @@ function PersonalProfilePage(props) {
                             >
                               <Box p={3}>
                                 <ProfilePicture
-                                  oldProfilePicture={oldProfilePicture}
-                                  profilePicture={profilePicture}
+                                  profilePicture={oldProfilePicture}
+                                  newProfilePicture={profilePicture}
                                   editable={editing}
                                   onChange={handleProfilePictureChange}
                                 />
@@ -794,8 +792,8 @@ function PersonalProfilePage(props) {
                       style={{ textAlign: "center" }}
                     >
                       <ProfilePicture
-                        oldProfilePicture={oldProfilePicture}
-                        profilePicture={profilePicture}
+                        profilePicture={oldProfilePicture}
+                        newProfilePicture={profilePicture}
                       />
                     </Box>
                     <Box
@@ -850,8 +848,8 @@ function PersonalProfilePage(props) {
                             >
                               <Box p={3}>
                                 <ProfilePicture
-                                  oldProfilePicture={oldProfilePicture}
-                                  profilePicture={profilePicture}
+                                  profilePicture={oldProfilePicture}
+                                  newProfilePicture={profilePicture}
                                   editable={editing}
                                   onChange={handleProfilePictureChange}
                                 />
