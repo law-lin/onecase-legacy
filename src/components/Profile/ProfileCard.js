@@ -138,7 +138,7 @@ class ProfileCard extends Component {
         )}
         {!this.props.editable && !cardTitle && this.props.personal && (
           <EditCard
-            display="none"
+            display="empty"
             oldCardTitle={oldCardTitle}
             cardTitle={cardTitle}
             cardNumber={this.props.cardNumber}

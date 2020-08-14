@@ -116,7 +116,7 @@ const useStyles = makeStyles({
     minHeight: "70vh",
     maxHeight: "80vh",
   },
-  card: {
+  theme: {
     "&:hover": {
       outline: "none",
       color: "#FFFFFF",
@@ -138,6 +138,21 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
   },
+  card: {
+    "&:hover": {
+      outline: "none",
+      color: "#FFFFFF",
+      backgroundColor: "#3E4E55",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    minHeight: "110px",
+    width: "250px",
+    borderRadius: "20px",
+  },
 });
 
 function EditCard(props) {
@@ -158,6 +173,9 @@ function EditCard(props) {
   };
 
   const handleClick = (category) => {
+    if (props.bridge) {
+      window.location.href = category;
+    }
     if (category === "None") {
       if (oldCardTitle !== "placeholder") {
         setConfirmation(true);
@@ -172,7 +190,6 @@ function EditCard(props) {
             setError(null);
             setOldCardTitle(category);
             props.firebase.editCard(oldCardTitle, props.cardNumber, category);
-            window.location.href = category;
             handleClose();
           } else {
             setError("A card with this category already exists!");
@@ -202,9 +219,12 @@ function EditCard(props) {
       {props.editable && (
         <Fragment>
           {props.display === "none" && (
-            <CardActionArea className={classes.card} onClick={handleOpen}>
+            <CardActionArea className={classes.theme} onClick={handleOpen}>
               {oldCardTitle}
             </CardActionArea>
+          )}
+          {props.display === "empty" && (
+            <CardActionArea className={classes.card} onClick={handleOpen} />
           )}
           {!props.display && (
             <IconButton

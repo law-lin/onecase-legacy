@@ -793,7 +793,7 @@ function PersonalProfilePage(props) {
                   <Box p={2}>
                     <ProfileCard
                       username={username}
-                      cardNumber="card3"
+                      cardNumber="card1"
                       personal={true}
                     />
                   </Box>

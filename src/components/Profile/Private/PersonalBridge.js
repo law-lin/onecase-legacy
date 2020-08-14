@@ -225,6 +225,7 @@ class PersonalBridge extends Component {
                           oldCardTitle={this.state.oldCardTitle}
                           cardTitle={this.state.cardTitle}
                           cardNumber={this.state.cardNumber}
+                          bridge={true}
                           editable={true}
                         />
                       )}
