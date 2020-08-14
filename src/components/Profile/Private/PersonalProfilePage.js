@@ -214,7 +214,9 @@ function PersonalProfilePage(props) {
   const [name, setName] = useState("");
   const [oldBio, setOldBio] = useState(null);
   const [bio, setBio] = useState("");
+  const [oldProfilePicture, setOldProfilePicture] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
+  const [savedImage, setSavedImage] = useState(null);
   const [canSave, setCanSave] = useState(false);
   const [canCancel, setCanCancel] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -235,7 +237,6 @@ function PersonalProfilePage(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log("working");
     let username = props.match.params.username.toString().toLowerCase();
 
     if (!loading) {
@@ -253,6 +254,7 @@ function PersonalProfilePage(props) {
               setUsername(state.username);
               setOldBio(state.bio);
               setBio(state.bio);
+              setOldProfilePicture(state.profilePicture);
               setProfilePicture(state.profilePicture);
               setFollowerCount(state.followerCount);
               setFollowingCount(state.followingCount);
@@ -288,6 +290,10 @@ function PersonalProfilePage(props) {
     setEditing(false);
   };
 
+  const handleProfilePictureChange = (value) => {
+    setProfilePicture(value);
+  };
+
   const handleSave = () => {
     let formattedUsername = username.toLowerCase();
 
@@ -304,6 +310,27 @@ function PersonalProfilePage(props) {
       }
       if (link3Title && link3URL) {
         updateLink("linkCard3", link3Title, link3URL);
+      }
+      if (profilePicture !== null) {
+        console.log(profilePicture);
+        props.firebase.uploadProfilePicture(profilePicture).on(
+          "state_changed",
+          (snapshot) => {
+            // progress function ...
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+          },
+          (error) => {
+            // Error function ...
+            console.log(error);
+          },
+          () => {
+            // complete function ...
+            props.firebase.uploadProfilePictureURL(profilePicture);
+            props.history.go();
+          }
+        );
       }
       handleClose();
     } else {
@@ -344,6 +371,27 @@ function PersonalProfilePage(props) {
             }
             if (link3Title && link3URL) {
               updateLink("linkCard3", link3Title, link3URL);
+            }
+            if (profilePicture !== null) {
+              console.log(profilePicture);
+              props.firebase.uploadProfilePicture(profilePicture).on(
+                "state_changed",
+                (snapshot) => {
+                  // progress function ...
+                  const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                  );
+                },
+                (error) => {
+                  // Error function ...
+                  console.log(error);
+                },
+                () => {
+                  // complete function ...
+                  props.firebase.uploadProfilePictureURL(profilePicture);
+                  props.history.go();
+                }
+              );
             }
             setEditing(false);
           }
@@ -404,7 +452,7 @@ function PersonalProfilePage(props) {
                       {!loading && (
                         <React.Fragment>
                           <Username username={oldUsername} />
-                          <ProfilePicture profilePicture={profilePicture} />
+                          <ProfilePicture profilePicture={oldProfilePicture} />
                         </React.Fragment>
                       )}
                     </Box>
@@ -460,8 +508,10 @@ function PersonalProfilePage(props) {
                             >
                               <Box p={3}>
                                 <ProfilePicture
+                                  oldProfilePicture={oldProfilePicture}
                                   profilePicture={profilePicture}
                                   editable={editing}
+                                  onChange={handleProfilePictureChange}
                                 />
                               </Box>
                               <Box p={3}>
@@ -743,7 +793,10 @@ function PersonalProfilePage(props) {
                       flexBasis="100%"
                       style={{ textAlign: "center" }}
                     >
-                      <ProfilePicture profilePicture={profilePicture} />
+                      <ProfilePicture
+                        oldProfilePicture={oldProfilePicture}
+                        profilePicture={profilePicture}
+                      />
                     </Box>
                     <Box
                       display="flex"
@@ -797,8 +850,10 @@ function PersonalProfilePage(props) {
                             >
                               <Box p={3}>
                                 <ProfilePicture
+                                  oldProfilePicture={oldProfilePicture}
                                   profilePicture={profilePicture}
                                   editable={editing}
+                                  onChange={handleProfilePictureChange}
                                 />
                               </Box>
                               <Box p={3}>

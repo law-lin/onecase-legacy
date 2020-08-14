@@ -120,6 +120,11 @@ const useStyles = makeStyles({
 function ProfilePicture(props) {
   const classes = useStyles();
 
+  const [oldProfilePicture, setOldProfilePicture] = useState(
+    props.oldProfilePicture
+  );
+  const [profilePicture, setProfilePicture] = useState(props.profilePicture);
+  const [imagePreview, setImagePreview] = useState(props.profilePicture);
   const [open, setOpen] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -130,8 +135,6 @@ function ProfilePicture(props) {
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
-
-  const { profilePicture } = props;
 
   const handleOpen = () => {
     setOpen(true);
@@ -184,24 +187,11 @@ function ProfilePicture(props) {
       let blob = await fetch(croppedImage).then((r) => r.blob());
       let uuid = uuidv4();
       let file = new File([blob], uuid);
-      props.firebase.uploadProfilePicture(file).on(
-        "state_changed",
-        (snapshot) => {
-          // progress function ...
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-        },
-        (error) => {
-          // Error function ...
-          console.log(error);
-        },
-        () => {
-          // complete function ...
-          props.firebase.uploadProfilePictureURL(file);
-          setOpen(false);
-        }
-      );
+
+      props.onChange(file);
+      setProfilePicture(croppedImage);
+
+      setOpen(false);
     } catch (e) {
       console.error(e);
     }
@@ -215,7 +205,7 @@ function ProfilePicture(props) {
           style={{ margin: "0 auto" }}
           size="110"
           round="50px"
-          src={profilePicture}
+          src={oldProfilePicture}
         />
       )}
       {props.editable && (
@@ -225,7 +215,7 @@ function ProfilePicture(props) {
             round="50px"
             style={{ position: "relative", opacity: 0.5 }}
             src={profilePicture}
-          ></Avatar>
+          />
           <input
             type="file"
             ref={fileUpload}
