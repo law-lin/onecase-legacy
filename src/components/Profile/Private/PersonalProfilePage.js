@@ -24,6 +24,7 @@ import Grid from "@material-ui/core/Grid";
 import ProfileCard from "../ProfileCard";
 import LinksCard from "../LinksCard";
 import Biography from "../Biography";
+import Name from "../Name";
 import Username from "../Username";
 import Box from "@material-ui/core/Box";
 import MediaQuery from "react-responsive";
@@ -100,7 +101,7 @@ const useStyles = makeStyles({
     height: "25%",
   },
   center: {
-    marginTop: "40px",
+    marginTop: "25px",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "15px",
@@ -209,6 +210,7 @@ function PersonalProfilePage(props) {
   const [userID, setUserID] = useState(null);
   const [oldUsername, setOldUsername] = useState(null);
   const [username, setUsername] = useState("");
+  const [oldName, setOldName] = useState(null);
   const [name, setName] = useState("");
   const [oldBio, setOldBio] = useState(null);
   const [bio, setBio] = useState("");
@@ -245,6 +247,7 @@ function PersonalProfilePage(props) {
           props.firebase.user(userIDState).on("value", (snapshot) => {
             const state = snapshot.val();
             if (state) {
+              setOldName(state.name);
               setName(state.name);
               setOldUsername(state.username);
               setUsername(state.username);
@@ -726,20 +729,21 @@ function PersonalProfilePage(props) {
                     justifyContent="center"
                     width="100%"
                   >
-                    <Box flex={1} flexBasis="100%">
-                      {!loading && <Biography margin="50px" bio={oldBio} />}
+                    <Box
+                      flex={1}
+                      flexBasis="100%"
+                      style={{ paddingLeft: "40px" }}
+                    >
+                      <Name name={oldName} />
+                      <Username username={oldUsername} />
+                      <Biography bio={oldBio} />
                     </Box>
                     <Box
                       flex={1}
                       flexBasis="100%"
                       style={{ textAlign: "center" }}
                     >
-                      {!loading && (
-                        <React.Fragment>
-                          <Username username={oldUsername} />
-                          <ProfilePicture profilePicture={profilePicture} />
-                        </React.Fragment>
-                      )}
+                      <ProfilePicture profilePicture={profilePicture} />
                     </Box>
                     <Box
                       display="flex"
@@ -867,13 +871,13 @@ function PersonalProfilePage(props) {
                                     InputProps={{ disableUnderline: true }}
                                     inputProps={{
                                       className: classes.input,
-                                      maxLength: 250,
+                                      maxLength: 75,
                                     }}
                                   />
                                   <Typography
                                     className={classes.characterLimit}
                                   >
-                                    {`${bio.length}/${250}`}
+                                    {`${bio.length}/${75}`}
                                   </Typography>
                                 </Container>
                               </Box>

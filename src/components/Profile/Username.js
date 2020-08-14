@@ -1,52 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 
-import { withFirebase } from "../Firebase";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles({
-  edit: {
-    backgroundColor: "white",
-    marginBottom: "10px",
-    width: "60%",
-    display: "block",
-  },
-  input: {
-    fontSize: "28px",
-    fontFamily: ["Montserrat", "sans-serif"],
-    fontWeight: 700,
-  },
   display: {
-    fontSize: "28px",
-    fontFamily: ["Montserrat", "sans-serif"],
-    fontWeight: 700,
+    fontSize: "18px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontWeight: 600,
   },
 });
+
 function Username(props) {
   const classes = useStyles();
 
-  const handleChange = (event) => {
-    props.onChange(event.target.value);
-  };
-
   return (
-    <React.Fragment>
-      {props.editable && (
-        <TextField
-          className={classes.edit}
-          defaultValue={props.username}
-          onChange={handleChange}
-          InputProps={{ disableUnderline: true }}
-          inputProps={{ className: classes.input }}
-        />
-      )}
-      {!props.editable && (
-        <h2 className={classes.display} style={{ display: props.display }}>
-          {props.username}
-        </h2>
-      )}
-    </React.Fragment>
+    <Typography className={classes.display} style={{ display: props.display }}>
+      @{props.username}
+    </Typography>
   );
 }
 
-export default withFirebase(Username);
+export default Username;

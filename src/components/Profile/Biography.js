@@ -1,18 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { withFirebase } from "../Firebase";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles({
-  input: {
-    fontSize: "20px",
-    fontFamily: ["Mukta Mahee", "sans-serif"],
-  },
   display: {
+    paddingTop: "10px",
     height: "70px",
-    marginTop: "70px",
-    fontSize: "20px",
+    fontSize: "16px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     whiteSpace: "pre-line",
   },
@@ -21,44 +15,14 @@ const useStyles = makeStyles({
 function Biography(props) {
   const classes = useStyles();
 
-  const handleChange = (event) => {
-    props.onChange(event.target.value);
-  };
-
   return (
-    <React.Fragment>
-      {props.editable && (
-        <TextField
-          label="Biography"
-          defaultValue={props.bio}
-          onChange={handleChange}
-          multiline
-          style={{
-            marginTop: "70px",
-            height: "70px",
-            backgroundColor: "white",
-            width: "100%",
-            marginLeft: props.margin,
-          }}
-          rows={2}
-          rowsMax="2"
-          InputProps={{
-            disableUnderline: true,
-          }}
-          inputProps={{ className: classes.input }}
-        />
-      )}
-      {!props.editable && (
-        <Typography
-          className={classes.display}
-          style={{ marginLeft: props.margin }}
-        >
-          {props.bio}
-          <br />
-        </Typography>
-      )}
-    </React.Fragment>
+    <Typography
+      className={classes.display}
+      style={{ marginLeft: props.margin }}
+    >
+      {props.bio}
+    </Typography>
   );
 }
 
-export default withFirebase(Biography);
+export default Biography;
