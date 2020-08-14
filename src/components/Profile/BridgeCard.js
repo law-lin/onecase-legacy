@@ -71,6 +71,7 @@ const styles = () => ({
     backgroundColor: "#232323",
   },
   caption: {
+    paddingTop: "50px",
     textAlign: "center",
     paddingBottom: "10px",
     minHeight: "20px",
@@ -220,6 +221,7 @@ class BridgeCard extends Component {
               PaperProps={{
                 style: {
                   backgroundColor: "#232323",
+                  minHeight: "65vh",
                 },
               }}
             >
