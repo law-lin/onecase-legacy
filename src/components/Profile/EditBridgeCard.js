@@ -182,7 +182,7 @@ const useStyles = makeStyles({
     width: "200px",
   },
   caption: {
-    marginTop: "40px",
+    marginTop: "90px",
     padding: "20px",
     width: "750px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
@@ -482,6 +482,7 @@ function EditBridgeCard(props) {
                       <IconButton
                         onClick={() => coverImageUpload.current.click()}
                       >
+                        <CameraAltIcon />
                         <img
                           style={{ height: "100%", width: "100%" }}
                           src={props.cardCoverImageURL}
@@ -583,7 +584,7 @@ function EditBridgeCard(props) {
                   </Box>
                   <Box>
                     <React.Fragment>
-                      {!imagePreview && (
+                      {!imagePreview && !props.cardImageURL && (
                         <Grid
                           container
                           justify="center"
@@ -600,26 +601,40 @@ function EditBridgeCard(props) {
                             style={{ display: "none" }}
                             onChange={handleImageChange}
                           />
-                          {props.cardImageURL && (
-                            <IconButton
-                              className={classes.imageUpload}
-                              onClick={() => fileUpload.current.click()}
-                            >
-                              <img
-                                style={{ height: "500px", width: "500px" }}
-                                src={props.cardImageURL}
-                                alt="preview bridge card img"
-                              />
-                            </IconButton>
-                          )}
-                          {!props.cardImageURL && (
-                            <IconButton
-                              className={classes.imageUpload}
-                              onClick={() => fileUpload.current.click()}
-                            >
-                              <CameraAltIcon />
-                            </IconButton>
-                          )}
+                          <IconButton
+                            className={classes.imageUpload}
+                            onClick={() => fileUpload.current.click()}
+                          >
+                            <CameraAltIcon />
+                          </IconButton>
+                        </Grid>
+                      )}
+                      {!imagePreview && props.cardImageURL && (
+                        <Grid
+                          container
+                          justify="center"
+                          alignItems="center"
+                          style={{
+                            height: "500px",
+                            width: "500px",
+                          }}
+                        >
+                          <input
+                            type="file"
+                            ref={fileUpload}
+                            style={{ display: "none" }}
+                            onChange={handleImageChange}
+                          />
+                          <IconButton
+                            className={classes.imageUpload}
+                            onClick={() => fileUpload.current.click()}
+                          >
+                            <img
+                              style={{ height: "500px", width: "500px" }}
+                              src={props.cardImageURL}
+                              alt="preview bridge card img"
+                            />
+                          </IconButton>
                         </Grid>
                       )}
                       {imagePreview && (
