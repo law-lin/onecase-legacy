@@ -35,9 +35,11 @@ const useStyles = makeStyles({
   input: {
     fontSize: "36px",
     backgroundColor: "#FFFFFF",
+    borderRadius: "5px",
   },
-  description: {
-    padding: "20px",
+  textField: {
+    borderRadius: "5px",
+    padding: "5px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#000000",
     backgroundColor: "#FFFFFF",
@@ -70,7 +72,6 @@ const useStyles = makeStyles({
     },
     color: "#FFFFFF",
   },
-
   save: {
     "&:hover": {
       outline: "none",
@@ -86,7 +87,7 @@ const useStyles = makeStyles({
     backgroundColor: "#05872e",
     color: "white",
     borderRadius: "15px",
-    width: "10%",
+    width: "7%",
     height: "25%",
     marginRight: "1.5%",
   },
@@ -105,7 +106,7 @@ const useStyles = makeStyles({
     backgroundColor: "#f03737",
     color: "white",
     borderRadius: "15px",
-    width: "10%",
+    width: "7%",
     height: "25%",
   },
   change: {
@@ -733,7 +734,7 @@ function EditBridgeCard(props) {
                     type="text"
                     placeholder="Insert a caption here"
                     InputProps={{
-                      className: classes.description,
+                      className: classes.textField,
                       disableUnderline: true,
                     }}
                     defaultValue={props.caption}
@@ -744,11 +745,11 @@ function EditBridgeCard(props) {
                     name="description"
                     type="text"
                     placeholder="Ex: Describe what you did"
-                    rows={12}
+                    rows={10}
                     multiline
                     style={{ padding: "20px" }}
                     InputProps={{
-                      className: classes.description,
+                      className: classes.textField,
                       disableUnderline: true,
                     }}
                     inputProps={{

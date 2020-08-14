@@ -75,7 +75,7 @@ const styles = () => ({
     paddingBottom: "10px",
     minHeight: "20px",
     width: "750px",
-    fontFamily: "Mukta Mahee",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#FFFFFF",
     fontSize: "32px",
     fontWeight: 700,
