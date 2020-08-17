@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import "../profile.css";
+import { ModalContainer, ModalRoute } from "react-router-modal";
 
+import Feed from "../../FeedPage";
 import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
-
+import { Switch, Route, Link, useLocation } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 import TextField from "@material-ui/core/TextField";
@@ -12,6 +14,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+
+import Followers from "../../Followers.js";
+import Following from "../../Following";
 
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -124,17 +129,17 @@ const useStyles = makeStyles({
   editProfile: {
     "&:hover": {
       outline: "none",
-      backgroundColor: "#333232",
+      backgroundColor: "#b5b5b5",
     },
     "&:focus": {
       outline: "none",
     },
     fontFamily: ["Montserrat", "sans-serif"],
     fontWeight: 800,
-    color: "#FFFFFF",
-    backgroundColor: "#000000",
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
     textTransform: "none",
-    width: "85px",
+    width: "fit-content",
   },
   header: {
     backgroundColor: "#4B4B4B",
@@ -204,6 +209,23 @@ const useStyles = makeStyles({
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontSize: "12x",
   },
+  modal: {
+    "&:hover": {
+      textDecoration: "none",
+
+      color: "#FFFFFF",
+    },
+    "&:active": {
+      outline: "none",
+      color: "#adadad",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    textDecoration: "none",
+    textTransform: "none",
+    color: "#FFFFFF",
+  },
 });
 
 function PersonalProfilePage(props) {
@@ -234,8 +256,11 @@ function PersonalProfilePage(props) {
   const [link2URL, setLink2URL] = useState(null);
   const [link3URL, setLink3URL] = useState(null);
 
+  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowings] = useState([]);
   const classes = useStyles();
 
+  let location = useLocation();
   useEffect(() => {
     let username = props.match.params.username.toString().toLowerCase();
 
@@ -258,7 +283,7 @@ function PersonalProfilePage(props) {
               setProfilePicture(state.profilePicture);
               setFollowerCount(state.followerCount);
               setFollowingCount(state.followingCount);
-              setLoading(false);
+
               if (state.linkCard1) {
                 setLink1Title(state.linkCard1.linkTitle);
                 setLink1URL(state.linkCard1.linkURL);
@@ -271,6 +296,98 @@ function PersonalProfilePage(props) {
                 setLink3Title(state.linkCard3.linkTitle);
                 setLink3URL(state.linkCard3.linkURL);
               }
+
+              props.firebase
+                .getFollowers(userIDState)
+                .once(
+                  "value",
+                  (snapshot) => {
+                    var results = [];
+                    return Promise.all(results);
+                  },
+                  (error) => {
+                    console.error(error);
+                  }
+                )
+                .then((snapshot) => {
+                  var promises = [];
+                  snapshot.forEach((snap) => {
+                    var results = [];
+                    results.push(
+                      props.firebase.user(snap.key).once("value"),
+                      props.firebase
+                        .checkFollowing(
+                          props.firebase.auth.currentUser.uid,
+                          snap.key
+                        )
+                        .once("value")
+                    );
+                    promises.push(Promise.all(results));
+                  });
+                  return Promise.all(promises);
+                })
+                .then((results) => {
+                  var followerUsers = [];
+                  results.forEach((user) => {
+                    let follower = {
+                      userID: user[0].key,
+                      name: user[0].val().name,
+                      username: user[0].val().username,
+                      profilePicture: user[0].val().profilePicture,
+                      isFollowing: user[1].val(),
+                    };
+
+                    followerUsers.push(follower);
+                  });
+                  setFollowers(followerUsers);
+                  setLoading(false);
+                });
+
+              props.firebase
+                .getFollowing(userIDState)
+                .once(
+                  "value",
+                  (snapshot) => {
+                    var results = [];
+                    return Promise.all(results);
+                  },
+                  (error) => {
+                    console.error(error);
+                  }
+                )
+                .then((snapshot) => {
+                  var promises = [];
+                  snapshot.forEach((snap) => {
+                    var results = [];
+                    results.push(
+                      props.firebase.user(snap.key).once("value"),
+                      props.firebase
+                        .checkFollowing(
+                          props.firebase.auth.currentUser.uid,
+                          snap.key
+                        )
+                        .once("value")
+                    );
+                    promises.push(Promise.all(results));
+                  });
+                  return Promise.all(promises);
+                })
+                .then((results) => {
+                  var followingUsers = [];
+                  results.forEach((user) => {
+                    let following = {
+                      userID: user[0].key,
+                      name: user[0].val().name,
+                      username: user[0].val().username,
+                      profilePicture: user[0].val().profilePicture,
+                      isFollowing: user[1].val(),
+                    };
+
+                    followingUsers.push(following);
+                  });
+                  setFollowings(followingUsers);
+                  setLoading(false);
+                });
             } else {
               setLoading(false);
             }
@@ -469,7 +586,7 @@ function PersonalProfilePage(props) {
                               className={classes.editProfile}
                               onClick={handleEdit}
                             >
-                              Edit
+                              Edit Profile
                             </Button>
                           }
                         ></CardHeader>
@@ -674,7 +791,7 @@ function PersonalProfilePage(props) {
                             </Box>
                           </DialogContent>
                         </Dialog>
-                        <CardContent>
+                        <CardContent style={{ padding: "28px 0 0 10px" }}>
                           <Typography className={classes.text}>
                             <span style={{ fontWeight: 700 }}>
                               {followerCount}
@@ -811,7 +928,7 @@ function PersonalProfilePage(props) {
                               className={classes.editProfile}
                               onClick={handleEdit}
                             >
-                              Edit
+                              Edit Profile
                             </Button>
                           }
                         ></CardHeader>
@@ -1064,17 +1181,28 @@ function PersonalProfilePage(props) {
                             </Box>
                           </DialogContent>
                         </Dialog>
-                        <CardContent>
+                        <CardContent style={{ padding: "28px 0 0 10px" }}>
                           <Typography className={classes.text}>
-                            <span style={{ fontWeight: 700 }}>
-                              {followerCount}
-                            </span>{" "}
-                            Followers
+                            <Followers
+                              followers={followers}
+                              followerCount={followerCount}
+                            />
                             <br />
-                            <span style={{ fontWeight: 700 }}>
-                              {followingCount}
-                            </span>{" "}
-                            Following
+                            <Following
+                              following={followings}
+                              followingCount={followingCount}
+                            />
+
+                            {/* <ModalRoute
+                              path={`/${username}/followers`}
+                              component={() => (
+                                <Followers followers={followers} />
+                              )}
+                            />
+                            <ModalRoute
+                              path={`/${username}/following`}
+                              component={Following}
+                            /> */}
                           </Typography>
                         </CardContent>
                       </Card>
@@ -1137,7 +1265,7 @@ function PersonalProfilePage(props) {
                 </Box>
               </Box>
               <Box flex={1} justifyContent="center">
-                <LinksCard personal={true} />
+                <LinksCard />
               </Box>
             </Box>
           </React.Fragment>

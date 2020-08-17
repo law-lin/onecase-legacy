@@ -1,139 +1,96 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 
 import Navbar from "../Navbar";
 import PersonalBridge from "./Private/PersonalBridge";
 import PublicBridge from "./Public/PublicBridge";
+import { withRouter } from "react-router-dom";
 import { withAuthorization } from "../Session";
 import DefaultProfilePicture from "../../images/default-profile-pic.png";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
-class Bridge extends Component {
-  constructor(props) {
-    super(props);
+function Bridge(props) {
+  const [personal, setPersonal] = useState(false);
+  const [valid, setValid] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [exists, setExists] = useState(false);
 
-    this.state = {
-      cardNumber: null,
-      exists: false,
-      personal: false,
-      valid: false,
-      loading: false,
-    };
-  }
-  componentDidMount() {
-    const username = this.props.match.params.username.toString().toLowerCase();
-    const cardTitle = this.props.match.params.cardTitle;
+  useEffect(() => {
+    setLoading(true);
+    const username = props.match.params.username.toString().toLowerCase();
+    const cardTitle = props.match.params.cardTitle;
 
-    this.setState({ loading: true });
     if (!ROUTES.NON_USERNAMES.includes(username)) {
-      this.setState({
-        valid: true,
-      });
-      this.props.firebase.auth.onAuthStateChanged((currentUser) => {
+      setValid(true);
+      props.firebase.auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
-          this.props.firebase.currentUser().on("value", (snapshot) => {
+          props.firebase.currentUser().on("value", (snapshot) => {
             if (snapshot.val().username.toLowerCase() === username) {
-              this.setState({
-                personal: true,
-              });
+              setPersonal(true);
             } else {
-              this.setState({
-                personal: false,
-              });
+              setPersonal(false);
             }
           });
 
-          this.props.firebase
-            .getIDWithUsername(username)
-            .on("value", (snapshot) => {
-              const userIDState = snapshot.val();
-              if (userIDState) {
-                this.props.firebase
-                  .getCardNumberWithCardTitle(userIDState, cardTitle)
-                  .on("value", (snapshot) => {
-                    const state = snapshot.val();
-                    if (state) {
-                      this.setState({
-                        exists: true,
-                        loading: false,
-                      });
-                    } else {
-                      this.setState({
-                        exists: false,
-                        loading: false,
-                      });
-                    }
-                  });
-              } else {
-                this.setState({
-                  exists: false,
-                  loading: false,
-                });
-              }
-            });
+          if (cardTitle !== null) {
+            props.firebase
+              .getIDWithUsername(username)
+              .on("value", (snapshot) => {
+                const userIDState = snapshot.val();
+                if (userIDState) {
+                  props.firebase
+                    .getCardNumberWithCardTitle(userIDState, cardTitle)
+                    .on("value", (snapshot) => {
+                      const state = snapshot.val();
+                      console.log(state);
+                      if (state) {
+                        setExists(true);
+                        setLoading(false);
+                      } else {
+                        setExists(false);
+                        setLoading(false);
+                      }
+                    });
+                } else {
+                  setExists(false);
+                  setLoading(false);
+                }
+              });
+          } else {
+            setLoading(false);
+          }
         } else {
-          this.setState({
-            personal: false,
-          });
-          this.props.firebase
-            .getIDWithUsername(username)
-            .on("value", (snapshot) => {
-              const userIDState = snapshot.val();
-              if (userIDState) {
-                this.props.firebase
-                  .getCardNumberWithCardTitle(userIDState, cardTitle)
-                  .on("value", (snapshot) => {
-                    const state = snapshot.val();
-                    if (state) {
-                      this.setState({
-                        exists: true,
-                        loading: false,
-                      });
-                    } else {
-                      this.setState({
-                        exists: false,
-                        loading: false,
-                      });
-                    }
-                  });
-              } else {
-                this.setState({
-                  exists: false,
-                  loading: false,
-                });
-              }
-            });
+          setPersonal(false);
+          setLoading(false);
         }
       });
     }
-  }
+  }, []);
 
-  render() {
-    if (!this.state.loading && this.state.valid) {
-      if (this.state.exists) {
-        if (this.state.personal) {
-          return <PersonalBridge />;
-        } else {
-          return <PublicBridge />;
-        }
+  if (!loading && valid) {
+    if (exists) {
+      if (personal) {
+        return <PersonalBridge />;
       } else {
-        return (
-          <div>
-            <Navbar />
-            <div className="error-screen">
-              <div className="error-line">
-                Oops, there was an
-                <span className="red-error"> error</span>. This page doesn't
-                exist!
-              </div>
-            </div>
-          </div>
-        );
+        return <PublicBridge />;
       }
     } else {
-      return null;
+      return (
+        <div>
+          <Navbar />
+          <div className="error-screen">
+            <div className="error-line">
+              Oops, there was an
+              <span className="red-error"> error</span>. This page doesn't
+              exist!
+            </div>
+          </div>
+        </div>
+      );
     }
+  } else {
+    return null;
   }
 }
 
-export default withFirebase(Bridge);
+export default withFirebase(withRouter(Bridge));

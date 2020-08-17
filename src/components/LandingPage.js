@@ -103,6 +103,7 @@ function LandingPage(props) {
               .then((authUser) => {
                 // Create a user in your Firebase realtime database
                 props.firebase.user(authUser.user.uid).set({
+                  name: username,
                   username,
                   email,
                   bio: "",
@@ -468,19 +469,25 @@ function LandingPage(props) {
                     style={{ marginTop: "10px" }}
                   >
                     {/* Icons provided by https://icons8.com */}
-                    <a target="_window"
+                    <a
+                      target="_window"
                       href="https://twitter.com/onecaseapp"
                       className="social-media-icons"
                     >
                       <TwitterIcon />
                     </a>
-                    <a target="_window"
+                    <a
+                      target="_window"
                       href="https://www.instagram.com/onecaseapp/"
                       className="social-media-icons"
                     >
                       <InstagramIcon />
                     </a>
-                    <a target="_window" href="https://www.linkedin.com/company/onecaseapp/" className="social-media-icons">
+                    <a
+                      target="_window"
+                      href="https://www.linkedin.com/company/onecaseapp/"
+                      className="social-media-icons"
+                    >
                       <LinkedinIcon />
                     </a>
                   </Grid>

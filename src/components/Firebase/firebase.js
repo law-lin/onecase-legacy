@@ -128,7 +128,8 @@ class Firebase {
     });
   };
 
-  editName = (name) => this.db.ref(`users/${this.auth.currentUser.uid}`).update({
+  editName = (name) =>
+    this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       name,
     });
 
@@ -251,19 +252,23 @@ class Firebase {
       });
   };
 
-  follow = (followerID, followedID, followerCount) => {
+  follow = (followerID, followedID) => {
     this.db.ref(`followers/${followedID}`).update({ [followerID]: true });
     this.db.ref(`following/${followerID}`).update({ [followedID]: true });
-    this.db.ref(`users/${followedID}`).update({ followerCount });
+    this.db
+      .ref(`users/${followedID}/followerCount`)
+      .set(this.database.ServerValue.increment(1));
     this.db
       .ref(`users/${followerID}/followingCount`)
       .set(this.database.ServerValue.increment(1));
   };
 
-  unfollow = (followerID, followedID, followerCount) => {
-    this.db.ref(`followers/${followedID}`).remove();
-    this.db.ref(`following/${followerID}`).remove();
-    this.db.ref(`users/${followedID}`).update({ followerCount });
+  unfollow = (followerID, followedID) => {
+    this.db.ref(`followers/${followedID}/${followerID}`).remove();
+    this.db.ref(`following/${followerID}/${followedID}`).remove();
+    this.db
+      .ref(`users/${followedID}/followerCount`)
+      .set(this.database.ServerValue.increment(-1));
     this.db
       .ref(`users/${followerID}/followingCount`)
       .set(this.database.ServerValue.increment(-1));
@@ -273,7 +278,11 @@ class Firebase {
     return this.db.ref(`followers/${userID}`);
   };
 
-  getFollowing = (followerID, followedID) => {
+  getFollowing = (userID) => {
+    return this.db.ref(`following/${userID}`);
+  };
+
+  checkFollowing = (followerID, followedID) => {
     return this.db.ref(`following/${followerID}/${followedID}`);
   };
 }

@@ -163,7 +163,6 @@ function ProfilePicture(props) {
   const handleChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      console.log(file);
       let imageDataUrl = await readFile(file);
 
       // apply rotation if needed
@@ -199,7 +198,6 @@ function ProfilePicture(props) {
 
   const fileUpload = useRef(null);
 
-  console.log(profilePicture);
   return (
     <React.Fragment>
       {!props.editable && (

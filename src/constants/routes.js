@@ -3,11 +3,14 @@ export const PROFILE = "/profile";
 export const ACCOUNT = "/account";
 export const WELCOME = "/welcome";
 export const ADMIN = "/admin";
+export const SEARCH = "/search";
 export const PASSWORD_FORGET = "/pw-forget";
 export const FEED = "/feed";
 export const EXHIBITIONS = "/exhibitions";
 export const USERNAME = "/:username";
 export const USERNAME_CARD = "/:username/:cardTitle";
+export const FOLLOWERS = "/:username/followers";
+export const FOLLOWING = "/:username/following";
 
 export const NON_USERNAMES = [
   "a",
