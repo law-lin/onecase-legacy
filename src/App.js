@@ -30,7 +30,7 @@ class App extends Component {
           <Route exact path={ROUTES.EXHIBITIONS} component={ExhibitionsPage} />
           <Route exact path={ROUTES.SEARCH} component={SearchResultsPage} />
           <Route path={ROUTES.ADMIN} component={AdminPage} />
-          <Route exact path={ROUTES.USERNAME} component={ProfilePage} />
+          <Route path={ROUTES.USERNAME} component={ProfilePage} />
         </Switch>
 
         <ModalContainer />
