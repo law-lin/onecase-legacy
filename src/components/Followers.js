@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import UsernameButton from "./UsernameButton";
 
+import SignUp from "./SignUp";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -154,6 +155,7 @@ const useStyles = makeStyles({
 
 function Followers(props) {
   const [open, setOpen] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [followers, setFollowers] = useState([]);
@@ -165,7 +167,12 @@ function Followers(props) {
   }, [props.followers]);
 
   const handleOpen = () => {
-    setOpen(true);
+    console.log(props.currentUser);
+    if (props.currentUser) {
+      setOpen(true);
+    } else {
+      setOpenSignUp(true);
+    }
   };
 
   const handleClose = () => {
@@ -219,6 +226,10 @@ function Followers(props) {
         <span style={{ fontWeight: 700 }}>{props.followerCount}</span>
         &nbsp;Followers
       </Button>
+      <SignUp
+        handleOpen={openSignUp}
+        handleClose={() => setOpenSignUp(false)}
+      />
       {!loading && (
         <Dialog
           classes={{ paper: classes.paper }}
@@ -293,7 +304,9 @@ function Followers(props) {
                               >
                                 Unfollow
                               </Button>
-                              <Button>Cancel</Button>
+                              <Button onClick={closeUnfollowDialog}>
+                                Cancel
+                              </Button>
                             </Dialog>
                           </React.Fragment>
                         )}

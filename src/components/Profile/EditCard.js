@@ -173,9 +173,6 @@ function EditCard(props) {
   };
 
   const handleClick = (category) => {
-    if (props.bridge) {
-      window.location.href = category;
-    }
     if (category === "None") {
       if (oldCardTitle !== "placeholder") {
         setConfirmation(true);
@@ -191,6 +188,9 @@ function EditCard(props) {
             setOldCardTitle(category);
             props.firebase.editCard(oldCardTitle, props.cardNumber, category);
             handleClose();
+            if (props.bridge) {
+              window.location.href = category;
+            }
           } else {
             setError("A card with this category already exists!");
           }

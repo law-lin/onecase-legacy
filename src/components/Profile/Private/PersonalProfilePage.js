@@ -1186,11 +1186,13 @@ function PersonalProfilePage(props) {
                             <Followers
                               followers={followers}
                               followerCount={followerCount}
+                              currentUser={true}
                             />
                             <br />
                             <Following
                               following={followings}
                               followingCount={followingCount}
+                              currentUser={true}
                             />
 
                             {/* <ModalRoute

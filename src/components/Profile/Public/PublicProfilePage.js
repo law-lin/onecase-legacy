@@ -4,7 +4,7 @@ import "../profile.css";
 
 import Navbar from "../../Navbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
-
+import NotFound from "../../NotFound";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -92,6 +92,8 @@ function PublicProfilePage(props) {
   const [followingCount, setFollowingCount] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
 
+  const [currentUser, setCurrentUser] = useState(false);
+
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
 
@@ -99,121 +101,154 @@ function PublicProfilePage(props) {
 
   useEffect(() => {
     setLoading(true);
-
     let username = props.match.params.username.toString().toLowerCase();
 
-    props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
-      const userIDState = snapshot.val();
-      if (userIDState) {
-        setUserID(userIDState);
-        props.firebase.user(userIDState).on("value", (snapshot) => {
-          const state = snapshot.val();
-          if (state) {
-            setExists(true);
-            setName(state.name);
-            setUsername(state.username);
-            setBio(state.bio);
-            setProfilePicture(state.profilePicture);
-            setFollowerCount(state.followerCount);
-            setFollowingCount(state.followingCount);
+    props.firebase.auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setCurrentUser(true);
+        props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+          const userIDState = snapshot.val();
+          if (userIDState) {
+            setUserID(userIDState);
+            props.firebase.user(userIDState).on("value", (snapshot) => {
+              const state = snapshot.val();
+              if (state) {
+                setExists(true);
+                setName(state.name);
+                setUsername(state.username);
+                setBio(state.bio);
+                setProfilePicture(state.profilePicture);
+                setFollowerCount(state.followerCount);
+                setFollowingCount(state.followingCount);
+                setLoading(false);
+              }
+            });
+
+            props.firebase
+              .getFollowers(userIDState)
+              .once(
+                "value",
+                (snapshot) => {
+                  var results = [];
+                  return Promise.all(results);
+                },
+                (error) => {
+                  console.error(error);
+                }
+              )
+              .then((snapshot) => {
+                var promises = [];
+                snapshot.forEach((snap) => {
+                  var results = [];
+                  results.push(
+                    props.firebase.user(snap.key).once("value"),
+                    props.firebase
+                      .checkFollowing(
+                        props.firebase.auth.currentUser.uid,
+                        snap.key
+                      )
+                      .once("value")
+                  );
+                  promises.push(Promise.all(results));
+                });
+                return Promise.all(promises);
+              })
+              .then((results) => {
+                var followerUsers = [];
+                results.forEach((user) => {
+                  let follower = {
+                    userID: user[0].key,
+                    name: user[0].val().name,
+                    username: user[0].val().username,
+                    profilePicture: user[0].val().profilePicture,
+                    isFollowing: user[1].val(),
+                  };
+
+                  followerUsers.push(follower);
+                });
+                setFollowers(followerUsers);
+                setLoading(false);
+              });
+
+            props.firebase
+              .getFollowing(userIDState)
+              .once(
+                "value",
+                (snapshot) => {
+                  var results = [];
+                  return Promise.all(results);
+                },
+                (error) => {
+                  console.error(error);
+                }
+              )
+              .then((snapshot) => {
+                var promises = [];
+                snapshot.forEach((snap) => {
+                  var results = [];
+                  results.push(
+                    props.firebase.user(snap.key).once("value"),
+                    props.firebase
+                      .checkFollowing(
+                        props.firebase.auth.currentUser.uid,
+                        snap.key
+                      )
+                      .once("value")
+                  );
+                  promises.push(Promise.all(results));
+                });
+                return Promise.all(promises);
+              })
+              .then((results) => {
+                var followingUsers = [];
+                results.forEach((user) => {
+                  let following = {
+                    userID: user[0].key,
+                    name: user[0].val().name,
+                    username: user[0].val().username,
+                    profilePicture: user[0].val().profilePicture,
+                    isFollowing: user[1].val(),
+                  };
+
+                  followingUsers.push(following);
+                });
+                setFollowings(followingUsers);
+                setLoading(false);
+              });
+            // props.firebase.getFollowers(userIDState).on("value", (snapshot) => {
+            //   setFollowerCount(snapshot.numChildren());
+            // });
+            props.firebase
+              .checkFollowing(props.firebase.auth.currentUser.uid, userIDState)
+              .on("value", (snapshot) => {
+                setIsFollowing(snapshot.val());
+              });
+          } else {
             setLoading(false);
           }
         });
-        props.firebase
-          .getFollowers(userIDState)
-          .once(
-            "value",
-            (snapshot) => {
-              var results = [];
-              return Promise.all(results);
-            },
-            (error) => {
-              console.error(error);
-            }
-          )
-          .then((snapshot) => {
-            var promises = [];
-            snapshot.forEach((snap) => {
-              var results = [];
-              results.push(
-                props.firebase.user(snap.key).once("value"),
-                props.firebase
-                  .checkFollowing(props.firebase.auth.currentUser.uid, snap.key)
-                  .once("value")
-              );
-              promises.push(Promise.all(results));
-            });
-            return Promise.all(promises);
-          })
-          .then((results) => {
-            var followerUsers = [];
-            results.forEach((user) => {
-              let follower = {
-                userID: user[0].key,
-                name: user[0].val().name,
-                username: user[0].val().username,
-                profilePicture: user[0].val().profilePicture,
-                isFollowing: user[1].val(),
-              };
-
-              followerUsers.push(follower);
-            });
-            setFollowers(followerUsers);
-            setLoading(false);
-          });
-
-        props.firebase
-          .getFollowing(userIDState)
-          .once(
-            "value",
-            (snapshot) => {
-              var results = [];
-              return Promise.all(results);
-            },
-            (error) => {
-              console.error(error);
-            }
-          )
-          .then((snapshot) => {
-            var promises = [];
-            snapshot.forEach((snap) => {
-              var results = [];
-              results.push(
-                props.firebase.user(snap.key).once("value"),
-                props.firebase
-                  .checkFollowing(props.firebase.auth.currentUser.uid, snap.key)
-                  .once("value")
-              );
-              promises.push(Promise.all(results));
-            });
-            return Promise.all(promises);
-          })
-          .then((results) => {
-            var followingUsers = [];
-            results.forEach((user) => {
-              let following = {
-                userID: user[0].key,
-                name: user[0].val().name,
-                username: user[0].val().username,
-                profilePicture: user[0].val().profilePicture,
-                isFollowing: user[1].val(),
-              };
-
-              followingUsers.push(following);
-            });
-            setFollowings(followingUsers);
-            setLoading(false);
-          });
-        // props.firebase.getFollowers(userIDState).on("value", (snapshot) => {
-        //   setFollowerCount(snapshot.numChildren());
-        // });
-        props.firebase
-          .checkFollowing(props.firebase.auth.currentUser.uid, userIDState)
-          .on("value", (snapshot) => {
-            setIsFollowing(snapshot.val());
-          });
       } else {
-        setLoading(false);
+        props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+          const userIDState = snapshot.val();
+          if (userIDState) {
+            setUserID(userIDState);
+            props.firebase.user(userIDState).on("value", (snapshot) => {
+              const state = snapshot.val();
+              if (state) {
+                setExists(true);
+                setName(state.name);
+                setUsername(state.username);
+                setBio(state.bio);
+                setProfilePicture(state.profilePicture);
+                setFollowerCount(state.followerCount);
+                setFollowingCount(state.followingCount);
+                setLoading(false);
+              }
+            });
+          } else {
+            setLoading(false);
+          }
+        });
       }
     });
   }, []);
@@ -426,11 +461,13 @@ function PublicProfilePage(props) {
                               <Followers
                                 followers={followers}
                                 followerCount={followerCount}
+                                currentUser={currentUser}
                               />
                               <br />
                               <Following
                                 following={followings}
                                 followingCount={followingCount}
+                                currentUser={currentUser}
                               />
                             </Typography>
                           </CardContent>
@@ -478,18 +515,7 @@ function PublicProfilePage(props) {
         </div>
       );
     } else {
-      return (
-        <div>
-          <Navbar />
-          <div className="error-screen">
-            <div className="error-line">
-              Oops, there was an
-              <span className="red-error"> error</span>. This page doesn't
-              exist!
-            </div>
-          </div>
-        </div>
-      );
+      return <NotFound />;
     }
   } else {
     return null;

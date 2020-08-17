@@ -17,36 +17,6 @@ body {
   padding: 20px;
 }
 
-.button {
-  color: #fff;
-  display: inline-block;
-  background-color: #007bff;
-  font-family: "Mukta Mahee", "san-serifG";
-  border: 1px solid transparent;
-  border-color: #007bff;
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  border-radius: 15px;
-  padding: 10px 40px;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  font-weight: 400;
-}
-
-.button:active {
-  background-color: #0062cc;
-  border-color: #005cbf;
-}
-.button:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
-}
-
-.button:focus {
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-  outline: 0;
-}
 /* Center Section */
 
 .parentblock {

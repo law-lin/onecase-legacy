@@ -262,7 +262,9 @@ const Following = (props) => {
                               >
                                 Unfollow
                               </Button>
-                              <Button>Cancel</Button>
+                              <Button onClick={closeUnfollowDialog}>
+                                Cancel
+                              </Button>
                             </Dialog>
                           </React.Fragment>
                         )}
