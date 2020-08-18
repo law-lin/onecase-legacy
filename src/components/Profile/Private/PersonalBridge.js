@@ -184,7 +184,7 @@ class PersonalBridge extends Component {
     const { classes } = this.props;
     return (
       <div className="bg">
-        <MediaQuery minDeviceWidth={1224}>
+        <MediaQuery minDeviceWidth={1}>
           <Navbar />
           <Box display="flex" className={classes.container}>
             <Box flex={1} justifyContent="center">
