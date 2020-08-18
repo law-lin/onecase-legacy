@@ -81,6 +81,8 @@ class Firebase {
 
   usernames = () => this.db.ref("usernames");
 
+  names = () => this.db.ref("names");
+
   users = () => this.db.ref("users");
 
   currentUser = () => this.db.ref(`users/${this.auth.currentUser.uid}`);
@@ -111,27 +113,38 @@ class Firebase {
       .endAt(queryText + "\uf8ff");
   // this.db.ref(`users/${userID}`).orderByChild("card2").equalTo(cardTitle);
 
+  searchNames = (queryText) =>
+    this.db
+      .ref("names")
+      .orderByKey()
+      .startAt(queryText)
+      .endAt(queryText + "\uf8ff");
+
   bridgeCards = (userID, cardNumber, cardBridgeNumber) =>
     this.db.ref(`users/${userID}/${cardNumber}/${cardBridgeNumber}`);
   // *** Edit Profile Functions (Setters) ***
 
   editUsername = (oldUsername, username) => {
-    this.db.ref("usernames").child(`${oldUsername.toLowerCase()}`).remove();
-
+    this.db.ref("usernames").child(oldUsername.toLowerCase()).remove();
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       username,
     });
     let formattedUsername = username.toLowerCase();
-
-    this.db.ref(`usernames`).update({
+    this.db.ref("usernames").update({
       [formattedUsername]: this.auth.currentUser.uid,
     });
   };
 
-  editName = (name) =>
+  editName = (oldName, name) => {
+    this.db.ref("names").child(oldName.toLowerCase()).remove();
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       name,
     });
+    let formattedName = name.toLowerCase();
+    this.db.ref("names").update({
+      [formattedName]: this.auth.currentUser.uid,
+    });
+  };
 
   editBio = (bio) =>
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({

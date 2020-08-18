@@ -212,8 +212,46 @@ function SearchResults(props) {
               };
               usernames.push(user);
             });
-            setResults(usernames);
-            setLoading(false);
+            props.firebase
+              .searchNames(
+                queryString.parse(location.search).username.toLowerCase()
+              )
+              .once("value")
+              .then((snapshot) => {
+                var promises = [];
+                snapshot.forEach((snap) => {
+                  var results = [];
+                  results.push(
+                    props.firebase.user(snap.val()).once("value"),
+                    props.firebase
+                      .checkFollowing(
+                        props.firebase.auth.currentUser.uid,
+                        snap.val()
+                      )
+                      .once("value")
+                  );
+                  promises.push(Promise.all(results));
+                });
+                return Promise.all(promises);
+              })
+              .then((results) => {
+                results.forEach((result) => {
+                  let user = {
+                    userID: result[0].key,
+                    name: result[0].val().name,
+                    username: result[0].val().username,
+                    profilePicture: result[0].val().profilePicture,
+                    isFollowing: result[1].val(),
+                  };
+                  usernames.push(user);
+                });
+                // eliminate duplicate results
+                let jsonObject = usernames.map(JSON.stringify);
+                let uniqueSet = new Set(jsonObject);
+                let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+                setResults(uniqueArray);
+                setLoading(false);
+              });
           });
       } else {
         props.firebase
@@ -239,7 +277,11 @@ function SearchResults(props) {
               };
               usernames.push(user);
             });
-            setResults(usernames);
+            // eliminate duplicate results
+            let jsonObject = usernames.map(JSON.stringify);
+            let uniqueSet = new Set(jsonObject);
+            let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+            setResults(uniqueArray);
             setLoading(false);
           });
       }

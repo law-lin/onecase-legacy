@@ -18,6 +18,11 @@
       ".read": true,
       ".write": true
     },
+    "names": {
+      ".read": true,
+      ".write": true
+    },
+
     "cards": {
       ".read": true,
       "$user_id": {

@@ -512,8 +512,8 @@ function PersonalProfilePage(props) {
       }
 
       if (valid) {
-        if (bio != null) props.firebase.editBio(bio);
-        if (name != null) props.firebase.editName(name);
+        if (bio !== "") props.firebase.editBio(bio);
+        if (name !== "") props.firebase.editName(oldName, name);
         if (link1URL !== "") {
           updateLink("linkCard1", link1Title, link1URL);
         }
@@ -548,7 +548,7 @@ function PersonalProfilePage(props) {
       props.firebase
         .checkDuplicateUsername(formattedUsername)
         .on("value", (snapshot) => {
-          const usernameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
+          const usernameRegexp = /^(?=.{1,20}$)(?:[a-z\d]+(?:(?:\.|-|_)[a-z\d])*)+$/;
           if (usernameRegexp.test(username)) {
             if (!snapshot.exists()) {
               setError(null);
@@ -558,7 +558,7 @@ function PersonalProfilePage(props) {
             }
           } else {
             setError(
-              "Please use only letters (a-z, A-Z), numbers, underscores, and periods for username. (1-30 characters)"
+              "Please use only lowercase letters (a-z), numbers, underscores, and periods for username. (1-30 characters)"
             );
             valid = false;
           }
@@ -651,8 +651,8 @@ function PersonalProfilePage(props) {
               props.firebase.editUsername(oldUsername, username);
               window.location.href = "/" + username;
             }
-            if (bio != null) props.firebase.editBio(bio);
-            if (name != null) props.firebase.editName(name);
+            if (bio !== "") props.firebase.editBio(bio);
+            if (name !== "") props.firebase.editName(oldName, name);
             if (link1URL !== "") {
               updateLink("linkCard1", link1Title, link1URL);
             }

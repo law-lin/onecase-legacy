@@ -105,7 +105,7 @@ function SignUp(props) {
         }
 
         // Username validation
-        const usernameRegexp = /^(?=.{1,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
+        const usernameRegexp = /^(?=.{1,20}$)(?:[a-z\d]+(?:(?:\.|-|_)[a-z\d])*)+$/;
         if (usernameRegexp.test(username)) {
           if (!snapshot.exists()) {
             setUsernameError(null);
@@ -115,7 +115,7 @@ function SignUp(props) {
           }
         } else {
           setUsernameError(
-            "Please use only letters (a-z, A-Z), numbers, underscores, and periods. (1-30 characters)"
+            "Please use only lowercase letters (a-z), numbers, underscores, and periods. (1-30 characters)"
           );
           valid = false;
         }
@@ -127,7 +127,6 @@ function SignUp(props) {
           setPasswordError("Passwords do not match.");
           valid = false;
         }
-
         if (valid) {
           if (valid) {
             props.firebase
@@ -143,8 +142,10 @@ function SignUp(props) {
                   followingCount: 0,
                   profilePicture: DefaultProfilePicture,
                 });
-
                 props.firebase.usernames().set({
+                  [formattedUsername]: authUser.user.uid,
+                });
+                props.firebase.names().set({
                   [formattedUsername]: authUser.user.uid,
                 });
               })
