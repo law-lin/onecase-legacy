@@ -62,7 +62,33 @@ function Bridge(props) {
           }
         } else {
           setPersonal(false);
-          setLoading(false);
+          if (cardTitle !== null) {
+            props.firebase
+              .getIDWithUsername(username)
+              .on("value", (snapshot) => {
+                const userIDState = snapshot.val();
+                if (userIDState) {
+                  props.firebase
+                    .getCardNumberWithCardTitle(userIDState, cardTitle)
+                    .on("value", (snapshot) => {
+                      const state = snapshot.val();
+                      console.log(state);
+                      if (state) {
+                        setExists(true);
+                        setLoading(false);
+                      } else {
+                        setExists(false);
+                        setLoading(false);
+                      }
+                    });
+                } else {
+                  setExists(false);
+                  setLoading(false);
+                }
+              });
+          } else {
+            setLoading(false);
+          }
         }
       });
     }
