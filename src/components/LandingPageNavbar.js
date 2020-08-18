@@ -25,6 +25,34 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textShadow: "2px 2px black",
   },
+  button: {
+    "&:hover": {
+      backgroundColor: "#0069d9",
+      borderColor: "#0062cc",
+    },
+    "&:active": {
+      backgroundColor: "#0062cc",
+      borderColor: "#005cbf",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(38, 143, 255, 0.5)",
+      outline: "none",
+    },
+    color: "#FFFFFF",
+    display: "inline-block",
+    backgroundColor: "#007bff",
+    fontFamily: ["Mukta Mahee", "san-serif"],
+    border: "1px solid transparent",
+    borderColor: "#007bff",
+    padding: "0.5rem 1rem",
+    fontSize: "1.25rem",
+    lineHeight: 1.5,
+    borderRadius: "15px",
+    transition:
+      "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+    fontWeight: 400,
+    textTransform: "none",
+  },
 });
 
 function LandingPageNavbar(props) {
@@ -69,17 +97,17 @@ function LandingPageNavbar(props) {
           </Link>
         </li>
         <li className="push">
-          <button type="button" className="button" onClick={handleClickOpen}>
+          <button
+            type="button"
+            className={classes.button}
+            onClick={handleClickOpen}
+          >
             Login
           </button>
         </li>
       </ul>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Login</DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Login</DialogTitle>
 
         <DialogContent>
           <TextField
