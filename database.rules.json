@@ -1,11 +1,39 @@
 {
   /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
-    ".read": true,
-    ".write": "auth != null",
     "emails": {
       ".read": true,
       ".write": true
+    },
+    "users": {
+      ".read": true,
+      "$user_id": {
+        ".write": "$user_id === auth.uid"
+      }
+    },
+    "usernames": {
+      ".read": true,
+      "$user_id": {
+        ".write": "$user_id === auth.uid"
+      }
+    },
+    "cards": {
+      ".read": true,
+      "$user_id": {
+        ".write": "$user_id === auth.uid"
+      }
+    },
+    "followers": {
+      ".read": true,
+      "$user_id": {
+        ".write": "$user_id === auth.uid"
+      }
+    },
+    "following": {
+      ".read": true,
+      "$user_id": {
+        ".write": "$user_id === auth.uid"
+      }
     }
   }
 }
