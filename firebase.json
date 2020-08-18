@@ -3,6 +3,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
+    "site": "onecase",
     "public": "build",
     "ignore": [
       "firebase.json",
