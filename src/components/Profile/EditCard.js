@@ -113,8 +113,9 @@ const useStyles = makeStyles({
     height: "25%",
   },
   dialogPaper: {
-    minHeight: "70vh",
+    minHeight: "65vh",
     maxHeight: "80vh",
+    borderRadius: "15px",
   },
   theme: {
     "&:hover": {
@@ -288,27 +289,9 @@ function EditCard(props) {
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
-                      onClick={() => handleClick("Art")}
+                      onClick={() => handleClick("Fashion")}
                     >
-                      Art
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} sm={4}>
-                    <Button
-                      className={classes.category}
-                      onClick={() => handleClick("Food")}
-                    >
-                      Food
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} align="center">
-                  <Grid item xs={6} sm={4}>
-                    <Button
-                      className={classes.category}
-                      onClick={() => handleClick("Tech")}
-                    >
-                      Tech
+                      Fashion
                     </Button>
                   </Grid>
                   <Grid item xs={6} sm={4}>
@@ -319,12 +302,30 @@ function EditCard(props) {
                       Music
                     </Button>
                   </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
-                      onClick={() => handleClick("Fashion")}
+                      onClick={() => handleClick("Projects")}
                     >
-                      Fashion
+                      Projects
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Art")}
+                    >
+                      Art
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Photography")}
+                    >
+                      Photography
                     </Button>
                   </Grid>
                 </Grid>
@@ -332,11 +333,29 @@ function EditCard(props) {
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
-                      onClick={() => handleClick("Self-Improvement")}
+                      onClick={() => handleClick("Fun Stuff")}
                     >
-                      Self-Improvement
+                      Fun Stuff
                     </Button>
                   </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Food")}
+                    >
+                      Food
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} sm={4}>
+                    <Button
+                      className={classes.category}
+                      onClick={() => handleClick("Stuff I Like")}
+                    >
+                      Stuff I Like
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
@@ -353,56 +372,12 @@ function EditCard(props) {
                       About Me
                     </Button>
                   </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
-                      onClick={() => handleClick("Photography")}
+                      onClick={() => handleClick("Random")}
                     >
-                      Photography
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} sm={4}>
-                    <Button
-                      className={classes.category}
-                      onClick={() => handleClick("Time Capsule")}
-                    >
-                      Time Capsule
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} sm={4}>
-                    <Button
-                      className={classes.category}
-                      onClick={() => handleClick("Pets & Animals")}
-                    >
-                      Pets & Animals
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} align="center">
-                  <Grid item xs={6} sm={4}>
-                    <Button
-                      className={classes.category}
-                      onClick={() => handleClick("Funny Stuff")}
-                    >
-                      Funny Stuff
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} sm={4}>
-                    <Button
-                      className={classes.category}
-                      onClick={() => handleClick("School Projects")}
-                    >
-                      School Projects
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6} sm={4}>
-                    <Button
-                      className={classes.category}
-                      onClick={() => handleClick("Entertainment")}
-                    >
-                      Entertainment
+                      Random
                     </Button>
                   </Grid>
                 </Grid>
