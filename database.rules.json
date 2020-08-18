@@ -8,7 +8,10 @@
     "users": {
       ".read": true,
       "$user_id": {
-        ".write": "$user_id === auth.uid"
+        ".write": "$user_id === auth.uid",
+        "followerCount": {
+          ".write": true
+        }
       }
     },
     "usernames": {
@@ -23,8 +26,10 @@
     },
     "followers": {
       ".read": true,
-      "$user_id": {
-        ".write": "$user_id === auth.uid"
+      "$followed_id": {
+        "$user_id": {
+          ".write": "$user_id === auth.uid"
+        }
       }
     },
     "following": {
