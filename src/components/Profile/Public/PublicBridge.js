@@ -163,7 +163,7 @@ class PublicBridge extends Component {
                   style={{ minHeight: "120px", maxHeight: "200px" }}
                 >
                   <Grid container item xs={12} sm={4}>
-                    <BackButton />
+                    <BackButton username={this.state.username} />
                   </Grid>
                   <Grid container item xs={12} sm={4}>
                     <Card className={classes.card}>{this.state.cardTitle}</Card>

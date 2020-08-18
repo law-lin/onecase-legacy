@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 
+import NotFound from "../NotFound";
 import Navbar from "../Navbar";
 import PersonalBridge from "./Private/PersonalBridge";
 import PublicBridge from "./Public/PublicBridge";
@@ -65,7 +66,11 @@ function Bridge(props) {
         }
       });
     }
-  }, []);
+  }, [
+    props.firebase,
+    props.match.params.username,
+    props.match.params.cardTitle,
+  ]);
 
   if (!loading && valid) {
     if (exists) {
@@ -75,18 +80,7 @@ function Bridge(props) {
         return <PublicBridge />;
       }
     } else {
-      return (
-        <div>
-          <Navbar />
-          <div className="error-screen">
-            <div className="error-line">
-              Oops, there was an
-              <span className="red-error"> error</span>. This page doesn't
-              exist!
-            </div>
-          </div>
-        </div>
-      );
+      return <NotFound />;
     }
   } else {
     return null;

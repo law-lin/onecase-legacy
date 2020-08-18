@@ -167,7 +167,6 @@ function Followers(props) {
   }, [props.followers]);
 
   const handleOpen = () => {
-    console.log(props.currentUser);
     if (props.currentUser) {
       setOpen(true);
     } else {

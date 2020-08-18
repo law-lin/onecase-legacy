@@ -201,7 +201,7 @@ class PersonalBridge extends Component {
                   style={{ minHeight: "120px", maxHeight: "200px" }}
                 >
                   <Grid container item xs={12} sm={4}>
-                    <BackButton />
+                    <BackButton username={this.state.username} />
                   </Grid>
                   <Grid container item xs={12} sm={4}>
                     <Card
@@ -226,6 +226,7 @@ class PersonalBridge extends Component {
                       {this.state.editing && (
                         <EditCard
                           display="none"
+                          username={this.state.username}
                           oldCardTitle={this.state.oldCardTitle}
                           cardTitle={this.state.cardTitle}
                           cardNumber={this.state.cardNumber}

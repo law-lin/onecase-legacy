@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
 
+import SignUp from "./SignUp";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import UsernameButton from "./UsernameButton";
@@ -124,6 +125,7 @@ const useStyles = makeStyles({
 
 const Following = (props) => {
   const [open, setOpen] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [followings, setFollowings] = useState([]);
@@ -134,7 +136,11 @@ const Following = (props) => {
   }, [props.following]);
 
   const handleOpen = () => {
-    setOpen(true);
+    if (props.currentUser) {
+      setOpen(true);
+    } else {
+      setOpenSignUp(true);
+    }
   };
 
   const handleClose = () => {
@@ -188,6 +194,10 @@ const Following = (props) => {
         <span style={{ fontWeight: 700 }}>{props.followingCount}</span>
         &nbsp;Following
       </Button>
+      <SignUp
+        handleOpen={openSignUp}
+        handleClose={() => setOpenSignUp(false)}
+      />
       {!loading && (
         <Dialog
           classes={{ paper: classes.paper }}

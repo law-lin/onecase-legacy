@@ -189,7 +189,8 @@ function EditCard(props) {
             props.firebase.editCard(oldCardTitle, props.cardNumber, category);
             handleClose();
             if (props.bridge) {
-              window.location.href = category;
+              let newLocation = category.split(" ").join("_");
+              window.location.href = newLocation;
             }
           } else {
             setError("A card with this category already exists!");
@@ -200,6 +201,7 @@ function EditCard(props) {
 
   const handleConfirmation = (selection) => {
     if (selection === "Yes") {
+      window.location.href = "/" + props.username;
       setConfirmation(false);
       props.firebase.deleteCard(oldCardTitle, props.cardNumber);
       handleClose();
