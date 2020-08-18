@@ -144,7 +144,7 @@ function SignUp(props) {
                   profilePicture: DefaultProfilePicture,
                 });
 
-                return props.firebase.usernames().update({
+                props.firebase.usernames().set({
                   [formattedUsername]: authUser.user.uid,
                 });
               })

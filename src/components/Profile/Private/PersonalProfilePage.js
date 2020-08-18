@@ -83,7 +83,6 @@ const useStyles = makeStyles({
     borderRadius: "15px",
     width: "15%",
     height: "25%",
-    marginLeft: "48%",
     display: "inline-block",
     verticalAlign: "middle",
   },
@@ -444,7 +443,6 @@ function PersonalProfilePage(props) {
           () => {
             // complete function ...
             props.firebase.uploadProfilePictureURL(profilePicture);
-            props.history.go();
           }
         );
       }
@@ -504,13 +502,13 @@ function PersonalProfilePage(props) {
                 () => {
                   // complete function ...
                   props.firebase.uploadProfilePictureURL(profilePicture);
-                  props.history.go();
                 }
               );
             }
             setEditing(false);
           }
         });
+      handleClose();
     }
   };
 
@@ -530,9 +528,6 @@ function PersonalProfilePage(props) {
     } else {
       setError("Please enter a valid URL!");
     }
-  };
-  const handleCancel = () => {
-    setEditing(false);
   };
 
   return (
@@ -602,7 +597,6 @@ function PersonalProfilePage(props) {
                           onClose={handleClose}
                           fullWidth
                           open={editing}
-                          onClose={handleClose}
                         >
                           <DialogTitle className={classes.header}>
                             <Typography className={classes.title}>
@@ -934,6 +928,8 @@ function PersonalProfilePage(props) {
                         ></CardHeader>
 
                         <Dialog
+                          open={editing}
+                          onClose={handleClose}
                           classes={{ paper: classes.dialogPaper }}
                           PaperProps={{
                             style: {
@@ -941,21 +937,21 @@ function PersonalProfilePage(props) {
                               borderRadius: "15px",
                             },
                           }}
-                          onClose={handleClose}
                           fullWidth
-                          open={editing}
-                          onClose={handleClose}
                         >
                           <DialogTitle className={classes.header}>
-                            <Typography className={classes.title}>
-                              Edit Profile
-                            </Typography>
-                            <Button
-                              className={classes.save}
-                              onClick={handleSave}
-                            >
-                              Save
-                            </Button>
+                            <Box display="flex">
+                              <Typography className={classes.title}>
+                                Edit Profile
+                              </Typography>
+                              <div style={{ flexGrow: "1" }} />
+                              <Button
+                                className={classes.save}
+                                onClick={handleSave}
+                              >
+                                Save
+                              </Button>
+                            </Box>
                           </DialogTitle>
                           <DialogContent>
                             <Box

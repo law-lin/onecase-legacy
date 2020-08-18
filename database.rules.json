@@ -13,9 +13,7 @@
     },
     "usernames": {
       ".read": true,
-      "$user_id": {
-        ".write": "$user_id === auth.uid"
-      }
+      ".write": true
     },
     "cards": {
       ".read": true,

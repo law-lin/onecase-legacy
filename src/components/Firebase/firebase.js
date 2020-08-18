@@ -249,6 +249,7 @@ class Firebase {
         this.db.ref(`users/${this.auth.currentUser.uid}`).update({
           profilePicture,
         });
+        window.location.reload();
       });
   };
 
