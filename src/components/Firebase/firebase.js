@@ -5,14 +5,14 @@ import "firebase/storage";
 import "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB4BhoDKEBGcrWV6hl9DCzIFyes33V6cwY",
-  authDomain: "onepage-3bdd8.firebaseapp.com",
-  databaseURL: "https://onepage-3bdd8.firebaseio.com",
-  projectId: "onepage-3bdd8",
-  storageBucket: "onepage-3bdd8.appspot.com",
-  messagingSenderId: "798277787212",
-  appId: "1:798277787212:web:40c319d820185f9c30dee9",
-  measurementId: "G-HQKNY0D3TX",
+  apiKey: "AIzaSyBBeFFUunRUU-Fop4wXbEcR9BQUJ7uhBkY",
+  authDomain: "onecase-app.firebaseapp.com",
+  databaseURL: "https://onecase-app.firebaseio.com",
+  projectId: "onecase-app",
+  storageBucket: "onecase-app.appspot.com",
+  messagingSenderId: "56673846186",
+  appId: "1:56673846186:web:48c8a223804732c38861d3",
+  measurementId: "G-FLYJGB2ZHX",
 };
 
 class Firebase {
