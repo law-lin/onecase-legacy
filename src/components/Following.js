@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
 
+import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -194,10 +195,7 @@ const Following = (props) => {
         <span style={{ fontWeight: 700 }}>{props.followingCount}</span>
         &nbsp;Following
       </Button>
-      <SignUp
-        handleOpen={openSignUp}
-        handleClose={() => setOpenSignUp(false)}
-      />
+      <LogIn handleOpen={openSignUp} handleClose={() => setOpenSignUp(false)} />
       {!loading && (
         <Dialog
           classes={{ paper: classes.paper }}

@@ -8,6 +8,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Link from "@material-ui/core/Link";
 
+import LogIn from "./LogIn";
+
 import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
 import "./landingpage.css";
@@ -61,32 +63,6 @@ function LandingPageNavbar(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const validateLogin = () => {
-    return password !== "" && email !== "";
-  };
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-
-    props.firebase
-      .doSignInWithEmailAndPassword(email, password)
-      .then(() => {
-        props.firebase.currentUser().on("value", (snapshot) => {
-          props.history.push("/feed");
-        });
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  };
-
   const classes = useStyles();
   return (
     <nav className="zone top">
@@ -97,60 +73,16 @@ function LandingPageNavbar(props) {
           </Link>
         </li>
         <li className="push">
-          <button
+          <Button
             type="button"
             className={classes.button}
-            onClick={handleClickOpen}
+            onClick={() => setOpen(true)}
           >
             Login
-          </button>
+          </Button>
+          <LogIn handleOpen={open} handleClose={() => setOpen(false)} />
         </li>
       </ul>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Login</DialogTitle>
-
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="email"
-            label="Email Address"
-            type="email"
-            value={email}
-            fullWidth
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            value={password}
-            fullWidth
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <DialogContentText>
-            {error && <p style={{ color: "red" }}>{error.message}</p>}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <button
-            className="btn btn-danger log"
-            onClick={handleClose}
-            color="primary"
-          >
-            Cancel
-          </button>
-          <button
-            disabled={!validateLogin()}
-            className="btn btn-primary log"
-            onClick={handleLogin}
-            color="primary"
-          >
-            Login
-          </button>
-        </DialogActions>
-      </Dialog>
     </nav>
   );
 }

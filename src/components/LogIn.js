@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     fontWeight: 400,
     textTransform: "none",
   },
-  signup: {
+  login: {
     "&:hover": {
       backgroundColor: "#0069d9",
       borderColor: "#0062cc",
@@ -67,7 +67,7 @@ const useStyles = makeStyles({
     textTransform: "none",
   },
 });
-function SignUp(props) {
+function LogIn(props) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -160,14 +160,26 @@ function SignUp(props) {
         }
       });
   };
-  const validateNotEmpty = () => {
-    return (
-      email !== "" &&
-      username !== "" &&
-      password !== "" &&
-      confirmPassword !== ""
-    );
+
+  const validateLogin = () => {
+    return password !== "" && email !== "";
   };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    props.firebase
+      .doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        props.firebase.currentUser().on("value", (snapshot) => {
+          window.location.href = "/feed";
+        });
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -175,37 +187,23 @@ function SignUp(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <React.Fragment>
       <Dialog open={props.handleOpen} onClose={props.handleClose}>
-        <DialogTitle>Sign Up</DialogTitle>
-
+        <DialogTitle>Login</DialogTitle>
         <DialogContent>
           <TextField
-            error={emailError}
             autoFocus
             margin="dense"
             id="email"
             label="Email Address"
             type="email"
             value={email}
-            helperText={emailError}
             fullWidth
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            error={usernameError}
-            margin="dense"
-            id="username"
-            label="Username"
-            type="username"
-            value={username}
-            helperText={usernameError}
-            fullWidth
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            error={passwordError}
             margin="dense"
             id="password"
             label="Password"
@@ -214,22 +212,9 @@ function SignUp(props) {
             fullWidth
             onChange={(e) => setPassword(e.target.value)}
           />
-          <TextField
-            error={passwordError}
-            margin="dense"
-            id="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            helperText={passwordError}
-            fullWidth
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          {error && (
-            <DialogContentText style={{ color: "red" }}>
-              {error.message}
-            </DialogContentText>
-          )}
+          <DialogContentText>
+            {error && <p style={{ color: "red" }}>{error.message}</p>}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <button
@@ -239,18 +224,18 @@ function SignUp(props) {
           >
             Cancel
           </button>
-          <Button
-            disabled={!validateNotEmpty()}
-            className={classes.signup}
-            onClick={handleSignUp}
+          <button
+            disabled={!validateLogin()}
+            className={classes.login}
+            onClick={handleLogin}
             color="primary"
           >
-            Sign Up
-          </Button>
+            Login
+          </button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
   );
 }
 
-export default withFirebase(SignUp);
+export default withFirebase(LogIn);

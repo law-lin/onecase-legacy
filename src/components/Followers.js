@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import UsernameButton from "./UsernameButton";
 
+import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
@@ -225,10 +226,7 @@ function Followers(props) {
         <span style={{ fontWeight: 700 }}>{props.followerCount}</span>
         &nbsp;Followers
       </Button>
-      <SignUp
-        handleOpen={openSignUp}
-        handleClose={() => setOpenSignUp(false)}
-      />
+      <LogIn handleOpen={openSignUp} handleClose={() => setOpenSignUp(false)} />
       {!loading && (
         <Dialog
           classes={{ paper: classes.paper }}
