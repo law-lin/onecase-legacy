@@ -142,17 +142,16 @@ function SignUp(props) {
                   followingCount: 0,
                   profilePicture: DefaultProfilePicture,
                 });
-                props.firebase.usernames().set({
+                props.firebase.usernames().update({
                   [formattedUsername]: authUser.user.uid,
                 });
-                props.firebase.names().set({
+                props.firebase.names().update({
                   [formattedUsername]: authUser.user.uid,
                 });
               })
               .then(() => {
                 setOpen(false);
-                props.history.push(username);
-                props.history.go();
+                window.location.href = "/" + username;
               })
               .catch((error) => {
                 setError(error);
