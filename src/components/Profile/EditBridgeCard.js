@@ -32,6 +32,9 @@ const useStyles = makeStyles({
     fontWeight: 700,
     fontSize: "100px",
   },
+  content: {
+    overflow: "hidden hidden",
+  },
   input: {
     fontSize: "36px",
     backgroundColor: "#FFFFFF",
@@ -468,7 +471,7 @@ function EditBridgeCard(props) {
                 </MuiAlert>
               </Snackbar>
             </DialogTitle>
-            <DialogContent dividers>
+            <DialogContent className={classes.content} dividers>
               <Box display="flex">
                 <Box display="flex" flexDirection="column">
                   <Box>
