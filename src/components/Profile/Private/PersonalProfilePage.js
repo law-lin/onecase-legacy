@@ -186,7 +186,7 @@ const useStyles = makeStyles({
     backgroundColor: "#3E4E55",
     alignItems: "center",
     justifyContent: "center",
-    height: "180px",
+    height: "200px",
     width: "410px",
     borderRadius: "10px",
   },
@@ -225,6 +225,11 @@ const useStyles = makeStyles({
     textTransform: "none",
     color: "#FFFFFF",
   },
+  error: {
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontSize: "18px",
+    color: "#ff2e1f",
+  },
 });
 
 function PersonalProfilePage(props) {
@@ -237,6 +242,7 @@ function PersonalProfilePage(props) {
   const [bio, setBio] = useState("");
   const [oldProfilePicture, setOldProfilePicture] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
+  const [newProfilePicture, setNewProfilePicture] = useState(null);
   const [savedImage, setSavedImage] = useState(null);
   const [canSave, setCanSave] = useState(false);
   const [canCancel, setCanCancel] = useState(false);
@@ -251,9 +257,16 @@ function PersonalProfilePage(props) {
   const [link2Title, setLink2Title] = useState("");
   const [link3Title, setLink3Title] = useState("");
 
-  const [link1URL, setLink1URL] = useState(null);
-  const [link2URL, setLink2URL] = useState(null);
-  const [link3URL, setLink3URL] = useState(null);
+  const [link1URL, setLink1URL] = useState("");
+  const [link2URL, setLink2URL] = useState("");
+  const [link3URL, setLink3URL] = useState("");
+
+  const [link1TitleError, setLink1TitleError] = useState(null);
+  const [link2TitleError, setLink2TitleError] = useState(null);
+  const [link3TitleError, setLink3TitleError] = useState(null);
+  const [link1URLError, setLink1URLError] = useState(null);
+  const [link2URLError, setLink2URLError] = useState(null);
+  const [link3URLError, setLink3URLError] = useState(null);
 
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
@@ -280,6 +293,7 @@ function PersonalProfilePage(props) {
               setBio(state.bio);
               setOldProfilePicture(state.profilePicture);
               setProfilePicture(state.profilePicture);
+              setNewProfilePicture(null);
               setFollowerCount(state.followerCount);
               setFollowingCount(state.followingCount);
 
@@ -407,6 +421,7 @@ function PersonalProfilePage(props) {
   };
 
   const handleProfilePictureChange = (value) => {
+    setNewProfilePicture(value);
     setProfilePicture(value);
   };
 
@@ -416,37 +431,119 @@ function PersonalProfilePage(props) {
     let valid = true;
 
     if (username === oldUsername) {
-      if (bio != null) props.firebase.editBio(bio);
-      if (name != null) props.firebase.editName(name);
-      if (link1Title && link1URL) {
-        updateLink("linkCard1", link1Title, link1URL);
+      const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+      // either have all empty fields or all filled fields for links
+      if (link1Title === "" && link1URL === "") {
+        setLink1TitleError(null);
+        setLink1URLError(null);
+      } else if (link1Title !== "" && link1URL !== "") {
+        setLink1TitleError(null);
+        setLink1URLError(null);
+        if (urlregexp.test(link1URL)) {
+          setLink1URLError(null);
+        } else {
+          valid = false;
+          setLink1URLError("Please enter a valid URL.");
+        }
+      } else {
+        valid = false;
+        if (link1Title === "") {
+          setLink1TitleError("Please enter a title.");
+        } else {
+          setLink1TitleError(null);
+        }
+        if (link1URL === "") {
+          setLink1URLError("Please enter a URL.");
+        } else {
+          setLink1URLError(null);
+        }
       }
-      if (link2Title && link2URL) {
-        updateLink("linkCard2", link2Title, link2URL);
+
+      if (link2Title === "" && link2URL === "") {
+        setLink2TitleError(null);
+        setLink2URLError(null);
+      } else if (link2Title !== "" && link2URL !== "") {
+        setLink2TitleError(null);
+        setLink2URLError(null);
+        if (urlregexp.test(link2URL)) {
+          setLink2URLError(null);
+        } else {
+          valid = false;
+          setLink2URLError("Please enter a valid URL.");
+        }
+      } else {
+        valid = false;
+        if (link2Title === "") {
+          setLink2TitleError("Please enter a title.");
+        } else {
+          setLink2TitleError(null);
+        }
+        if (link2URL === "") {
+          setLink2URLError("Please enter a URL.");
+        } else {
+          setLink2URLError(null);
+        }
       }
-      if (link3Title && link3URL) {
-        updateLink("linkCard3", link3Title, link3URL);
+
+      if (link3Title === "" && link3URL === "") {
+        setLink3TitleError(null);
+        setLink3URLError(null);
+      } else if (link3Title !== "" && link3URL !== "") {
+        setLink3TitleError(null);
+        setLink3URLError(null);
+        if (urlregexp.test(link3URL)) {
+          setLink3URLError(null);
+        } else {
+          valid = false;
+          setLink3URLError("Please enter a valid URL.");
+        }
+      } else {
+        valid = false;
+        if (link3Title === "") {
+          setLink3TitleError("Please enter a title.");
+        } else {
+          setLink3TitleError(null);
+        }
+        if (link3URL === "") {
+          setLink3URLError("Please enter a URL.");
+        } else {
+          setLink3URLError(null);
+        }
       }
-      if (profilePicture !== null) {
-        props.firebase.uploadProfilePicture(profilePicture).on(
-          "state_changed",
-          (snapshot) => {
-            // progress function ...
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-          },
-          (error) => {
-            // Error function ...
-            console.log(error);
-          },
-          () => {
-            // complete function ...
-            props.firebase.uploadProfilePictureURL(profilePicture);
-          }
-        );
+
+      if (valid) {
+        if (bio != null) props.firebase.editBio(bio);
+        if (name != null) props.firebase.editName(name);
+        if (link1URL !== "") {
+          updateLink("linkCard1", link1Title, link1URL);
+        }
+        if (link2URL !== "") {
+          updateLink("linkCard2", link2Title, link2URL);
+        }
+        if (link3URL !== "") {
+          updateLink("linkCard3", link3Title, link3URL);
+        }
+        if (newProfilePicture !== null) {
+          props.firebase.uploadProfilePicture(newProfilePicture).on(
+            "state_changed",
+            (snapshot) => {
+              // progress function ...
+              const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              );
+            },
+            (error) => {
+              // Error function ...
+              console.log(error);
+            },
+            () => {
+              // complete function ...
+              props.firebase.uploadProfilePictureURL(newProfilePicture);
+            }
+          );
+        }
+        handleClose();
       }
-      handleClose();
     } else {
       props.firebase
         .checkDuplicateUsername(formattedUsername)
@@ -465,6 +562,86 @@ function PersonalProfilePage(props) {
             );
             valid = false;
           }
+          const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+          // either have all empty fields or all filled fields for links
+          if (link1Title === "" && link1URL === "") {
+            setLink1TitleError(null);
+            setLink1URLError(null);
+          } else if (link1Title !== "" && link1URL !== "") {
+            setLink1TitleError(null);
+            setLink1URLError(null);
+            if (urlregexp.test(link1URL)) {
+              setLink1URLError(null);
+            } else {
+              valid = false;
+              setLink1URLError("Please enter a valid URL.");
+            }
+          } else {
+            valid = false;
+            if (link1Title === "") {
+              setLink1TitleError("Please enter a title.");
+            } else {
+              setLink1TitleError(null);
+            }
+            if (link1URL === "") {
+              setLink1URLError("Please enter a URL.");
+            } else {
+              setLink1URLError(null);
+            }
+          }
+
+          if (link2Title === "" && link2URL === "") {
+            setLink2TitleError(null);
+            setLink2URLError(null);
+          } else if (link2Title !== "" && link2URL !== "") {
+            setLink2TitleError(null);
+            setLink2URLError(null);
+            if (urlregexp.test(link2URL)) {
+              setLink2URLError(null);
+            } else {
+              valid = false;
+              setLink2URLError("Please enter a valid URL.");
+            }
+          } else {
+            valid = false;
+            if (link2Title === "") {
+              setLink2TitleError("Please enter a title.");
+            } else {
+              setLink2TitleError(null);
+            }
+            if (link2URL === "") {
+              setLink2URLError("Please enter a URL.");
+            } else {
+              setLink2URLError(null);
+            }
+          }
+
+          if (link3Title === "" && link3URL === "") {
+            setLink3TitleError(null);
+            setLink3URLError(null);
+          } else if (link3Title !== "" && link3URL !== "") {
+            setLink3TitleError(null);
+            setLink3URLError(null);
+            if (urlregexp.test(link3URL)) {
+              setLink3URLError(null);
+            } else {
+              valid = false;
+              setLink3URLError("Please enter a valid URL.");
+            }
+          } else {
+            valid = false;
+            if (link3Title === "") {
+              setLink3TitleError("Please enter a title.");
+            } else {
+              setLink3TitleError(null);
+            }
+            if (link3URL === "") {
+              setLink3URLError("Please enter a URL.");
+            } else {
+              setLink3URLError(null);
+            }
+          }
+
           if (valid) {
             if (
               username !== oldUsername &&
@@ -474,20 +651,19 @@ function PersonalProfilePage(props) {
               props.firebase.editUsername(oldUsername, username);
               window.location.href = "/" + username;
             }
-
             if (bio != null) props.firebase.editBio(bio);
             if (name != null) props.firebase.editName(name);
-            if (link1Title && link1URL) {
+            if (link1URL !== "") {
               updateLink("linkCard1", link1Title, link1URL);
             }
-            if (link2Title && link2URL) {
+            if (link2URL !== "") {
               updateLink("linkCard2", link2Title, link2URL);
             }
-            if (link3Title && link3URL) {
+            if (link3URL !== "") {
               updateLink("linkCard3", link3Title, link3URL);
             }
-            if (profilePicture !== null) {
-              props.firebase.uploadProfilePicture(profilePicture).on(
+            if (newProfilePicture !== null) {
+              valid = props.firebase.uploadProfilePicture(newProfilePicture).on(
                 "state_changed",
                 (snapshot) => {
                   // progress function ...
@@ -501,32 +677,25 @@ function PersonalProfilePage(props) {
                 },
                 () => {
                   // complete function ...
-                  props.firebase.uploadProfilePictureURL(profilePicture);
+                  props.firebase.uploadProfilePictureURL(newProfilePicture);
                 }
               );
             }
-            setEditing(false);
+            handleClose();
           }
         });
-      handleClose();
     }
   };
 
   const updateLink = (linkCardNumber, linkTitle, linkURL) => {
-    const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
-    if (urlregexp.test(linkURL)) {
-      if (!~linkURL.indexOf("http")) {
-        props.firebase.editLinkCard(
-          linkCardNumber,
-          linkTitle,
-          "http://" + linkURL
-        );
-      } else {
-        props.firebase.editLinkCard(linkCardNumber, linkTitle, linkURL);
-      }
-      handleClose();
+    if (!~linkURL.indexOf("http")) {
+      props.firebase.editLinkCard(
+        linkCardNumber,
+        linkTitle,
+        "http://" + linkURL
+      );
     } else {
-      setError("Please enter a valid URL!");
+      props.firebase.editLinkCard(linkCardNumber, linkTitle, linkURL);
     }
   };
 
@@ -1067,6 +1236,9 @@ function PersonalProfilePage(props) {
                                       setLink1Title(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link1TitleError}
+                                  </Typography>
                                   <Typography
                                     className={classes.characterLimit}
                                   >
@@ -1088,6 +1260,9 @@ function PersonalProfilePage(props) {
                                       setLink1URL(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link1URLError}
+                                  </Typography>
                                 </Container>
                               </Box>
                               <Box p={3}>
@@ -1110,6 +1285,9 @@ function PersonalProfilePage(props) {
                                       setLink2Title(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link2TitleError}
+                                  </Typography>
                                   <Typography
                                     className={classes.characterLimit}
                                   >
@@ -1130,6 +1308,9 @@ function PersonalProfilePage(props) {
                                       setLink2URL(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link2URLError}
+                                  </Typography>
                                 </Container>
                               </Box>
                               <Box p={3}>
@@ -1152,6 +1333,9 @@ function PersonalProfilePage(props) {
                                       setLink3Title(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link3TitleError}
+                                  </Typography>
                                   <Typography
                                     className={classes.characterLimit}
                                   >
@@ -1172,6 +1356,9 @@ function PersonalProfilePage(props) {
                                       setLink3URL(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link3URLError}
+                                  </Typography>
                                 </Container>
                               </Box>
                             </Box>
