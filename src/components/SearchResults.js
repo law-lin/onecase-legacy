@@ -170,55 +170,81 @@ function SearchResults(props) {
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
 
+  const [currentUser, setCurrentUser] = useState(false);
+
   useEffect(() => {
     setLoading(true);
-    props.firebase
-      .searchUsernames(
-        queryString.parse(location.search).username.toLowerCase()
-      )
-      .once("value")
-      .then((snapshot) => {
-        var promises = [];
-        snapshot.forEach((snap) => {
-          var results = [];
-          results.push(
-            props.firebase.user(snap.val()).once("value"),
-            props.firebase
-              .checkFollowing(props.firebase.auth.currentUser.uid, snap.key)
-              .once("value")
-          );
-          promises.push(Promise.all(results));
-        });
-        return Promise.all(promises);
-      })
-      .then((results) => {
-        var usernames = [];
-        results.forEach((result) => {
-          let user = {
-            userID: result[0].key,
-            name: result[0].val().name,
-            username: result[0].val().username,
-            profilePicture: result[0].val().profilePicture,
-            isFollowing: result[1].val(),
-          };
-          usernames.push(user);
-        });
-        setResults(usernames);
-        setLoading(false);
-      });
+
+    props.firebase.auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setCurrentUser(true);
+        props.firebase
+          .searchUsernames(
+            queryString.parse(location.search).username.toLowerCase()
+          )
+          .once("value")
+          .then((snapshot) => {
+            var promises = [];
+            snapshot.forEach((snap) => {
+              var results = [];
+              results.push(
+                props.firebase.user(snap.val()).once("value"),
+                props.firebase
+                  .checkFollowing(
+                    props.firebase.auth.currentUser.uid,
+                    snap.val()
+                  )
+                  .once("value")
+              );
+              promises.push(Promise.all(results));
+            });
+            return Promise.all(promises);
+          })
+          .then((results) => {
+            var usernames = [];
+            results.forEach((result) => {
+              let user = {
+                userID: result[0].key,
+                name: result[0].val().name,
+                username: result[0].val().username,
+                profilePicture: result[0].val().profilePicture,
+                isFollowing: result[1].val(),
+              };
+              usernames.push(user);
+            });
+            setResults(usernames);
+            setLoading(false);
+          });
+      } else {
+        props.firebase
+          .searchUsernames(
+            queryString.parse(location.search).username.toLowerCase()
+          )
+          .once("value")
+          .then((snapshot) => {
+            var promises = [];
+            snapshot.forEach((snap) => {
+              promises.push(props.firebase.user(snap.val()).once("value"));
+            });
+            return Promise.all(promises);
+          })
+          .then((results) => {
+            var usernames = [];
+            results.forEach((result) => {
+              let user = {
+                userID: result.key,
+                name: result.val().name,
+                username: result.val().username,
+                profilePicture: result.val().profilePicture,
+              };
+              usernames.push(user);
+            });
+            setResults(usernames);
+            setLoading(false);
+          });
+      }
+    });
   }, []);
-
-  const handleOpen = () => {
-    if (props.currentUser) {
-      setOpen(true);
-    } else {
-      setOpenSignUp(true);
-    }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleFollow = (userID) => {
     const newList = results.map((user) => {
@@ -299,42 +325,43 @@ function SearchResults(props) {
                         </Typography>
                       }
                     />
-                    {result.userID !== props.firebase.auth.currentUser.uid && (
-                      <React.Fragment>
-                        {!result.isFollowing && (
-                          <Button
-                            className={classes.followButton}
-                            onClick={() => handleFollow(result.userID)}
-                          >
-                            Follow
-                          </Button>
-                        )}
-                        {result.isFollowing && (
-                          <React.Fragment>
+                    {currentUser &&
+                      result.userID !== props.firebase.auth.currentUser.uid && (
+                        <React.Fragment>
+                          {!result.isFollowing && (
                             <Button
-                              className={classes.followingButton}
-                              onClick={openUnfollowDialog}
+                              className={classes.followButton}
+                              onClick={() => handleFollow(result.userID)}
                             >
-                              Following
+                              Follow
                             </Button>
-                            <Dialog
-                              open={openUnfollow}
-                              onClose={closeUnfollowDialog}
-                            >
-                              Are you sure you want to unfollow?
+                          )}
+                          {result.isFollowing && (
+                            <React.Fragment>
                               <Button
-                                onClick={() => handleUnfollow(result.userID)}
+                                className={classes.followingButton}
+                                onClick={openUnfollowDialog}
                               >
-                                Unfollow
+                                Following
                               </Button>
-                              <Button onClick={closeUnfollowDialog}>
-                                Cancel
-                              </Button>
-                            </Dialog>
-                          </React.Fragment>
-                        )}
-                      </React.Fragment>
-                    )}
+                              <Dialog
+                                open={openUnfollow}
+                                onClose={closeUnfollowDialog}
+                              >
+                                Are you sure you want to unfollow?
+                                <Button
+                                  onClick={() => handleUnfollow(result.userID)}
+                                >
+                                  Unfollow
+                                </Button>
+                                <Button onClick={closeUnfollowDialog}>
+                                  Cancel
+                                </Button>
+                              </Dialog>
+                            </React.Fragment>
+                          )}
+                        </React.Fragment>
+                      )}
                   </ListItem>
                 ))}
               </List>

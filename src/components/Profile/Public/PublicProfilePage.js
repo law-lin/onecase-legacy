@@ -424,38 +424,43 @@ function PublicProfilePage(props) {
                         justifyContent="center"
                       >
                         <Card className={classes.infoBox}>
-                          {!isFollowing && (
-                            <CardHeader
-                              style={{
-                                padding: "16px 16px 0 0",
-                                height: "0px",
-                              }}
-                              action={
-                                <Button
-                                  className={classes.followButton}
-                                  onClick={handleFollow}
-                                >
-                                  Follow
-                                </Button>
-                              }
-                            />
+                          {currentUser && (
+                            <React.Fragment>
+                              {!isFollowing && (
+                                <CardHeader
+                                  style={{
+                                    padding: "16px 16px 0 0",
+                                    height: "0px",
+                                  }}
+                                  action={
+                                    <Button
+                                      className={classes.followButton}
+                                      onClick={handleFollow}
+                                    >
+                                      Follow
+                                    </Button>
+                                  }
+                                />
+                              )}
+                              {isFollowing && (
+                                <CardHeader
+                                  style={{
+                                    padding: "16px 16px 0 0",
+                                    height: "0px",
+                                  }}
+                                  action={
+                                    <Button
+                                      className={classes.followButton}
+                                      onClick={handleUnfollow}
+                                    >
+                                      Unfollow
+                                    </Button>
+                                  }
+                                />
+                              )}
+                            </React.Fragment>
                           )}
-                          {isFollowing && (
-                            <CardHeader
-                              style={{
-                                padding: "16px 16px 0 0",
-                                height: "0px",
-                              }}
-                              action={
-                                <Button
-                                  className={classes.followButton}
-                                  onClick={handleUnfollow}
-                                >
-                                  Unfollow
-                                </Button>
-                              }
-                            />
-                          )}
+
                           <CardContent style={{ padding: "28px 0 0 10px" }}>
                             <Typography className={classes.text}>
                               <Followers
