@@ -360,7 +360,6 @@ function PublicProfilePage(props) {
                                   )}
                                 </React.Fragment>
                               )}
-
                               <CardContent style={{ padding: "28px 0 0 10px" }}>
                                 <Typography className={classes.text}>
                                   <Followers
@@ -745,6 +744,21 @@ function PublicProfilePage(props) {
                                 )}
                               </React.Fragment>
                             )}
+                            <CardContent>
+                              <Typography className={classes.text}>
+                                <Followers
+                                  followers={followers}
+                                  followerCount={followerCount}
+                                  currentUser={true}
+                                />
+                                <br />
+                                <Following
+                                  following={followings}
+                                  followingCount={followingCount}
+                                  currentUser={true}
+                                />
+                              </Typography>
+                            </CardContent>
                           </Card>
                         </Box>
                       </Box>
