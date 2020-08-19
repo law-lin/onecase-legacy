@@ -36,16 +36,17 @@ function NotFound() {
     <div className="bg">
       <Navbar />
       <Box display="flex" className={classes.container}>
-        <Box>
+        <Box flex={1}>
           <LeftNavbar />
         </Box>
-        <Box className={classes.center}>
+        <Box className={classes.center} flex={1}>
           <Typography className={classes.text}>
             Oops, there was an
             <span className={classes.error}> error</span>. This page doesn't
             exist!
           </Typography>
         </Box>
+        <Box flex={1}></Box>
       </Box>
     </div>
   );

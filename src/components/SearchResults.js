@@ -332,10 +332,10 @@ function SearchResults(props) {
       <div className="bg">
         <Navbar />
         <Box display="flex" className={classes.root}>
-          <Box>
+          <Box flex={1}>
             <LeftNavbar />
           </Box>
-          <Box>
+          <Box flex={1}>
             <Container style={{ width: "700px" }}>
               <Typography className={classes.title}>
                 Search Results for {queryString.parse(location.search).username}
@@ -409,6 +409,7 @@ function SearchResults(props) {
               </List>
             </Container>
           </Box>
+          <Box flex={1}></Box>
         </Box>
       </div>
     );

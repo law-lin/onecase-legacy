@@ -26,21 +26,21 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textShadow: "2px 2px black",
     fontSize: "48px",
-    paddingLeft: "30px",
+
     fontWeight: 700,
   },
   background: {
     backgroundColor: "#3e4e55",
   },
   search: {
-    marginLeft: "15%",
+    marginLeft: "10%",
     width: "50%",
   },
   menu: {
     "&:focus": {
       outline: "none",
     },
-    marginLeft: "100px",
+    marginLeft: "5%",
     color: "#FFFFFF",
     backgroundColor: "#3D3D3D",
     borderRadius: "15px",

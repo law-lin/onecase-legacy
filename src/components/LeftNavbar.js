@@ -34,6 +34,19 @@ const useStyles = makeStyles({
     width: "50px",
     marginRight: "20px",
   },
+  noText: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#3E4E56",
+    justifyContent: "center",
+  },
+  noTextIcon: {
+    width: "50px",
+  },
 });
 
 function LeftNavbar(props) {
@@ -70,41 +83,76 @@ function LeftNavbar(props) {
   }
 
   return (
-    <Box display="flex" flexDirection="column" style={{ marginTop: "75%" }}>
-      {username && (
+    <Box display="flex" flexDirection="column" style={{ marginTop: "25vh" }}>
+      {!props.noText && (
         <React.Fragment>
-          <Box>
-            <Link href={"/feed"} style={{ textDecoration: "none" }}>
-              <Button className={classes.root}>
-                <HomeIcon className={classes.icon} />
-                Home
-              </Button>
-            </Link>
-          </Box>
-          <Box>
-            <Link href={"/feed"} style={{ textDecoration: "none" }}>
-              <Button className={classes.root}>
-                <ExhibitionsIcon className={classes.icon} />
-                Exhibitions
-              </Button>
-            </Link>
-          </Box>
+          {username && (
+            <React.Fragment>
+              <Box>
+                <Link href={"/feed"} style={{ textDecoration: "none" }}>
+                  <Button className={classes.root}>
+                    <HomeIcon className={classes.icon} />
+                    Home
+                  </Button>
+                </Link>
+              </Box>
+              <Box>
+                <Link href={"/feed"} style={{ textDecoration: "none" }}>
+                  <Button className={classes.root}>
+                    <ExhibitionsIcon className={classes.icon} />
+                    Exhibitions
+                  </Button>
+                </Link>
+              </Box>
+              <Box>
+                <Link href={"/" + username} style={{ textDecoration: "none" }}>
+                  <Button className={classes.root}>
+                    {!loading && (
+                      <Avatar
+                        round="50px"
+                        size="50"
+                        style={{ marginRight: "20px" }}
+                        src={profilePicture}
+                      />
+                    )}
+                    Profile
+                  </Button>
+                </Link>
+              </Box>
+            </React.Fragment>
+          )}
+        </React.Fragment>
+      )}
+      {props.noText && (
+        <React.Fragment>
+          {username && (
+            <React.Fragment>
+              <Box>
+                <Link href={"/feed"} style={{ textDecoration: "none" }}>
+                  <Button className={classes.noText}>
+                    <HomeIcon className={classes.noTextIcon} />
+                  </Button>
+                </Link>
+              </Box>
+              <Box>
+                <Link href={"/feed"} style={{ textDecoration: "none" }}>
+                  <Button className={classes.noText}>
+                    <ExhibitionsIcon className={classes.noTextIcon} />
+                  </Button>
+                </Link>
+              </Box>
 
-          <Box>
-            <Link href={"/" + username} style={{ textDecoration: "none" }}>
-              <Button className={classes.root}>
-                {!loading && (
-                  <Avatar
-                    round="50px"
-                    size="50"
-                    style={{ marginRight: "20px" }}
-                    src={profilePicture}
-                  />
-                )}
-                Profile
-              </Button>
-            </Link>
-          </Box>
+              <Box>
+                <Link href={"/" + username} style={{ textDecoration: "none" }}>
+                  <Button className={classes.noText}>
+                    {!loading && (
+                      <Avatar round="50px" size="50" src={profilePicture} />
+                    )}
+                  </Button>
+                </Link>
+              </Box>
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </Box>

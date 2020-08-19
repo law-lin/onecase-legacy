@@ -151,13 +151,13 @@ const useStyles = makeStyles({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: "110px",
-    width: "250px",
+    width: (props) => (props.size === "small" ? "150px" : "250px"),
     borderRadius: "20px",
   },
 });
 
 function EditCard(props) {
-  const classes = useStyles();
+  const classes = useStyles(props);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [oldCardTitle, setOldCardTitle] = useState(props.oldCardTitle);

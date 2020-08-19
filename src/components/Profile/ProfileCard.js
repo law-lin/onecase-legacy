@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 
 import { withFirebase } from "../Firebase";
 
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -19,12 +19,12 @@ import { withRouter } from "react-router-dom";
 import EditCard from "./EditCard";
 import { CardActionArea } from "@material-ui/core";
 
-const styles = () => ({
+const useStyles = makeStyles({
   root: {
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: "110px",
-    width: "250px",
+    width: (props) => (props.size === "small" ? "200px" : "250px"),
     borderRadius: "20px",
     boxShadow: "none",
   },
@@ -40,7 +40,7 @@ const styles = () => ({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: "110px",
-    width: "250px",
+    width: (props) => (props.size === "small" ? "150px" : "250px"),
     borderRadius: "20px",
   },
   cardTitle: {
@@ -52,131 +52,103 @@ const styles = () => ({
   },
 });
 
-class ProfileCard extends Component {
-  constructor(props) {
-    super(props);
+function ProfileCard(props) {
+  const [cardTitle, setCardTitle] = useState(null);
+  const [oldCardTitle, setOldCardTitle] = useState("placeholder");
+  const [loading, setLoading] = useState(false);
 
-    this.state = {
-      username: null,
-      oldCardTitle: "placeholder",
-      cardTitle: null,
-      loading: false,
-      progress: 0,
-    };
-  }
+  const classes = useStyles(props);
 
-  componentDidMount() {
-    this.setState({ loading: true });
-    const username = this.props.match.params.username.toString().toLowerCase();
+  console.log(props.size);
 
-    this.props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+  useEffect(() => {
+    setLoading(true);
+    const username = props.match.params.username.toString().toLowerCase();
+
+    props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
       const userIDState = snapshot.val();
       if (userIDState) {
-        this.setState({
-          userID: userIDState,
-        });
-        this.props.firebase
-          .cards(userIDState, this.props.cardNumber)
+        props.firebase
+          .cards(userIDState, props.cardNumber)
           .on("value", (snapshot) => {
             const state = snapshot.val();
             if (state) {
-              this.setState({
-                cardTitle: state.cardTitle,
-                oldCardTitle: state.cardTitle,
-                loading: false,
-              });
+              setCardTitle(state.cardTitle);
+              setOldCardTitle(state.cardTitle);
+              setLoading(false);
             } else {
-              this.setState({
-                cardTitle: null,
-                oldCardTitle: "placeholder",
-                loading: false,
-              });
+              setLoading(false);
             }
           });
-      } else {
-        this.setState({
-          userID: null,
-        });
       }
     });
-  }
+  }, []);
 
-  handleChange = (event) => {
-    this.props.onChange(event.target.value);
+  const handleChange = (event) => {
+    props.onChange(event.target.value);
   };
 
-  handleClick = () => {
-    let path = this.state.cardTitle.split(" ").join("_");
-    this.props.history.push(`${this.props.username}/${path}`);
+  const handleClick = () => {
+    let path = cardTitle.split(" ").join("_");
+    props.history.push(`${props.username}/${path}`);
   };
 
-  render() {
-    const { classes } = this.props;
-    const { oldCardTitle, cardTitle, loading } = this.state;
-
-    return (
-      <div>
-        {!this.props.editable && cardTitle && (
-          <Link
-            href={
-              "/" +
-              this.props.match.params.username.toString() +
-              "/" +
-              this.state.cardTitle.split(" ").join("_")
-            }
-            style={{ textDecoration: "none" }}
-          >
-            <CardActionArea className={classes.button}>
-              <CardContent>
-                {loading && <div>Loading...</div>}
-                <Typography className={classes.cardTitle}>
-                  {cardTitle}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Link>
-        )}
-        {!this.props.editable && !cardTitle && this.props.personal && (
-          <EditCard
-            display="empty"
-            oldCardTitle={oldCardTitle}
-            cardTitle={cardTitle}
-            cardNumber={this.props.cardNumber}
-            editable={true}
-            size="small"
-          />
-        )}
-        {!this.props.editable && !cardTitle && !this.props.personal && (
-          <Card className={classes.root} />
-        )}
-        {this.props.editable && (
-          <Card className={classes.root}>
-            <CardHeader
-              style={{ padding: "16px 16px 0 0", height: "0px" }}
-              action={
-                <EditCard
-                  oldCardTitle={oldCardTitle}
-                  cardTitle={cardTitle}
-                  cardNumber={this.props.cardNumber}
-                  editable={this.props.editable}
-                  size="small"
-                />
-              }
-            />
+  return (
+    <div>
+      {!props.editable && cardTitle && (
+        <Link
+          href={
+            "/" +
+            props.match.params.username.toString() +
+            "/" +
+            cardTitle.split(" ").join("_")
+          }
+          style={{ textDecoration: "none" }}
+        >
+          <CardActionArea className={classes.button}>
             <CardContent>
               {loading && <div>Loading...</div>}
               <Typography className={classes.cardTitle}>{cardTitle}</Typography>
             </CardContent>
-          </Card>
-        )}
-      </div>
-    );
-  }
+          </CardActionArea>
+        </Link>
+      )}
+      {!props.editable && !cardTitle && props.personal && (
+        <EditCard
+          display="empty"
+          oldCardTitle={oldCardTitle}
+          cardTitle={cardTitle}
+          cardNumber={props.cardNumber}
+          editable={true}
+          size={props.size}
+        />
+      )}
+      {!props.editable && !cardTitle && !props.personal && (
+        <Card className={classes.root} />
+      )}
+      {props.editable && (
+        <Card className={classes.root}>
+          <CardHeader
+            style={{ padding: "16px 16px 0 0", height: "0px" }}
+            action={
+              <EditCard
+                oldCardTitle={oldCardTitle}
+                cardTitle={cardTitle}
+                cardNumber={props.cardNumber}
+                editable={props.editable}
+                size={props.size}
+              />
+            }
+          />
+          <CardContent>
+            {loading && <div>Loading...</div>}
+            <Typography className={classes.cardTitle}>{cardTitle}</Typography>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
 }
-const CardLink = compose(
-  withRouter,
-  withFirebase,
-  withStyles(styles)
-)(ProfileCard);
+const CardLink = compose(withRouter, withFirebase)(ProfileCard);
 
 export default CardLink;

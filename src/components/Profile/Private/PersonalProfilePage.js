@@ -6,7 +6,8 @@ import { ModalContainer, ModalRoute } from "react-router-modal";
 import Feed from "../../FeedPage";
 import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
-import { Switch, Route, Link, useLocation } from "react-router-dom";
+import Switch from "@material-ui/core/Switch";
+import { Route, Link, useLocation } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 import TextField from "@material-ui/core/TextField";
@@ -32,6 +33,7 @@ import Biography from "../Biography";
 import Name from "../Name";
 import Username from "../Username";
 import Box from "@material-ui/core/Box";
+
 import MediaQuery from "react-responsive";
 
 import { withAuthorization } from "../../Session";
@@ -109,7 +111,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "15px",
-    minWidth: "625px",
+
     maxWidth: "650px",
     minHeight: "450px",
     backgroundColor: "#232323",
@@ -230,6 +232,30 @@ const useStyles = makeStyles({
     fontSize: "18px",
     color: "#ff2e1f",
   },
+  switch: {
+    width: "80px",
+    height: "40px",
+  },
+  switchBase: {
+    color: "#000000",
+    "&$checked": {
+      transform: "translateX(40px)",
+      color: "#000000",
+      "& + $track": {
+        backgroundColor: "#CDAFAF",
+      },
+    },
+  },
+  track: {
+    opacity: 1,
+    backgroundColor: "#CDAFAF",
+  },
+  checked: {},
+  switchLabel: {
+    color: "#000000",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontWeight: 800,
+  },
 });
 
 function PersonalProfilePage(props) {
@@ -270,6 +296,9 @@ function PersonalProfilePage(props) {
 
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
+
+  const [checked, setChecked] = useState(false);
+
   const classes = useStyles();
 
   let location = useLocation();
@@ -699,14 +728,398 @@ function PersonalProfilePage(props) {
     }
   };
 
+  const handleSwitch = (event) => {
+    setChecked(event.target.checked);
+  };
   return (
     <div className="bg">
-      <MediaQuery maxDeviceWidth={1223}>
+      <MediaQuery maxWidth={1114}>
+        {!loading && (
+          <React.Fragment>
+            <Navbar />
+            <Container
+              display="flex"
+              flexDirection="column"
+              style={{ marginTop: "80px", height: "100vh" }}
+            >
+              <Box flex={1} justifyContent="center">
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  style={{ marginTop: "40px" }}
+                >
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    width="100%"
+                  >
+                    <Box display="flex">
+                      <Box>
+                        <ProfilePicture profilePicture={oldProfilePicture} />
+                      </Box>
+                      {!loading && (
+                        <Box style={{ marginLeft: "10px" }}>
+                          <React.Fragment>
+                            <Name name={oldName} />
+                            <Username username={oldUsername} />
+                          </React.Fragment>
+                        </Box>
+                      )}
+                    </Box>
+                    <Box display="flex">
+                      <Box flex={1}>
+                        {!loading && <Biography margin="10px" bio={oldBio} />}
+                      </Box>
+
+                      <Box display="flex" flex={1} justifyContent="flex-end">
+                        <Card className={classes.infoBox}>
+                          <CardHeader
+                            style={{ padding: "16px 16px 0 0", height: "0px" }}
+                            action={
+                              <Button
+                                className={classes.editProfile}
+                                onClick={handleEdit}
+                              >
+                                Edit Profile
+                              </Button>
+                            }
+                          ></CardHeader>
+
+                          <Dialog
+                            classes={{ paper: classes.dialogPaper }}
+                            PaperProps={{
+                              style: {
+                                backgroundColor: "#242424",
+                                borderRadius: "15px",
+                              },
+                            }}
+                            onClose={handleClose}
+                            fullWidth
+                            open={editing}
+                          >
+                            <DialogTitle className={classes.header}>
+                              <Typography className={classes.title}>
+                                Edit Profile
+                              </Typography>
+                              <Button
+                                className={classes.save}
+                                onClick={handleSave}
+                              >
+                                Save
+                              </Button>
+                            </DialogTitle>
+                            <DialogContent>
+                              <Box
+                                display="flex"
+                                flexDirection="column"
+                                alignItems="center"
+                              >
+                                <Box p={3}>
+                                  <ProfilePicture
+                                    profilePicture={oldProfilePicture}
+                                    newProfilePicture={profilePicture}
+                                    editable={editing}
+                                    onChange={handleProfilePictureChange}
+                                  />
+                                </Box>
+                                <Box p={3}>
+                                  <Container className={classes.box}>
+                                    <Typography className={classes.label}>
+                                      Username
+                                    </Typography>
+                                    <TextField
+                                      name="username"
+                                      type="text"
+                                      className={classes.textField}
+                                      defaultValue={username}
+                                      onChange={(e) =>
+                                        setUsername(e.target.value)
+                                      }
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                      helperText={error}
+                                    />
+                                  </Container>
+                                </Box>
+                                <Box p={3}>
+                                  <Container className={classes.box}>
+                                    <Typography className={classes.label}>
+                                      Name
+                                    </Typography>
+                                    <TextField
+                                      name="name"
+                                      type="text"
+                                      className={classes.textField}
+                                      defaultValue={name}
+                                      onChange={(e) => setName(e.target.value)}
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                    />
+                                  </Container>
+                                </Box>
+                                <Box p={3}>
+                                  <Container className={classes.bio}>
+                                    <Typography className={classes.label}>
+                                      Bio
+                                    </Typography>
+                                    <TextField
+                                      name="bio"
+                                      type="text"
+                                      className={classes.textField}
+                                      fullWidth
+                                      multiline
+                                      rows={3}
+                                      defaultValue={bio}
+                                      onChange={(e) => setBio(e.target.value)}
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                    />
+                                  </Container>
+                                </Box>
+                                <Box p={3}>
+                                  <Container className={classes.link}>
+                                    <Typography className={classes.label}>
+                                      Link 1 Title
+                                    </Typography>
+                                    <TextField
+                                      type="text"
+                                      name="link1Title"
+                                      className={classes.textField}
+                                      defaultValue={link1Title}
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                      onChange={(e) =>
+                                        setLink1Title(e.target.value)
+                                      }
+                                    />
+                                    <Typography className={classes.label}>
+                                      Link 1 URL
+                                    </Typography>
+                                    <TextField
+                                      type="text"
+                                      name="link1URL"
+                                      placeholder="Ex: https://www.youtube.com/user/Vsauce"
+                                      className={classes.textField}
+                                      defaultValue={link1URL}
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                      onChange={(e) =>
+                                        setLink1URL(e.target.value)
+                                      }
+                                    />
+                                  </Container>
+                                </Box>
+                                <Box p={3}>
+                                  <Container className={classes.link}>
+                                    <Typography className={classes.label}>
+                                      Link 2 Title
+                                    </Typography>
+                                    <TextField
+                                      type="text"
+                                      name="link2Title"
+                                      className={classes.textField}
+                                      defaultValue={link2Title}
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                      onChange={(e) =>
+                                        setLink2Title(e.target.value)
+                                      }
+                                    />
+                                    <Typography className={classes.label}>
+                                      Link 2 URL
+                                    </Typography>
+                                    <TextField
+                                      type="text"
+                                      name="link2Title"
+                                      className={classes.textField}
+                                      defaultValue={link2URL}
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                      onChange={(e) =>
+                                        setLink2URL(e.target.value)
+                                      }
+                                    />
+                                  </Container>
+                                </Box>
+                                <Box p={3}>
+                                  <Container className={classes.link}>
+                                    <Typography className={classes.label}>
+                                      Link 3 Title
+                                    </Typography>
+                                    <TextField
+                                      type="text"
+                                      name="link3Title"
+                                      className={classes.textField}
+                                      defaultValue={link3Title}
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                      onChange={(e) =>
+                                        setLink3Title(e.target.value)
+                                      }
+                                    />
+                                    <Typography className={classes.label}>
+                                      Link 3 URL
+                                    </Typography>
+                                    <TextField
+                                      type="text"
+                                      name="link3Title"
+                                      className={classes.textField}
+                                      defaultValue={link3URL}
+                                      fullWidth
+                                      InputProps={{ disableUnderline: true }}
+                                      inputProps={{ className: classes.input }}
+                                      onChange={(e) =>
+                                        setLink3URL(e.target.value)
+                                      }
+                                    />
+                                  </Container>
+                                </Box>
+                              </Box>
+                            </DialogContent>
+                          </Dialog>
+                          <CardContent style={{ padding: "28px 0 0 10px" }}>
+                            <Typography className={classes.text}>
+                              <span style={{ fontWeight: 700 }}>
+                                {followerCount}
+                              </span>{" "}
+                              Followers
+                              <br />
+                              <span style={{ fontWeight: 700 }}>
+                                {followingCount}
+                              </span>{" "}
+                              Following
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Box>
+                    </Box>
+                    <Box display="flex" justifyContent="flex-end">
+                      <Box display="flex" flexDirection="column">
+                        <Box display="flex">
+                          <Box>
+                            <Typography
+                              className={classes.switchLabel}
+                              style={{ paddingRight: "15px" }}
+                            >
+                              cards
+                            </Typography>
+                          </Box>
+                          <Box>
+                            <Typography className={classes.switchLabel}>
+                              links
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <Box display="flex" justifyContent="center">
+                          <Switch
+                            classes={{
+                              root: classes.switch,
+                              switchBase: classes.switchBase,
+                              track: classes.track,
+                              checked: classes.checked,
+                            }}
+                            checked={checked}
+                            onChange={handleSwitch}
+                          />
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  {!checked && (
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      className={classes.center}
+                    >
+                      <Box display="flex" alignItems="center" j>
+                        <Box p={2}>
+                          <ProfileCard
+                            username={username}
+                            cardNumber="card1"
+                            personal={true}
+                            size="small"
+                          />
+                        </Box>
+                        <Box p={2}>
+                          <ProfileCard
+                            username={username}
+                            cardNumber="card2"
+                            personal={true}
+                            size="small"
+                          />
+                        </Box>
+                      </Box>
+                      <Box display="flex">
+                        <Box p={2}>
+                          <ProfileCard
+                            username={username}
+                            cardNumber="card3"
+                            personal={true}
+                            size="small"
+                          />
+                        </Box>
+                        <Box p={2}>
+                          <ProfileCard
+                            username={username}
+                            cardNumber="card4"
+                            personal={true}
+                            size="small"
+                          />
+                        </Box>
+                      </Box>
+                      <Box display="flex">
+                        <Box p={2}>
+                          <ProfileCard
+                            username={username}
+                            cardNumber="card5"
+                            personal={true}
+                            size="small"
+                          />
+                        </Box>
+                        <Box p={2}>
+                          <ProfileCard
+                            username={username}
+                            cardNumber="card6"
+                            personal={true}
+                            size="small"
+                          />
+                        </Box>
+                      </Box>
+                    </Box>
+                  )}
+                  {checked && (
+                    <Container
+                      style={{ display: "flex", justifyContent: "center" }}
+                    >
+                      <LinksCard personal={true} />
+                    </Container>
+                  )}
+                </Box>
+              </Box>
+            </Container>
+            <BottomNavbar />
+          </React.Fragment>
+        )}
+      </MediaQuery>
+      <MediaQuery minWidth={1115} maxWidth={1399}>
         {!loading && (
           <React.Fragment>
             <Navbar />
             <Box display="flex" className={classes.container}>
-              <Box flex={1} justifyContent="center">
+              <Box justifyContent="center">
+                <LeftNavbar noText={true} />
+              </Box>
+              <Box justifyContent="center">
                 <Box
                   display="flex"
                   flexDirection="column"
@@ -720,20 +1133,24 @@ function PersonalProfilePage(props) {
                     justifyContent="center"
                     width="100%"
                   >
-                    <Box flex={1} flexBasis="100%">
-                      {!loading && <Biography margin="50px" bio={oldBio} />}
+                    <Box
+                      flex={1}
+                      flexBasis="100%"
+                      style={{ paddingLeft: "40px" }}
+                    >
+                      <Name name={oldName} />
+                      <Username username={oldUsername} />
+                      <Biography bio={oldBio} />
                     </Box>
                     <Box
                       flex={1}
                       flexBasis="100%"
                       style={{ textAlign: "center" }}
                     >
-                      {!loading && (
-                        <React.Fragment>
-                          <Username username={oldUsername} />
-                          <ProfilePicture profilePicture={oldProfilePicture} />
-                        </React.Fragment>
-                      )}
+                      <ProfilePicture
+                        profilePicture={oldProfilePicture}
+                        newProfilePicture={profilePicture}
+                      />
                     </Box>
                     <Box
                       display="flex"
@@ -756,6 +1173,8 @@ function PersonalProfilePage(props) {
                         ></CardHeader>
 
                         <Dialog
+                          open={editing}
+                          onClose={handleClose}
                           classes={{ paper: classes.dialogPaper }}
                           PaperProps={{
                             style: {
@@ -763,20 +1182,21 @@ function PersonalProfilePage(props) {
                               borderRadius: "15px",
                             },
                           }}
-                          onClose={handleClose}
                           fullWidth
-                          open={editing}
                         >
                           <DialogTitle className={classes.header}>
-                            <Typography className={classes.title}>
-                              Edit Profile
-                            </Typography>
-                            <Button
-                              className={classes.save}
-                              onClick={handleSave}
-                            >
-                              Save
-                            </Button>
+                            <Box display="flex">
+                              <Typography className={classes.title}>
+                                Edit Profile
+                              </Typography>
+                              <div style={{ flexGrow: "1" }} />
+                              <Button
+                                className={classes.save}
+                                onClick={handleSave}
+                              >
+                                Save
+                              </Button>
+                            </Box>
                           </DialogTitle>
                           <DialogContent>
                             <Box
@@ -807,9 +1227,17 @@ function PersonalProfilePage(props) {
                                     }
                                     fullWidth
                                     InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
+                                    inputProps={{
+                                      className: classes.input,
+                                      maxLength: 30,
+                                    }}
                                     helperText={error}
                                   />
+                                  <Typography
+                                    className={classes.characterLimit}
+                                  >
+                                    {`${username.length}/${30}`}
+                                  </Typography>
                                 </Container>
                               </Box>
                               <Box p={3}>
@@ -825,8 +1253,16 @@ function PersonalProfilePage(props) {
                                     onChange={(e) => setName(e.target.value)}
                                     fullWidth
                                     InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
+                                    inputProps={{
+                                      className: classes.input,
+                                      maxLength: 50,
+                                    }}
                                   />
+                                  <Typography
+                                    className={classes.characterLimit}
+                                  >
+                                    {`${name.length}/${50}`}
+                                  </Typography>
                                 </Container>
                               </Box>
                               <Box p={3}>
@@ -844,8 +1280,16 @@ function PersonalProfilePage(props) {
                                     defaultValue={bio}
                                     onChange={(e) => setBio(e.target.value)}
                                     InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
+                                    inputProps={{
+                                      className: classes.input,
+                                      maxLength: 75,
+                                    }}
                                   />
+                                  <Typography
+                                    className={classes.characterLimit}
+                                  >
+                                    {`${bio.length}/${75}`}
+                                  </Typography>
                                 </Container>
                               </Box>
                               <Box p={3}>
@@ -860,11 +1304,22 @@ function PersonalProfilePage(props) {
                                     defaultValue={link1Title}
                                     fullWidth
                                     InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
+                                    inputProps={{
+                                      className: classes.input,
+                                      maxLength: 25,
+                                    }}
                                     onChange={(e) =>
                                       setLink1Title(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link1TitleError}
+                                  </Typography>
+                                  <Typography
+                                    className={classes.characterLimit}
+                                  >
+                                    {`${link1Title.length}/${25}`}
+                                  </Typography>
                                   <Typography className={classes.label}>
                                     Link 1 URL
                                   </Typography>
@@ -881,6 +1336,9 @@ function PersonalProfilePage(props) {
                                       setLink1URL(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link1URLError}
+                                  </Typography>
                                 </Container>
                               </Box>
                               <Box p={3}>
@@ -895,11 +1353,22 @@ function PersonalProfilePage(props) {
                                     defaultValue={link2Title}
                                     fullWidth
                                     InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
+                                    inputProps={{
+                                      className: classes.input,
+                                      maxLength: 25,
+                                    }}
                                     onChange={(e) =>
                                       setLink2Title(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link2TitleError}
+                                  </Typography>
+                                  <Typography
+                                    className={classes.characterLimit}
+                                  >
+                                    {`${link2Title.length}/${25}`}
+                                  </Typography>
                                   <Typography className={classes.label}>
                                     Link 2 URL
                                   </Typography>
@@ -915,6 +1384,9 @@ function PersonalProfilePage(props) {
                                       setLink2URL(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link2URLError}
+                                  </Typography>
                                 </Container>
                               </Box>
                               <Box p={3}>
@@ -929,11 +1401,22 @@ function PersonalProfilePage(props) {
                                     defaultValue={link3Title}
                                     fullWidth
                                     InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
+                                    inputProps={{
+                                      className: classes.input,
+                                      maxLength: 25,
+                                    }}
                                     onChange={(e) =>
                                       setLink3Title(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link3TitleError}
+                                  </Typography>
+                                  <Typography
+                                    className={classes.characterLimit}
+                                  >
+                                    {`${link3Title.length}/${25}`}
+                                  </Typography>
                                   <Typography className={classes.label}>
                                     Link 3 URL
                                   </Typography>
@@ -949,6 +1432,9 @@ function PersonalProfilePage(props) {
                                       setLink3URL(e.target.value)
                                     }
                                   />
+                                  <Typography className={classes.error}>
+                                    {link3URLError}
+                                  </Typography>
                                 </Container>
                               </Box>
                             </Box>
@@ -956,15 +1442,28 @@ function PersonalProfilePage(props) {
                         </Dialog>
                         <CardContent style={{ padding: "28px 0 0 10px" }}>
                           <Typography className={classes.text}>
-                            <span style={{ fontWeight: 700 }}>
-                              {followerCount}
-                            </span>{" "}
-                            Followers
+                            <Followers
+                              followers={followers}
+                              followerCount={followerCount}
+                              currentUser={true}
+                            />
                             <br />
-                            <span style={{ fontWeight: 700 }}>
-                              {followingCount}
-                            </span>{" "}
-                            Following
+                            <Following
+                              following={followings}
+                              followingCount={followingCount}
+                              currentUser={true}
+                            />
+
+                            {/* <ModalRoute
+                              path={`/${username}/followers`}
+                              component={() => (
+                                <Followers followers={followers} />
+                              )}
+                            />
+                            <ModalRoute
+                              path={`/${username}/following`}
+                              component={Following}
+                            /> */}
                           </Typography>
                         </CardContent>
                       </Card>
@@ -1026,16 +1525,16 @@ function PersonalProfilePage(props) {
                   </Box>
                 </Box>
               </Box>
-              <Box flex={1} justifyContent="center">
-                <LinksCard personal={true} />
+              <Box justifyContent="center">
+                <Container style={{ margin: "37% 0 0 10%" }}>
+                  <LinksCard personal={true} />
+                </Container>
               </Box>
             </Box>
-            <BottomNavbar />
           </React.Fragment>
         )}
       </MediaQuery>
-
-      <MediaQuery minDeviceWidth={1224}>
+      <MediaQuery minWidth={1400}>
         {!loading && (
           <React.Fragment>
             <Navbar />
@@ -1450,7 +1949,9 @@ function PersonalProfilePage(props) {
                 </Box>
               </Box>
               <Box flex={1} justifyContent="center">
-                <LinksCard />
+                <Container style={{ margin: "37% 0 0 10%" }}>
+                  <LinksCard personal={true} />
+                </Container>
               </Box>
             </Box>
           </React.Fragment>
