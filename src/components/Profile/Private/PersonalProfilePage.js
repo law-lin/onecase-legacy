@@ -989,15 +989,17 @@ function PersonalProfilePage(props) {
                           </Dialog>
                           <CardContent style={{ padding: "28px 0 0 10px" }}>
                             <Typography className={classes.text}>
-                              <span style={{ fontWeight: 700 }}>
-                                {followerCount}
-                              </span>{" "}
-                              Followers
+                              <Followers
+                                followers={followers}
+                                followerCount={followerCount}
+                                currentUser={true}
+                              />
                               <br />
-                              <span style={{ fontWeight: 700 }}>
-                                {followingCount}
-                              </span>{" "}
-                              Following
+                              <Following
+                                following={followings}
+                                followingCount={followingCount}
+                                currentUser={true}
+                              />
                             </Typography>
                           </CardContent>
                         </Card>
