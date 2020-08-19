@@ -731,6 +731,7 @@ function PersonalProfilePage(props) {
   const handleSwitch = (event) => {
     setChecked(event.target.checked);
   };
+
   return (
     <div className="bg">
       <MediaQuery maxWidth={1114}>

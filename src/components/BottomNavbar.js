@@ -40,14 +40,19 @@ function BottomNavbar(props) {
 
   useEffect(() => {
     setLoading(true);
-    props.firebase.currentUser().on("value", (snapshot) => {
-      if (snapshot) {
-        setUsername(snapshot.val().username);
-        setProfilePicture(snapshot.val().profilePicture);
-        setLoading(false);
-      } else {
-        setProfilePicture(null);
-        setLoading(false);
+
+    props.firebase.auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        props.firebase.currentUser().on("value", (snapshot) => {
+          if (snapshot) {
+            setUsername(snapshot.val().username);
+            setProfilePicture(snapshot.val().profilePicture);
+            setLoading(false);
+          } else {
+            setProfilePicture(null);
+            setLoading(false);
+          }
+        });
       }
     });
   }, []);
@@ -58,27 +63,31 @@ function BottomNavbar(props) {
   }
 
   return (
-    <BottomNavigation className={classes.root}>
-      <BottomNavigationAction
-        onClick={() => {
-          window.location.href = "/feed";
-        }}
-        icon={<HomeIcon />}
-      />
+    <React.Fragment>
+      {username && (
+        <BottomNavigation className={classes.root}>
+          <BottomNavigationAction
+            onClick={() => {
+              window.location.href = "/feed";
+            }}
+            icon={<HomeIcon />}
+          />
 
-      <BottomNavigationAction
-        onClick={() => {
-          window.location.href = "/exhibitions";
-        }}
-        icon={<ExhibitionsIcon />}
-      />
-      <BottomNavigationAction
-        onClick={() => {
-          window.location.href = "/" + username;
-        }}
-        icon={<img style={{ width: "50px" }} src={profilePicture} />}
-      />
-    </BottomNavigation>
+          <BottomNavigationAction
+            onClick={() => {
+              window.location.href = "/exhibitions";
+            }}
+            icon={<ExhibitionsIcon />}
+          />
+          <BottomNavigationAction
+            onClick={() => {
+              window.location.href = "/" + username;
+            }}
+            icon={<img style={{ width: "50px" }} src={profilePicture} />}
+          />
+        </BottomNavigation>
+      )}
+    </React.Fragment>
   );
 }
 
