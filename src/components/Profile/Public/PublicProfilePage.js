@@ -387,13 +387,11 @@ function PublicProfilePage(props) {
                                   <Followers
                                     followers={followers}
                                     followerCount={followerCount}
-                                    currentUser={true}
                                   />
                                   <br />
                                   <Following
                                     following={followings}
                                     followingCount={followingCount}
-                                    currentUser={true}
                                   />
                                 </Typography>
                               </CardContent>
@@ -574,13 +572,11 @@ function PublicProfilePage(props) {
                                 <Followers
                                   followers={followers}
                                   followerCount={followerCount}
-                                  currentUser={true}
                                 />
                                 <br />
                                 <Following
                                   following={followings}
                                   followingCount={followingCount}
-                                  currentUser={true}
                                 />
 
                                 {/* <ModalRoute
@@ -710,13 +706,11 @@ function PublicProfilePage(props) {
                                 <Followers
                                   followers={followers}
                                   followerCount={followerCount}
-                                  currentUser={true}
                                 />
                                 <br />
                                 <Following
                                   following={followings}
                                   followingCount={followingCount}
-                                  currentUser={true}
                                 />
                               </Typography>
                             </CardContent>
