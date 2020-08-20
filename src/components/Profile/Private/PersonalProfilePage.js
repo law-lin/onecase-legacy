@@ -111,9 +111,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "15px",
-
     maxWidth: "650px",
-    minHeight: "450px",
     backgroundColor: "#232323",
   },
   infoBox: {
@@ -741,7 +739,7 @@ function PersonalProfilePage(props) {
             <Container
               display="flex"
               flexDirection="column"
-              style={{ marginTop: "80px", height: "100vh" }}
+              style={{ margin: "80px 0" }}
             >
               <Box flex={1} justifyContent="center">
                 <Box
@@ -1039,66 +1037,56 @@ function PersonalProfilePage(props) {
                     </Box>
                   </Box>
                   {!checked && (
-                    <Box
-                      display="flex"
-                      flexDirection="column"
+                    <Container
                       className={classes.center}
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        padding: "16px",
+                      }}
                     >
-                      <Box display="flex" alignItems="center" j>
-                        <Box p={2}>
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card1"
-                            personal={true}
-                            size="small"
-                          />
-                        </Box>
-                        <Box p={2}>
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card2"
-                            personal={true}
-                            size="small"
-                          />
-                        </Box>
-                      </Box>
-                      <Box display="flex">
-                        <Box p={2}>
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card3"
-                            personal={true}
-                            size="small"
-                          />
-                        </Box>
-                        <Box p={2}>
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card4"
-                            personal={true}
-                            size="small"
-                          />
-                        </Box>
-                      </Box>
-                      <Box display="flex">
-                        <Box p={2}>
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card5"
-                            personal={true}
-                            size="small"
-                          />
-                        </Box>
-                        <Box p={2}>
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card6"
-                            personal={true}
-                            size="small"
-                          />
-                        </Box>
-                      </Box>
-                    </Box>
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card1"
+                        personal={true}
+                        size="small"
+                      />
+
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card2"
+                        personal={true}
+                        size="small"
+                      />
+
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card3"
+                        personal={true}
+                        size="small"
+                      />
+
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card4"
+                        personal={true}
+                        size="small"
+                      />
+
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card5"
+                        personal={true}
+                        size="small"
+                      />
+
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card6"
+                        personal={true}
+                        size="small"
+                      />
+                    </Container>
                   )}
                   {checked && (
                     <Container
@@ -1472,60 +1460,44 @@ function PersonalProfilePage(props) {
                       </Card>
                     </Box>
                   </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    className={classes.center}
-                  >
-                    <Box display="flex" alignItems="center" j>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card1"
-                          personal={true}
-                        />
-                      </Box>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card2"
-                          personal={true}
-                        />
-                      </Box>
+                  <Container className={classes.center}>
+                    <Box display="flex" p={1}>
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card1"
+                        personal={true}
+                      />
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card2"
+                        personal={true}
+                      />
                     </Box>
-                    <Box display="flex">
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card3"
-                          personal={true}
-                        />
-                      </Box>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card4"
-                          personal={true}
-                        />
-                      </Box>
+                    <Box display="flex" p={1}>
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card3"
+                        personal={true}
+                      />
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card4"
+                        personal={true}
+                      />
                     </Box>
-                    <Box display="flex">
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card5"
-                          personal={true}
-                        />
-                      </Box>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card6"
-                          personal={true}
-                        />
-                      </Box>
+                    <Box display="flex" p={1}>
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card5"
+                        personal={true}
+                      />
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card6"
+                        personal={true}
+                      />
                     </Box>
-                  </Box>
+                  </Container>
                 </Box>
               </Box>
               <Box justifyContent="center">
@@ -1895,60 +1867,44 @@ function PersonalProfilePage(props) {
                       </Card>
                     </Box>
                   </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    className={classes.center}
-                  >
-                    <Box display="flex" alignItems="center" j>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card1"
-                          personal={true}
-                        />
-                      </Box>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card2"
-                          personal={true}
-                        />
-                      </Box>
+                  <Container className={classes.center}>
+                    <Box display="flex" p={1}>
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card1"
+                        personal={true}
+                      />
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card2"
+                        personal={true}
+                      />
                     </Box>
-                    <Box display="flex">
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card3"
-                          personal={true}
-                        />
-                      </Box>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card4"
-                          personal={true}
-                        />
-                      </Box>
+                    <Box display="flex" p={1}>
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card3"
+                        personal={true}
+                      />
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card4"
+                        personal={true}
+                      />
                     </Box>
-                    <Box display="flex">
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card5"
-                          personal={true}
-                        />
-                      </Box>
-                      <Box p={2}>
-                        <ProfileCard
-                          username={username}
-                          cardNumber="card6"
-                          personal={true}
-                        />
-                      </Box>
+                    <Box display="flex" p={1}>
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card5"
+                        personal={true}
+                      />
+                      <ProfileCard
+                        username={username}
+                        cardNumber="card6"
+                        personal={true}
+                      />
                     </Box>
-                  </Box>
+                  </Container>
                 </Box>
               </Box>
               <Box flex={1} justifyContent="center">

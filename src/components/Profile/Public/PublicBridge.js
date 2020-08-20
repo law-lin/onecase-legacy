@@ -283,6 +283,143 @@ class PublicBridge extends Component {
             </Box>
           </Box>
         </MediaQuery>
+        <MediaQuery maxDeviceWidth={1114}>
+          <Navbar />
+          <Box display="flex" className={classes.container}>
+            <Box flex={1} justifyContent="center">
+              <LeftNavbar noText={true} />
+            </Box>
+            <Box flex={1} justifyContent="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                style={{ width: "700px" }}
+              >
+                <Grid
+                  container
+                  style={{ minHeight: "120px", maxHeight: "200px" }}
+                >
+                  <Grid container item xs={12} sm={4}>
+                    <BackButton username={this.state.username} />
+                  </Grid>
+                  <Grid container item xs={12} sm={4}>
+                    <Card className={classes.card}>{this.state.cardTitle}</Card>
+                  </Grid>
+                  <Grid container item xs={12} sm={4}></Grid>
+                </Grid>
+                {!this.state.cardNumberLoading && (
+                  <Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard1"
+                        />
+                      </Box>
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard2"
+                        />
+                      </Box>
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard3"
+                        />
+                      </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard4"
+                        />
+                      </Box>
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard5"
+                        />
+                      </Box>
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard6"
+                        />
+                      </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard7"
+                        />
+                      </Box>
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard8"
+                        />
+                      </Box>
+                      <Box m={2}>
+                        <BridgeCard
+                          userID={this.state.userID}
+                          username={this.state.username}
+                          cardNumber={this.state.cardNumber}
+                          bridgeCardNumber="bridgeCard9"
+                        />
+                      </Box>
+                    </Box>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+            <Box flex={1} justifyContent="center" pl={3}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                style={{ marginTop: "10px", width: "280px" }}
+              >
+                <Box style={{ textAlign: "center" }}>
+                  <UsernameButton
+                    display="block"
+                    username={this.state.username}
+                  />
+                  {!this.state.profilePictureLoading && (
+                    <ProfilePicture
+                      profilePicture={this.state.profilePicture}
+                    />
+                  )}
+                </Box>
+                <Box>
+                  {!this.state.notesLoading && (
+                    <NotesCard
+                      notes={this.state.notes}
+                      cardNumber={this.state.cardNumber}
+                    />
+                  )}
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </MediaQuery>
       </div>
     );
   }

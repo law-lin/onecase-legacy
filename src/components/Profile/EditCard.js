@@ -150,8 +150,11 @@ const useStyles = makeStyles({
     },
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    minHeight: "110px",
-    width: (props) => (props.size === "small" ? "150px" : "250px"),
+    minHeight: (props) => (props.size === "small" ? "90px" : "110px"),
+    // width: (props) => (props.size === "small" ? "175px" : "250px"),
+    minWidth: "180px",
+    maxWidth: "230px",
+    margin: "10px 10px",
     borderRadius: "20px",
   },
 });
@@ -218,7 +221,7 @@ function EditCard(props) {
     setError(null);
   };
   return (
-    <div>
+    <React.Fragment>
       {props.editable && (
         <Fragment>
           {props.display === "none" && (
@@ -424,7 +427,7 @@ function EditCard(props) {
           </Dialog>
         </Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

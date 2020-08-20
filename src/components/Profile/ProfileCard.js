@@ -12,7 +12,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
 
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
@@ -23,25 +23,37 @@ const useStyles = makeStyles({
   root: {
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    minHeight: "110px",
-    width: (props) => (props.size === "small" ? "200px" : "250px"),
+    minHeight: (props) => (props.size === "small" ? "90px" : "110px"),
+    minWidth: "180px",
+    maxWidth: "230px",
     borderRadius: "20px",
-    boxShadow: "none",
+    margin: "10px 10px",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   button: {
     "&:hover": {
       outline: "none",
       color: "#FFFFFF",
       backgroundColor: "#3E4E55",
+      textDecoration: "none",
     },
     "&:focus": {
       outline: "none",
     },
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    minHeight: "110px",
-    width: (props) => (props.size === "small" ? "150px" : "250px"),
+    minHeight: (props) => (props.size === "small" ? "90px" : "110px"),
+    minWidth: "180px",
+    maxWidth: "230px",
     borderRadius: "20px",
+    margin: "10px 10px",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   cardTitle: {
     fontFamily: ["Montserrat", "sans-serif"],
@@ -49,6 +61,15 @@ const useStyles = makeStyles({
     fontWeight: 800,
     textAlign: "center",
     overflowWrap: "break-word",
+  },
+  box: {
+    justifyContent: "center",
+    "@media (max-width: 350px)": {
+      flexBasis: "51%",
+    },
+    "@media (max-width: 768px)": {
+      flexBasis: "34%",
+    },
   },
 });
 
@@ -58,8 +79,6 @@ function ProfileCard(props) {
   const [loading, setLoading] = useState(false);
 
   const classes = useStyles(props);
-
-  console.log(props.size);
 
   useEffect(() => {
     setLoading(true);
@@ -94,23 +113,19 @@ function ProfileCard(props) {
   };
 
   return (
-    <div>
+    <Box display="flex" flex={1} flexBasis="34%" className={classes.box}>
       {!props.editable && cardTitle && (
         <Link
+          className={classes.button}
           href={
             "/" +
             props.match.params.username.toString() +
             "/" +
             cardTitle.split(" ").join("_")
           }
-          style={{ textDecoration: "none" }}
         >
-          <CardActionArea className={classes.button}>
-            <CardContent>
-              {loading && <div>Loading...</div>}
-              <Typography className={classes.cardTitle}>{cardTitle}</Typography>
-            </CardContent>
-          </CardActionArea>
+          {loading && <div>Loading...</div>}
+          <Typography className={classes.cardTitle}>{cardTitle}</Typography>
         </Link>
       )}
       {!props.editable && !cardTitle && props.personal && (
@@ -146,7 +161,7 @@ function ProfileCard(props) {
           </CardContent>
         </Card>
       )}
-    </div>
+    </Box>
   );
 }
 const CardLink = compose(withRouter, withFirebase)(ProfileCard);
