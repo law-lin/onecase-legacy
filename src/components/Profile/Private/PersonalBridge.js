@@ -84,8 +84,7 @@ class PersonalBridge extends Component {
   };
 
   handleDone = () => {
-    if (this.state.notes !== "")
-      this.props.firebase.editNotes(this.state.cardNumber, this.state.notes);
+    this.props.firebase.editNotes(this.state.cardNumber, this.state.notes);
     this.setState({
       editing: false,
       canSave: false,

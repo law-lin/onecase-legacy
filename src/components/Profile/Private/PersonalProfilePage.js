@@ -739,7 +739,7 @@ function PersonalProfilePage(props) {
             <Container
               display="flex"
               flexDirection="column"
-              style={{ margin: "80px 0" }}
+              style={{ margin: "80px 0", padding: "0 2px" }}
             >
               <Box flex={1} justifyContent="center">
                 <Box
@@ -1042,7 +1042,7 @@ function PersonalProfilePage(props) {
                       style={{
                         display: "flex",
                         flexWrap: "wrap",
-                        padding: "16px",
+                        padding: "0px",
                       }}
                     >
                       <ProfileCard

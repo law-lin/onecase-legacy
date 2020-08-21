@@ -46,8 +46,8 @@ const useStyles = makeStyles({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     minHeight: (props) => (props.size === "small" ? "90px" : "110px"),
-    minWidth: "180px",
-    maxWidth: "230px",
+    minWidth: (props) => (props.size === "small" ? "160px" : "180px"),
+    maxWidth: (props) => (props.size === "small" ? "170px" : "230px"),
     borderRadius: "20px",
     margin: "10px 10px",
     width: "100%",
@@ -57,19 +57,17 @@ const useStyles = makeStyles({
   },
   cardTitle: {
     fontFamily: ["Montserrat", "sans-serif"],
-    fontSize: "25px",
+    fontSize: (props) => (props.size === "small" ? "20px" : "25px"),
     fontWeight: 800,
     textAlign: "center",
     overflowWrap: "break-word",
   },
   box: {
     justifyContent: "center",
-    "@media (max-width: 350px)": {
+    "@media (max-width: 250px)": {
       flexBasis: "51%",
     },
-    "@media (max-width: 768px)": {
-      flexBasis: "34%",
-    },
+    flexBasis: "34%",
   },
 });
 
@@ -113,7 +111,7 @@ function ProfileCard(props) {
   };
 
   return (
-    <Box display="flex" flex={1} flexBasis="34%" className={classes.box}>
+    <Box display="flex" flex={1} className={classes.box}>
       {!props.editable && cardTitle && (
         <Link
           className={classes.button}
