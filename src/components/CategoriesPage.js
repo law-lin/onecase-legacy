@@ -107,7 +107,8 @@ function CategoriesPage(props) {
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
-  const { category } = useParams();
+  const category = useParams().category.toLowerCase();
+
   useEffect(() => {
     setLoading(true);
     setCards(
