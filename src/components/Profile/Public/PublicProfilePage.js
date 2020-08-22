@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import "../profile.css";
-
 import Navbar from "../../Navbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 import NotFound from "../../NotFound";
