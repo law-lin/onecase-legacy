@@ -100,6 +100,10 @@ const useStyles = makeStyles({
     fontSize: "20px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
   },
+  dateUpdated: {
+    fontSize: "15px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+  },
 });
 
 function CategoriesPage(props) {
@@ -129,13 +133,21 @@ function CategoriesPage(props) {
           "December",
         ];
         results.forEach((result) => {
-          const date = new Date(result[1].val().timeCreated);
+          const dateC = new Date(result[1].val().timeCreated);
+          const dateU = new Date(result[1].val().lastUpdated);
           const dateCreated =
-            monthNames[date.getMonth()] +
+            monthNames[dateC.getMonth()] +
             " " +
-            date.getDate() +
+            dateC.getDate() +
             ", " +
-            date.getFullYear();
+            dateC.getFullYear();
+          const dateUpdated =
+            monthNames[dateU.getMonth()] +
+            " " +
+            dateU.getDate() +
+            ", " +
+            dateU.getFullYear();
+
           let card = {
             userID: result[0].key,
             name: result[0].val().name,
@@ -146,7 +158,9 @@ function CategoriesPage(props) {
             caption: result[1].val().caption,
             description: result[1].val().description,
             timeCreated: result[1].val().timeCreated,
+            lastUpdated: result[1].val().lastUpdated,
             dateCreated: dateCreated,
+            dateUpdated: dateUpdated,
           };
           cards.push(card);
         });
@@ -224,9 +238,16 @@ function CategoriesPage(props) {
                               </Typography>
                             }
                             action={
-                              <Typography className={classes.date}>
-                                {card.dateCreated}
-                              </Typography>
+                              <React.Fragment>
+                                <Typography className={classes.date}>
+                                  {card.dateCreated}
+                                </Typography>
+                                {card.lastUpdated && (
+                                  <Typography className={classes.dateUpdated}>
+                                    Last Edited: {card.dateUpdated}
+                                  </Typography>
+                                )}
+                              </React.Fragment>
                             }
                           />
                           <CardContent
