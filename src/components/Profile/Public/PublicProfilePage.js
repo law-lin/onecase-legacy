@@ -386,11 +386,13 @@ function PublicProfilePage(props) {
                                   <Followers
                                     followers={followers}
                                     followerCount={followerCount}
+                                    currentUser={currentUser}
                                   />
                                   <br />
                                   <Following
                                     following={followings}
                                     followingCount={followingCount}
+                                    currentUser={currentUser}
                                   />
                                 </Typography>
                               </CardContent>
@@ -571,11 +573,13 @@ function PublicProfilePage(props) {
                                 <Followers
                                   followers={followers}
                                   followerCount={followerCount}
+                                  currentUser={currentUser}
                                 />
                                 <br />
                                 <Following
                                   following={followings}
                                   followingCount={followingCount}
+                                  currentUser={currentUser}
                                 />
 
                                 {/* <ModalRoute
@@ -700,16 +704,18 @@ function PublicProfilePage(props) {
                                 )}
                               </React.Fragment>
                             )}
-                            <CardContent>
+                            <CardContent style={{ padding: "28px 0 0 10px" }}>
                               <Typography className={classes.text}>
                                 <Followers
                                   followers={followers}
                                   followerCount={followerCount}
+                                  currentUser={currentUser}
                                 />
                                 <br />
                                 <Following
                                   following={followings}
                                   followingCount={followingCount}
+                                  currentUser={currentUser}
                                 />
                               </Typography>
                             </CardContent>
