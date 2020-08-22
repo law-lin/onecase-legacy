@@ -120,8 +120,13 @@ class Firebase {
       .startAt(queryText)
       .endAt(queryText + "\uf8ff");
 
-  bridgeCards = (userID, cardNumber, cardBridgeNumber) =>
-    this.db.ref(`users/${userID}/${cardNumber}/${cardBridgeNumber}`);
+  bridgeCardIDs = (userID, cardNumber, bridgeCardNumber) => {
+    return this.db.ref(`users/${userID}/${cardNumber}/${bridgeCardNumber}`);
+  };
+
+  bridgeCards = (cardID) => {
+    return this.db.ref(`bridgeCards/${cardID}`);
+  };
   // *** Edit Profile Functions (Setters) ***
 
   editUsername = (oldUsername, username) => {
@@ -193,22 +198,58 @@ class Firebase {
       linkURL,
     });
   };
-  editBridgeCard = (
+
+  createBridgeCard = (
     cardNumber,
     bridgeCardNumber,
     bridgeCardTitle,
+    category,
     caption,
     description
-  ) =>
+  ) => {
     this.db
       .ref(
         `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
       )
-      .update({
-        bridgeCardTitle,
-        caption,
-        description,
+      .once("value", (snapshot) => {
+        let oldCardID = snapshot.val();
+
+        this.db.ref(`bridgeCards/${oldCardID}`).remove();
+        this.db.ref(`${category.toLowerCase()}/${oldCardID}`).remove();
+
+        const cardID = this.db
+          .ref(`users/${this.auth.currentUser.uid}/${cardNumber}`)
+          .push()
+          .getKey();
+        this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
+          [bridgeCardNumber]: cardID,
+        });
+
+        this.db.ref(`bridgeCards/${cardID}`).update({
+          timeCreated: this.database.ServerValue.TIMESTAMP,
+          bridgeCardTitle,
+          caption,
+          description,
+        });
+
+        this.db.ref(`${category.toLowerCase()}`).update({
+          [cardID]: this.auth.currentUser.uid,
+        });
       });
+  };
+
+  editBridgeCard = (cardID, caption, description) => {
+    this.db.ref(`bridgeCards/${cardID}`).update({
+      lastUpdated: this.database.ServerValue.TIMESTAMP,
+      caption,
+      description,
+    });
+  };
+
+  deleteBridgeCard = (cardID, category) => {
+    this.db.ref(`bridgeCards/${cardID}`).remove();
+    this.db.ref(`${category.toLowerCase()}/${cardID}`).remove();
+  };
 
   uploadCardImage = (image) =>
     this.storage.ref(`card_images/${image.name}`).put(image);
@@ -226,8 +267,11 @@ class Firebase {
           .ref(
             `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
           )
-          .update({
-            cardImageURL,
+          .once("value", (snapshot) => {
+            let cardID = snapshot.val();
+            this.db.ref(`bridgeCards/${cardID}`).update({
+              cardImageURL,
+            });
           });
       });
   };
@@ -242,8 +286,11 @@ class Firebase {
           .ref(
             `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
           )
-          .update({
-            cardCoverImageURL,
+          .once("value", (snapshot) => {
+            let cardID = snapshot.val();
+            this.db.ref(`bridgeCards/${cardID}`).update({
+              cardCoverImageURL,
+            });
           });
       });
   };
@@ -298,6 +345,24 @@ class Firebase {
 
   checkFollowing = (followerID, followedID) => {
     return this.db.ref(`following/${followerID}/${followedID}`);
+  };
+
+  getCardsInCategory = (category) => {
+    return this.db
+      .ref(category.toLowerCase())
+      .once("value")
+      .then((snapshot) => {
+        var promises = [];
+        snapshot.forEach((snap) => {
+          var results = [];
+          results.push(
+            this.db.ref(`users/${snap.val()}`).once("value"),
+            this.db.ref(`bridgeCards/${snap.key}`).once("value")
+          );
+          promises.push(Promise.all(results));
+        });
+        return Promise.all(promises);
+      });
   };
 }
 

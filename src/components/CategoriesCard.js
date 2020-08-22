@@ -22,6 +22,7 @@ const useStyles = makeStyles({
     "&:hover": {
       outline: "none",
       textDecoration: "none",
+      color: "#ABABAB",
     },
     "&:focus": {
       outline: "none",
@@ -55,26 +56,38 @@ function CategoriesCard() {
         <Grid container spacing={3}>
           <Grid container item xs={12} spacing={2}>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button}>ok</Link>
+              <Link className={classes.button} href="/categories/Projects">
+                Projects
+              </Link>
             </Grid>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button}>ok</Link>
-            </Grid>
-          </Grid>
-          <Grid container item xs={12} spacing={2}>
-            <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button}>ok</Link>
-            </Grid>
-            <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button}>ok</Link>
+              <Link className={classes.button} href="/categories/Photography">
+                Photography
+              </Link>
             </Grid>
           </Grid>
           <Grid container item xs={12} spacing={2}>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button}>ok</Link>
+              <Link className={classes.button} href="/categories/Fun Stuff">
+                Fun Stuff
+              </Link>
             </Grid>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button}>ok</Link>
+              <Link className={classes.button} href="/categories/About Me">
+                About Me
+              </Link>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={2}>
+            <Grid item xs={6} className={classes.gridItem}>
+              <Link className={classes.button} href="/categories/Fashion">
+                Fashion
+              </Link>
+            </Grid>
+            <Grid item xs={6} className={classes.gridItem}>
+              <Link className={classes.button} href="/categories/Art">
+                Art
+              </Link>
             </Grid>
           </Grid>
         </Grid>

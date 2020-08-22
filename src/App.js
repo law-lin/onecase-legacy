@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import AdminPage from "./components/AdminPage";
 import FeedPage from "./components/FeedPage";
+import CategoriesPage from "./components/CategoriesPage";
 import ExhibitionsPage from "./components/ExhibitionsPage";
 import SearchResultsPage from "./components/SearchResults";
 import Bridge from "./components/Profile/Bridge";
@@ -24,7 +25,11 @@ class App extends Component {
         <Switch>
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
           {/* <Route exact path={ROUTES.LANDING} component={EarlyAccessLandingPage} /> */}
-
+          <Route
+            exact
+            path="/categories/:category"
+            component={CategoriesPage}
+          />
           <Route exact path={ROUTES.WELCOME} component={WelcomePage} />
           <Route exact path={ROUTES.FEED} component={FeedPage} />
           <Route exact path={ROUTES.EXHIBITIONS} component={ExhibitionsPage} />

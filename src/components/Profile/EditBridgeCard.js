@@ -24,6 +24,7 @@ import { v4 as uuidv4 } from "uuid";
 import Cropper from "react-easy-crop";
 import { getOrientation } from "get-orientation/browser";
 import { getCroppedImg, getRotatedImage } from "../canvasUtils";
+import { useParams } from "react-router-dom";
 // Icons
 
 const useStyles = makeStyles({
@@ -34,6 +35,17 @@ const useStyles = makeStyles({
   },
   content: {
     overflow: "hidden hidden",
+  },
+  title: {
+    backgroundColor: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 700,
+    fontSize: "25px",
+    marginTop: "8px",
+    padding: "0 28px",
+    borderRadius: "8px",
+    textAlign: "center",
+    width: "350px",
   },
   input: {
     fontSize: "36px",
@@ -224,17 +236,8 @@ function EditBridgeCard(props) {
 
   const [coverImagePreview, setCoverImagePreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  // state = {
-  //   name: "",
-  //   open: false,
-  //   cardNumber: null,
-  //   cardImage: null,
-  //   bridgeCardNumber: null,
-  //   bridgeCardTitle: null,
-  //   description: "",
-  //   imageLoading: true,
-  //   imagePreviewURL: null,
-  // };
+
+  let { cardTitle } = useParams();
 
   const handleOpen = () => {
     setOpen(true);
@@ -343,70 +346,80 @@ function EditBridgeCard(props) {
     if (bridgeCardTitle === "" || bridgeCardTitle === null) {
       setAlert(true);
     } else {
-      props.firebase.editBridgeCard(
-        props.cardNumber,
-        props.bridgeCardNumber,
-        bridgeCardTitle,
-        caption,
-        description
-      );
-
-      if (imagePreview != null) {
-        let blob = await fetch(imagePreview).then((r) => r.blob());
-        let uuid = uuidv4();
-        let file = new File([blob], uuid);
-
-        props.firebase.uploadCardImage(file).on(
-          "state_changed",
-          (snapshot) => {
-            // progress function ...
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-          },
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            props.firebase.uploadCardImageURL(
-              props.cardNumber,
-              props.bridgeCardNumber,
-              file
-            );
-            handleClose();
-          }
+      if (props.bridgeCardTitle) {
+        props.firebase.editBridgeCard(props.cardID, caption, description);
+      } else {
+        props.firebase.createBridgeCard(
+          props.cardNumber,
+          props.bridgeCardNumber,
+          bridgeCardTitle,
+          cardTitle,
+          caption,
+          description
         );
-      }
 
-      if (coverImagePreview != null) {
-        let blob = await fetch(coverImagePreview).then((r) => r.blob());
-        let uuid = uuidv4();
-        let file = new File([blob], uuid);
+        if (imagePreview != null) {
+          let blob = await fetch(imagePreview).then((r) => r.blob());
+          let uuid = uuidv4();
+          let file = new File([blob], uuid);
 
-        props.firebase.uploadCardCoverImage(file).on(
-          "state_changed",
-          (snapshot) => {
-            // progress function ...
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-          },
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            props.firebase.uploadCardCoverImageURL(
-              props.cardNumber,
-              props.bridgeCardNumber,
-              file
-            );
-            handleClose();
-          }
-        );
+          props.firebase.uploadCardImage(file).on(
+            "state_changed",
+            (snapshot) => {
+              // progress function ...
+              const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              );
+            },
+            (error) => {
+              console.log(error);
+            },
+            () => {
+              props.firebase.uploadCardImageURL(
+                props.cardNumber,
+                props.bridgeCardNumber,
+                file
+              );
+              handleClose();
+            }
+          );
+        }
+
+        if (coverImagePreview != null) {
+          let blob = await fetch(coverImagePreview).then((r) => r.blob());
+          let uuid = uuidv4();
+          let file = new File([blob], uuid);
+
+          props.firebase.uploadCardCoverImage(file).on(
+            "state_changed",
+            (snapshot) => {
+              // progress function ...
+              const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              );
+            },
+            (error) => {
+              console.log(error);
+            },
+            () => {
+              props.firebase.uploadCardCoverImageURL(
+                props.cardNumber,
+                props.bridgeCardNumber,
+                file
+              );
+              handleClose();
+            }
+          );
+        }
       }
       handleClose();
     }
   });
+
+  const handleDelete = () => {
+    props.firebase.deleteBridgeCard(props.cardID, cardTitle);
+    handleClose();
+  };
 
   const CHARACTER_LIMIT = 600;
   const fileUpload = useRef(null);
@@ -445,31 +458,43 @@ function EditBridgeCard(props) {
             }}
           >
             <DialogTitle>
-              <TextField
-                name="bridgeCardTitle"
-                type="text"
-                placeholder="Ex: Amazing Art, Vivid Views"
-                InputProps={{
-                  className: classes.input,
-                  disableUnderline: true,
-                }}
-                multiline
-                rows={1}
-                rowsMax={2}
-                styles={{ height: 500 }}
-                defaultValue={props.bridgeCardTitle}
-                onChange={(e) => setBridgeCardTitle(e.target.value)}
-                fullWidth
-              />
-              <Snackbar
-                open={alert}
-                autoHideDuration={6000}
-                onClose={handleAlertClose}
-              >
-                <MuiAlert onClose={handleAlertClose} severity="error">
-                  The bridge card title cannot be empty!
-                </MuiAlert>
-              </Snackbar>
+              {props.bridgeCardTitle && (
+                <React.Fragment>
+                  <Typography className={classes.title}>
+                    {props.bridgeCardTitle}
+                  </Typography>
+                  <Button onClick={handleDelete}>Delete</Button>
+                </React.Fragment>
+              )}
+              {!props.bridgeCardTitle && (
+                <React.Fragment>
+                  <TextField
+                    name="bridgeCardTitle"
+                    type="text"
+                    placeholder="Ex: Amazing Art, Vivid Views"
+                    InputProps={{
+                      className: classes.input,
+                      disableUnderline: true,
+                    }}
+                    multiline
+                    rows={1}
+                    rowsMax={2}
+                    styles={{ height: 500 }}
+                    defaultValue={props.bridgeCardTitle}
+                    onChange={(e) => setBridgeCardTitle(e.target.value)}
+                    fullWidth
+                  />
+                  <Snackbar
+                    open={alert}
+                    autoHideDuration={6000}
+                    onClose={handleAlertClose}
+                  >
+                    <MuiAlert onClose={handleAlertClose} severity="error">
+                      The bridge card title cannot be empty!
+                    </MuiAlert>
+                  </Snackbar>
+                </React.Fragment>
+              )}
             </DialogTitle>
             <DialogContent className={classes.content} dividers>
               <Box display="flex">
@@ -481,38 +506,31 @@ function EditBridgeCard(props) {
                       style={{ display: "none" }}
                       onChange={handleCoverImageChange}
                     />
-                    {props.cardCoverImageURL && !coverImagePreview && (
-                      <IconButton
-                        onClick={() => coverImageUpload.current.click()}
-                      >
-                        <CameraAltIcon />
-                        <img
-                          style={{ height: "100%", width: "100%" }}
-                          src={props.cardCoverImageURL}
-                          alt="preview bridge card img"
-                        />
-                      </IconButton>
+                    {!props.bridgeCardTitle && (
+                      <React.Fragment>
+                        {!coverImagePreview && (
+                          <IconButton
+                            className={classes.imageUpload}
+                            onClick={() => coverImageUpload.current.click()}
+                          >
+                            Select Cover Image
+                          </IconButton>
+                        )}
+                        {coverImagePreview && (
+                          <IconButton
+                            className={classes.imageUpload}
+                            onClick={() => coverImageUpload.current.click()}
+                          >
+                            <img
+                              style={{ height: "100%", width: "100%" }}
+                              src={coverImagePreview}
+                              alt="preview bridge card img"
+                            />
+                          </IconButton>
+                        )}
+                      </React.Fragment>
                     )}
-                    {!props.cardCoverImageURL && !coverImagePreview && (
-                      <IconButton
-                        className={classes.imageUpload}
-                        onClick={() => coverImageUpload.current.click()}
-                      >
-                        Select Cover Image
-                      </IconButton>
-                    )}
-                    {coverImagePreview && (
-                      <IconButton
-                        className={classes.imageUpload}
-                        onClick={() => coverImageUpload.current.click()}
-                      >
-                        <img
-                          style={{ height: "100%", width: "100%" }}
-                          src={coverImagePreview}
-                          alt="preview bridge card img"
-                        />
-                      </IconButton>
-                    )}
+
                     <Dialog
                       open={coverImageOpen}
                       onClose={handleClose}
@@ -587,87 +605,71 @@ function EditBridgeCard(props) {
                   </Box>
                   <Box>
                     <React.Fragment>
-                      {!imagePreview && !props.cardImageURL && (
-                        <Grid
-                          container
-                          justify="center"
-                          alignItems="center"
-                          style={{
-                            backgroundColor: "#C4C4C4",
-                            height: "500px",
-                            width: "500px",
-                          }}
-                        >
-                          <input
-                            type="file"
-                            ref={fileUpload}
-                            style={{ display: "none" }}
-                            onChange={handleImageChange}
-                          />
-                          <IconButton
-                            className={classes.imageUpload}
-                            onClick={() => fileUpload.current.click()}
-                          >
-                            <CameraAltIcon />
-                          </IconButton>
-                        </Grid>
+                      {props.bridgeCardTitle && props.cardImageURL && (
+                        <img
+                          style={{ height: "500px", width: "500px" }}
+                          src={props.cardImageURL}
+                          alt="preview bridge card img"
+                        />
                       )}
-                      {!imagePreview && props.cardImageURL && (
-                        <Grid
-                          container
-                          justify="center"
-                          alignItems="center"
-                          style={{
-                            height: "500px",
-                            width: "500px",
-                          }}
-                        >
-                          <input
-                            type="file"
-                            ref={fileUpload}
-                            style={{ display: "none" }}
-                            onChange={handleImageChange}
-                          />
-                          <IconButton
-                            className={classes.imageUpload}
-                            onClick={() => fileUpload.current.click()}
-                          >
-                            <img
-                              style={{ height: "500px", width: "500px" }}
-                              src={props.cardImageURL}
-                              alt="preview bridge card img"
-                            />
-                          </IconButton>
-                        </Grid>
+                      {!props.bridgeCardTitle && (
+                        <React.Fragment>
+                          {!imagePreview && (
+                            <Grid
+                              container
+                              justify="center"
+                              alignItems="center"
+                              style={{
+                                backgroundColor: "#C4C4C4",
+                                height: "500px",
+                                width: "500px",
+                              }}
+                            >
+                              <input
+                                type="file"
+                                ref={fileUpload}
+                                style={{ display: "none" }}
+                                onChange={handleImageChange}
+                              />
+                              <IconButton
+                                className={classes.imageUpload}
+                                onClick={() => fileUpload.current.click()}
+                              >
+                                <CameraAltIcon />
+                              </IconButton>
+                            </Grid>
+                          )}
+                          {imagePreview && (
+                            <Grid
+                              container
+                              justify="center"
+                              alignItems="center"
+                              style={{
+                                height: "500px",
+                                width: "500px",
+                              }}
+                            >
+                              <input
+                                type="file"
+                                ref={fileUpload}
+                                style={{ display: "none" }}
+                                onChange={handleImageChange}
+                              />
+                              <IconButton
+                                className={classes.imageUpload}
+                                onClick={() => fileUpload.current.click()}
+                              >
+                                <img
+                                  style={{ height: "500px", width: "500px" }}
+                                  src={imagePreview}
+                                  alt="preview bridge card img"
+                                />
+                              </IconButton>
+                            </Grid>
+                          )}
+                        </React.Fragment>
                       )}
-                      {imagePreview && (
-                        <Grid
-                          container
-                          justify="center"
-                          alignItems="center"
-                          style={{
-                            height: "500px",
-                            width: "500px",
-                          }}
-                        >
-                          <input
-                            type="file"
-                            ref={fileUpload}
-                            style={{ display: "none" }}
-                            onChange={handleImageChange}
-                          />
-                          <IconButton
-                            className={classes.imageUpload}
-                            onClick={() => fileUpload.current.click()}
-                          >
-                            <img
-                              style={{ height: "500px", width: "500px" }}
-                              src={imagePreview}
-                              alt="preview bridge card img"
-                            />
-                          </IconButton>
-                        </Grid>
-                      )}
+
                       <Dialog
                         open={imageOpen}
                         onClose={handleClose}

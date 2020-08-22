@@ -132,32 +132,63 @@ class BridgeCard extends Component {
 
     this.setState({ parentCardTitle, loading: true });
     if (this.state.userID == null || this.state.cardTitle == null) {
-      this.props.firebase
-        .bridgeCards(
-          this.props.userID,
-          this.props.cardNumber,
-          this.props.bridgeCardNumber
-        )
-        .on("value", (snapshot) => {
-          const state = snapshot.val();
-
-          if (state) {
-            this.setState({
-              bridgeCardTitle: state.bridgeCardTitle,
-              caption: state.caption,
-              description: state.description,
-              cardCoverImageURL: state.cardCoverImageURL,
-              cardImageURL: state.cardImageURL,
-              loading: false,
-            });
-          } else {
-            this.setState({
-              bridgeCardTitle: null,
-              cardImageURL: null,
-              loading: false,
-            });
-          }
-        });
+      if (this.props.cardID) {
+        this.props.firebase
+          .bridgeCards(this.props.cardID)
+          .on("value", (snapshot) => {
+            const state = snapshot.val();
+            console.log(state);
+            if (state) {
+              this.setState({
+                cardID: snapshot.key,
+                bridgeCardTitle: state.bridgeCardTitle,
+                caption: state.caption,
+                description: state.description,
+                cardCoverImageURL: state.cardCoverImageURL,
+                cardImageURL: state.cardImageURL,
+                loading: false,
+              });
+            } else {
+              this.setState({
+                bridgeCardTitle: null,
+                cardImageURL: null,
+                loading: false,
+              });
+            }
+          });
+      } else {
+        this.props.firebase
+          .bridgeCardIDs(
+            this.props.userID,
+            this.props.cardNumber,
+            this.props.bridgeCardNumber
+          )
+          .on("value", (snapshot) => {
+            const cardID = snapshot.val();
+            this.props.firebase
+              .bridgeCards(cardID)
+              .once("value", (snapshot) => {
+                const state = snapshot.val();
+                if (state) {
+                  this.setState({
+                    cardID: snapshot.key,
+                    bridgeCardTitle: state.bridgeCardTitle,
+                    caption: state.caption,
+                    description: state.description,
+                    cardCoverImageURL: state.cardCoverImageURL,
+                    cardImageURL: state.cardImageURL,
+                    loading: false,
+                  });
+                } else {
+                  this.setState({
+                    bridgeCardTitle: null,
+                    cardImageURL: null,
+                    loading: false,
+                  });
+                }
+              });
+          });
+      }
     }
   }
 
@@ -289,7 +320,9 @@ class BridgeCard extends Component {
           {!this.props.editable && !bridgeCardTitle && this.props.personal && (
             <EditBridgeCard
               display="none"
+              cardID={this.state.cardID}
               bridgeCardTitle={bridgeCardTitle}
+              category={this.state.cardTitle}
               caption={caption}
               description={description}
               cardImageURL={cardImageURL}
@@ -316,7 +349,9 @@ class BridgeCard extends Component {
                 style={{ padding: "16px 16px 0 0", height: "0px" }}
                 action={
                   <EditBridgeCard
+                    cardID={this.state.cardID}
                     bridgeCardTitle={bridgeCardTitle}
+                    category={this.state.cardTitle}
                     caption={caption}
                     description={description}
                     cardCoverImageURL={cardCoverImageURL}
@@ -429,7 +464,9 @@ class BridgeCard extends Component {
           {!this.props.editable && !bridgeCardTitle && this.props.personal && (
             <EditBridgeCard
               display="none"
+              cardID={this.state.cardID}
               bridgeCardTitle={bridgeCardTitle}
+              category={this.state.cardTitle}
               caption={caption}
               description={description}
               cardImageURL={cardImageURL}
@@ -456,7 +493,9 @@ class BridgeCard extends Component {
                 style={{ padding: "16px 16px 0 0", height: "0px" }}
                 action={
                   <EditBridgeCard
+                    cardID={this.state.cardID}
                     bridgeCardTitle={bridgeCardTitle}
+                    category={this.state.cardTitle}
                     caption={caption}
                     description={description}
                     cardCoverImageURL={cardCoverImageURL}
