@@ -239,6 +239,9 @@ class Firebase {
         this.db.ref(`${category.toLowerCase()}`).update({
           [cardID]: this.auth.currentUser.uid,
         });
+        this.db
+          .ref(`categories/${category.toLowerCase()}`)
+          .set(this.database.ServerValue.increment(1));
       });
   };
 
@@ -260,8 +263,14 @@ class Firebase {
     this.db.ref(`bridgeCards/${cardID}`).remove();
     this.db.ref(`${category.toLowerCase()}/${cardID}`).remove();
     this.db.ref(`users/${userID}/${cardNumber}/${bridgeCardNumber}`).remove();
+    this.db
+      .ref(`categories/${category.toLowerCase()}`)
+      .set(this.database.ServerValue.increment(-1));
   };
 
+  getTrendingCategories = () => {
+    return this.db.ref(`categories`).orderByValue().limitToLast(6);
+  };
   uploadCardImage = (image) =>
     this.storage.ref(`card_images/${image.name}`).put(image);
 

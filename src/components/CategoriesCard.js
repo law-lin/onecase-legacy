@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import Link from "@material-ui/core/Link";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 
+import { withFirebase } from "./Firebase";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -47,8 +48,21 @@ const useStyles = makeStyles({
   },
 });
 
-function CategoriesCard() {
+function CategoriesCard(props) {
   const classes = useStyles();
+
+  const [trendingCategories, setTrendingCategories] = useState([]);
+
+  useEffect(() => {
+    props.firebase.getTrendingCategories().on("value", (snapshot) => {
+      var results = [];
+      for (var i in snapshot.val()) {
+        results.push(i);
+      }
+      setTrendingCategories(results);
+    });
+  }, []);
+
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -56,38 +70,68 @@ function CategoriesCard() {
         <Grid container spacing={3}>
           <Grid container item xs={12} spacing={2}>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button} href="/categories/Projects">
-                Projects
-              </Link>
+              {trendingCategories[0] && (
+                <Link
+                  className={classes.button}
+                  href={`/categories/${trendingCategories[0]}`}
+                >
+                  {trendingCategories[0]}
+                </Link>
+              )}
             </Grid>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button} href="/categories/Photography">
-                Photography
-              </Link>
-            </Grid>
-          </Grid>
-          <Grid container item xs={12} spacing={2}>
-            <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button} href="/categories/Fun Stuff">
-                Fun Stuff
-              </Link>
-            </Grid>
-            <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button} href="/categories/About Me">
-                About Me
-              </Link>
+              {trendingCategories[1] && (
+                <Link
+                  className={classes.button}
+                  href={`/categories/${trendingCategories[1]}`}
+                >
+                  {trendingCategories[1]}
+                </Link>
+              )}
             </Grid>
           </Grid>
           <Grid container item xs={12} spacing={2}>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button} href="/categories/Fashion">
-                Fashion
-              </Link>
+              {trendingCategories[2] && (
+                <Link
+                  className={classes.button}
+                  href={`/categories/${trendingCategories[2]}`}
+                >
+                  {trendingCategories[2]}
+                </Link>
+              )}
             </Grid>
             <Grid item xs={6} className={classes.gridItem}>
-              <Link className={classes.button} href="/categories/Art">
-                Art
-              </Link>
+              {trendingCategories[3] && (
+                <Link
+                  className={classes.button}
+                  href={`/categories/${trendingCategories[3]}`}
+                >
+                  {trendingCategories[3]}
+                </Link>
+              )}
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} spacing={2}>
+            <Grid item xs={6} className={classes.gridItem}>
+              {trendingCategories[4] && (
+                <Link
+                  className={classes.button}
+                  href={`/categories/${trendingCategories[4]}`}
+                >
+                  {trendingCategories[4]}
+                </Link>
+              )}
+            </Grid>
+            <Grid item xs={6} className={classes.gridItem}>
+              {trendingCategories[5] && (
+                <Link
+                  className={classes.button}
+                  href={`/categories/${trendingCategories[5]}`}
+                >
+                  {trendingCategories[5]}
+                </Link>
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -96,4 +140,4 @@ function CategoriesCard() {
   );
 }
 
-export default CategoriesCard;
+export default withFirebase(CategoriesCard);

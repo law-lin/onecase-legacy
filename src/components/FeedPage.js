@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import { withAuthorization } from "./Session";
 import LeftNavbar from "./LeftNavbar";
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-function FeedPage() {
+function FeedPage(props) {
   const classes = useStyles();
 
   return (
