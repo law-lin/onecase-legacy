@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 
 import "../profile.css";
 import Navbar from "../../Navbar";
@@ -18,11 +18,11 @@ import EditCard from "../EditCard";
 import Card from "@material-ui/core/Card";
 
 import Username from "../Username";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { withAuthorization } from "../../Session";
 import NotesCard from "../NotesCard";
 
-const styles = () => ({
+const useStyles = makeStyles({
   root: {
     "&:hover": {
       outline: "none",
@@ -52,137 +52,70 @@ const styles = () => ({
   },
 });
 
-class PersonalBridge extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userID: null,
-      username: null,
-      profilePicture: null,
-      oldCardTitle: null,
-      cardTitle: null,
-      cardNumber: null,
-      notes: "",
-      userIDLoading: true,
-      cardNumberLoading: true,
-      profilePictureLoading: true,
-    };
-  }
+function PersonalBridge(props) {
+  const [username, setUsername] = useState(null);
+  const [userID, setUserID] = useState(null);
+  const [notes, setNotes] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [oldCardTitle, setOldCardTitle] = useState(null);
+  const [cardTitle, setCardTitle] = useState(null);
+  const [cardNumber, setCardNumber] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  onNotesChange = (value) => {
-    this.setState({
-      notes: value,
-    });
+  const classes = useStyles();
+
+  const onNotesChange = (value) => {
+    setNotes(value);
   };
 
-  handleEdit = () => {
-    this.setState({
-      editing: true,
-      canSave: true,
-      canCancel: true,
-    });
+  const handleEdit = () => {
+    setEditing(true);
   };
 
-  handleDone = () => {
-    this.props.firebase.editNotes(this.state.cardNumber, this.state.notes);
-    this.setState({
-      editing: false,
-      canSave: false,
-      canCancel: false,
-    });
+  const handleDone = () => {
+    props.firebase.editNotes(cardNumber, notes);
+    setEditing(false);
   };
 
-  componentDidMount() {
-    if (
-      this.state.cardNumberLoading &&
-      this.state.userIDLoading &&
-      this.state.profilePictureLoading &&
-      (this.state.userID == null || this.state.cardNumber == null)
-    ) {
-      const username = this.props.match.params.username
-        .toString()
-        .toLowerCase();
-      const cardTitle = this.props.match.params.cardTitle;
+  useEffect(() => {
+    const username = props.match.params.username.toString().toLowerCase();
+    const cardTitle = props.match.params.cardTitle;
 
-      const modifiedCardTitle = cardTitle.replace(/_/g, " ");
-      if (cardTitle)
-        this.setState({
-          oldCardTitle: modifiedCardTitle,
-          cardTitle: modifiedCardTitle,
-        });
-      this.props.firebase
-        .getIDWithUsername(username)
-        .on("value", (snapshot) => {
-          const userIDState = snapshot.val();
-          if (userIDState) {
-            this.setState({
-              userID: userIDState,
-              userIDLoading: false,
-            });
+    const modifiedCardTitle = cardTitle.replace(/_/g, " ");
+    if (cardTitle) setOldCardTitle(modifiedCardTitle);
+    setCardTitle(modifiedCardTitle);
 
-            this.props.firebase
-              .getCardNumberWithCardTitle(userIDState, cardTitle)
-              .on("value", (snapshot) => {
+    props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+      const uid = snapshot.val();
+      if (uid) {
+        setUserID(uid);
+        props.firebase
+          .getCardNumberWithCardTitle(uid, cardTitle)
+          .on("value", (snapshot) => {
+            const cn = snapshot.val();
+            if (cn) {
+              setCardNumber(cn);
+              props.firebase.user(uid).on("value", (snapshot) => {
                 const state = snapshot.val();
                 if (state) {
-                  this.setState({
-                    cardNumber: state,
-                    cardNumberLoading: false,
-                  });
-                  this.props.firebase
-                    .cards(userIDState, state)
-                    .on("value", (snapshot) => {
-                      const state = snapshot.val();
-                      if (state.notes) {
-                        this.setState({
-                          notes: state.notes,
-                          notesLoading: false,
-                        });
-                      } else {
-                        this.setState({
-                          notes: "",
-                          notesLoading: false,
-                        });
-                      }
-                    });
-                } else {
-                  this.setState({
-                    cardNumber: null,
-                    cardNumberLoading: false,
-                  });
+                  console.log(state.profilePicture);
+                  setUsername(state.username);
+                  setProfilePicture(state.profilePicture);
+                  setLoading(false);
+                  setNotes(state[cn].notes);
                 }
+                setLoading(false);
               });
-            this.props.firebase.user(userIDState).on("value", (snapshot) => {
-              const state = snapshot.val();
-              if (state) {
-                console.log(state.profilePicture);
-                this.setState({
-                  username: state.username,
-                  profilePicture: state.profilePicture,
-                  profilePictureLoading: false,
-                });
-              } else {
-                this.setState({
-                  username: "",
-                  profilePicture: DefaultProfilePicture,
-                  profilePictureLoading: false,
-                });
-              }
-            });
-          } else {
-            this.setState({
-              userID: null,
-              userIDLoading: false,
-            });
-          }
-        });
-    }
-  }
+            }
+          });
+      }
+    });
+  }, [props.firebase]);
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className="bg">
+  return (
+    <div className="bg">
+      {!loading && (
         <MediaQuery minDeviceWidth={1}>
           <Navbar />
           <Box display="flex" className={classes.container}>
@@ -200,7 +133,7 @@ class PersonalBridge extends Component {
                   style={{ minHeight: "120px", maxHeight: "200px" }}
                 >
                   <Grid container item xs={12} sm={4}>
-                    <BackButton username={this.state.username} />
+                    <BackButton username={username} />
                   </Grid>
                   <Grid container item xs={12} sm={4}>
                     <Card
@@ -219,16 +152,14 @@ class PersonalBridge extends Component {
                         justifyContent: "center",
                       }}
                     >
-                      {!this.state.editing && (
-                        <span>{this.state.cardTitle}</span>
-                      )}
-                      {this.state.editing && (
+                      {!editing && <span>{cardTitle}</span>}
+                      {editing && (
                         <EditCard
                           display="none"
-                          username={this.state.username}
-                          oldCardTitle={this.state.oldCardTitle}
-                          cardTitle={this.state.cardTitle}
-                          cardNumber={this.state.cardNumber}
+                          username={username}
+                          oldCardTitle={oldCardTitle}
+                          cardTitle={cardTitle}
+                          cardNumber={cardNumber}
                           bridge={true}
                           editable={true}
                         />
@@ -236,124 +167,117 @@ class PersonalBridge extends Component {
                     </Card>
                   </Grid>
                   <Grid container item xs={12} sm={4}>
-                    {!this.state.editing && (
-                      <Button
-                        className={classes.root}
-                        onClick={this.handleEdit}
-                      >
+                    {!editing && (
+                      <Button className={classes.root} onClick={handleEdit}>
                         Edit
                       </Button>
                     )}
-                    {this.state.editing && (
-                      <Button
-                        className={classes.root}
-                        onClick={this.handleDone}
-                      >
+                    {editing && (
+                      <Button className={classes.root} onClick={handleDone}>
                         Done
                       </Button>
                     )}
                   </Grid>
                 </Grid>
-                {!this.state.cardNumberLoading && (
-                  <Box>
-                    <Box display="flex" flexDirection="row">
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard1"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard2"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard3"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
+
+                <Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard1"
+                        editable={editing}
+                        personal={true}
+                      />
                     </Box>
-                    <Box display="flex" flexDirection="row">
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard4"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard5"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard6"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard2"
+                        editable={editing}
+                        personal={true}
+                      />
                     </Box>
-                    <Box display="flex" flexDirection="row">
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard7"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard8"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={2}>
-                        <BridgeCard
-                          userID={this.state.userID}
-                          username={this.state.username}
-                          cardNumber={this.state.cardNumber}
-                          bridgeCardNumber="bridgeCard9"
-                          editable={this.state.editing}
-                          personal={true}
-                        />
-                      </Box>
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard3"
+                        editable={editing}
+                        personal={true}
+                      />
                     </Box>
                   </Box>
-                )}
+                  <Box display="flex" flexDirection="row">
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard4"
+                        editable={editing}
+                        personal={true}
+                      />
+                    </Box>
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard5"
+                        editable={editing}
+                        personal={true}
+                      />
+                    </Box>
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard6"
+                        editable={editing}
+                        personal={true}
+                      />
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard7"
+                        editable={editing}
+                        personal={true}
+                      />
+                    </Box>
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard8"
+                        editable={editing}
+                        personal={true}
+                      />
+                    </Box>
+                    <Box m={2}>
+                      <BridgeCard
+                        userID={userID}
+                        username={username}
+                        cardNumber={cardNumber}
+                        bridgeCardNumber="bridgeCard9"
+                        editable={editing}
+                        personal={true}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
             </Box>
             <Box flex={1} justifyContent="center" pl={3}>
@@ -363,35 +287,26 @@ class PersonalBridge extends Component {
                 style={{ marginTop: "10px", width: "280px" }}
               >
                 <Box style={{ textAlign: "center" }}>
-                  <UsernameButton
-                    display="block"
-                    username={this.state.username}
-                  />
-                  {!this.state.profilePictureLoading && (
-                    <ProfilePicture
-                      profilePicture={this.state.profilePicture}
-                    />
-                  )}
+                  <UsernameButton display="block" username={username} />
+                  <ProfilePicture profilePicture={profilePicture} />
                 </Box>
                 <Box>
-                  {!this.state.notesLoading && (
-                    <NotesCard
-                      notes={this.state.notes}
-                      cardNumber={this.state.cardNumber}
-                      editable={this.state.editing}
-                      personal={true}
-                      onChange={this.onNotesChange}
-                    />
-                  )}
+                  <NotesCard
+                    notes={notes}
+                    cardNumber={cardNumber}
+                    editable={editing}
+                    personal={true}
+                    onChange={onNotesChange}
+                  />
                 </Box>
               </Box>
             </Box>
           </Box>
         </MediaQuery>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 }
 const condition = (authenticated) => !!authenticated;
 
-export default withAuthorization(condition)(withStyles(styles)(PersonalBridge));
+export default withAuthorization(condition)(PersonalBridge);

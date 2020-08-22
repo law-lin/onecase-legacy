@@ -9,6 +9,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+
+import DeleteIcon from "@material-ui/icons/Delete";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -275,7 +277,7 @@ function EditBridgeCard(props) {
       console.error(e);
       setCoverImageOpen(false);
     }
-  }, [imageSrc, croppedAreaPixels, rotation]);
+  }, [croppedAreaPixels, rotation, coverImageSrc]);
 
   const handleImageClose = () => {
     setImageOpen(false);
@@ -463,7 +465,9 @@ function EditBridgeCard(props) {
                   <Typography className={classes.title}>
                     {props.bridgeCardTitle}
                   </Typography>
-                  <Button onClick={handleDelete}>Delete</Button>
+                  <IconButton onClick={handleDelete}>
+                    <DeleteIcon style={{ color: "white" }} />
+                  </IconButton>
                 </React.Fragment>
               )}
               {!props.bridgeCardTitle && (
