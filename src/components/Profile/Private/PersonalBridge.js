@@ -99,7 +99,6 @@ function PersonalBridge(props) {
               props.firebase.user(uid).on("value", (snapshot) => {
                 const state = snapshot.val();
                 if (state) {
-                  console.log(state.profilePicture);
                   setUsername(state.username);
                   setProfilePicture(state.profilePicture);
                   setLoading(false);

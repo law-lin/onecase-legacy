@@ -303,140 +303,138 @@ function PersonalProfilePage(props) {
   useEffect(() => {
     let username = props.match.params.username.toString().toLowerCase();
 
-    if (!loading) {
-      setLoading(true);
-      props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
-        const userIDState = snapshot.val();
-        if (userIDState) {
-          setUserID(userIDState);
-          props.firebase.user(userIDState).on("value", (snapshot) => {
-            const state = snapshot.val();
-            if (state) {
-              setOldName(state.name);
-              setName(state.name);
-              setOldUsername(state.username);
-              setUsername(state.username);
-              setOldBio(state.bio);
-              setBio(state.bio);
-              setOldProfilePicture(state.profilePicture);
-              setProfilePicture(state.profilePicture);
-              setNewProfilePicture(null);
-              setFollowerCount(state.followerCount);
-              setFollowingCount(state.followingCount);
+    setLoading(true);
+    props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+      const userIDState = snapshot.val();
+      if (userIDState) {
+        setUserID(userIDState);
+        props.firebase.user(userIDState).on("value", (snapshot) => {
+          const state = snapshot.val();
+          if (state) {
+            setOldName(state.name);
+            setName(state.name);
+            setOldUsername(state.username);
+            setUsername(state.username);
+            setOldBio(state.bio);
+            setBio(state.bio);
+            setOldProfilePicture(state.profilePicture);
+            setProfilePicture(state.profilePicture);
+            setNewProfilePicture(null);
+            setFollowerCount(state.followerCount);
+            setFollowingCount(state.followingCount);
 
-              if (state.linkCard1) {
-                setLink1Title(state.linkCard1.linkTitle);
-                setLink1URL(state.linkCard1.linkURL);
-              }
-              if (state.linkCard2) {
-                setLink2Title(state.linkCard2.linkTitle);
-                setLink2URL(state.linkCard2.linkURL);
-              }
-              if (state.linkCard3) {
-                setLink3Title(state.linkCard3.linkTitle);
-                setLink3URL(state.linkCard3.linkURL);
-              }
-
-              props.firebase
-                .getFollowers(userIDState)
-                .once(
-                  "value",
-                  (snapshot) => {
-                    var results = [];
-                    return Promise.all(results);
-                  },
-                  (error) => {
-                    console.error(error);
-                  }
-                )
-                .then((snapshot) => {
-                  var promises = [];
-                  snapshot.forEach((snap) => {
-                    var results = [];
-                    results.push(
-                      props.firebase.user(snap.key).once("value"),
-                      props.firebase
-                        .checkFollowing(
-                          props.firebase.auth.currentUser.uid,
-                          snap.key
-                        )
-                        .once("value")
-                    );
-                    promises.push(Promise.all(results));
-                  });
-                  return Promise.all(promises);
-                })
-                .then((results) => {
-                  var followerUsers = [];
-                  results.forEach((user) => {
-                    let follower = {
-                      userID: user[0].key,
-                      name: user[0].val().name,
-                      username: user[0].val().username,
-                      profilePicture: user[0].val().profilePicture,
-                      isFollowing: user[1].val(),
-                    };
-
-                    followerUsers.push(follower);
-                  });
-                  setFollowers(followerUsers);
-                  setLoading(false);
-                });
-
-              props.firebase
-                .getFollowing(userIDState)
-                .once(
-                  "value",
-                  (snapshot) => {
-                    var results = [];
-                    return Promise.all(results);
-                  },
-                  (error) => {
-                    console.error(error);
-                  }
-                )
-                .then((snapshot) => {
-                  var promises = [];
-                  snapshot.forEach((snap) => {
-                    var results = [];
-                    results.push(
-                      props.firebase.user(snap.key).once("value"),
-                      props.firebase
-                        .checkFollowing(
-                          props.firebase.auth.currentUser.uid,
-                          snap.key
-                        )
-                        .once("value")
-                    );
-                    promises.push(Promise.all(results));
-                  });
-                  return Promise.all(promises);
-                })
-                .then((results) => {
-                  var followingUsers = [];
-                  results.forEach((user) => {
-                    let following = {
-                      userID: user[0].key,
-                      name: user[0].val().name,
-                      username: user[0].val().username,
-                      profilePicture: user[0].val().profilePicture,
-                      isFollowing: user[1].val(),
-                    };
-
-                    followingUsers.push(following);
-                  });
-                  setFollowings(followingUsers);
-                  setLoading(false);
-                });
-            } else {
-              setLoading(false);
+            if (state.linkCard1) {
+              setLink1Title(state.linkCard1.linkTitle);
+              setLink1URL(state.linkCard1.linkURL);
             }
-          });
-        } else {
-          setLoading(false);
-        }
-      });
-    }
+            if (state.linkCard2) {
+              setLink2Title(state.linkCard2.linkTitle);
+              setLink2URL(state.linkCard2.linkURL);
+            }
+            if (state.linkCard3) {
+              setLink3Title(state.linkCard3.linkTitle);
+              setLink3URL(state.linkCard3.linkURL);
+            }
+
+            props.firebase
+              .getFollowers(userIDState)
+              .once(
+                "value",
+                (snapshot) => {
+                  var results = [];
+                  return Promise.all(results);
+                },
+                (error) => {
+                  console.error(error);
+                }
+              )
+              .then((snapshot) => {
+                var promises = [];
+                snapshot.forEach((snap) => {
+                  var results = [];
+                  results.push(
+                    props.firebase.user(snap.key).once("value"),
+                    props.firebase
+                      .checkFollowing(
+                        props.firebase.auth.currentUser.uid,
+                        snap.key
+                      )
+                      .once("value")
+                  );
+                  promises.push(Promise.all(results));
+                });
+                return Promise.all(promises);
+              })
+              .then((results) => {
+                var followerUsers = [];
+                results.forEach((user) => {
+                  let follower = {
+                    userID: user[0].key,
+                    name: user[0].val().name,
+                    username: user[0].val().username,
+                    profilePicture: user[0].val().profilePicture,
+                    isFollowing: user[1].val(),
+                  };
+
+                  followerUsers.push(follower);
+                });
+                setFollowers(followerUsers);
+                setLoading(false);
+              });
+
+            props.firebase
+              .getFollowing(userIDState)
+              .once(
+                "value",
+                (snapshot) => {
+                  var results = [];
+                  return Promise.all(results);
+                },
+                (error) => {
+                  console.error(error);
+                }
+              )
+              .then((snapshot) => {
+                var promises = [];
+                snapshot.forEach((snap) => {
+                  var results = [];
+                  results.push(
+                    props.firebase.user(snap.key).once("value"),
+                    props.firebase
+                      .checkFollowing(
+                        props.firebase.auth.currentUser.uid,
+                        snap.key
+                      )
+                      .once("value")
+                  );
+                  promises.push(Promise.all(results));
+                });
+                return Promise.all(promises);
+              })
+              .then((results) => {
+                var followingUsers = [];
+                results.forEach((user) => {
+                  let following = {
+                    userID: user[0].key,
+                    name: user[0].val().name,
+                    username: user[0].val().username,
+                    profilePicture: user[0].val().profilePicture,
+                    isFollowing: user[1].val(),
+                  };
+
+                  followingUsers.push(following);
+                });
+                setFollowings(followingUsers);
+                setLoading(false);
+              });
+          } else {
+            setLoading(false);
+          }
+        });
+      } else {
+        setLoading(false);
+      }
+    });
   }, []);
 
   const handleEdit = () => {

@@ -43,7 +43,6 @@ function Bridge(props) {
                     .getCardNumberWithCardTitle(userIDState, cardTitle)
                     .on("value", (snapshot) => {
                       const state = snapshot.val();
-                      console.log(state);
                       if (state) {
                         setExists(true);
                         setLoading(false);

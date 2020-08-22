@@ -250,9 +250,16 @@ class Firebase {
     });
   };
 
-  deleteBridgeCard = (cardID, category) => {
+  deleteBridgeCard = (
+    cardID,
+    category,
+    userID,
+    cardNumber,
+    bridgeCardNumber
+  ) => {
     this.db.ref(`bridgeCards/${cardID}`).remove();
     this.db.ref(`${category.toLowerCase()}/${cardID}`).remove();
+    this.db.ref(`users/${userID}/${cardNumber}/${bridgeCardNumber}`).remove();
   };
 
   uploadCardImage = (image) =>

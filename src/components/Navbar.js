@@ -108,7 +108,6 @@ function Navbar(props) {
               onClose={handleClose}
               getContentAnchorEl={null}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              transformOrigin={{ horizontal: "center" }}
             >
               <MenuItem>
                 <SignOutButton />

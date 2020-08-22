@@ -419,7 +419,13 @@ function EditBridgeCard(props) {
   });
 
   const handleDelete = () => {
-    props.firebase.deleteBridgeCard(props.cardID, cardTitle);
+    props.firebase.deleteBridgeCard(
+      props.cardID,
+      cardTitle,
+      props.userID,
+      props.cardNumber,
+      props.bridgeCardNumber
+    );
     handleClose();
   };
 

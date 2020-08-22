@@ -126,8 +126,6 @@ function BridgeCard(props) {
     if (props.cardID) {
       props.firebase.bridgeCards(props.cardID).on("value", (snapshot) => {
         const state = snapshot.val();
-        console.log("mounting with cardID");
-        console.log(state);
         if (state) {
           setCardID(snapshot.key);
           setBridgeCardTitle(state.bridgeCardTitle);
@@ -137,6 +135,12 @@ function BridgeCard(props) {
           setCardImageURL(state.cardImageURL);
           setLoading(false);
         } else {
+          setCardID(null);
+          setBridgeCardTitle(null);
+          setCaption(null);
+          setDescription(null);
+          setCardCoverImageURL(null);
+          setCardImageURL(null);
           setLoading(false);
         }
       });
@@ -145,7 +149,6 @@ function BridgeCard(props) {
         .bridgeCardIDs(props.userID, props.cardNumber, props.bridgeCardNumber)
         .on("value", (snapshot) => {
           const cardID = snapshot.val();
-          console.log("mounting with bcid");
           props.firebase.bridgeCards(cardID).once("value", (snapshot) => {
             const state = snapshot.val();
             if (state) {
@@ -157,6 +160,12 @@ function BridgeCard(props) {
               setCardImageURL(state.cardImageURL);
               setLoading(false);
             } else {
+              setCardID(null);
+              setBridgeCardTitle(null);
+              setCaption(null);
+              setDescription(null);
+              setCardCoverImageURL(null);
+              setCardImageURL(null);
               setLoading(false);
             }
           });
@@ -280,6 +289,7 @@ function BridgeCard(props) {
         {!props.editable && !bridgeCardTitle && props.personal && (
           <EditBridgeCard
             display="none"
+            userID={props.userID}
             cardID={cardID}
             bridgeCardTitle={bridgeCardTitle}
             category={cardTitle}
@@ -309,6 +319,7 @@ function BridgeCard(props) {
               style={{ padding: "16px 16px 0 0", height: "0px" }}
               action={
                 <EditBridgeCard
+                  userID={props.userID}
                   cardID={cardID}
                   bridgeCardTitle={bridgeCardTitle}
                   category={cardTitle}
@@ -421,6 +432,7 @@ function BridgeCard(props) {
         {!props.editable && !bridgeCardTitle && props.personal && (
           <EditBridgeCard
             display="none"
+            userID={props.userID}
             cardID={cardID}
             bridgeCardTitle={bridgeCardTitle}
             category={cardTitle}
@@ -450,6 +462,7 @@ function BridgeCard(props) {
               style={{ padding: "16px 16px 0 0", height: "0px" }}
               action={
                 <EditBridgeCard
+                  userID={props.userID}
                   cardID={cardID}
                   bridgeCardTitle={bridgeCardTitle}
                   category={cardTitle}
