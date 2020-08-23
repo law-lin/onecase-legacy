@@ -7,25 +7,17 @@ import Box from "@material-ui/core/Box";
 import CategoriesCard from "./CategoriesCard";
 
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
-import UsernameButton from "./UsernameButton";
+
 import BridgeCard from "./Profile/BridgeCard";
-import LogIn from "./LogIn";
-import SignUp from "./SignUp";
+
 import Typography from "@material-ui/core/Typography";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavbar from "./BottomNavbar";
@@ -43,7 +35,7 @@ const useStyles = makeStyles({
   },
   container: {
     display: "flex",
-    maxWidth: "650px",
+    minWidth: "650px",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -266,7 +258,7 @@ function CategoriesPage(props) {
             </Container>
           </Box>
           <Box flex={1}>
-            <Container className={classes.container}>
+            <Container>
               <CategoriesCard />
             </Container>
           </Box>

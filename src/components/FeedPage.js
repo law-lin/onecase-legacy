@@ -5,6 +5,7 @@ import LeftNavbar from "./LeftNavbar";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import CategoriesCard from "./CategoriesCard";
+import Grid from "@material-ui/core/Grid";
 
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavbar from "./BottomNavbar";
@@ -20,7 +21,14 @@ const useStyles = makeStyles({
   },
   container: {
     display: "flex",
-    maxWidth: "650px",
+    minWidth: "650px",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "70vh",
+  },
+  feed: {
+    display: "flex",
+    minWidth: "650px",
     justifyContent: "center",
     alignItems: "center",
     height: "70vh",
@@ -71,7 +79,7 @@ function FeedPage(props) {
             <Container className={classes.container}>Feed Stuff</Container>
           </Box>
           <Box flex={1}>
-            <Container className={classes.container}>
+            <Container>
               <CategoriesCard />
             </Container>
           </Box>

@@ -3,21 +3,26 @@ import Card from "@material-ui/core/Card";
 import Link from "@material-ui/core/Link";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 import { withFirebase } from "./Firebase";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: "280px",
+    minWidth: "360px",
     backgroundColor: "#232323",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
     borderRadius: "25px",
+    marginTop: "100px",
   },
   header: {
     textAlign: "left",
     fontWeight: 800,
+    fontSize: "2rem",
+    fontFamily: ["Montserrat", "sans-serif"],
+    marginBottom: "40px",
   },
   button: {
     "&:hover": {
@@ -35,7 +40,7 @@ const useStyles = makeStyles({
     fontSize: "24px",
     fontWeight: 800,
     minHeight: 50,
-    width: "100%",
+    width: "90%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -66,9 +71,9 @@ function CategoriesCard(props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <h1 className={classes.header}>Trending Sections</h1>
+        <Typography className={classes.header}>Trending Sections</Typography>
         <Grid container spacing={3}>
-          <Grid container item xs={12} spacing={2}>
+          <Grid container item xs={12}>
             <Grid item xs={6} className={classes.gridItem}>
               {trendingCategories[0] && (
                 <Link
@@ -90,7 +95,7 @@ function CategoriesCard(props) {
               )}
             </Grid>
           </Grid>
-          <Grid container item xs={12} spacing={2}>
+          <Grid container item xs={12}>
             <Grid item xs={6} className={classes.gridItem}>
               {trendingCategories[2] && (
                 <Link
@@ -112,7 +117,7 @@ function CategoriesCard(props) {
               )}
             </Grid>
           </Grid>
-          <Grid container item xs={12} spacing={2}>
+          <Grid container item xs={12}>
             <Grid item xs={6} className={classes.gridItem}>
               {trendingCategories[4] && (
                 <Link
