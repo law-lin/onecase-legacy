@@ -62,7 +62,11 @@ function CategoriesCard(props) {
     props.firebase.getTrendingCategories().on("value", (snapshot) => {
       var results = [];
       for (var i in snapshot.val()) {
-        results.push(i);
+        results.push(
+          i.replace(/_/g, " ").replace(/\w\S*/g, (txt) => {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+          })
+        );
       }
       setTrendingCategories(results);
     });
@@ -80,14 +84,7 @@ function CategoriesCard(props) {
                   className={classes.button}
                   href={`/categories/${trendingCategories[0]}`}
                 >
-                  {trendingCategories[0]
-                    .replace(/_/g, " ")
-                    .replace(/\w\S*/g, (txt) => {
-                      return (
-                        txt.charAt(0).toUpperCase() +
-                        txt.substr(1).toLowerCase()
-                      );
-                    })}
+                  {trendingCategories[0]}
                 </Link>
               )}
             </Grid>
