@@ -21,6 +21,7 @@ import BottomNavbar from "./BottomNavbar";
 import MediaQuery from "react-responsive";
 import { useParams } from "react-router-dom";
 import { withFirebase } from "./Firebase";
+
 import NotFound from "./NotFound";
 
 const useStyles = makeStyles({
@@ -282,4 +283,6 @@ function CategoriesPage(props) {
   );
 }
 
-export default withFirebase(CategoriesPage);
+const condition = (authenticated) => !!authenticated;
+
+export default withFirebase(withAuthorization(condition)(CategoriesPage));
