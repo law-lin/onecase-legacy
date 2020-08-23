@@ -279,10 +279,16 @@ function PersonalProfilePage(props) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [error, setError] = useState(null);
 
+  const [oldLink1Title, setOldLink1Title] = useState("");
+  const [oldLink2Title, setOldLink2Title] = useState("");
+  const [oldLink3Title, setOldLink3Title] = useState("");
+  const [oldLink1URL, setOldLink1URL] = useState("");
+  const [oldLink2URL, setOldLink2URL] = useState("");
+  const [oldLink3URL, setOldLink3URL] = useState("");
+
   const [link1Title, setLink1Title] = useState("");
   const [link2Title, setLink2Title] = useState("");
   const [link3Title, setLink3Title] = useState("");
-
   const [link1URL, setLink1URL] = useState("");
   const [link2URL, setLink2URL] = useState("");
   const [link3URL, setLink3URL] = useState("");
@@ -330,14 +336,20 @@ function PersonalProfilePage(props) {
               setIsVerified(true);
             }
             if (state.linkCard1) {
+              setOldLink1Title(state.linkCard1.linkTitle);
+              setOldLink1URL(state.linkCard1.linkURL);
               setLink1Title(state.linkCard1.linkTitle);
               setLink1URL(state.linkCard1.linkURL);
             }
             if (state.linkCard2) {
+              setOldLink2Title(state.linkCard2.linkTitle);
+              setOldLink2URL(state.linkCard2.linkURL);
               setLink2Title(state.linkCard2.linkTitle);
               setLink2URL(state.linkCard2.linkURL);
             }
             if (state.linkCard3) {
+              setOldLink3Title(state.linkCard3.linkTitle);
+              setOldLink3URL(state.linkCard3.linkURL);
               setLink3Title(state.linkCard3.linkTitle);
               setLink3URL(state.linkCard3.linkURL);
             }
@@ -449,6 +461,15 @@ function PersonalProfilePage(props) {
 
   const handleClose = () => {
     setEditing(false);
+    setName(oldName);
+    setUsername(oldUsername);
+    setBio(oldBio);
+    setLink1Title(oldLink1Title);
+    setLink1URL(oldLink1URL);
+    setLink2Title(oldLink2Title);
+    setLink2URL(oldLink2URL);
+    setLink3Title(oldLink3Title);
+    setLink3URL(oldLink3URL);
   };
 
   const handleProfilePictureChange = (value) => {
@@ -923,7 +944,6 @@ function PersonalProfilePage(props) {
                                     <TextField
                                       type="text"
                                       name="link1URL"
-                                      placeholder="Ex: https://www.youtube.com/user/Vsauce"
                                       className={classes.textField}
                                       defaultValue={link1URL}
                                       fullWidth
@@ -1352,7 +1372,6 @@ function PersonalProfilePage(props) {
                                   <TextField
                                     type="text"
                                     name="link1URL"
-                                    placeholder="Ex: https://www.youtube.com/user/Vsauce"
                                     className={classes.textField}
                                     defaultValue={link1URL}
                                     fullWidth
@@ -1774,7 +1793,6 @@ function PersonalProfilePage(props) {
                                   <TextField
                                     type="text"
                                     name="link1URL"
-                                    placeholder="Ex: https://www.youtube.com/user/Vsauce"
                                     className={classes.textField}
                                     defaultValue={link1URL}
                                     fullWidth
@@ -1822,7 +1840,7 @@ function PersonalProfilePage(props) {
                                   </Typography>
                                   <TextField
                                     type="text"
-                                    name="link2Title"
+                                    name="link2URL"
                                     className={classes.textField}
                                     defaultValue={link2URL}
                                     fullWidth
