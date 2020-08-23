@@ -34,11 +34,18 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   feed: {
+    fontFamily: ["Montserrat", "sans-serif"],
+    backgroundColor: "black",
+    color: "white",
+    fontSize: "30px",
+    fontWeight: 800,
+    borderRadius: "15px",
+    alignSelf: "center",
+    width: "100%",
+    textAlign: "center",
     display: "flex",
-    minWidth: "650px",
+    flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
-    height: "70vh",
   },
   categories: {
     minWidth: "280px",
@@ -190,6 +197,7 @@ function FeedPage(props) {
             <LeftNavbar />
           </Box>
           <Box flex={1}>
+            <Card className={classes.feed}>Feed</Card>
             <Container className={classes.container}>
               {!loading && (
                 <React.Fragment>

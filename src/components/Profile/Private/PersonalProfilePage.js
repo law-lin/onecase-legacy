@@ -166,7 +166,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     height: "90px",
-    width: "410px",
+    // width: "410px",
     borderRadius: "10px",
   },
   textField: {
@@ -180,7 +180,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     height: "150px",
-    width: "410px",
+    // width: "410px",
     borderRadius: "10px",
   },
   link: {
@@ -189,7 +189,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     height: "200px",
-    width: "410px",
+    // width: "410px",
     borderRadius: "10px",
   },
   input: {
@@ -841,15 +841,18 @@ function PersonalProfilePage(props) {
                             open={editing}
                           >
                             <DialogTitle className={classes.header}>
-                              <Typography className={classes.title}>
-                                Edit Profile
-                              </Typography>
-                              <Button
-                                className={classes.save}
-                                onClick={handleSave}
-                              >
-                                Save
-                              </Button>
+                              <Box display="flex">
+                                <Typography className={classes.title}>
+                                  Edit Profile
+                                </Typography>
+                                <div style={{ flexGrow: "1" }} />
+                                <Button
+                                  className={classes.save}
+                                  onClick={handleSave}
+                                >
+                                  Save
+                                </Button>
+                              </Box>
                             </DialogTitle>
                             <DialogContent>
                               <Box
@@ -857,7 +860,11 @@ function PersonalProfilePage(props) {
                                 flexDirection="column"
                                 alignItems="center"
                               >
-                                <Box p={3}>
+                                <Box
+                                  p={3}
+                                  display="flex"
+                                  justifyContent="center"
+                                >
                                   <ProfilePicture
                                     profilePicture={oldProfilePicture}
                                     newProfilePicture={profilePicture}
@@ -955,6 +962,7 @@ function PersonalProfilePage(props) {
                                     />
                                   </Container>
                                 </Box>
+
                                 <Box p={3}>
                                   <Container className={classes.link}>
                                     <Typography className={classes.label}>
@@ -1245,12 +1253,8 @@ function PersonalProfilePage(props) {
                             </Box>
                           </DialogTitle>
                           <DialogContent>
-                            <Box
-                              display="flex"
-                              flexDirection="column"
-                              alignItems="center"
-                            >
-                              <Box p={3}>
+                            <Container>
+                              <Box p={3} display="flex" justifyContent="center">
                                 <ProfilePicture
                                   profilePicture={oldProfilePicture}
                                   newProfilePicture={profilePicture}
@@ -1482,7 +1486,7 @@ function PersonalProfilePage(props) {
                                   </Typography>
                                 </Container>
                               </Box>
-                            </Box>
+                            </Container>
                           </DialogContent>
                         </Dialog>
                         <CardContent style={{ padding: "28px 0 0 10px" }}>
@@ -1666,243 +1670,217 @@ function PersonalProfilePage(props) {
                             </Box>
                           </DialogTitle>
                           <DialogContent>
-                            <Box
-                              display="flex"
-                              flexDirection="column"
-                              alignItems="center"
-                            >
-                              <Box p={3}>
-                                <ProfilePicture
-                                  profilePicture={oldProfilePicture}
-                                  newProfilePicture={profilePicture}
-                                  editable={editing}
-                                  onChange={handleProfilePictureChange}
+                            <Box p={3} display="flex" justifyContent="center">
+                              <ProfilePicture
+                                profilePicture={oldProfilePicture}
+                                newProfilePicture={profilePicture}
+                                editable={editing}
+                                onChange={handleProfilePictureChange}
+                              />
+                            </Box>
+                            <Box p={3}>
+                              <Container className={classes.box}>
+                                <Typography className={classes.label}>
+                                  Username
+                                </Typography>
+                                <TextField
+                                  name="username"
+                                  type="text"
+                                  className={classes.textField}
+                                  defaultValue={username}
+                                  onChange={(e) => setUsername(e.target.value)}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{
+                                    className: classes.input,
+                                    maxLength: 30,
+                                  }}
+                                  helperText={error}
                                 />
-                              </Box>
-                              <Box p={3}>
-                                <Container className={classes.box}>
-                                  <Typography className={classes.label}>
-                                    Username
-                                  </Typography>
-                                  <TextField
-                                    name="username"
-                                    type="text"
-                                    className={classes.textField}
-                                    defaultValue={username}
-                                    onChange={(e) =>
-                                      setUsername(e.target.value)
-                                    }
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{
-                                      className: classes.input,
-                                      maxLength: 30,
-                                    }}
-                                    helperText={error}
-                                  />
-                                  <Typography
-                                    className={classes.characterLimit}
-                                  >
-                                    {`${username.length}/${30}`}
-                                  </Typography>
-                                </Container>
-                              </Box>
-                              <Box p={3}>
-                                <Container className={classes.box}>
-                                  <Typography className={classes.label}>
-                                    Name
-                                  </Typography>
-                                  <TextField
-                                    name="name"
-                                    type="text"
-                                    className={classes.textField}
-                                    defaultValue={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{
-                                      className: classes.input,
-                                      maxLength: 50,
-                                    }}
-                                  />
-                                  <Typography
-                                    className={classes.characterLimit}
-                                  >
-                                    {`${name.length}/${50}`}
-                                  </Typography>
-                                </Container>
-                              </Box>
-                              <Box p={3}>
-                                <Container className={classes.bio}>
-                                  <Typography className={classes.label}>
-                                    Bio
-                                  </Typography>
-                                  <TextField
-                                    name="bio"
-                                    type="text"
-                                    className={classes.textField}
-                                    fullWidth
-                                    multiline
-                                    rows={3}
-                                    defaultValue={bio}
-                                    onChange={(e) => setBio(e.target.value)}
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{
-                                      className: classes.input,
-                                      maxLength: 75,
-                                    }}
-                                  />
-                                  <Typography
-                                    className={classes.characterLimit}
-                                  >
-                                    {`${bio.length}/${75}`}
-                                  </Typography>
-                                </Container>
-                              </Box>
-                              <Box p={3}>
-                                <Container className={classes.link}>
-                                  <Typography className={classes.label}>
-                                    Link 1 Title
-                                  </Typography>
-                                  <TextField
-                                    type="text"
-                                    name="link1Title"
-                                    className={classes.textField}
-                                    defaultValue={link1Title}
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{
-                                      className: classes.input,
-                                      maxLength: 25,
-                                    }}
-                                    onChange={(e) =>
-                                      setLink1Title(e.target.value)
-                                    }
-                                  />
-                                  <Typography className={classes.error}>
-                                    {link1TitleError}
-                                  </Typography>
-                                  <Typography
-                                    className={classes.characterLimit}
-                                  >
-                                    {`${link1Title.length}/${25}`}
-                                  </Typography>
-                                  <Typography className={classes.label}>
-                                    Link 1 URL
-                                  </Typography>
-                                  <TextField
-                                    type="text"
-                                    name="link1URL"
-                                    className={classes.textField}
-                                    defaultValue={link1URL}
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
-                                    onChange={(e) =>
-                                      setLink1URL(e.target.value)
-                                    }
-                                  />
-                                  <Typography className={classes.error}>
-                                    {link1URLError}
-                                  </Typography>
-                                </Container>
-                              </Box>
-                              <Box p={3}>
-                                <Container className={classes.link}>
-                                  <Typography className={classes.label}>
-                                    Link 2 Title
-                                  </Typography>
-                                  <TextField
-                                    type="text"
-                                    name="link2Title"
-                                    className={classes.textField}
-                                    defaultValue={link2Title}
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{
-                                      className: classes.input,
-                                      maxLength: 25,
-                                    }}
-                                    onChange={(e) =>
-                                      setLink2Title(e.target.value)
-                                    }
-                                  />
-                                  <Typography className={classes.error}>
-                                    {link2TitleError}
-                                  </Typography>
-                                  <Typography
-                                    className={classes.characterLimit}
-                                  >
-                                    {`${link2Title.length}/${25}`}
-                                  </Typography>
-                                  <Typography className={classes.label}>
-                                    Link 2 URL
-                                  </Typography>
-                                  <TextField
-                                    type="text"
-                                    name="link2URL"
-                                    className={classes.textField}
-                                    defaultValue={link2URL}
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
-                                    onChange={(e) =>
-                                      setLink2URL(e.target.value)
-                                    }
-                                  />
-                                  <Typography className={classes.error}>
-                                    {link2URLError}
-                                  </Typography>
-                                </Container>
-                              </Box>
-                              <Box p={3}>
-                                <Container className={classes.link}>
-                                  <Typography className={classes.label}>
-                                    Link 3 Title
-                                  </Typography>
-                                  <TextField
-                                    type="text"
-                                    name="link3Title"
-                                    className={classes.textField}
-                                    defaultValue={link3Title}
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{
-                                      className: classes.input,
-                                      maxLength: 25,
-                                    }}
-                                    onChange={(e) =>
-                                      setLink3Title(e.target.value)
-                                    }
-                                  />
-                                  <Typography className={classes.error}>
-                                    {link3TitleError}
-                                  </Typography>
-                                  <Typography
-                                    className={classes.characterLimit}
-                                  >
-                                    {`${link3Title.length}/${25}`}
-                                  </Typography>
-                                  <Typography className={classes.label}>
-                                    Link 3 URL
-                                  </Typography>
-                                  <TextField
-                                    type="text"
-                                    name="link3Title"
-                                    className={classes.textField}
-                                    defaultValue={link3URL}
-                                    fullWidth
-                                    InputProps={{ disableUnderline: true }}
-                                    inputProps={{ className: classes.input }}
-                                    onChange={(e) =>
-                                      setLink3URL(e.target.value)
-                                    }
-                                  />
-                                  <Typography className={classes.error}>
-                                    {link3URLError}
-                                  </Typography>
-                                </Container>
-                              </Box>
+                                <Typography className={classes.characterLimit}>
+                                  {`${username.length}/${30}`}
+                                </Typography>
+                              </Container>
+                            </Box>
+                            <Box p={3}>
+                              <Container className={classes.box}>
+                                <Typography className={classes.label}>
+                                  Name
+                                </Typography>
+                                <TextField
+                                  name="name"
+                                  type="text"
+                                  className={classes.textField}
+                                  defaultValue={name}
+                                  onChange={(e) => setName(e.target.value)}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{
+                                    className: classes.input,
+                                    maxLength: 50,
+                                  }}
+                                />
+                                <Typography className={classes.characterLimit}>
+                                  {`${name.length}/${50}`}
+                                </Typography>
+                              </Container>
+                            </Box>
+                            <Box p={3}>
+                              <Container className={classes.bio}>
+                                <Typography className={classes.label}>
+                                  Bio
+                                </Typography>
+                                <TextField
+                                  name="bio"
+                                  type="text"
+                                  className={classes.textField}
+                                  fullWidth
+                                  multiline
+                                  rows={3}
+                                  defaultValue={bio}
+                                  onChange={(e) => setBio(e.target.value)}
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{
+                                    className: classes.input,
+                                    maxLength: 75,
+                                  }}
+                                />
+                                <Typography className={classes.characterLimit}>
+                                  {`${bio.length}/${75}`}
+                                </Typography>
+                              </Container>
+                            </Box>
+                            <Box p={3}>
+                              <Container className={classes.link}>
+                                <Typography className={classes.label}>
+                                  Link 1 Title
+                                </Typography>
+                                <TextField
+                                  type="text"
+                                  name="link1Title"
+                                  className={classes.textField}
+                                  defaultValue={link1Title}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{
+                                    className: classes.input,
+                                    maxLength: 25,
+                                  }}
+                                  onChange={(e) =>
+                                    setLink1Title(e.target.value)
+                                  }
+                                />
+                                <Typography className={classes.error}>
+                                  {link1TitleError}
+                                </Typography>
+                                <Typography className={classes.characterLimit}>
+                                  {`${link1Title.length}/${25}`}
+                                </Typography>
+                                <Typography className={classes.label}>
+                                  Link 1 URL
+                                </Typography>
+                                <TextField
+                                  type="text"
+                                  name="link1URL"
+                                  className={classes.textField}
+                                  defaultValue={link1URL}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{ className: classes.input }}
+                                  onChange={(e) => setLink1URL(e.target.value)}
+                                />
+                                <Typography className={classes.error}>
+                                  {link1URLError}
+                                </Typography>
+                              </Container>
+                            </Box>
+                            <Box p={3}>
+                              <Container className={classes.link}>
+                                <Typography className={classes.label}>
+                                  Link 2 Title
+                                </Typography>
+                                <TextField
+                                  type="text"
+                                  name="link2Title"
+                                  className={classes.textField}
+                                  defaultValue={link2Title}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{
+                                    className: classes.input,
+                                    maxLength: 25,
+                                  }}
+                                  onChange={(e) =>
+                                    setLink2Title(e.target.value)
+                                  }
+                                />
+                                <Typography className={classes.error}>
+                                  {link2TitleError}
+                                </Typography>
+                                <Typography className={classes.characterLimit}>
+                                  {`${link2Title.length}/${25}`}
+                                </Typography>
+                                <Typography className={classes.label}>
+                                  Link 2 URL
+                                </Typography>
+                                <TextField
+                                  type="text"
+                                  name="link2URL"
+                                  className={classes.textField}
+                                  defaultValue={link2URL}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{ className: classes.input }}
+                                  onChange={(e) => setLink2URL(e.target.value)}
+                                />
+                                <Typography className={classes.error}>
+                                  {link2URLError}
+                                </Typography>
+                              </Container>
+                            </Box>
+                            <Box p={3}>
+                              <Container className={classes.link}>
+                                <Typography className={classes.label}>
+                                  Link 3 Title
+                                </Typography>
+                                <TextField
+                                  type="text"
+                                  name="link3Title"
+                                  className={classes.textField}
+                                  defaultValue={link3Title}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{
+                                    className: classes.input,
+                                    maxLength: 25,
+                                  }}
+                                  onChange={(e) =>
+                                    setLink3Title(e.target.value)
+                                  }
+                                />
+                                <Typography className={classes.error}>
+                                  {link3TitleError}
+                                </Typography>
+                                <Typography className={classes.characterLimit}>
+                                  {`${link3Title.length}/${25}`}
+                                </Typography>
+                                <Typography className={classes.label}>
+                                  Link 3 URL
+                                </Typography>
+                                <TextField
+                                  type="text"
+                                  name="link3Title"
+                                  className={classes.textField}
+                                  defaultValue={link3URL}
+                                  fullWidth
+                                  InputProps={{ disableUnderline: true }}
+                                  inputProps={{ className: classes.input }}
+                                  onChange={(e) => setLink3URL(e.target.value)}
+                                />
+                                <Typography className={classes.error}>
+                                  {link3URLError}
+                                </Typography>
+                              </Container>
                             </Box>
                           </DialogContent>
                         </Dialog>
