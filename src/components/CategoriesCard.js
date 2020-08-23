@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     backgroundColor: "#3E4E55",
     borderRadius: "15px",
     color: "#FFFFFF",
-    fontSize: "24px",
+    fontSize: "20px",
     fontWeight: 800,
     minHeight: 50,
     width: "90%",
