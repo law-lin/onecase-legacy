@@ -20,6 +20,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Followers from "../../Followers.js";
 import Following from "../../Following";
 
+import Tooltip from "@material-ui/core/Tooltip";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -768,15 +769,17 @@ function PersonalProfilePage(props) {
                             <Box display="flex" alignItems="center">
                               <Name name={oldName} />
                               {isVerified && (
-                                <img
-                                  style={{
-                                    display: "inline-block",
-                                    width: "25px",
-                                    marginLeft: "5px",
-                                  }}
-                                  src={verifiedBadge}
-                                  alt="verified badge"
-                                />
+                                <Tooltip title="Verified User" arrow>
+                                  <img
+                                    style={{
+                                      display: "inline-block",
+                                      width: "25px",
+                                      marginLeft: "5px",
+                                    }}
+                                    src={verifiedBadge}
+                                    alt="verified badge"
+                                  />
+                                </Tooltip>
                               )}
                             </Box>
 
@@ -1149,15 +1152,17 @@ function PersonalProfilePage(props) {
                       <Box display="flex" alignItems="center">
                         <Name name={oldName} />
                         {isVerified && (
-                          <img
-                            style={{
-                              display: "inline-block",
-                              width: "25px",
-                              marginLeft: "5px",
-                            }}
-                            src={verifiedBadge}
-                            alt="verified badge"
-                          />
+                          <Tooltip title="Verified User" arrow>
+                            <img
+                              style={{
+                                display: "inline-block",
+                                width: "25px",
+                                marginLeft: "5px",
+                              }}
+                              src={verifiedBadge}
+                              alt="verified badge"
+                            />
+                          </Tooltip>
                         )}
                       </Box>
                       <Username username={oldUsername} />
@@ -1569,15 +1574,17 @@ function PersonalProfilePage(props) {
                       <Box display="flex" alignItems="center">
                         <Name name={oldName} />
                         {isVerified && (
-                          <img
-                            style={{
-                              display: "inline-block",
-                              width: "25px",
-                              marginLeft: "5px",
-                            }}
-                            src={verifiedBadge}
-                            alt="verified badge"
-                          />
+                          <Tooltip title="Verified User" arrow>
+                            <img
+                              style={{
+                                display: "inline-block",
+                                width: "25px",
+                                marginLeft: "5px",
+                              }}
+                              src={verifiedBadge}
+                              alt="verified badge"
+                            />
+                          </Tooltip>
                         )}
                       </Box>
                       <Username username={oldUsername} />

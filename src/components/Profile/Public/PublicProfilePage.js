@@ -13,6 +13,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Followers from "../../Followers.js";
 import Following from "../../Following";
 
+import Tooltip from "@material-ui/core/Tooltip";
 import Container from "@material-ui/core/Container";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
@@ -334,15 +335,17 @@ function PublicProfilePage(props) {
                                 <Box display="flex" alignItems="center">
                                   <Name name={name} />
                                   {isVerified && (
-                                    <img
-                                      style={{
-                                        display: "inline-block",
-                                        width: "25px",
-                                        marginLeft: "5px",
-                                      }}
-                                      src={verifiedBadge}
-                                      alt="verified badge"
-                                    />
+                                    <Tooltip title="Verified User" arrow>
+                                      <img
+                                        style={{
+                                          display: "inline-block",
+                                          width: "25px",
+                                          marginLeft: "5px",
+                                        }}
+                                        src={verifiedBadge}
+                                        alt="verified badge"
+                                      />
+                                    </Tooltip>
                                   )}
                                 </Box>
                                 <Username username={username} />
@@ -532,15 +535,17 @@ function PublicProfilePage(props) {
                           <Box display="flex" alignItems="center">
                             <Name name={name} />
                             {isVerified && (
-                              <img
-                                style={{
-                                  display: "inline-block",
-                                  width: "25px",
-                                  marginLeft: "5px",
-                                }}
-                                src={verifiedBadge}
-                                alt="verified badge"
-                              />
+                              <Tooltip title="Verified User" arrow>
+                                <img
+                                  style={{
+                                    display: "inline-block",
+                                    width: "25px",
+                                    marginLeft: "5px",
+                                  }}
+                                  src={verifiedBadge}
+                                  alt="verified badge"
+                                />
+                              </Tooltip>
                             )}
                           </Box>
                           <Username username={username} />
@@ -681,15 +686,17 @@ function PublicProfilePage(props) {
                           <Box display="flex" alignItems="center">
                             <Name name={name} />
                             {isVerified && (
-                              <img
-                                style={{
-                                  display: "inline-block",
-                                  width: "25px",
-                                  marginLeft: "5px",
-                                }}
-                                src={verifiedBadge}
-                                alt="verified badge"
-                              />
+                              <Tooltip title="Verified User" arrow>
+                                <img
+                                  style={{
+                                    display: "inline-block",
+                                    width: "25px",
+                                    marginLeft: "5px",
+                                  }}
+                                  src={verifiedBadge}
+                                  alt="verified badge"
+                                />
+                              </Tooltip>
                             )}
                           </Box>
 
