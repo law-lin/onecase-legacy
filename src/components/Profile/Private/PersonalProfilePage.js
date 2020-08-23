@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import verifiedBadge from "../../../images/verified.png";
 import "../profile.css";
 import { ModalContainer, ModalRoute } from "react-router-modal";
 
@@ -296,6 +297,7 @@ function PersonalProfilePage(props) {
   const [followings, setFollowings] = useState([]);
 
   const [checked, setChecked] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const classes = useStyles();
 
@@ -323,6 +325,9 @@ function PersonalProfilePage(props) {
             setFollowerCount(state.followerCount);
             setFollowingCount(state.followingCount);
 
+            if (state.isVerified) {
+              setIsVerified(true);
+            }
             if (state.linkCard1) {
               setLink1Title(state.linkCard1.linkTitle);
               setLink1URL(state.linkCard1.linkURL);
@@ -760,7 +765,21 @@ function PersonalProfilePage(props) {
                       {!loading && (
                         <Box style={{ marginLeft: "10px" }}>
                           <React.Fragment>
-                            <Name name={oldName} />
+                            <Box display="flex" alignItems="center">
+                              <Name name={oldName} />
+                              {isVerified && (
+                                <img
+                                  style={{
+                                    display: "inline-block",
+                                    width: "25px",
+                                    marginLeft: "5px",
+                                  }}
+                                  src={verifiedBadge}
+                                  alt="verified badge"
+                                />
+                              )}
+                            </Box>
+
                             <Username username={oldUsername} />
                           </React.Fragment>
                         </Box>
@@ -1127,7 +1146,20 @@ function PersonalProfilePage(props) {
                       flexBasis="100%"
                       style={{ paddingLeft: "40px" }}
                     >
-                      <Name name={oldName} />
+                      <Box display="flex" alignItems="center">
+                        <Name name={oldName} />
+                        {isVerified && (
+                          <img
+                            style={{
+                              display: "inline-block",
+                              width: "25px",
+                              marginLeft: "5px",
+                            }}
+                            src={verifiedBadge}
+                            alt="verified badge"
+                          />
+                        )}
+                      </Box>
                       <Username username={oldUsername} />
                       <Biography bio={oldBio} />
                     </Box>
@@ -1534,7 +1566,20 @@ function PersonalProfilePage(props) {
                       flexBasis="100%"
                       style={{ paddingLeft: "40px" }}
                     >
-                      <Name name={oldName} />
+                      <Box display="flex" alignItems="center">
+                        <Name name={oldName} />
+                        {isVerified && (
+                          <img
+                            style={{
+                              display: "inline-block",
+                              width: "25px",
+                              marginLeft: "5px",
+                            }}
+                            src={verifiedBadge}
+                            alt="verified badge"
+                          />
+                        )}
+                      </Box>
                       <Username username={oldUsername} />
                       <Biography bio={oldBio} />
                     </Box>

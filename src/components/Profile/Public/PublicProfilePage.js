@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import verifiedBadge from "../../../images/verified.png";
 import "../profile.css";
 import Navbar from "../../Navbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
@@ -116,6 +117,7 @@ function PublicProfilePage(props) {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const [currentUser, setCurrentUser] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
@@ -145,10 +147,11 @@ function PublicProfilePage(props) {
                 setProfilePicture(state.profilePicture);
                 setFollowerCount(state.followerCount);
                 setFollowingCount(state.followingCount);
-                setLoading(false);
+              }
+              if (state.isVerified) {
+                setIsVerified(true);
               }
             });
-
             props.firebase
               .getFollowers(userIDState)
               .once(
@@ -188,13 +191,11 @@ function PublicProfilePage(props) {
                     profilePicture: user[0].val().profilePicture,
                     isFollowing: user[1].val(),
                   };
-
                   followerUsers.push(follower);
                 });
                 setFollowers(followerUsers);
                 setLoading(false);
               });
-
             props.firebase
               .getFollowing(userIDState)
               .once(
@@ -234,7 +235,6 @@ function PublicProfilePage(props) {
                     profilePicture: user[0].val().profilePicture,
                     isFollowing: user[1].val(),
                   };
-
                   followingUsers.push(following);
                 });
                 setFollowings(followingUsers);
@@ -270,6 +270,9 @@ function PublicProfilePage(props) {
                 setFollowerCount(state.followerCount);
                 setFollowingCount(state.followingCount);
                 setLoading(false);
+              }
+              if (state.isVerified) {
+                setIsVerified(true);
               }
             });
           } else {
@@ -328,7 +331,20 @@ function PublicProfilePage(props) {
                           {!loading && (
                             <Box style={{ marginLeft: "10px" }}>
                               <React.Fragment>
-                                <Name name={name} />
+                                <Box display="flex" alignItems="center">
+                                  <Name name={name} />
+                                  {isVerified && (
+                                    <img
+                                      style={{
+                                        display: "inline-block",
+                                        width: "25px",
+                                        marginLeft: "5px",
+                                      }}
+                                      src={verifiedBadge}
+                                      alt="verified badge"
+                                    />
+                                  )}
+                                </Box>
                                 <Username username={username} />
                               </React.Fragment>
                             </Box>
@@ -513,7 +529,20 @@ function PublicProfilePage(props) {
                           flexBasis="100%"
                           style={{ paddingLeft: "40px" }}
                         >
-                          <Name name={name} />
+                          <Box display="flex" alignItems="center">
+                            <Name name={name} />
+                            {isVerified && (
+                              <img
+                                style={{
+                                  display: "inline-block",
+                                  width: "25px",
+                                  marginLeft: "5px",
+                                }}
+                                src={verifiedBadge}
+                                alt="verified badge"
+                              />
+                            )}
+                          </Box>
                           <Username username={username} />
                           <Biography bio={bio} />
                         </Box>
@@ -649,7 +678,21 @@ function PublicProfilePage(props) {
                           flexBasis="100%"
                           style={{ paddingLeft: "40px" }}
                         >
-                          <Name name={name} />
+                          <Box display="flex" alignItems="center">
+                            <Name name={name} />
+                            {isVerified && (
+                              <img
+                                style={{
+                                  display: "inline-block",
+                                  width: "25px",
+                                  marginLeft: "5px",
+                                }}
+                                src={verifiedBadge}
+                                alt="verified badge"
+                              />
+                            )}
+                          </Box>
+
                           <Username username={username} />
                           <Biography bio={bio} />
                         </Box>

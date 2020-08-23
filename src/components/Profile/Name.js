@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   display: {
+    display: "inline-block",
     fontSize: "26px",
     fontFamily: ["Montserrat", "sans-serif"],
     fontWeight: 800,
