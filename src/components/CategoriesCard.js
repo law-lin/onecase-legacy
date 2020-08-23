@@ -57,18 +57,22 @@ function CategoriesCard(props) {
   const classes = useStyles();
 
   const [trendingCategories, setTrendingCategories] = useState([]);
+  const [categoryLinks, setCategoryLinks] = useState([]);
 
   useEffect(() => {
     props.firebase.getTrendingCategories().on("value", (snapshot) => {
-      var results = [];
+      var links = [];
+      var categories = [];
       for (var i in snapshot.val()) {
-        results.push(
+        categories.push(
           i.replace(/_/g, " ").replace(/\w\S*/g, (txt) => {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
           })
         );
+        links.push(i);
       }
-      setTrendingCategories(results);
+      setTrendingCategories(categories);
+      setCategoryLinks(links);
     });
   }, []);
 
@@ -82,7 +86,7 @@ function CategoriesCard(props) {
               {trendingCategories[0] && (
                 <Link
                   className={classes.button}
-                  href={`/categories/${trendingCategories[0]}`}
+                  href={`/categories/${categoryLinks[0]}`}
                 >
                   {trendingCategories[0]}
                 </Link>
@@ -92,7 +96,7 @@ function CategoriesCard(props) {
               {trendingCategories[1] && (
                 <Link
                   className={classes.button}
-                  href={`/categories/${trendingCategories[1]}`}
+                  href={`/categories/${categoryLinks[1]}`}
                 >
                   {trendingCategories[1]}
                 </Link>
@@ -104,7 +108,7 @@ function CategoriesCard(props) {
               {trendingCategories[2] && (
                 <Link
                   className={classes.button}
-                  href={`/categories/${trendingCategories[2]}`}
+                  href={`/categories/${categoryLinks[2]}`}
                 >
                   {trendingCategories[2]}
                 </Link>
@@ -114,7 +118,7 @@ function CategoriesCard(props) {
               {trendingCategories[3] && (
                 <Link
                   className={classes.button}
-                  href={`/categories/${trendingCategories[3]}`}
+                  href={`/categories/${categoryLinks[3]}`}
                 >
                   {trendingCategories[3]}
                 </Link>
@@ -126,7 +130,7 @@ function CategoriesCard(props) {
               {trendingCategories[4] && (
                 <Link
                   className={classes.button}
-                  href={`/categories/${trendingCategories[4]}`}
+                  href={`/categories/${categoryLinks[4]}`}
                 >
                   {trendingCategories[4]}
                 </Link>
@@ -136,7 +140,7 @@ function CategoriesCard(props) {
               {trendingCategories[5] && (
                 <Link
                   className={classes.button}
-                  href={`/categories/${trendingCategories[5]}`}
+                  href={`/categories/${categoryLinks[5]}`}
                 >
                   {trendingCategories[5]}
                 </Link>
