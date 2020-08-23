@@ -12,6 +12,19 @@ export const USERNAME_CARD = "/:username/:cardTitle";
 export const FOLLOWERS = "/:username/followers";
 export const FOLLOWING = "/:username/following";
 
+export const CATEGORIES = [
+  "about_me",
+  "art",
+  "fashion",
+  "fitness",
+  "food",
+  "funny_stuff",
+  "music",
+  "photography",
+  "projects",
+  "random",
+  "stuff_i_like",
+];
 export const NON_USERNAMES = [
   "a",
   "add",

@@ -211,6 +211,7 @@ class Firebase {
     caption,
     description
   ) => {
+    let timestamp = this.database.ServerValue.TIMESTAMP;
     this.db
       .ref(
         `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
@@ -230,7 +231,7 @@ class Firebase {
         });
 
         this.db.ref(`bridgeCards/${cardID}`).update({
-          timeCreated: this.database.ServerValue.TIMESTAMP,
+          timeCreated: timestamp,
           bridgeCardTitle,
           caption,
           description,
@@ -242,6 +243,10 @@ class Firebase {
         this.db
           .ref(`categories/${category.toLowerCase()}`)
           .set(this.database.ServerValue.increment(1));
+
+        this.db.ref(`feed/${this.auth.currentUser.uid}`).update({
+          [cardID]: timestamp,
+        });
       });
   };
 
@@ -266,6 +271,8 @@ class Firebase {
     this.db
       .ref(`categories/${category.toLowerCase()}`)
       .set(this.database.ServerValue.increment(-1));
+
+    this.db.ref(`feed/${this.auth.currentUser.uid}/${cardID}`).remove();
   };
 
   getTrendingCategories = () => {
@@ -333,6 +340,9 @@ class Firebase {
       });
   };
 
+  getFeed = (userID) => {
+    return this.db.ref(`feed/${userID}`);
+  };
   follow = (followerID, followedID) => {
     this.db.ref(`followers/${followedID}`).update({ [followerID]: true });
     this.db.ref(`following/${followerID}`).update({ [followedID]: true });

@@ -5,25 +5,23 @@ import LeftNavbar from "./LeftNavbar";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import CategoriesCard from "./CategoriesCard";
-
+import BridgeCard from "./Profile/BridgeCard";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-
-import BridgeCard from "./Profile/BridgeCard";
-
 import Typography from "@material-ui/core/Typography";
-
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Avatar from "@material-ui/core/Avatar";
 
+import * as ROUTES from "../constants/routes";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavbar from "./BottomNavbar";
 import MediaQuery from "react-responsive";
 import { useParams } from "react-router-dom";
 import { withFirebase } from "./Firebase";
+import NotFound from "./NotFound";
 
 const useStyles = makeStyles({
   root: {
@@ -101,11 +99,20 @@ const useStyles = makeStyles({
 function CategoriesPage(props) {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [valid, setValid] = useState(false);
   const classes = useStyles();
 
   const category = useParams().category.toLowerCase();
+  const categoryDisplay = category
+    .replace(/_/g, " ")
+    .replace(/\w\S*/g, (txt) => {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 
   useEffect(() => {
+    if (ROUTES.CATEGORIES.includes(category)) {
+      setValid(true);
+    }
     setLoading(true);
     setCards(
       props.firebase.getCardsInCategory(category).then((results) => {
@@ -167,103 +174,110 @@ function CategoriesPage(props) {
 
   return (
     <div>
-      <MediaQuery maxWidth={1114}>
-        <Navbar />
-        <Container className={classes.root}>
-          <Box flex={1}>
-            <Container className={classes.container}>Feed Stuff</Container>
-          </Box>
-          <Box flex={1}></Box>
-        </Container>
-        <BottomNavbar />
-      </MediaQuery>
-      <MediaQuery minWidth={1115} maxWidth={1399}>
-        <Navbar />
-        <Container className={classes.root}>
-          <Box flex={1}>
-            <LeftNavbar noText={true} />
-          </Box>
-          <Box flex={1}>
-            <Container className={classes.container}>Feed Stuff</Container>
-          </Box>
-          <Box flex={1}></Box>
-        </Container>
-      </MediaQuery>
-      <MediaQuery minWidth={1400}>
-        <Navbar />
-        <Container className={classes.root}>
-          <Box flex={1}>
-            <LeftNavbar />
-          </Box>
-          <Box flex={1}>
-            <Card className={classes.category}>{category}</Card>
-            <Container className={classes.container}>
-              <List>
-                {!loading &&
-                  cards.map((card) => {
-                    return (
-                      <ListItem>
-                        <Card
-                          classes={{ root: classes.card }}
-                          key={card.cardID}
-                        >
-                          <CardHeader
-                            avatar={
-                              <Link href={"/" + card.username}>
-                                <Avatar
-                                  src={card.profilePicture}
-                                  style={{ width: "75px", height: "75px" }}
-                                />
-                              </Link>
-                            }
-                            title={
-                              <Link
-                                href={"/" + card.username}
-                                className={classes.name}
-                              >
-                                {card.name}
-                              </Link>
-                            }
-                            subheader={
-                              <Typography className={classes.username}>
-                                @{card.username}
-                              </Typography>
-                            }
-                            action={
-                              <React.Fragment>
-                                <Typography className={classes.date}>
-                                  {card.dateCreated}
-                                </Typography>
-                                {card.lastUpdated && (
-                                  <Typography className={classes.dateUpdated}>
-                                    Last Edited: {card.dateUpdated}
+      {valid && (
+        <React.Fragment>
+          <MediaQuery maxWidth={1114}>
+            <Navbar />
+            <Container className={classes.root}>
+              <Box flex={1}>
+                <Container className={classes.container}>Feed Stuff</Container>
+              </Box>
+              <Box flex={1}></Box>
+            </Container>
+            <BottomNavbar />
+          </MediaQuery>
+          <MediaQuery minWidth={1115} maxWidth={1399}>
+            <Navbar />
+            <Container className={classes.root}>
+              <Box flex={1}>
+                <LeftNavbar noText={true} />
+              </Box>
+              <Box flex={1}>
+                <Container className={classes.container}>Feed Stuff</Container>
+              </Box>
+              <Box flex={1}></Box>
+            </Container>
+          </MediaQuery>
+          <MediaQuery minWidth={1400}>
+            <Navbar />
+            <Container className={classes.root}>
+              <Box flex={1}>
+                <LeftNavbar />
+              </Box>
+              <Box flex={1}>
+                <Card className={classes.category}>{categoryDisplay}</Card>
+                <Container className={classes.container}>
+                  <List>
+                    {!loading &&
+                      cards.map((card) => {
+                        return (
+                          <ListItem>
+                            <Card
+                              classes={{ root: classes.card }}
+                              key={card.cardID}
+                            >
+                              <CardHeader
+                                avatar={
+                                  <Link href={"/" + card.username}>
+                                    <Avatar
+                                      src={card.profilePicture}
+                                      style={{ width: "75px", height: "75px" }}
+                                    />
+                                  </Link>
+                                }
+                                title={
+                                  <Link
+                                    href={"/" + card.username}
+                                    className={classes.name}
+                                  >
+                                    {card.name}
+                                  </Link>
+                                }
+                                subheader={
+                                  <Typography className={classes.username}>
+                                    @{card.username}
                                   </Typography>
-                                )}
-                              </React.Fragment>
-                            }
-                          />
-                          <CardContent
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <BridgeCard cardID={card.cardID}></BridgeCard>
-                          </CardContent>
-                        </Card>
-                      </ListItem>
-                    );
-                  })}
-              </List>
+                                }
+                                action={
+                                  <React.Fragment>
+                                    <Typography className={classes.date}>
+                                      {card.dateCreated}
+                                    </Typography>
+                                    {card.lastUpdated && (
+                                      <Typography
+                                        className={classes.dateUpdated}
+                                      >
+                                        Last Edited: {card.dateUpdated}
+                                      </Typography>
+                                    )}
+                                  </React.Fragment>
+                                }
+                              />
+                              <CardContent
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <BridgeCard cardID={card.cardID}></BridgeCard>
+                              </CardContent>
+                            </Card>
+                          </ListItem>
+                        );
+                      })}
+                  </List>
+                </Container>
+              </Box>
+              <Box flex={1}>
+                <Container>
+                  <CategoriesCard />
+                </Container>
+              </Box>
             </Container>
-          </Box>
-          <Box flex={1}>
-            <Container>
-              <CategoriesCard />
-            </Container>
-          </Box>
-        </Container>
-      </MediaQuery>
+          </MediaQuery>
+        </React.Fragment>
+      )}
+      {!valid && <NotFound />}
     </div>
   );
 }
