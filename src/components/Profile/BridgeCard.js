@@ -132,7 +132,7 @@ const useStyles = makeStyles({
   },
   lastEdited: {
     color: "#FFFFFF",
-    fontSize: "18px",
+    fontSize: "14px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 600,
     textAlign: "right",
@@ -341,9 +341,6 @@ function BridgeCard(props) {
                     <Typography className={classes.username}>
                       @{props.username}
                     </Typography>
-                    <Typography className={classes.username}>
-                      {timeCreated}
-                    </Typography>
                   </div>
                   <Avatar
                     style={{ margin: "0 0 0 15px" }}
@@ -393,6 +390,11 @@ function BridgeCard(props) {
                     <Typography gutterBottom className={classes.description}>
                       {description}
                     </Typography>
+
+                    <Typography className={classes.lastEdited}>
+                      {timeCreated}
+                    </Typography>
+
                     {lastUpdated && (
                       <Typography className={classes.lastEdited}>
                         Last Edited: {lastUpdated}
