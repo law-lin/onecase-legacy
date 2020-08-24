@@ -237,7 +237,6 @@ function BridgeCard(props) {
                   {bridgeCardTitle}
                 </Typography>
               </DialogTitle>
-
               <DialogContent>
                 <Box display="flex">
                   <Box>

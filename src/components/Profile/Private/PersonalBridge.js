@@ -102,6 +102,8 @@ function PersonalBridge(props) {
                   setUsername(state.username);
                   setProfilePicture(state.profilePicture);
                   setLoading(false);
+                }
+                if (state[cn].notes) {
                   setNotes(state[cn].notes);
                 }
                 setLoading(false);
