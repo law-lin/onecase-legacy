@@ -29,11 +29,18 @@ const useStyles = makeStyles({
     borderRadius: "20px",
     marginBottom: "20px",
   },
+  gridItem: {
+    display: "flex",
+    justifyContent: "center",
+  },
   button: {
     "&:hover": {
       outline: "none",
+      textDecoration: "none",
+      color: "#FFFFFF",
     },
-    "&:focus": {
+    "&:active": {
+      color: "#ABABAB",
       outline: "none",
     },
     fontFamily: ["Montserrat", "sans-serif"],
@@ -45,6 +52,10 @@ const useStyles = makeStyles({
     minHeight: 130,
     textAlign: "center",
     boxShadow: "none",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
@@ -108,47 +119,41 @@ function LinksCard(props) {
           <h1 className={classes.header}>Links</h1>
           <Divider className={classes.divider} />
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.gridItem}>
               {linkCard1URL && (
                 <Link
                   target="_blank"
                   rel="noopener noreferrer"
                   href={linkCard1URL}
-                  style={{ textDecoration: "none" }}
+                  className={classes.button}
                 >
-                  <CardActionArea className={classes.button}>
-                    <CardContent>{linkCard1Title}</CardContent>
-                  </CardActionArea>
+                  {linkCard1Title}
                 </Link>
               )}
               {!linkCard1URL && <Card className={classes.button}></Card>}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.gridItem}>
               {linkCard2URL && (
                 <Link
                   target="_blank"
                   rel="noopener noreferrer"
                   href={linkCard2URL}
-                  style={{ textDecoration: "none" }}
+                  className={classes.button}
                 >
-                  <CardActionArea className={classes.button}>
-                    <CardContent>{linkCard2Title}</CardContent>
-                  </CardActionArea>
+                  {linkCard2Title}
                 </Link>
               )}
               {!linkCard2URL && <Card className={classes.button}></Card>}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.gridItem}>
               {linkCard3URL && (
                 <Link
                   target="_blank"
                   rel="noopener noreferrer"
                   href={linkCard3URL}
-                  style={{ textDecoration: "none" }}
+                  className={classes.button}
                 >
-                  <CardActionArea className={classes.button}>
-                    <CardContent>{linkCard3Title}</CardContent>
-                  </CardActionArea>
+                  {linkCard3Title}
                 </Link>
               )}
               {!linkCard3URL && <Card className={classes.button}></Card>}
