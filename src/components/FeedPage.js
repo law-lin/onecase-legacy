@@ -58,6 +58,7 @@ const useStyles = makeStyles({
     minWidth: "500px",
     boxShadow: "none",
     borderWidth: "30px",
+    width: "100%",
   },
   name: {
     "&:hover": {
@@ -96,6 +97,26 @@ const useStyles = makeStyles({
     fontWeight: 700,
     marginTop: "50px",
   },
+  addedTo: {
+    display: "inline",
+    fontFamily: ["Montserrat", "sans-serif"],
+  },
+  categoryLink: {
+    "&:hover": {
+      textDecoration: "none",
+      color: "#094153",
+    },
+    "&:active": {
+      outline: "none",
+      color: "#adadad",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    textDecoration: "none",
+    color: "#094153",
+    fontWeight: 700,
+  },
 });
 
 function FeedPage(props) {
@@ -109,14 +130,20 @@ function FeedPage(props) {
       .getFollowing(props.firebase.auth.currentUser.uid)
       .once("value")
       .then((snapshot) => {
-        console.log(snapshot);
+        var promises = [];
+        snapshot.forEach((snap) => {
+          promises.push(props.firebase.getFeed(snap.key).once("value"));
+        });
+        return Promise.all(promises);
+      })
+      .then((snapshot) => {
         var promises = [];
         snapshot.forEach((snap) => {
           var results = [];
-          results.push(
-            props.firebase.getFeed(snap.key).once("value"),
-            props.firebase.user(snap.key).once("value")
-          );
+          results.push(props.firebase.user(snap.key).once("value"));
+          for (var key in snap.val()) {
+            results.push(props.firebase.bridgeCards(key).once("value"));
+          }
           promises.push(Promise.all(results));
         });
         return Promise.all(promises);
@@ -138,8 +165,10 @@ function FeedPage(props) {
           "December",
         ];
         snapshot.forEach((snap) => {
-          for (var key in snap[0].val()) {
-            const date = new Date(snap[0].val()[key]);
+          console.log(snap);
+          for (let i = 1; i < snap.length; i++) {
+            let bridgeCard = snap[i];
+            const date = new Date(bridgeCard.val().timeCreated);
             const dateCreated =
               monthNames[date.getMonth()] +
               " " +
@@ -148,12 +177,13 @@ function FeedPage(props) {
               date.getFullYear();
 
             let card = {
-              cardID: key,
+              cardID: bridgeCard.key,
+              category: bridgeCard.val().category,
               dateCreated: dateCreated,
-              timeCreated: snap[0].val()[key],
-              name: snap[1].val().name,
-              username: snap[1].val().username,
-              profilePicture: snap[1].val().profilePicture,
+              timeCreated: bridgeCard.val().timeCreated,
+              name: snap[0].val().name,
+              username: snap[0].val().username,
+              profilePicture: snap[0].val().profilePicture,
             };
             posts.push(card);
           }
@@ -220,12 +250,24 @@ function FeedPage(props) {
                                   </Link>
                                 }
                                 title={
-                                  <Link
-                                    href={"/" + card.username}
-                                    className={classes.name}
-                                  >
-                                    {card.name}
-                                  </Link>
+                                  <React.Fragment>
+                                    <Link
+                                      href={"/" + card.username}
+                                      className={classes.name}
+                                    >
+                                      {card.name}
+                                    </Link>
+                                    <Typography className={classes.addedTo}>
+                                      {" "}
+                                      added a card to{" "}
+                                    </Typography>
+                                    <Link
+                                      href={"/categories/" + card.category}
+                                      className={classes.categoryLink}
+                                    >
+                                      {card.category}
+                                    </Link>
+                                  </React.Fragment>
                                 }
                                 subheader={
                                   <Typography className={classes.username}>

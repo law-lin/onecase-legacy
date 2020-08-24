@@ -112,7 +112,7 @@ function PublicProfilePage(props) {
   const [bio, setBio] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
   const [exists, setExists] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [followerCount, setFollowerCount] = useState(null);
   const [followingCount, setFollowingCount] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -797,7 +797,6 @@ function PublicProfilePage(props) {
               </React.Fragment>
             )}
           </MediaQuery>
-          )}
         </div>
       );
     } else {

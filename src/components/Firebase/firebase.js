@@ -211,7 +211,7 @@ class Firebase {
     caption,
     description
   ) => {
-    let timestamp = this.database.ServerValue.TIMESTAMP;
+    const timestamp = this.database.ServerValue.TIMESTAMP;
     this.db
       .ref(
         `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
@@ -232,6 +232,7 @@ class Firebase {
 
         this.db.ref(`bridgeCards/${cardID}`).update({
           timeCreated: timestamp,
+          category,
           bridgeCardTitle,
           caption,
           description,
