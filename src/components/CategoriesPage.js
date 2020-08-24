@@ -63,6 +63,7 @@ const useStyles = makeStyles({
     minWidth: "500px",
     boxShadow: "none",
     borderWidth: "30px",
+    width: "100%",
   },
   name: {
     "&:hover": {

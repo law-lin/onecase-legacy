@@ -30,10 +30,6 @@ const useStyles = makeStyles({
     width: "270px",
     justifyContent: "left",
   },
-  icon: {
-    width: "50px",
-    marginRight: "20px",
-  },
   noText: {
     "&:hover": {
       outline: "none",
@@ -46,6 +42,28 @@ const useStyles = makeStyles({
   },
   noTextIcon: {
     width: "50px",
+  },
+  button: {
+    "&:hover": {
+      outline: "none",
+      textDecoration: "none",
+      color: "#7699a8",
+      backgroundColor: "#FFFFFF",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    borderRadius: "15px",
+    color: "#3E4E56",
+    fontSize: "20px",
+    fontWeight: 700,
+    height: "80px",
+    padding: "10px 0",
+  },
+  icon: {
+    width: "50px",
+    marginRight: "20px",
   },
 });
 
@@ -88,37 +106,29 @@ function LeftNavbar(props) {
         <React.Fragment>
           {username && (
             <React.Fragment>
-              <Box>
-                <Link href={"/feed"} style={{ textDecoration: "none" }}>
-                  <Button className={classes.root}>
-                    <HomeIcon className={classes.icon} />
-                    Home
-                  </Button>
-                </Link>
-              </Box>
-              <Box>
-                <Link href={"/feed"} style={{ textDecoration: "none" }}>
-                  <Button className={classes.root}>
-                    <ExhibitionsIcon className={classes.icon} />
-                    Exhibitions
-                  </Button>
-                </Link>
-              </Box>
-              <Box>
-                <Link href={"/" + username} style={{ textDecoration: "none" }}>
-                  <Button className={classes.root}>
-                    {!loading && (
-                      <Avatar
-                        round="50px"
-                        size="50"
-                        style={{ marginRight: "20px" }}
-                        src={profilePicture}
-                      />
-                    )}
-                    Profile
-                  </Button>
-                </Link>
-              </Box>
+              <Link href={"/feed"} className={classes.button}>
+                <div>
+                  <HomeIcon className={classes.icon} />
+                  Home
+                </div>
+              </Link>
+
+              <Link href={"/feed"} className={classes.button}>
+                <ExhibitionsIcon className={classes.icon} />
+                Exhibitions
+              </Link>
+
+              <Link href={"/" + username} className={classes.button}>
+                {!loading && (
+                  <Avatar
+                    round="50px"
+                    size="50"
+                    style={{ marginRight: "20px" }}
+                    src={profilePicture}
+                  />
+                )}
+                Profile
+              </Link>
             </React.Fragment>
           )}
         </React.Fragment>
@@ -127,30 +137,19 @@ function LeftNavbar(props) {
         <React.Fragment>
           {username && (
             <React.Fragment>
-              <Box>
-                <Link href={"/feed"} style={{ textDecoration: "none" }}>
-                  <Button className={classes.noText}>
-                    <HomeIcon className={classes.noTextIcon} />
-                  </Button>
-                </Link>
-              </Box>
-              <Box>
-                <Link href={"/feed"} style={{ textDecoration: "none" }}>
-                  <Button className={classes.noText}>
-                    <ExhibitionsIcon className={classes.noTextIcon} />
-                  </Button>
-                </Link>
-              </Box>
+              <Link href={"/feed"} className={classes.button}>
+                <HomeIcon className={classes.noTextIcon} />
+              </Link>
 
-              <Box>
-                <Link href={"/" + username} style={{ textDecoration: "none" }}>
-                  <Button className={classes.noText}>
-                    {!loading && (
-                      <Avatar round="50px" size="50" src={profilePicture} />
-                    )}
-                  </Button>
-                </Link>
-              </Box>
+              <Link href={"/feed"} className={classes.button}>
+                <ExhibitionsIcon className={classes.noTextIcon} />
+              </Link>
+
+              <Link href={"/" + username} className={classes.button}>
+                {!loading && (
+                  <Avatar round="50px" size="50" src={profilePicture} />
+                )}
+              </Link>
             </React.Fragment>
           )}
         </React.Fragment>
