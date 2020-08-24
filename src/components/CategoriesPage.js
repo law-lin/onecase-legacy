@@ -272,6 +272,11 @@ function CategoriesPage(props) {
                                   >
                                     <BridgeCard
                                       cardID={card.cardID}
+                                      name={card.name}
+                                      username={card.username}
+                                      profilePicture={card.profilePicture}
+                                      timeCreated={card.dateCreated}
+                                      lastUpdated={card.dateUpdated}
                                     ></BridgeCard>
                                   </CardContent>
                                 </Card>

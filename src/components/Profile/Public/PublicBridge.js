@@ -121,6 +121,7 @@ class PublicBridge extends Component {
               const state = snapshot.val();
               if (state) {
                 this.setState({
+                  name: state.name,
                   username: state.username,
                   profilePicture: state.profilePicture,
                   profilePictureLoading: false,
@@ -176,7 +177,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard1"
                         />
@@ -184,7 +187,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard2"
                         />
@@ -192,7 +197,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard3"
                         />
@@ -202,7 +209,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard4"
                         />
@@ -210,7 +219,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard5"
                         />
@@ -218,7 +229,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard6"
                         />
@@ -228,7 +241,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard7"
                         />
@@ -236,7 +251,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard8"
                         />
@@ -244,7 +261,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard9"
                         />
@@ -313,7 +332,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard1"
                         />
@@ -321,7 +342,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard2"
                         />
@@ -329,7 +352,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard3"
                         />
@@ -339,7 +364,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard4"
                         />
@@ -347,7 +374,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard5"
                         />
@@ -355,7 +384,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard6"
                         />
@@ -365,7 +396,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard7"
                         />
@@ -373,7 +406,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard8"
                         />
@@ -381,7 +416,9 @@ class PublicBridge extends Component {
                       <Box m={2}>
                         <BridgeCard
                           userID={this.state.userID}
+                          name={this.state.name}
                           username={this.state.username}
+                          profilePicture={this.state.profilePicture}
                           cardNumber={this.state.cardNumber}
                           bridgeCardNumber="bridgeCard9"
                         />

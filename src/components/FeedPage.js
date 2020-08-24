@@ -78,7 +78,7 @@ const useStyles = makeStyles({
     color: "#000000",
   },
   username: {
-    color: "#e0e0e0",
+    color: "#434343",
     fontSize: "18px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 600,
@@ -295,7 +295,14 @@ function FeedPage(props) {
                                   justifyContent: "center",
                                 }}
                               >
-                                <BridgeCard cardID={card.cardID}></BridgeCard>
+                                <BridgeCard
+                                  cardID={card.cardID}
+                                  name={card.name}
+                                  username={card.username}
+                                  profilePicture={card.profilePicture}
+                                  timeCreated={card.dateCreated}
+                                  lastUpdated={card.dateUpdated}
+                                ></BridgeCard>
                               </CardContent>
                             </Card>
                           </ListItem>

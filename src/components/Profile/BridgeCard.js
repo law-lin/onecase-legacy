@@ -136,6 +136,7 @@ const useStyles = makeStyles({
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 600,
     textAlign: "right",
+    paddingRight: "5px",
   },
 });
 
