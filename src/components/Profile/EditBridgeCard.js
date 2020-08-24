@@ -31,6 +31,199 @@ import { getCroppedImg, getRotatedImage } from "../canvasUtils";
 import { useParams } from "react-router-dom";
 // Icons
 
+const useStyles = makeStyles({
+  root: {
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontWeight: 700,
+    fontSize: "100px",
+  },
+  content: {
+    overflow: "hidden hidden",
+  },
+  title: {
+    backgroundColor: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 700,
+    fontSize: "25px",
+    marginTop: "8px",
+    padding: "0 28px",
+    borderRadius: "8px",
+    textAlign: "center",
+    width: "350px",
+  },
+  upload: {
+    color: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    fontSize: "32px",
+  },
+  input: {
+    fontSize: "30px",
+    borderRadius: "5px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 700,
+  },
+  textField: {
+    borderRadius: "5px",
+    padding: "5px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    fontSize: "24px",
+  },
+  button: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#C4C4C4",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    width: "30px",
+    height: "30px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "grey",
+    color: "white",
+    borderRadius: "15px",
+  },
+  imageUpload: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#FFFFFF",
+  },
+  save: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#52bf75",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#05872e",
+    color: "white",
+    borderRadius: "15px",
+    width: "7%",
+    height: "25%",
+    marginRight: "1.5%",
+  },
+  cancel: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#f07171",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#f03737",
+    color: "white",
+    borderRadius: "15px",
+    width: "7%",
+    height: "25%",
+  },
+  change: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#2D2C2C",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    display: "none",
+    textTransform: "none",
+    width: "100px",
+    height: "50px",
+    fontFamily: ["Montserrat", "sans-serif"],
+    color: "#FFFFFF",
+    fontSize: "12px",
+    position: "absolute",
+    bottom: 0,
+    background: "#000000",
+    opacity: 0.65,
+    boxSizing: "border-box",
+    borderBottomLeftRadius: "50px",
+    borderBottomRightRadius: "50px",
+  },
+  crop: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: "80px",
+  },
+  controls: {
+    position: "absolute",
+    bottom: 0,
+    left: "50%",
+    width: "50%",
+    transform: "translateX(-50%)",
+    height: "80px",
+    display: "flex",
+    alignItems: "center",
+  },
+  sliderContainer: {
+    display: "flex",
+    flex: "1",
+    alignItems: "center",
+  },
+  sliderLabel: {
+    margin: "0 20px 0 20px",
+  },
+  slider: {
+    padding: "22px 0px",
+    marginLeft: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    margin: "0 16px",
+  },
+  dialogPaper: {
+    minHeight: "80vh",
+    maxHeight: "80vh",
+  },
+  card: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#000000",
+    backgroundColor: "#FFFFFF",
+    minHeight: "200px",
+    width: "200px",
+  },
+  caption: {
+    padding: "50px 20px 20px 20px",
+    width: "420px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    color: "#FFFFFF",
+    position: "relative",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      backgroundColor: "white",
+      width: "100%",
+      height: "3px",
+      bottom: 0,
+      left: 0,
+    },
+  },
+});
+
 function EditBridgeCard(props) {
   const [open, setOpen] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
@@ -43,6 +236,7 @@ function EditBridgeCard(props) {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
   const [alert, setAlert] = useState(false);
+  const [imageAlert, setImageAlert] = useState(false);
   const [cardImage, setCardImage] = useState(null);
   const [bridgeCardTitle, setBridgeCardTitle] = useState(props.bridgeCardTitle);
   const [caption, setCaption] = useState(props.caption);
@@ -53,198 +247,6 @@ function EditBridgeCard(props) {
   const [index, setIndex] = useState(0);
   let { cardTitle } = useParams();
 
-  const useStyles = makeStyles({
-    root: {
-      fontFamily: ["Mukta Mahee", "sans-serif"],
-      fontWeight: 700,
-      fontSize: "100px",
-    },
-    content: {
-      overflow: "hidden hidden",
-    },
-    title: {
-      backgroundColor: "#FFFFFF",
-      fontFamily: ["Montserrat", "sans-serif"],
-      fontWeight: 700,
-      fontSize: "25px",
-      marginTop: "8px",
-      padding: "0 28px",
-      borderRadius: "8px",
-      textAlign: "center",
-      width: "350px",
-    },
-    upload: {
-      color: "#FFFFFF",
-      fontFamily: ["Montserrat", "sans-serif"],
-      fontWeight: 800,
-      fontSize: "32px",
-    },
-    input: {
-      fontSize: "30px",
-      borderRadius: "5px",
-      fontFamily: ["Montserrat", "sans-serif"],
-      fontWeight: 700,
-    },
-    textField: {
-      borderRadius: "5px",
-      padding: "5px",
-      fontFamily: ["Mukta Mahee", "sans-serif"],
-      color: "#000000",
-      backgroundColor: "#FFFFFF",
-      fontSize: "24px",
-    },
-    button: {
-      "&:hover": {
-        outline: "none",
-        backgroundColor: "#C4C4C4",
-      },
-      "&:focus": {
-        outline: "none",
-      },
-      width: "30px",
-      height: "30px",
-      fontFamily: ["Montserrat", "sans-serif"],
-      alignSelf: "center",
-      textTransform: "none",
-      fontSize: "20px",
-      backgroundColor: "grey",
-      color: "white",
-      borderRadius: "15px",
-    },
-    imageUpload: {
-      "&:hover": {
-        outline: "none",
-      },
-      "&:focus": {
-        outline: "none",
-      },
-      color: "#FFFFFF",
-    },
-    save: {
-      "&:hover": {
-        outline: "none",
-        backgroundColor: "#52bf75",
-      },
-      "&:focus": {
-        outline: "none",
-      },
-      fontFamily: ["Montserrat", "sans-serif"],
-      alignSelf: "center",
-      textTransform: "none",
-      fontSize: "20px",
-      backgroundColor: "#05872e",
-      color: "white",
-      borderRadius: "15px",
-      width: "7%",
-      height: "25%",
-      marginRight: "1.5%",
-    },
-    cancel: {
-      "&:hover": {
-        outline: "none",
-        backgroundColor: "#f07171",
-      },
-      "&:focus": {
-        outline: "none",
-      },
-      fontFamily: ["Montserrat", "sans-serif"],
-      alignSelf: "center",
-      textTransform: "none",
-      fontSize: "20px",
-      backgroundColor: "#f03737",
-      color: "white",
-      borderRadius: "15px",
-      width: "7%",
-      height: "25%",
-    },
-    change: {
-      "&:hover": {
-        outline: "none",
-        backgroundColor: "#2D2C2C",
-      },
-      "&:focus": {
-        outline: "none",
-      },
-      display: "none",
-      textTransform: "none",
-      width: "100px",
-      height: "50px",
-      fontFamily: ["Montserrat", "sans-serif"],
-      color: "#FFFFFF",
-      fontSize: "12px",
-      position: "absolute",
-      bottom: 0,
-      background: "#000000",
-      opacity: 0.65,
-      boxSizing: "border-box",
-      borderBottomLeftRadius: "50px",
-      borderBottomRightRadius: "50px",
-    },
-    crop: {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: "80px",
-    },
-    controls: {
-      position: "absolute",
-      bottom: 0,
-      left: "50%",
-      width: "50%",
-      transform: "translateX(-50%)",
-      height: "80px",
-      display: "flex",
-      alignItems: "center",
-    },
-    sliderContainer: {
-      display: "flex",
-      flex: "1",
-      alignItems: "center",
-    },
-    sliderLabel: {
-      margin: "0 20px 0 20px",
-    },
-    slider: {
-      padding: "22px 0px",
-      marginLeft: 16,
-      flexDirection: "row",
-      alignItems: "center",
-      margin: "0 16px",
-    },
-    dialogPaper: {
-      minHeight: "80vh",
-      maxHeight: "80vh",
-    },
-    card: {
-      "&:hover": {
-        outline: "none",
-      },
-      "&:focus": {
-        outline: "none",
-      },
-      color: "#000000",
-      backgroundColor: "#FFFFFF",
-      minHeight: "200px",
-      width: "200px",
-    },
-    caption: {
-      padding: "50px 20px 20px 20px",
-      width: "420px",
-      fontFamily: ["Mukta Mahee", "sans-serif"],
-      color: "#FFFFFF",
-      position: "relative",
-      "&::after": {
-        content: '""',
-        position: "absolute",
-        backgroundColor: "white",
-        width: "100%",
-        height: "3px",
-        bottom: 0,
-        left: 0,
-      },
-    },
-  });
   const classes = useStyles();
   const handleOpen = () => {
     setOpen(true);
@@ -356,74 +358,82 @@ function EditBridgeCard(props) {
     }
     setAlert(false);
   };
+
+  const handleImageAlertClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlert(false);
+  };
+
   const handleSubmit = useCallback(async () => {
     if (props.bridgeCardTitle) {
       props.firebase.editBridgeCard(props.cardID, caption, description);
     } else {
-      props.firebase.createBridgeCard(
-        props.cardNumber,
-        props.bridgeCardNumber,
-        bridgeCardTitle,
-        cardTitle,
-        caption,
-        description
-      );
-
-      if (imagePreview != null) {
-        let blob = await fetch(imagePreview).then((r) => r.blob());
-        let uuid = uuidv4();
-        let file = new File([blob], uuid);
-
-        props.firebase.uploadCardImage(file).on(
-          "state_changed",
-          (snapshot) => {
-            // progress function ...
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-          },
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            props.firebase.uploadCardImageURL(
-              props.cardNumber,
-              props.bridgeCardNumber,
-              file
-            );
-            handleClose();
-          }
+      if (imagePreview === null) {
+        setImageAlert(true);
+      } else {
+        setImageAlert(false);
+        props.firebase.createBridgeCard(
+          props.cardNumber,
+          props.bridgeCardNumber,
+          bridgeCardTitle,
+          cardTitle,
+          caption,
+          description
         );
-      }
+        if (imagePreview != null) {
+          let blob = await fetch(imagePreview).then((r) => r.blob());
+          let uuid = uuidv4();
+          let file = new File([blob], uuid);
+          props.firebase.uploadCardImage(file).on(
+            "state_changed",
+            (snapshot) => {
+              // progress function ...
+              const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              );
+            },
+            (error) => {
+              console.log(error);
+            },
+            () => {
+              props.firebase.uploadCardImageURL(
+                props.cardNumber,
+                props.bridgeCardNumber,
+                file
+              );
+            }
+          );
+        }
+        if (coverImagePreview != null) {
+          let blob = await fetch(coverImagePreview).then((r) => r.blob());
+          let uuid = uuidv4();
+          let file = new File([blob], uuid);
 
-      if (coverImagePreview != null) {
-        let blob = await fetch(coverImagePreview).then((r) => r.blob());
-        let uuid = uuidv4();
-        let file = new File([blob], uuid);
-
-        props.firebase.uploadCardCoverImage(file).on(
-          "state_changed",
-          (snapshot) => {
-            // progress function ...
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-          },
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            props.firebase.uploadCardCoverImageURL(
-              props.cardNumber,
-              props.bridgeCardNumber,
-              file
-            );
-            handleClose();
-          }
-        );
+          props.firebase.uploadCardCoverImage(file).on(
+            "state_changed",
+            (snapshot) => {
+              // progress function ...
+              const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              );
+            },
+            (error) => {
+              console.log(error);
+            },
+            () => {
+              props.firebase.uploadCardCoverImageURL(
+                props.cardNumber,
+                props.bridgeCardNumber,
+                file
+              );
+            }
+          );
+        }
+        handleClose();
       }
     }
-    handleClose();
   });
 
   const handleDelete = () => {
@@ -790,7 +800,7 @@ function EditBridgeCard(props) {
                       onClose={handleAlertClose}
                     >
                       <MuiAlert onClose={handleAlertClose} severity="error">
-                        The bridge card title cannot be empty!
+                        The card title cannot be empty!
                       </MuiAlert>
                     </Snackbar>
                   </div>
@@ -1001,6 +1011,15 @@ function EditBridgeCard(props) {
                       Save
                     </Button>
                   </DialogActions>
+                  <Snackbar
+                    open={imageAlert}
+                    autoHideDuration={6000}
+                    onClose={handleImageAlertClose}
+                  >
+                    <MuiAlert onClose={handleImageAlertClose} severity="error">
+                      Please attach an image to this card!
+                    </MuiAlert>
+                  </Snackbar>
                 </React.Fragment>
               )}
             </Box>
@@ -1082,6 +1101,14 @@ function EditBridgeCard(props) {
               </Box>
             </Box>
           </DialogContent>
+          <DialogActions>
+            <Button className={classes.cancel} onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button className={classes.save} onClick={handleSubmit}>
+              Save
+            </Button>
+          </DialogActions>
         </Dialog>
       )}
     </div>

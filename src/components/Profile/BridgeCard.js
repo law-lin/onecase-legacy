@@ -27,7 +27,9 @@ import background from "../../images/background3.png";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import EditBridgeCard from "./EditBridgeCard";
-import { CardActionArea } from "@material-ui/core";
+import { CardActionArea, Link } from "@material-ui/core";
+import ProfilePicture from "./ProfilePicture";
+import Avatar from "react-avatar";
 
 const useStyles = makeStyles({
   root: {
@@ -69,15 +71,16 @@ const useStyles = makeStyles({
     borderRadius: "8px",
     textAlign: "center",
     width: "350px",
+    display: "inline",
   },
   dialog: {
     color: "#FFFFFF",
     backgroundColor: "#232323",
   },
   caption: {
-    paddingTop: "50px",
+    padding: "50px 0 25px 0",
     textAlign: "center",
-    paddingBottom: "25px",
+    marginLeft: "3px",
     minHeight: "20px",
     width: "420px",
     fontFamily: ["Montserrat", "sans-serif"],
@@ -104,6 +107,36 @@ const useStyles = makeStyles({
     color: "#FFFFFF",
     fontSize: "18px",
   },
+  name: {
+    "&:hover": {
+      textDecoration: "none",
+      color: "#FFFFFF",
+    },
+    "&:active": {
+      outline: "none",
+      color: "#adadad",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    fontSize: "24px",
+    color: "#FFFFFF",
+  },
+  username: {
+    color: "#FFFFFF",
+    fontSize: "18px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontWeight: 600,
+  },
+  lastEdited: {
+    color: "#FFFFFF",
+    fontSize: "18px",
+    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontWeight: 600,
+    textAlign: "right",
+  },
 });
 
 function BridgeCard(props) {
@@ -117,9 +150,26 @@ function BridgeCard(props) {
   const [cardCoverImageURL, setCardCoverImageURL] = useState(null);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [timeCreated, setTimeCreated] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   const classes = useStyles();
   const { username, cardTitle } = useParams();
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   useEffect(() => {
     setLoading(true);
@@ -133,6 +183,26 @@ function BridgeCard(props) {
           setDescription(state.description);
           setCardCoverImageURL(state.cardCoverImageURL);
           setCardImageURL(state.cardImageURL);
+          if (state.timeCreated) {
+            const date = new Date(state.timeCreated);
+            const dateCreated =
+              monthNames[date.getMonth()] +
+              " " +
+              date.getDate() +
+              ", " +
+              date.getFullYear();
+            setTimeCreated(dateCreated);
+          }
+          if (state.lastUpdated) {
+            const date = new Date(state.lastUpdated);
+            const dateUpdated =
+              monthNames[date.getMonth()] +
+              " " +
+              date.getDate() +
+              ", " +
+              date.getFullYear();
+            setLastUpdated(dateUpdated);
+          }
           setLoading(false);
         } else {
           setCardID(null);
@@ -158,6 +228,26 @@ function BridgeCard(props) {
               setDescription(state.description);
               setCardCoverImageURL(state.cardCoverImageURL);
               setCardImageURL(state.cardImageURL);
+              if (state.timeCreated) {
+                const date = new Date(state.timeCreated);
+                const dateCreated =
+                  monthNames[date.getMonth()] +
+                  " " +
+                  date.getDate() +
+                  ", " +
+                  date.getFullYear();
+                setTimeCreated(dateCreated);
+              }
+              if (state.lastUpdated) {
+                const date = new Date(state.lastUpdated);
+                const dateUpdated =
+                  monthNames[date.getMonth()] +
+                  " " +
+                  date.getDate() +
+                  ", " +
+                  date.getFullYear();
+                setLastUpdated(dateUpdated);
+              }
               setLoading(false);
             } else {
               setCardID(null);
@@ -232,11 +322,36 @@ function BridgeCard(props) {
                 },
               }}
             >
-              <DialogTitle>
-                <Typography className={classes.title}>
-                  {bridgeCardTitle}
-                </Typography>
-              </DialogTitle>
+              <Box
+                display="flex"
+                style={{ flex: "0 0 auto", margin: 0, padding: "16px 24px" }}
+              >
+                <Box flex={1}>
+                  <Typography className={classes.title}>
+                    {bridgeCardTitle}
+                  </Typography>
+                </Box>
+                <Box flex={1}></Box>
+                <Box display="flex" justifyContent="flex-end" flex={1}>
+                  <div>
+                    <Link href={"/" + props.username} className={classes.name}>
+                      {props.name}
+                    </Link>
+                    <Typography className={classes.username}>
+                      @{props.username}
+                    </Typography>
+                    <Typography className={classes.username}>
+                      {timeCreated}
+                    </Typography>
+                  </div>
+                  <Avatar
+                    style={{ margin: "0 0 0 15px" }}
+                    size="50"
+                    round="50px"
+                    src={props.profilePicture}
+                  />
+                </Box>
+              </Box>
               <DialogContent>
                 <Box display="flex">
                   <Box>
@@ -271,14 +386,17 @@ function BridgeCard(props) {
                     </React.Fragment>
                   </Box>
                   <Box>
-                    <div>
-                      <Typography className={classes.caption}>
-                        {caption}
+                    <Typography className={classes.caption}>
+                      {caption}
+                    </Typography>
+                    <Typography gutterBottom className={classes.description}>
+                      {description}
+                    </Typography>
+                    {lastUpdated && (
+                      <Typography className={classes.lastEdited}>
+                        Last Edited: {lastUpdated}
                       </Typography>
-                      <Typography gutterBottom className={classes.description}>
-                        {description}
-                      </Typography>
-                    </div>
+                    )}
                   </Box>
                 </Box>
               </DialogContent>

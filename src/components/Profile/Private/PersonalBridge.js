@@ -53,6 +53,7 @@ const useStyles = makeStyles({
 });
 
 function PersonalBridge(props) {
+  const [name, setName] = useState(null);
   const [username, setUsername] = useState(null);
   const [userID, setUserID] = useState(null);
   const [notes, setNotes] = useState("");
@@ -99,6 +100,7 @@ function PersonalBridge(props) {
               props.firebase.user(uid).on("value", (snapshot) => {
                 const state = snapshot.val();
                 if (state) {
+                  setName(state.name);
                   setUsername(state.username);
                   setProfilePicture(state.profilePicture);
                   setLoading(false);
@@ -157,6 +159,7 @@ function PersonalBridge(props) {
                       {editing && (
                         <EditCard
                           display="none"
+                          name={name}
                           username={username}
                           oldCardTitle={oldCardTitle}
                           cardTitle={cardTitle}
@@ -186,7 +189,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard1"
                         editable={editing}
@@ -196,7 +201,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard2"
                         editable={editing}
@@ -206,7 +213,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard3"
                         editable={editing}
@@ -218,7 +227,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard4"
                         editable={editing}
@@ -228,7 +239,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard5"
                         editable={editing}
@@ -238,7 +251,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard6"
                         editable={editing}
@@ -250,7 +265,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard7"
                         editable={editing}
@@ -260,7 +277,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard8"
                         editable={editing}
@@ -270,7 +289,9 @@ function PersonalBridge(props) {
                     <Box m={2}>
                       <BridgeCard
                         userID={userID}
+                        name={name}
                         username={username}
+                        profilePicture={profilePicture}
                         cardNumber={cardNumber}
                         bridgeCardNumber="bridgeCard9"
                         editable={editing}
@@ -288,6 +309,7 @@ function PersonalBridge(props) {
                 style={{ marginTop: "10px", width: "280px" }}
               >
                 <Box style={{ textAlign: "center" }}>
+                  {" "}
                   <UsernameButton display="block" username={username} />
                   <ProfilePicture profilePicture={profilePicture} />
                 </Box>

@@ -78,7 +78,7 @@ const useStyles = makeStyles({
     color: "#000000",
   },
   username: {
-    color: "#434343",
+    color: "#e0e0e0",
     fontSize: "18px",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 600,
