@@ -220,7 +220,7 @@ function BridgeCard(props) {
         .bridgeCardIDs(props.userID, props.cardNumber, props.bridgeCardNumber)
         .on("value", (snapshot) => {
           const cardID = snapshot.val();
-          props.firebase.bridgeCards(cardID).once("value", (snapshot) => {
+          props.firebase.bridgeCards(cardID).on("value", (snapshot) => {
             const state = snapshot.val();
             if (state) {
               setCardID(snapshot.key);
