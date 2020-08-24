@@ -60,6 +60,8 @@ const useStyles = makeStyles({
     fontWeight: 700,
     height: "80px",
     padding: "10px 0",
+    display: "flex",
+    alignItems: "center",
   },
   icon: {
     width: "50px",
