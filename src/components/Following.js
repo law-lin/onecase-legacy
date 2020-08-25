@@ -210,6 +210,9 @@ const Following = (props) => {
 
   const closeUnfollowDialog = () => {
     setOpenUnfollow(false);
+    setUserID(null);
+    setUsername(null);
+    setProfilePicture(null);
   };
 
   const handleUnfollow = (userID) => {
