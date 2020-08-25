@@ -113,7 +113,6 @@ const useStyles = makeStyles({
     backgroundColor: "#05872e",
     color: "white",
     borderRadius: "15px",
-    width: "7%",
     height: "25%",
     marginRight: "1.5%",
   },
@@ -132,7 +131,6 @@ const useStyles = makeStyles({
     backgroundColor: "#f03737",
     color: "white",
     borderRadius: "15px",
-    width: "7%",
     height: "25%",
   },
   change: {
@@ -222,6 +220,20 @@ const useStyles = makeStyles({
       left: 0,
     },
   },
+  icon: {
+    width: "50px",
+    height: "50px",
+  },
+  arrow: {
+    "&:hover": {
+      outline: "none",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontSize: "20px",
+    color: "#FFFFFF",
+  },
 });
 
 function EditBridgeCard(props) {
@@ -235,6 +247,8 @@ function EditBridgeCard(props) {
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
+  const [imageInputKey, setImageInputKey] = useState(null);
+  const [coverImageInputKey, setCoverImageInputKey] = useState(null);
   const [alert, setAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
   const [cardImage, setCardImage] = useState(null);
@@ -295,10 +309,12 @@ function EditBridgeCard(props) {
 
   const handleImageClose = () => {
     setImageOpen(false);
+    setImageInputKey(Date.now());
   };
 
   const handleCoverImageClose = () => {
     setCoverImageOpen(false);
+    setCoverImageInputKey(Date.now());
   };
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -454,124 +470,6 @@ function EditBridgeCard(props) {
   const fileUpload = useRef(null);
   const coverImageUpload = useRef(null);
 
-  const FirstSlide = () => {
-    return (
-      <React.Fragment>
-        <input
-          type="file"
-          ref={coverImageUpload}
-          style={{ display: "none" }}
-          onChange={handleCoverImageChange}
-        />
-
-        <React.Fragment>
-          {!coverImagePreview && (
-            <Grid
-              container
-              justify="center"
-              alignItems="center"
-              style={{
-                backgroundColor: "#C4C4C4",
-                height: "250px",
-                width: "250px",
-              }}
-            >
-              <IconButton
-                className={classes.imageUpload}
-                onClick={() => coverImageUpload.current.click()}
-              >
-                <CameraAltIcon />
-              </IconButton>
-            </Grid>
-          )}
-          {coverImagePreview && (
-            <IconButton
-              className={classes.imageUpload}
-              onClick={() => coverImageUpload.current.click()}
-            >
-              <img
-                style={{ height: "100%", width: "100%" }}
-                src={coverImagePreview}
-                alt="preview bridge card img"
-              />
-            </IconButton>
-          )}
-        </React.Fragment>
-
-        <Dialog
-          open={coverImageOpen}
-          onClose={handleCoverImageClose}
-          fullWidth={true}
-          maxWidth={"lg"}
-          classes={{ paper: classes.dialogPaper }}
-          PaperProps={{
-            style: { backgroundColor: "#E4E4E4" },
-          }}
-        >
-          <DialogContent>
-            <div className={classes.crop}>
-              <Cropper
-                image={coverImageSrc}
-                crop={crop}
-                rotation={rotation}
-                zoom={zoom}
-                aspect={3 / 3}
-                onCropChange={setCrop}
-                onRotationChange={setRotation}
-                onCropComplete={onCropComplete}
-                onZoomChange={setZoom}
-              />
-            </div>
-            <div className={classes.controls}>
-              <div className={classes.sliderContainer}>
-                <Typography
-                  variant="overline"
-                  classes={{ root: classes.sliderLabel }}
-                >
-                  Zoom
-                </Typography>
-                <Slider
-                  value={zoom}
-                  min={1}
-                  max={3}
-                  step={0.1}
-                  aria-labelledby="Zoom"
-                  onChange={(e, zoom) => setZoom(zoom)}
-                  classes={{ container: classes.slider }}
-                />
-              </div>
-              <div className={classes.sliderContainer}>
-                <Typography
-                  variant="overline"
-                  classes={{ root: classes.sliderLabel }}
-                >
-                  Rotation
-                </Typography>
-                <Slider
-                  value={rotation}
-                  min={0}
-                  max={360}
-                  step={1}
-                  aria-labelledby="Rotation"
-                  classes={{ container: classes.slider }}
-                  onChange={(e, rotation) => setRotation(rotation)}
-                />
-              </div>
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCoverImageClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleCoverImageSave} color="primary">
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </React.Fragment>
-    );
-  };
-
   const onArrowClick = (direction) => {
     if (direction === "right" && index === 1 && bridgeCardTitle === "") {
       setAlert(true);
@@ -586,9 +484,17 @@ function EditBridgeCard(props) {
   function Arrow(props) {
     const { direction, clickFunction } = props;
     const icon =
-      direction === "left" ? <IoMdArrowDropleft /> : <IoMdArrowDropright />;
+      direction === "left" ? (
+        <IoMdArrowDropleft className={classes.icon} />
+      ) : (
+        <IoMdArrowDropright className={classes.icon} />
+      );
 
-    return <IconButton onClick={clickFunction}>{icon}</IconButton>;
+    return (
+      <IconButton className={classes.arrow} onClick={clickFunction}>
+        {icon}
+      </IconButton>
+    );
   }
 
   return (
@@ -651,6 +557,7 @@ function EditBridgeCard(props) {
                   >
                     <input
                       type="file"
+                      key={coverImageInputKey}
                       ref={coverImageUpload}
                       style={{ display: "none" }}
                       onChange={handleCoverImageChange}
@@ -751,10 +658,16 @@ function EditBridgeCard(props) {
                       </div>
                     </DialogContent>
                     <DialogActions>
-                      <Button onClick={handleCoverImageClose} color="primary">
+                      <Button
+                        className={classes.cancel}
+                        onClick={handleCoverImageClose}
+                      >
                         Cancel
                       </Button>
-                      <Button onClick={handleCoverImageSave} color="primary">
+                      <Button
+                        className={classes.save}
+                        onClick={handleCoverImageSave}
+                      >
                         Save
                       </Button>
                     </DialogActions>
@@ -843,6 +756,7 @@ function EditBridgeCard(props) {
                                   >
                                     <input
                                       type="file"
+                                      key={imageInputKey}
                                       ref={fileUpload}
                                       style={{ display: "none" }}
                                       onChange={handleImageChange}
@@ -867,6 +781,7 @@ function EditBridgeCard(props) {
                                   >
                                     <input
                                       type="file"
+                                      key={imageInputKey}
                                       ref={fileUpload}
                                       style={{ display: "none" }}
                                       onChange={handleImageChange}
