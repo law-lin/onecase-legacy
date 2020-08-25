@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+
 import Navbar from "./Navbar";
-import { withAuthorization } from "./Session";
 import LeftNavbar from "./LeftNavbar";
+import BottomNavbar from "./BottomNavbar";
+
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import CategoriesCard from "./CategoriesCard";
@@ -14,9 +16,10 @@ import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Avatar from "@material-ui/core/Avatar";
-
 import { makeStyles } from "@material-ui/core/styles";
-import BottomNavbar from "./BottomNavbar";
+
+import { withAuthorization } from "./Session";
+
 import MediaQuery from "react-responsive";
 
 const useStyles = makeStyles({
@@ -234,6 +237,7 @@ function FeedPage(props) {
                   {cards && (
                     <List>
                       {cards.map((card) => {
+                        console.log(card.name);
                         return (
                           <ListItem>
                             <Card
@@ -279,13 +283,6 @@ function FeedPage(props) {
                                     <Typography className={classes.date}>
                                       {card.dateCreated}
                                     </Typography>
-                                    {card.lastUpdated && (
-                                      <Typography
-                                        className={classes.dateUpdated}
-                                      >
-                                        Last Edited: {card.dateUpdated}
-                                      </Typography>
-                                    )}
                                   </React.Fragment>
                                 }
                               />

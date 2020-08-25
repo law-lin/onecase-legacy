@@ -15,6 +15,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Avatar from "@material-ui/core/Avatar";
 
+import BridgeCardContent from "./Profile/BridgeCardContent";
+import { Route } from "react-router-dom";
+
 import * as ROUTES from "../constants/routes";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavbar from "./BottomNavbar";
@@ -254,13 +257,6 @@ function CategoriesPage(props) {
                                         <Typography className={classes.date}>
                                           {card.dateCreated}
                                         </Typography>
-                                        {card.lastUpdated && (
-                                          <Typography
-                                            className={classes.dateUpdated}
-                                          >
-                                            Last Edited: {card.dateUpdated}
-                                          </Typography>
-                                        )}
                                       </React.Fragment>
                                     }
                                   />

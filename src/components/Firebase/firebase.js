@@ -204,6 +204,9 @@ class Firebase {
   };
 
   createBridgeCard = (
+    name,
+    username,
+    profilePicture,
     cardNumber,
     bridgeCardNumber,
     bridgeCardTitle,
@@ -231,6 +234,9 @@ class Firebase {
         });
 
         this.db.ref(`bridgeCards/${cardID}`).update({
+          name,
+          username,
+          profilePicture,
           timeCreated: timestamp,
           category,
           bridgeCardTitle,

@@ -375,6 +375,9 @@ function EditBridgeCard(props) {
       } else {
         setImageAlert(false);
         props.firebase.createBridgeCard(
+          props.name,
+          props.username,
+          props.profilePicture,
           props.cardNumber,
           props.bridgeCardNumber,
           bridgeCardTitle,

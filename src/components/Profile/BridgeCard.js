@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { withFirebase } from "../Firebase";
 
 import { makeStyles } from "@material-ui/core/styles";
+
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -20,6 +21,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MediaQuery from "react-responsive";
 
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import background from "../../images/background3.png";
@@ -27,7 +29,7 @@ import background from "../../images/background3.png";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import EditBridgeCard from "./EditBridgeCard";
-import { CardActionArea, Link } from "@material-ui/core";
+import { CardActionArea } from "@material-ui/core";
 import ProfilePicture from "./ProfilePicture";
 import Avatar from "react-avatar";
 
@@ -42,16 +44,20 @@ const useStyles = makeStyles({
   },
   button: {
     "&:hover": {
-      outline: "none",
       backgroundColor: "#3E4E55",
+      color: "#000000",
+      textDecoration: "none",
     },
-    "&:focus": {
-      outline: "none",
+    "&:active": {
+      color: "#3E4E55",
     },
-    color: "#3B3C3B",
+    color: "#000000",
     height: "200px",
     width: "200px",
     boxShadow: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   cardTitle: {
     opacity: 1,
@@ -295,121 +301,32 @@ function BridgeCard(props) {
       <MediaQuery minDeviceWidth={1224}>
         {!props.editable && bridgeCardTitle && (
           <React.Fragment>
-            <CardActionArea
-              onClick={handleClick}
+            <Link
               className={classes.button}
               style={{
                 background: cardCoverImageURL
                   ? `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${cardCoverImageURL}) 0 0/200px 200px no-repeat`
                   : "#FFFFFF 0 0/200px 200px no-repeat",
               }}
-            >
-              <CardContent>
-                {loading && <div>Loading...</div>}
-                <Typography className={classes.cardTitle}>
-                  {bridgeCardTitle}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <Dialog
-              fullWidth={true}
-              open={open}
-              onClose={handleClose}
-              PaperProps={{
-                style: {
-                  backgroundColor: "#232323",
-                  minHeight: "450px",
-                  minWidth: "800px",
-                },
+              to={{
+                pathname: `/c/${cardID}`,
+                state: { modal: true },
               }}
             >
-              <Box
-                display="flex"
-                style={{ flex: "0 0 auto", margin: 0, padding: "16px 24px" }}
-              >
-                <Box flex={1}>
-                  <Typography className={classes.title}>
-                    {bridgeCardTitle}
-                  </Typography>
-                </Box>
-                <Box flex={1}></Box>
-                <Box display="flex" justifyContent="flex-end" flex={1}>
-                  <div>
-                    <Link href={"/" + props.username} className={classes.name}>
-                      {props.name}
-                    </Link>
-                    <Typography className={classes.username}>
-                      @{props.username}
-                    </Typography>
-                  </div>
-                  <Avatar
-                    style={{ margin: "0 0 0 15px" }}
-                    size="50"
-                    round="50px"
-                    src={props.profilePicture}
-                  />
-                </Box>
-              </Box>
-              <DialogContent>
-                <Box display="flex">
-                  <Box>
-                    <React.Fragment>
-                      {cardImageURL && (
-                        <Grid
-                          container
-                          justify="center"
-                          alignItems="center"
-                          style={{
-                            minHeight: "350px",
-                            width: "100%",
-                          }}
-                        >
-                          <img
-                            src={cardImageURL}
-                            style={{ width: "350px", height: "350px" }}
-                            alt="Show off your project!"
-                          />
-                        </Grid>
-                      )}
-                      {!cardImageURL && (
-                        <p
-                          style={{
-                            color: "#FFFFFF",
-                            fontFamily: ["Mukta Mahee", "sans-serif"],
-                          }}
-                        >
-                          No image to display
-                        </p>
-                      )}
-                    </React.Fragment>
-                  </Box>
-                  <Box>
-                    <Typography className={classes.caption}>
-                      {caption}
-                    </Typography>
-                    <Typography gutterBottom className={classes.description}>
-                      {description}
-                    </Typography>
-
-                    <Typography className={classes.lastEdited}>
-                      {timeCreated}
-                    </Typography>
-
-                    {lastUpdated && (
-                      <Typography className={classes.lastEdited}>
-                        Last Edited: {lastUpdated}
-                      </Typography>
-                    )}
-                  </Box>
-                </Box>
-              </DialogContent>
-            </Dialog>
+              {loading && <div>Loading...</div>}
+              <Typography className={classes.cardTitle}>
+                {bridgeCardTitle}
+              </Typography>
+            </Link>
           </React.Fragment>
         )}
         {!props.editable && !bridgeCardTitle && props.personal && (
           <EditBridgeCard
             display="none"
             userID={props.userID}
+            name={props.name}
+            username={props.username}
+            profilePicture={props.profilePicture}
             cardID={cardID}
             bridgeCardTitle={bridgeCardTitle}
             category={cardTitle}
@@ -440,6 +357,9 @@ function BridgeCard(props) {
               action={
                 <EditBridgeCard
                   userID={props.userID}
+                  name={props.name}
+                  username={props.username}
+                  profilePicture={props.profilePicture}
                   cardID={cardID}
                   bridgeCardTitle={bridgeCardTitle}
                   category={cardTitle}
@@ -467,86 +387,23 @@ function BridgeCard(props) {
       <MediaQuery maxDeviceWidth={1223}>
         {!props.editable && bridgeCardTitle && (
           <React.Fragment>
-            <CardActionArea
-              onClick={handleClick}
+            <Link
               className={classes.button}
               style={{
                 background: cardCoverImageURL
                   ? `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${cardCoverImageURL}) 0 0/200px 200px no-repeat`
                   : "#FFFFFF 0 0/200px 200px no-repeat",
               }}
-            >
-              <CardContent>
-                {loading && <div>Loading...</div>}
-                <Typography className={classes.cardTitle}>
-                  {bridgeCardTitle}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <Dialog
-              fullWidth={true}
-              open={open}
-              onClose={handleClose}
-              PaperProps={{
-                style: {
-                  backgroundColor: "#232323",
-                  minHeight: "450px",
-                  minWidth: "800px",
-                },
+              to={{
+                pathName: `/c/${cardID}`,
+                state: { modal: true },
               }}
             >
-              <DialogTitle>
-                <Typography className={classes.title}>
-                  {bridgeCardTitle}
-                </Typography>
-              </DialogTitle>
-
-              <DialogContent>
-                <Box display="flex">
-                  <Box>
-                    <React.Fragment>
-                      {cardImageURL && (
-                        <Grid
-                          container
-                          justify="center"
-                          alignItems="center"
-                          style={{
-                            minHeight: "350px",
-                            width: "100%",
-                          }}
-                        >
-                          <img
-                            src={cardImageURL}
-                            style={{ width: "350px", height: "350px" }}
-                            alt="Show off your project!"
-                          />
-                        </Grid>
-                      )}
-                      {!cardImageURL && (
-                        <p
-                          style={{
-                            color: "#FFFFFF",
-                            fontFamily: ["Mukta Mahee", "sans-serif"],
-                          }}
-                        >
-                          No image to display
-                        </p>
-                      )}
-                    </React.Fragment>
-                  </Box>
-                  <Box>
-                    <div>
-                      <Typography className={classes.caption}>
-                        {caption}
-                      </Typography>
-                      <Typography gutterBottom className={classes.description}>
-                        {description}
-                      </Typography>
-                    </div>
-                  </Box>
-                </Box>
-              </DialogContent>
-            </Dialog>
+              {loading && <div>Loading...</div>}
+              <Typography className={classes.cardTitle}>
+                {bridgeCardTitle}
+              </Typography>
+            </Link>
           </React.Fragment>
         )}
         {!props.editable && !bridgeCardTitle && props.personal && (
