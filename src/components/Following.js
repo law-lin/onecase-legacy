@@ -122,6 +122,39 @@ const useStyles = makeStyles({
     textTransform: "none",
     width: "85px",
   },
+  unfollowPrompt: {
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontSize: "18px",
+    color: "#000000",
+    fontWeight: 500,
+    padding: "25px 0",
+  },
+  unfollow: {
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    textDecoration: "none",
+    textTransform: "none",
+    color: "#FF0000",
+    width: "100%",
+    padding: "10px",
+    height: "60px",
+  },
+  cancel: {
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    textDecoration: "none",
+    textTransform: "none",
+    color: "#000000",
+    width: "100%",
+    padding: "10px",
+    height: "60px",
+  },
 });
 
 const Following = (props) => {
@@ -130,6 +163,10 @@ const Following = (props) => {
   const [openUnfollow, setOpenUnfollow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [followings, setFollowings] = useState([]);
+
+  const [userID, setUserID] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
 
   const classes = useStyles();
   useEffect(() => {
@@ -164,8 +201,11 @@ const Following = (props) => {
     props.firebase.follow(props.firebase.auth.currentUser.uid, userID);
   };
 
-  const openUnfollowDialog = () => {
+  const openUnfollowDialog = (userID, username, profilePicture) => {
     setOpenUnfollow(true);
+    setUserID(userID);
+    setUsername(username);
+    setProfilePicture(profilePicture);
   };
 
   const closeUnfollowDialog = () => {
@@ -189,6 +229,37 @@ const Following = (props) => {
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
   };
 
+  function UnfollowDialog() {
+    return (
+      <Dialog
+        PaperProps={{
+          style: {
+            alignItems: "center",
+            padding: "50px 50px 20px 50px",
+          },
+        }}
+        open={openUnfollow}
+        onClose={closeUnfollowDialog}
+      >
+        <Avatar
+          src={profilePicture}
+          style={{ width: "75px", height: "75px" }}
+        />
+        <Typography className={classes.unfollowPrompt}>
+          Are you sure you want to unfollow @{username}?
+        </Typography>
+        <Button
+          className={classes.unfollow}
+          onClick={() => handleUnfollow(userID)}
+        >
+          Unfollow
+        </Button>
+        <Button className={classes.cancel} onClick={closeUnfollowDialog}>
+          Cancel
+        </Button>
+      </Dialog>
+    );
+  }
   return (
     <React.Fragment>
       <Button className={classes.button} disableRipple onClick={handleOpen}>
@@ -256,24 +327,17 @@ const Following = (props) => {
                           <React.Fragment>
                             <Button
                               className={classes.followingButton}
-                              onClick={openUnfollowDialog}
+                              onClick={() =>
+                                openUnfollowDialog(
+                                  following.userID,
+                                  following.username,
+                                  following.profilePicture
+                                )
+                              }
                             >
                               Following
                             </Button>
-                            <Dialog
-                              open={openUnfollow}
-                              onClose={closeUnfollowDialog}
-                            >
-                              Are you sure you want to unfollow?
-                              <Button
-                                onClick={() => handleUnfollow(following.userID)}
-                              >
-                                Unfollow
-                              </Button>
-                              <Button onClick={closeUnfollowDialog}>
-                                Cancel
-                              </Button>
-                            </Dialog>
+                            <UnfollowDialog />
                           </React.Fragment>
                         )}
                       </React.Fragment>

@@ -11,12 +11,13 @@ import { setDisplayName } from "recompose";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: "360px",
+    // minWidth: "360px",
     backgroundColor: "#232323",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
     borderRadius: "25px",
     marginTop: "100px",
+    width: "100%",
   },
   header: {
     textAlign: "left",

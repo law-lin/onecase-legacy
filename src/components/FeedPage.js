@@ -4,6 +4,8 @@ import Navbar from "./Navbar";
 import LeftNavbar from "./LeftNavbar";
 import BottomNavbar from "./BottomNavbar";
 
+import { IoMdArrowDropleft } from "react-icons/io";
+import { IoMdArrowDropright } from "react-icons/io";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import CategoriesCard from "./CategoriesCard";
@@ -21,34 +23,41 @@ import { makeStyles } from "@material-ui/core/styles";
 import { withAuthorization } from "./Session";
 
 import MediaQuery from "react-responsive";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
     margin: "80px auto 0 auto",
-    minWidth: "1250px",
-    maxWidth: "1250px",
     display: "flex",
+    justifyContent: "center",
     padding: 0,
   },
   container: {
     display: "flex",
-    minWidth: "650px",
     justifyContent: "center",
     alignItems: "center",
   },
   feed: {
+    "&:hover": {
+      backgroundColor: "#232323",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    textTransform: "none",
     fontFamily: ["Montserrat", "sans-serif"],
-    backgroundColor: "black",
+    backgroundColor: "#000000",
     color: "white",
-    fontSize: "30px",
+    fontSize: "24px",
     fontWeight: 800,
     borderRadius: "15px",
     alignSelf: "center",
-    width: "100%",
+    width: "50%",
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    margin: "10px",
   },
   categories: {
     minWidth: "280px",
@@ -125,6 +134,7 @@ const useStyles = makeStyles({
 function FeedPage(props) {
   const classes = useStyles();
 
+  const [showTrending, setShowTrending] = useState(false);
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState([]);
   useEffect(() => {
@@ -204,10 +214,120 @@ function FeedPage(props) {
       <MediaQuery maxWidth={1114}>
         <Navbar />
         <Container className={classes.root}>
-          <Box flex={1}>
-            <Container className={classes.container}>Feed Stuff</Container>
+          <Box style={{ width: "100%" }}>
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                className={classes.feed}
+                onClick={() => setShowTrending(!showTrending)}
+              >
+                {!showTrending ? (
+                  <span>
+                    Trending <IoMdArrowDropright />
+                  </span>
+                ) : (
+                  <span>
+                    <IoMdArrowDropleft /> Feed
+                  </span>
+                )}
+              </Button>
+            </Box>
+            <Box>
+              {!showTrending && (
+                <Container className={classes.container}>
+                  {!loading && (
+                    <React.Fragment>
+                      {cards && (
+                        <List>
+                          {cards.map((card) => {
+                            console.log(card.name);
+                            return (
+                              <ListItem>
+                                <Card
+                                  classes={{ root: classes.card }}
+                                  key={card.cardID}
+                                >
+                                  <CardHeader
+                                    avatar={
+                                      <Link href={"/" + card.username}>
+                                        <Avatar
+                                          src={card.profilePicture}
+                                          style={{
+                                            width: "75px",
+                                            height: "75px",
+                                          }}
+                                        />
+                                      </Link>
+                                    }
+                                    title={
+                                      <React.Fragment>
+                                        <Link
+                                          href={"/" + card.username}
+                                          className={classes.name}
+                                        >
+                                          {card.name}
+                                        </Link>
+                                        <Typography className={classes.addedTo}>
+                                          {" "}
+                                          added a card to{" "}
+                                        </Typography>
+                                        <Link
+                                          href={"/categories/" + card.category}
+                                          className={classes.categoryLink}
+                                        >
+                                          {card.category}
+                                        </Link>
+                                      </React.Fragment>
+                                    }
+                                    subheader={
+                                      <Typography className={classes.username}>
+                                        @{card.username}
+                                      </Typography>
+                                    }
+                                    action={
+                                      <React.Fragment>
+                                        <Typography className={classes.date}>
+                                          {card.dateCreated}
+                                        </Typography>
+                                      </React.Fragment>
+                                    }
+                                  />
+                                  <CardContent
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <BridgeCard
+                                      cardID={card.cardID}
+                                      name={card.name}
+                                      username={card.username}
+                                      profilePicture={card.profilePicture}
+                                      timeCreated={card.dateCreated}
+                                      lastUpdated={card.dateUpdated}
+                                    ></BridgeCard>
+                                  </CardContent>
+                                </Card>
+                              </ListItem>
+                            );
+                          })}
+                        </List>
+                      )}
+                      {cards.length === 0 && (
+                        <Typography className={classes.emptyFeed}>
+                          Your feed is empty. Try following someone!
+                        </Typography>
+                      )}
+                    </React.Fragment>
+                  )}
+                </Container>
+              )}
+              {showTrending && (
+                <Container>
+                  <CategoriesCard />
+                </Container>
+              )}
+            </Box>
           </Box>
-          <Box flex={1}></Box>
         </Container>
         <BottomNavbar />
       </MediaQuery>
@@ -218,20 +338,11 @@ function FeedPage(props) {
             <LeftNavbar noText={true} />
           </Box>
           <Box flex={1}>
-            <Container className={classes.container}>Feed Stuff</Container>
-          </Box>
-          <Box flex={1}></Box>
-        </Container>
-      </MediaQuery>
-      <MediaQuery minWidth={1400}>
-        <Navbar />
-        <Container className={classes.root}>
-          <Box flex={1}>
-            <LeftNavbar />
-          </Box>
-          <Box flex={1}>
             <Card className={classes.feed}>Feed</Card>
-            <Container className={classes.container}>
+            <Container
+              className={classes.container}
+              style={{ minWidth: "650px" }}
+            >
               {!loading && (
                 <React.Fragment>
                   {cards && (
@@ -318,6 +429,109 @@ function FeedPage(props) {
           </Box>
           <Box flex={1}>
             <Container>
+              <CategoriesCard />
+            </Container>
+          </Box>
+        </Container>
+      </MediaQuery>
+      <MediaQuery minWidth={1400}>
+        <Navbar />
+        <Container className={classes.root}>
+          <Box flex={1}>
+            <LeftNavbar />
+          </Box>
+          <Box flex={1}>
+            <Card className={classes.feed}>Feed</Card>
+            <Container
+              className={classes.container}
+              style={{ minWidth: "650px" }}
+            >
+              {!loading && (
+                <React.Fragment>
+                  {cards && (
+                    <List>
+                      {cards.map((card) => {
+                        console.log(card.name);
+                        return (
+                          <ListItem>
+                            <Card
+                              classes={{ root: classes.card }}
+                              key={card.cardID}
+                            >
+                              <CardHeader
+                                avatar={
+                                  <Link href={"/" + card.username}>
+                                    <Avatar
+                                      src={card.profilePicture}
+                                      style={{ width: "75px", height: "75px" }}
+                                    />
+                                  </Link>
+                                }
+                                title={
+                                  <React.Fragment>
+                                    <Link
+                                      href={"/" + card.username}
+                                      className={classes.name}
+                                    >
+                                      {card.name}
+                                    </Link>
+                                    <Typography className={classes.addedTo}>
+                                      {" "}
+                                      added a card to{" "}
+                                    </Typography>
+                                    <Link
+                                      href={"/categories/" + card.category}
+                                      className={classes.categoryLink}
+                                    >
+                                      {card.category}
+                                    </Link>
+                                  </React.Fragment>
+                                }
+                                subheader={
+                                  <Typography className={classes.username}>
+                                    @{card.username}
+                                  </Typography>
+                                }
+                                action={
+                                  <React.Fragment>
+                                    <Typography className={classes.date}>
+                                      {card.dateCreated}
+                                    </Typography>
+                                  </React.Fragment>
+                                }
+                              />
+                              <CardContent
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <BridgeCard
+                                  cardID={card.cardID}
+                                  name={card.name}
+                                  username={card.username}
+                                  profilePicture={card.profilePicture}
+                                  timeCreated={card.dateCreated}
+                                  lastUpdated={card.dateUpdated}
+                                ></BridgeCard>
+                              </CardContent>
+                            </Card>
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  )}
+                  {cards.length === 0 && (
+                    <Typography className={classes.emptyFeed}>
+                      Your feed is empty. Try following someone!
+                    </Typography>
+                  )}
+                </React.Fragment>
+              )}
+            </Container>
+          </Box>
+          <Box flex={1}>
+            <Container style={{ minWidth: "360px" }}>
               <CategoriesCard />
             </Container>
           </Box>
