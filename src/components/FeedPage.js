@@ -32,11 +32,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
     padding: 0,
   },
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   feed: {
     "&:hover": {
       backgroundColor: "#232323",
@@ -67,7 +62,6 @@ const useStyles = makeStyles({
     borderRadius: "25px",
   },
   card: {
-    minWidth: "500px",
     boxShadow: "none",
     borderWidth: "30px",
     width: "100%",
@@ -213,7 +207,7 @@ function FeedPage(props) {
     <div>
       <MediaQuery maxWidth={1114}>
         <Navbar />
-        <Container className={classes.root}>
+        <Container className={classes.root} style={{ margin: "80px 0" }}>
           <Box style={{ width: "100%" }}>
             <Box display="flex" justifyContent="flex-end">
               <Button
@@ -237,7 +231,7 @@ function FeedPage(props) {
                   {!loading && (
                     <React.Fragment>
                       {cards && (
-                        <List>
+                        <List style={{ width: "100%" }}>
                           {cards.map((card) => {
                             console.log(card.name);
                             return (
@@ -346,7 +340,7 @@ function FeedPage(props) {
               {!loading && (
                 <React.Fragment>
                   {cards && (
-                    <List>
+                    <List style={{ width: "100%" }}>
                       {cards.map((card) => {
                         console.log(card.name);
                         return (
@@ -441,94 +435,101 @@ function FeedPage(props) {
             <LeftNavbar />
           </Box>
           <Box flex={1}>
-            <Card className={classes.feed}>Feed</Card>
-            <Container
-              className={classes.container}
-              style={{ minWidth: "650px" }}
-            >
-              {!loading && (
-                <React.Fragment>
-                  {cards && (
-                    <List>
-                      {cards.map((card) => {
-                        console.log(card.name);
-                        return (
-                          <ListItem>
-                            <Card
-                              classes={{ root: classes.card }}
-                              key={card.cardID}
-                            >
-                              <CardHeader
-                                avatar={
-                                  <Link href={"/" + card.username}>
-                                    <Avatar
-                                      src={card.profilePicture}
-                                      style={{ width: "75px", height: "75px" }}
-                                    />
-                                  </Link>
-                                }
-                                title={
-                                  <React.Fragment>
-                                    <Link
-                                      href={"/" + card.username}
-                                      className={classes.name}
-                                    >
-                                      {card.name}
-                                    </Link>
-                                    <Typography className={classes.addedTo}>
-                                      {" "}
-                                      added a card to{" "}
-                                    </Typography>
-                                    <Link
-                                      href={"/categories/" + card.category}
-                                      className={classes.categoryLink}
-                                    >
-                                      {card.category}
-                                    </Link>
-                                  </React.Fragment>
-                                }
-                                subheader={
-                                  <Typography className={classes.username}>
-                                    @{card.username}
-                                  </Typography>
-                                }
-                                action={
-                                  <React.Fragment>
-                                    <Typography className={classes.date}>
-                                      {card.dateCreated}
-                                    </Typography>
-                                  </React.Fragment>
-                                }
-                              />
-                              <CardContent
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                }}
+            <Box display="flex" justifyContent="center">
+              <Card className={classes.feed}>Feed</Card>
+            </Box>
+            <Box>
+              <Container
+                className={classes.container}
+                style={{ minWidth: "650px" }}
+              >
+                {!loading && (
+                  <React.Fragment>
+                    {cards && (
+                      <List style={{ width: "100%" }}>
+                        {cards.map((card) => {
+                          console.log(card.name);
+                          return (
+                            <ListItem>
+                              <Card
+                                classes={{ root: classes.card }}
+                                key={card.cardID}
                               >
-                                <BridgeCard
-                                  cardID={card.cardID}
-                                  name={card.name}
-                                  username={card.username}
-                                  profilePicture={card.profilePicture}
-                                  timeCreated={card.dateCreated}
-                                  lastUpdated={card.dateUpdated}
-                                ></BridgeCard>
-                              </CardContent>
-                            </Card>
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  )}
-                  {cards.length === 0 && (
-                    <Typography className={classes.emptyFeed}>
-                      Your feed is empty. Try following someone!
-                    </Typography>
-                  )}
-                </React.Fragment>
-              )}
-            </Container>
+                                <CardHeader
+                                  avatar={
+                                    <Link href={"/" + card.username}>
+                                      <Avatar
+                                        src={card.profilePicture}
+                                        style={{
+                                          width: "75px",
+                                          height: "75px",
+                                        }}
+                                      />
+                                    </Link>
+                                  }
+                                  title={
+                                    <React.Fragment>
+                                      <Link
+                                        href={"/" + card.username}
+                                        className={classes.name}
+                                      >
+                                        {card.name}
+                                      </Link>
+                                      <Typography className={classes.addedTo}>
+                                        {" "}
+                                        added a card to{" "}
+                                      </Typography>
+                                      <Link
+                                        href={"/categories/" + card.category}
+                                        className={classes.categoryLink}
+                                      >
+                                        {card.category}
+                                      </Link>
+                                    </React.Fragment>
+                                  }
+                                  subheader={
+                                    <Typography className={classes.username}>
+                                      @{card.username}
+                                    </Typography>
+                                  }
+                                  action={
+                                    <React.Fragment>
+                                      <Typography className={classes.date}>
+                                        {card.dateCreated}
+                                      </Typography>
+                                    </React.Fragment>
+                                  }
+                                />
+                                <CardContent
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                  }}
+                                >
+                                  <BridgeCard
+                                    cardID={card.cardID}
+                                    name={card.name}
+                                    username={card.username}
+                                    profilePicture={card.profilePicture}
+                                    timeCreated={card.dateCreated}
+                                    lastUpdated={card.dateUpdated}
+                                  ></BridgeCard>
+                                </CardContent>
+                              </Card>
+                            </ListItem>
+                          );
+                        })}
+                      </List>
+                    )}
+                    {cards.length === 0 && (
+                      <Typography className={classes.emptyFeed}>
+                        Your feed is empty. Try following someone!
+                      </Typography>
+                    )}
+                  </React.Fragment>
+                )}
+              </Container>
+            </Box>
           </Box>
           <Box flex={1}>
             <Container style={{ minWidth: "360px" }}>
