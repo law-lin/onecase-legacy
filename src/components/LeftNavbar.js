@@ -3,6 +3,7 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import { ImHome3 } from "react-icons/im";
 import SignOutButton from "./Profile/SignOutButton";
 import Avatar from "react-avatar";
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
@@ -65,6 +66,7 @@ const useStyles = makeStyles({
   },
   icon: {
     width: "50px",
+    height: "50px",
     marginRight: "20px",
   },
 });
@@ -110,7 +112,7 @@ function LeftNavbar(props) {
             <React.Fragment>
               <Link href={"/feed"} className={classes.button}>
                 <div>
-                  <HomeIcon className={classes.icon} />
+                  <ImHome3 className={classes.icon} />
                   Home
                 </div>
               </Link>
