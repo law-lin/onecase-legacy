@@ -395,7 +395,7 @@ function BridgeCard(props) {
                   : "#FFFFFF 0 0/200px 200px no-repeat",
               }}
               to={{
-                pathName: `/c/${cardID}`,
+                pathname: `/c/${cardID}`,
                 state: { modal: true },
               }}
             >

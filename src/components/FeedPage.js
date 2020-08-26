@@ -172,7 +172,6 @@ function FeedPage(props) {
           "December",
         ];
         snapshot.forEach((snap) => {
-          console.log(snap);
           for (let i = 1; i < snap.length; i++) {
             let bridgeCard = snap[i];
             const date = new Date(bridgeCard.val().timeCreated);

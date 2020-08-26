@@ -33,12 +33,9 @@ function Routes() {
       setPreviousLocation(location);
     }
   });
-
   const isModal =
     location.state && location.state.modal && previousLocation !== location;
-  console.log(previousLocation);
-  console.log(location);
-  console.log(isModal);
+
   return (
     <React.Fragment>
       <Switch location={isModal ? previousLocation : location}>
