@@ -9,7 +9,6 @@ import { IoMdArrowDropright } from "react-icons/io";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import MediaQuery from "react-responsive";
-import BottomNavbar from "./BottomNavbar";
 import CategoriesCard from "./CategoriesCard";
 import BridgeCard from "./Profile/BridgeCard";
 import Card from "@material-ui/core/Card";
@@ -24,8 +23,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { withAuthorization } from "./Session";
-
-import MediaQuery from "react-responsive";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({

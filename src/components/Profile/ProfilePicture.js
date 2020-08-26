@@ -131,7 +131,7 @@ const useStyles = makeStyles((props) => ({
         ? "70px"
         : "110px",
   },
-    save: {
+  save: {
     "&:hover": {
       outline: "none",
       backgroundColor: "#52bf75",
@@ -164,9 +164,9 @@ const useStyles = makeStyles((props) => ({
     backgroundColor: "#f03737",
     color: "#FFFFFF",
     borderRadius: "15px",
-    height: "25%",                                                                             
+    height: "25%",
+  },
 }));
-
 
 function ProfilePicture(props) {
   const classes = useStyles(props);

@@ -252,7 +252,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       marginTop: "90px",
     },
-     padding: "50px 20px 20px 20px",
+    padding: "50px 20px 20px 20px",
     width: "100%",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#FFFFFF",
@@ -293,7 +293,7 @@ const useStyles = makeStyles((theme) => ({
       height: "500px",
     },
   },
-    icon: {
+  icon: {
     width: "50px",
     height: "50px",
   },
@@ -638,7 +638,7 @@ function EditBridgeCard(props) {
                     <React.Fragment>
                       {!coverImagePreview && (
                         <Container
-                        className={classes.imagePreview}
+                          className={classes.imagePreview}
                           style={{
                             backgroundColor: "#C4C4C4",
                             height: "200px",
@@ -771,8 +771,7 @@ function EditBridgeCard(props) {
                       type="text"
                       placeholder="Enter a title!"
                       InputProps={{
-                        className: 
-,
+                        className: classes.input,
                         disableUnderline: true,
                       }}
                       inputProps={{
