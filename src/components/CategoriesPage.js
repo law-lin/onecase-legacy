@@ -14,6 +14,10 @@ import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+
+import { IoMdArrowDropleft } from "react-icons/io";
+import { IoMdArrowDropright } from "react-icons/io";
 
 import BridgeCardContent from "./Profile/BridgeCardContent";
 import { Route } from "react-router-dom";
@@ -34,7 +38,42 @@ const useStyles = makeStyles({
     justifyContent: "center",
     padding: 0,
   },
-  container: {},
+  header: {
+    textTransform: "none",
+    fontFamily: ["Montserrat", "sans-serif"],
+    backgroundColor: "#FFFFFF",
+    color: "#000000",
+    fontSize: "24px",
+    fontWeight: 800,
+    borderRadius: "15px",
+    alignSelf: "center",
+    width: "50%",
+    textAlign: "center",
+    margin: "10px",
+    boxShadow: "none",
+  },
+  headerButton: {
+    "&:hover": {
+      backgroundColor: "#232323",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    textTransform: "none",
+    fontFamily: ["Montserrat", "sans-serif"],
+    backgroundColor: "#000000",
+    color: "white",
+    fontSize: "24px",
+    fontWeight: 800,
+    borderRadius: "15px",
+    alignSelf: "center",
+    width: "50%",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    margin: "10px",
+  },
   categories: {
     minWidth: "280px",
     backgroundColor: "#232323",
@@ -96,8 +135,10 @@ const useStyles = makeStyles({
 
 function CategoriesPage(props) {
   const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [valid, setValid] = useState(false);
+  const [showTrending, setShowTrending] = useState(false);
+
   const classes = useStyles();
 
   const category = useParams().category.toLowerCase();
@@ -111,7 +152,6 @@ function CategoriesPage(props) {
     if (ROUTES.CATEGORIES.includes(category)) {
       setValid(true);
     }
-    setLoading(true);
     setCards(
       props.firebase.getCardsInCategory(category).then((results) => {
         var cards = [];
@@ -183,74 +223,95 @@ function CategoriesPage(props) {
                   style={{ margin: "80px 0" }}
                 >
                   <Box style={{ width: "100%" }}>
-                    <Box>
-                      <Card className={classes.category}>
-                        {categoryDisplay}
-                      </Card>
+                    <Box display="flex" justifyContent="flex-end">
+                      <Card className={classes.header}>{categoryDisplay}</Card>
+                      <Button
+                        className={classes.headerButton}
+                        onClick={() => setShowTrending(!showTrending)}
+                      >
+                        {!showTrending ? (
+                          <span>
+                            Trending <IoMdArrowDropright />
+                          </span>
+                        ) : (
+                          <span>
+                            <IoMdArrowDropleft /> {categoryDisplay}
+                          </span>
+                        )}
+                      </Button>
                     </Box>
                     <Box>
-                      <List>
-                        {!loading &&
-                          cards.map((card) => {
-                            return (
-                              <ListItem>
-                                <Card
-                                  classes={{ root: classes.card }}
-                                  key={card.cardID}
-                                >
-                                  <CardHeader
-                                    avatar={
-                                      <Link href={"/" + card.username}>
-                                        <Avatar
-                                          src={card.profilePicture}
-                                          style={{
-                                            width: "75px",
-                                            height: "75px",
-                                          }}
-                                        />
-                                      </Link>
-                                    }
-                                    title={
-                                      <Link
-                                        href={"/" + card.username}
-                                        className={classes.name}
-                                      >
-                                        {card.name}
-                                      </Link>
-                                    }
-                                    subheader={
-                                      <Typography className={classes.username}>
-                                        @{card.username}
-                                      </Typography>
-                                    }
-                                    action={
-                                      <React.Fragment>
-                                        <Typography className={classes.date}>
-                                          {card.dateCreated}
-                                        </Typography>
-                                      </React.Fragment>
-                                    }
-                                  />
-                                  <CardContent
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
+                      {!showTrending && (
+                        <List style={{ width: "100%" }}>
+                          {!loading &&
+                            cards.map((card) => {
+                              return (
+                                <ListItem>
+                                  <Card
+                                    classes={{ root: classes.card }}
+                                    key={card.cardID}
                                   >
-                                    <BridgeCard
-                                      cardID={card.cardID}
-                                      name={card.name}
-                                      username={card.username}
-                                      profilePicture={card.profilePicture}
-                                      timeCreated={card.dateCreated}
-                                      lastUpdated={card.dateUpdated}
-                                    ></BridgeCard>
-                                  </CardContent>
-                                </Card>
-                              </ListItem>
-                            );
-                          })}
-                      </List>
+                                    <CardHeader
+                                      avatar={
+                                        <Link href={"/" + card.username}>
+                                          <Avatar
+                                            src={card.profilePicture}
+                                            style={{
+                                              width: "75px",
+                                              height: "75px",
+                                            }}
+                                          />
+                                        </Link>
+                                      }
+                                      title={
+                                        <Link
+                                          href={"/" + card.username}
+                                          className={classes.name}
+                                        >
+                                          {card.name}
+                                        </Link>
+                                      }
+                                      subheader={
+                                        <Typography
+                                          className={classes.username}
+                                        >
+                                          @{card.username}
+                                        </Typography>
+                                      }
+                                      action={
+                                        <React.Fragment>
+                                          <Typography className={classes.date}>
+                                            {card.dateCreated}
+                                          </Typography>
+                                        </React.Fragment>
+                                      }
+                                    />
+                                    <CardContent
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <BridgeCard
+                                        cardID={card.cardID}
+                                        name={card.name}
+                                        username={card.username}
+                                        profilePicture={card.profilePicture}
+                                        timeCreated={card.dateCreated}
+                                        lastUpdated={card.dateUpdated}
+                                      ></BridgeCard>
+                                    </CardContent>
+                                  </Card>
+                                </ListItem>
+                              );
+                            })}
+                        </List>
+                      )}
+                      {showTrending && (
+                        <Container>
+                          <CategoriesCard />
+                        </Container>
+                      )}
                     </Box>
                   </Box>
                   <Box></Box>
@@ -272,7 +333,7 @@ function CategoriesPage(props) {
                         {categoryDisplay}
                       </Card>
 
-                      <List>
+                      <List style={{ width: "100%" }}>
                         {!loading &&
                           cards.map((card) => {
                             return (
@@ -350,71 +411,82 @@ function CategoriesPage(props) {
                     <LeftNavbar />
                   </Box>
                   <Box flex={1}>
-                    <Card className={classes.category}>{categoryDisplay}</Card>
-                    <Container className={classes.container}>
-                      <List>
-                        {!loading &&
-                          cards.map((card) => {
-                            return (
-                              <ListItem>
-                                <Card
-                                  classes={{ root: classes.card }}
-                                  key={card.cardID}
-                                >
-                                  <CardHeader
-                                    avatar={
-                                      <Link href={"/" + card.username}>
-                                        <Avatar
-                                          src={card.profilePicture}
-                                          style={{
-                                            width: "75px",
-                                            height: "75px",
-                                          }}
-                                        />
-                                      </Link>
-                                    }
-                                    title={
-                                      <Link
-                                        href={"/" + card.username}
-                                        className={classes.name}
-                                      >
-                                        {card.name}
-                                      </Link>
-                                    }
-                                    subheader={
-                                      <Typography className={classes.username}>
-                                        @{card.username}
-                                      </Typography>
-                                    }
-                                    action={
-                                      <React.Fragment>
-                                        <Typography className={classes.date}>
-                                          {card.dateCreated}
-                                        </Typography>
-                                      </React.Fragment>
-                                    }
-                                  />
-                                  <CardContent
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
+                    <Box display="flex" justifyContent="center">
+                      <Card className={classes.category}>
+                        {categoryDisplay}
+                      </Card>
+                    </Box>
+                    <Box>
+                      <Container
+                        className={classes.container}
+                        style={{ minWidth: "650px" }}
+                      >
+                        <List style={{ width: "100%" }}>
+                          {!loading &&
+                            cards.map((card) => {
+                              return (
+                                <ListItem>
+                                  <Card
+                                    classes={{ root: classes.card }}
+                                    key={card.cardID}
                                   >
-                                    <BridgeCard
-                                      cardID={card.cardID}
-                                      name={card.name}
-                                      username={card.username}
-                                      profilePicture={card.profilePicture}
-                                      timeCreated={card.dateCreated}
-                                      lastUpdated={card.dateUpdated}
-                                    ></BridgeCard>
-                                  </CardContent>
-                                </Card>
-                              </ListItem>
-                            );
-                          })}
-                      </List>
-                    </Container>
+                                    <CardHeader
+                                      avatar={
+                                        <Link href={"/" + card.username}>
+                                          <Avatar
+                                            src={card.profilePicture}
+                                            style={{
+                                              width: "75px",
+                                              height: "75px",
+                                            }}
+                                          />
+                                        </Link>
+                                      }
+                                      title={
+                                        <Link
+                                          href={"/" + card.username}
+                                          className={classes.name}
+                                        >
+                                          {card.name}
+                                        </Link>
+                                      }
+                                      subheader={
+                                        <Typography
+                                          className={classes.username}
+                                        >
+                                          @{card.username}
+                                        </Typography>
+                                      }
+                                      action={
+                                        <React.Fragment>
+                                          <Typography className={classes.date}>
+                                            {card.dateCreated}
+                                          </Typography>
+                                        </React.Fragment>
+                                      }
+                                    />
+                                    <CardContent
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <BridgeCard
+                                        cardID={card.cardID}
+                                        name={card.name}
+                                        username={card.username}
+                                        profilePicture={card.profilePicture}
+                                        timeCreated={card.dateCreated}
+                                        lastUpdated={card.dateUpdated}
+                                      ></BridgeCard>
+                                    </CardContent>
+                                  </Card>
+                                </ListItem>
+                              );
+                            })}
+                        </List>
+                      </Container>
+                    </Box>
                   </Box>
                   <Box flex={1}>
                     <Container>
