@@ -30,17 +30,11 @@ import NotFound from "./NotFound";
 const useStyles = makeStyles({
   root: {
     margin: "80px auto 0 auto",
-    minWidth: "1250px",
-    maxWidth: "1250px",
     display: "flex",
+    justifyContent: "center",
     padding: 0,
   },
-  container: {
-    display: "flex",
-    minWidth: "650px",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  container: {},
   categories: {
     minWidth: "280px",
     backgroundColor: "#232323",
@@ -63,7 +57,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   card: {
-    minWidth: "500px",
     boxShadow: "none",
     borderWidth: "30px",
     width: "100%",
@@ -185,13 +178,82 @@ function CategoriesPage(props) {
             <React.Fragment>
               <MediaQuery maxWidth={1114}>
                 <Navbar />
-                <Container className={classes.root}>
-                  <Box flex={1}>
-                    <Container className={classes.container}>
-                      Feed Stuff
-                    </Container>
+                <Container
+                  className={classes.root}
+                  style={{ margin: "80px 0" }}
+                >
+                  <Box style={{ width: "100%" }}>
+                    <Box>
+                      <Card className={classes.category}>
+                        {categoryDisplay}
+                      </Card>
+                    </Box>
+                    <Box>
+                      <List>
+                        {!loading &&
+                          cards.map((card) => {
+                            return (
+                              <ListItem>
+                                <Card
+                                  classes={{ root: classes.card }}
+                                  key={card.cardID}
+                                >
+                                  <CardHeader
+                                    avatar={
+                                      <Link href={"/" + card.username}>
+                                        <Avatar
+                                          src={card.profilePicture}
+                                          style={{
+                                            width: "75px",
+                                            height: "75px",
+                                          }}
+                                        />
+                                      </Link>
+                                    }
+                                    title={
+                                      <Link
+                                        href={"/" + card.username}
+                                        className={classes.name}
+                                      >
+                                        {card.name}
+                                      </Link>
+                                    }
+                                    subheader={
+                                      <Typography className={classes.username}>
+                                        @{card.username}
+                                      </Typography>
+                                    }
+                                    action={
+                                      <React.Fragment>
+                                        <Typography className={classes.date}>
+                                          {card.dateCreated}
+                                        </Typography>
+                                      </React.Fragment>
+                                    }
+                                  />
+                                  <CardContent
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <BridgeCard
+                                      cardID={card.cardID}
+                                      name={card.name}
+                                      username={card.username}
+                                      profilePicture={card.profilePicture}
+                                      timeCreated={card.dateCreated}
+                                      lastUpdated={card.dateUpdated}
+                                    ></BridgeCard>
+                                  </CardContent>
+                                </Card>
+                              </ListItem>
+                            );
+                          })}
+                      </List>
+                    </Box>
                   </Box>
-                  <Box flex={1}></Box>
+                  <Box></Box>
                 </Container>
                 <BottomNavbar />
               </MediaQuery>
@@ -202,11 +264,83 @@ function CategoriesPage(props) {
                     <LeftNavbar noText={true} />
                   </Box>
                   <Box flex={1}>
-                    <Container className={classes.container}>
-                      Feed Stuff
+                    <Container
+                      className={classes.container}
+                      style={{ minWidth: "650px" }}
+                    >
+                      <Card className={classes.category}>
+                        {categoryDisplay}
+                      </Card>
+
+                      <List>
+                        {!loading &&
+                          cards.map((card) => {
+                            return (
+                              <ListItem>
+                                <Card
+                                  classes={{ root: classes.card }}
+                                  key={card.cardID}
+                                >
+                                  <CardHeader
+                                    avatar={
+                                      <Link href={"/" + card.username}>
+                                        <Avatar
+                                          src={card.profilePicture}
+                                          style={{
+                                            width: "75px",
+                                            height: "75px",
+                                          }}
+                                        />
+                                      </Link>
+                                    }
+                                    title={
+                                      <Link
+                                        href={"/" + card.username}
+                                        className={classes.name}
+                                      >
+                                        {card.name}
+                                      </Link>
+                                    }
+                                    subheader={
+                                      <Typography className={classes.username}>
+                                        @{card.username}
+                                      </Typography>
+                                    }
+                                    action={
+                                      <React.Fragment>
+                                        <Typography className={classes.date}>
+                                          {card.dateCreated}
+                                        </Typography>
+                                      </React.Fragment>
+                                    }
+                                  />
+                                  <CardContent
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <BridgeCard
+                                      cardID={card.cardID}
+                                      name={card.name}
+                                      username={card.username}
+                                      profilePicture={card.profilePicture}
+                                      timeCreated={card.dateCreated}
+                                      lastUpdated={card.dateUpdated}
+                                    ></BridgeCard>
+                                  </CardContent>
+                                </Card>
+                              </ListItem>
+                            );
+                          })}
+                      </List>
                     </Container>
                   </Box>
-                  <Box flex={1}></Box>
+                  <Box flex={1}>
+                    <Container>
+                      <CategoriesCard />
+                    </Container>
+                  </Box>
                 </Container>
               </MediaQuery>
               <MediaQuery minWidth={1400}>
@@ -294,7 +428,6 @@ function CategoriesPage(props) {
           {!valid && <NotFound />}
         </React.Fragment>
       )}
-      {loading && null}
     </div>
   );
 }
