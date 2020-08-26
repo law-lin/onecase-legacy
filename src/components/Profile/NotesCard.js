@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -7,11 +7,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Divider, TextField } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: "5% 0 0 0",
-    maxWidth: "280px",
-    height: 630,
+    // maxWidth: "280px",
+    height: "100%",
     backgroundColor: "#232323",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
@@ -19,15 +19,32 @@ const useStyles = makeStyles({
   },
   header: {
     fontWeight: 800,
+    [theme.breakpoints.down("md")]: {
+      fontSize: "20px",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "25px",
+    },
   },
   divider: {
     backgroundColor: "white",
-    height: "5px",
+    [theme.breakpoints.down("md")]: {
+      height: "3px",
+    },
+    [theme.breakpoints.up("md")]: {
+      height: "5px",
+    },
     borderRadius: "20px",
     width: "85%",
   },
   notes: {
-    fontSize: "25px",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "15px",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "25px",
+    },
+    // fontSize: "25px",
     fontWeight: 300,
     marginTop: "10px",
     marginLeft: "10px",
@@ -46,15 +63,23 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 300,
-    fontSize: "25px",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "15px",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "25px",
+    },
     lineHeight: 1.6,
     borderRadius: 10,
     height: "1px",
   },
-});
+}));
+
+// const determineRows
 
 function NotesCard(props) {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   function handleChange(event) {
     props.onChange(event.target.value);

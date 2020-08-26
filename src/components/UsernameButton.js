@@ -1,18 +1,21 @@
 import React from "react";
 import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((props) => ({
+  root: {
+    display: "block",
+    color: "#000000",
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 700,
+    fontSize: (props) => (props.size === "small" ? "20px" : "32px"),
+  },
+}));
 
 function UsernameButton(props) {
+  const classes = useStyles(props);
   return (
-    <Link
-      style={{
-        display: props.display,
-        color: "#000000",
-        fontSize: "32px",
-        fontFamily: ["Montserrat", "sans-serif"],
-        fontWeight: 700,
-      }}
-      href={"/" + props.username}
-    >
+    <Link className={classes.root} href={"/" + props.username}>
       {props.username}
     </Link>
   );

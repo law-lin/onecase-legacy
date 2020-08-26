@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../profile.css";
 import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
+import BottomNavbar from "../../BottomNavbar";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 
 import BackButton from "../../BackButton";
@@ -17,10 +18,13 @@ import Box from "@material-ui/core/Box";
 import EditCard from "../EditCard";
 import Card from "@material-ui/core/Card";
 
+import Name from "../Name";
 import Username from "../Username";
 import { makeStyles } from "@material-ui/core/styles";
+
 import { withAuthorization } from "../../Session";
 import NotesCard from "../NotesCard";
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -45,10 +49,36 @@ const useStyles = makeStyles({
     justifyContent: "center",
     margin: "0 auto",
   },
+  mobileroot: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#C4C4C4",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "12px",
+    backgroundColor: "grey",
+    color: "#FFFFFF",
+    borderRadius: "50px",
+    // width: "5%",
+    // height: "10%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    // marginRight: "75%",
+    // marginTop: "-5%",
+  },
   container: {
     margin: "80px auto 0 auto",
     minWidth: "1250px",
     maxWidth: "1250px",
+  },
+  test: {
+    fontSize: "12px",
   },
 });
 

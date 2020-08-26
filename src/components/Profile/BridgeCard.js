@@ -37,9 +37,19 @@ const useStyles = makeStyles({
   root: {
     color: "#3B3C3B",
     backgroundColor: "#FFFFFF",
-    minHeight: "200px",
-    height: "200px",
-    width: "200px",
+    // minHeight: "200px",
+    height: (props) =>
+      props.size === "small"
+        ? "83px"
+        : props.size === "medium"
+        ? "150px"
+        : "200px",
+    width: (props) =>
+      props.size === "small"
+        ? "83px"
+        : props.size === "medium"
+        ? "150px"
+        : "200px",
     boxShadow: "none",
   },
   button: {
@@ -51,9 +61,19 @@ const useStyles = makeStyles({
     "&:active": {
       color: "#3E4E55",
     },
-    color: "#000000",
-    height: "200px",
-    width: "200px",
+    color: "#3B3C3B",
+    height: (props) =>
+      props.size === "small"
+        ? "83px"
+        : props.size === "medium"
+        ? "150px"
+        : "200px",
+    width: (props) =>
+      props.size === "small"
+        ? "83px"
+        : props.size === "medium"
+        ? "150px"
+        : "200px",
     boxShadow: "none",
     display: "flex",
     alignItems: "center",
@@ -63,7 +83,13 @@ const useStyles = makeStyles({
     opacity: 1,
     fontFamily: ["Montserrat", "sans-serif"],
     textAlign: "center",
-    fontSize: "30px",
+    fontSize: (props) =>
+      props.size === "small"
+        ? "10px"
+        : props.size === "medium"
+        ? "20px"
+        : "30px",
+    boxShadow: "none",
     fontWeight: 700,
     overflowWrap: "break-word",
   },

@@ -22,7 +22,7 @@ import PencilIcon from "@material-ui/icons/Create";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { withFirebase } from "../Firebase";
 import { v4 as uuidv4 } from "uuid";
 import Cropper from "react-easy-crop";
@@ -31,7 +31,7 @@ import { getCroppedImg, getRotatedImage } from "../canvasUtils";
 import { useParams } from "react-router-dom";
 // Icons
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 700,
@@ -41,6 +41,16 @@ const useStyles = makeStyles({
     overflow: "hidden hidden",
   },
   title: {
+    // fontSize: "36px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "16px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "19px",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "36px",
+    },
     backgroundColor: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
     fontWeight: 700,
@@ -69,7 +79,16 @@ const useStyles = makeStyles({
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    fontSize: "24px",
+    // fontSize: "24px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "11px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "13px",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "24px",
+    },
   },
   button: {
     "&:hover": {
@@ -97,6 +116,15 @@ const useStyles = makeStyles({
       outline: "none",
     },
     color: "#FFFFFF",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "9px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "11px",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "20px",
+    },
   },
   save: {
     "&:hover": {
@@ -201,12 +229,31 @@ const useStyles = makeStyles({
     },
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    minHeight: "200px",
-    width: "200px",
+    minHeight: (props) =>
+      props.size === "small"
+        ? "83px"
+        : props.size === "medium"
+        ? "150px"
+        : "200px",
+    width: (props) =>
+      props.size === "small"
+        ? "83px"
+        : props.size === "medium"
+        ? "150px"
+        : "200px",
   },
   caption: {
-    padding: "50px 20px 20px 20px",
-    width: "420px",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "30px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      marginTop: "60px",
+    },
+    [theme.breakpoints.up("md")]: {
+      marginTop: "90px",
+    },
+     padding: "50px 20px 20px 20px",
+    width: "100%",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#FFFFFF",
     position: "relative",
@@ -220,7 +267,33 @@ const useStyles = makeStyles({
       left: 0,
     },
   },
-  icon: {
+  imagePreview: {
+    // height: (props) =>
+    //   props.size === "small"
+    //     ? "200px"
+    //     : props.size === "medium"
+    //     ? "300px"
+    //     : "500px",
+    // width: (props) =>
+    //   props.size === "small"
+    //     ? "200px"
+    //     : props.size === "medium"
+    //     ? "300px"
+    //     : "500px",
+    [theme.breakpoints.down("sm")]: {
+      width: "100px",
+      height: "100px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "350px",
+      height: "350px",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "500px",
+      height: "500px",
+    },
+  },
+    icon: {
     width: "50px",
     height: "50px",
   },
@@ -234,7 +307,7 @@ const useStyles = makeStyles({
     fontSize: "20px",
     color: "#FFFFFF",
   },
-});
+}));
 
 function EditBridgeCard(props) {
   const [open, setOpen] = useState(false);
@@ -565,6 +638,7 @@ function EditBridgeCard(props) {
                     <React.Fragment>
                       {!coverImagePreview && (
                         <Container
+                        className={classes.imagePreview}
                           style={{
                             backgroundColor: "#C4C4C4",
                             height: "200px",
@@ -697,7 +771,8 @@ function EditBridgeCard(props) {
                       type="text"
                       placeholder="Enter a title!"
                       InputProps={{
-                        className: classes.input,
+                        className: 
+,
                         disableUnderline: true,
                       }}
                       inputProps={{

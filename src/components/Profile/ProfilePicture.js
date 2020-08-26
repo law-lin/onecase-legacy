@@ -18,13 +18,13 @@ import { v4 as uuidv4 } from "uuid";
 import DefaultProfilePic from "../../images/default-profile-pic.png";
 import { withFirebase } from "../Firebase";
 import ImageUploader from "react-images-upload";
-import Avatar from "react-avatar";
+import Avatar from "@material-ui/core/Avatar";
 import { IconButton } from "@material-ui/core";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((props) => ({
   root: {
     "&:hover": {
       outline: "none",
@@ -115,7 +115,23 @@ const useStyles = makeStyles({
     top: 0,
     bottom: 0,
   },
-  save: {
+  avatar: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    height: (props) =>
+      props.size === "small"
+        ? "40px"
+        : props.size === "medium"
+        ? "70px"
+        : "110px",
+    width: (props) =>
+      props.size === "small"
+        ? "40px"
+        : props.size === "medium"
+        ? "70px"
+        : "110px",
+  },
+    save: {
     "&:hover": {
       outline: "none",
       backgroundColor: "#52bf75",
@@ -148,12 +164,12 @@ const useStyles = makeStyles({
     backgroundColor: "#f03737",
     color: "#FFFFFF",
     borderRadius: "15px",
-    height: "25%",
-  },
-});
+    height: "25%",                                                                             
+}));
+
 
 function ProfilePicture(props) {
-  const classes = useStyles();
+  const classes = useStyles(props);
 
   const [profilePicture, setProfilePicture] = useState(props.profilePicture);
   const [newProfilePicture, setNewProfilePicture] = useState(
@@ -236,18 +252,12 @@ function ProfilePicture(props) {
   return (
     <React.Fragment>
       {!props.editable && (
-        <Avatar
-          style={{ margin: "0 auto" }}
-          size="110"
-          round="50px"
-          src={profilePicture}
-        />
+        <Avatar className={classes.avatar} src={profilePicture} />
       )}
       {props.editable && (
         <div className={classes.profilePic}>
           <Avatar
-            size="110"
-            round="50px"
+            className={classes.avatar}
             style={{ position: "relative", opacity: 0.5 }}
             src={newProfilePicture}
           />

@@ -129,7 +129,12 @@ const useStyles = makeStyles({
     fontFamily: ["Montserrat", "sans-serif"],
     backgroundColor: "black",
     color: "#FFFFFF",
-    fontSize: "30px",
+    fontsize: (props) =>
+      props.fontSize === "small"
+        ? "17px"
+        : props.fontSize === "medium"
+        ? "20px"
+        : "30px",
     fontWeight: 800,
     borderRadius: "15px",
     alignSelf: "center",
