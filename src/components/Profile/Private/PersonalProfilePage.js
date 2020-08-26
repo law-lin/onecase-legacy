@@ -103,7 +103,7 @@ const useStyles = makeStyles({
     textTransform: "none",
     fontSize: "20px",
     backgroundColor: "#f03737",
-    color: "white",
+    color: "#FFFFFF",
     borderRadius: "15px",
     width: "25%",
     height: "25%",

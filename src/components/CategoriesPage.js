@@ -332,7 +332,6 @@ function CategoriesPage(props) {
                       <Card className={classes.category}>
                         {categoryDisplay}
                       </Card>
-
                       <List style={{ width: "100%" }}>
                         {!loading &&
                           cards.map((card) => {

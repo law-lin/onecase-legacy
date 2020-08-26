@@ -115,6 +115,41 @@ const useStyles = makeStyles({
     top: 0,
     bottom: 0,
   },
+  save: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#52bf75",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#05872e",
+    color: "#FFFFFF",
+    borderRadius: "15px",
+    height: "25%",
+    marginRight: "1.5%",
+  },
+  cancel: {
+    "&:hover": {
+      outline: "none",
+      backgroundColor: "#f07171",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    alignSelf: "center",
+    textTransform: "none",
+    fontSize: "20px",
+    backgroundColor: "#f03737",
+    color: "#FFFFFF",
+    borderRadius: "15px",
+    height: "25%",
+  },
 });
 
 function ProfilePicture(props) {
@@ -291,10 +326,10 @@ function ProfilePicture(props) {
               </div>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose} color="primary">
+              <Button className={classes.cancel} onClick={handleClose}>
                 Cancel
               </Button>
-              <Button onClick={handleSave} color="primary">
+              <Button className={classes.save} onClick={handleSave}>
                 Save
               </Button>
             </DialogActions>
