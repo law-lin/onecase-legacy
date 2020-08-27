@@ -320,6 +320,7 @@ function FeedPage(props) {
                                     }}
                                   >
                                     <BridgeCard
+                                      size={"200px"}
                                       cardID={card.cardID}
                                       name={card.name}
                                       username={card.username}
@@ -432,6 +433,7 @@ function FeedPage(props) {
                                   }}
                                 >
                                   <BridgeCard
+                                    size={"200px"}
                                     cardID={card.cardID}
                                     name={card.name}
                                     username={card.username}
@@ -542,6 +544,7 @@ function FeedPage(props) {
                                   }}
                                 >
                                   <BridgeCard
+                                    size={"200px"}
                                     cardID={card.cardID}
                                     name={card.name}
                                     username={card.username}
