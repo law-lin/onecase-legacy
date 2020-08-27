@@ -98,8 +98,8 @@ const useStyles = makeStyles((theme) => ({
     "&:focus": {
       outline: "none",
     },
-    width: "30px",
-    height: "30px",
+    width: (props) => (props.size === "small" ? "15px" : "30px"),
+    height: (props) => (props.size === "small" ? "15px" : "30px"),
     fontFamily: ["Montserrat", "sans-serif"],
     alignSelf: "center",
     textTransform: "none",
@@ -229,18 +229,20 @@ const useStyles = makeStyles((theme) => ({
     },
     color: "#000000",
     backgroundColor: "#FFFFFF",
-    minHeight: (props) =>
-      props.size === "small"
-        ? "83px"
-        : props.size === "medium"
-        ? "150px"
-        : "200px",
-    width: (props) =>
-      props.size === "small"
-        ? "83px"
-        : props.size === "medium"
-        ? "150px"
-        : "200px",
+    width: "100%",
+    height: "100%",
+    // minHeight: (props) =>
+    //   props.size === "small"
+    //     ? "96px"
+    //     : props.size === "medium"
+    //     ? "150px"
+    //     : "200px",
+    // width: (props) =>
+    //   props.size === "small"
+    //     ? "96px"
+    //     : props.size === "medium"
+    //     ? "150px"
+    //     : "200px",
   },
   caption: {
     [theme.breakpoints.down("sm")]: {
@@ -334,7 +336,7 @@ function EditBridgeCard(props) {
   const [index, setIndex] = useState(0);
   let { cardTitle } = useParams();
 
-  const classes = useStyles();
+  const classes = useStyles(props);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -571,11 +573,11 @@ function EditBridgeCard(props) {
   }
 
   return (
-    <div>
+    <React.Fragment>
       {props.display === "none" && (
         <CardActionArea
           className={classes.card}
-          style={{ padding: "16px 16px 0 0", height: "0px" }}
+          style={{ padding: "16px 16px 0 0" }}
           onClick={handleOpen}
         />
       )}
@@ -585,7 +587,9 @@ function EditBridgeCard(props) {
           tip="Edit Card"
           onClick={handleOpen}
         >
-          <PencilIcon />
+          <PencilIcon
+            style={{ width: props.size === "small" ? "0.6em" : "1em" }}
+          />
         </IconButton>
       )}
       {!props.bridgeCardTitle && (
@@ -1103,7 +1107,7 @@ function EditBridgeCard(props) {
           </DialogActions>
         </Dialog>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

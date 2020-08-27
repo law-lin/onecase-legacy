@@ -9,10 +9,7 @@ import {
   useParams,
 } from "react-router-dom";
 
-import PersonalBridge from "./Private/PersonalBridge";
-import PublicBridge from "./Public/PublicBridge";
-
-import Bridge from "./Bridge";
+import BridgePage from "./BridgePage";
 import PersonalProfilePage from "./Private/PersonalProfilePage";
 import PublicProfilePage from "./Public/PublicProfilePage";
 import { ModalContainer, ModalRoute } from "react-router-modal";
@@ -64,7 +61,7 @@ function ProfilePage(props) {
           <React.Fragment>
             <Switch>
               <Route exact path={`${match.path}/:cardTitle`}>
-                <Bridge />
+                <BridgePage />
               </Route>
               <Route exact path={match.path}>
                 <PersonalProfilePage />
@@ -77,7 +74,7 @@ function ProfilePage(props) {
           <React.Fragment>
             <Switch>
               <Route exact path={`${match.path}/:cardTitle`}>
-                <Bridge />
+                <BridgePage />
               </Route>
               <Route exact path={match.path}>
                 <PublicProfilePage />

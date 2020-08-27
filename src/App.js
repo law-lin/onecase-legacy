@@ -16,7 +16,7 @@ import FeedPage from "./components/FeedPage";
 import CategoriesPage from "./components/CategoriesPage";
 import ExhibitionsPage from "./components/ExhibitionsPage";
 import SearchResultsPage from "./components/SearchResults";
-import Bridge from "./components/Profile/Bridge";
+
 import * as ROUTES from "./constants/routes";
 
 import { withAuthentication } from "./components/Session";

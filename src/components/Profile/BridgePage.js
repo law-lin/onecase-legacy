@@ -1,0 +1,68 @@
+import React, { Component, useState, useEffect } from "react";
+
+import NotFound from "../NotFound";
+import Navbar from "../Navbar";
+
+import Bridge from "./Bridge";
+import { withRouter } from "react-router-dom";
+import { withAuthorization } from "../Session";
+import DefaultProfilePicture from "../../images/default-profile-pic.png";
+import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
+
+function BridgePage(props) {
+  const [loading, setLoading] = useState(false);
+  const [valid, setValid] = useState(false);
+  const [exists, setExists] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const username = props.match.params.username.toString().toLowerCase();
+    const cardTitle = props.match.params.cardTitle;
+
+    if (!ROUTES.NON_USERNAMES.includes(username)) {
+      setValid(true);
+
+      if (cardTitle !== null) {
+        props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+          const userIDState = snapshot.val();
+          if (userIDState) {
+            props.firebase
+              .getCardNumberWithCardTitle(userIDState, cardTitle)
+              .on("value", (snapshot) => {
+                const state = snapshot.val();
+                if (state) {
+                  setExists(true);
+                  setLoading(false);
+                } else {
+                  setExists(false);
+                  setLoading(false);
+                }
+              });
+          } else {
+            setExists(false);
+            setLoading(false);
+          }
+        });
+      } else {
+        setLoading(false);
+      }
+    }
+  }, [
+    props.firebase,
+    props.match.params.username,
+    props.match.params.cardTitle,
+  ]);
+
+  if (!loading && valid) {
+    if (exists) {
+      return <Bridge />;
+    } else {
+      return <NotFound />;
+    }
+  } else {
+    return null;
+  }
+}
+
+export default withFirebase(withRouter(BridgePage));

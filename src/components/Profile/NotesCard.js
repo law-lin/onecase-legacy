@@ -9,13 +9,14 @@ import { Divider, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "5% 0 0 0",
-    // maxWidth: "280px",
+    minHeight: (props) => props.height,
     height: "100%",
+    width: "100%",
     backgroundColor: "#232323",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
     borderRadius: "20px",
+    maxWidth: "640px",
   },
   header: {
     fontWeight: 800,
@@ -78,8 +79,7 @@ const useStyles = makeStyles((theme) => ({
 // const determineRows
 
 function NotesCard(props) {
-  const theme = useTheme();
-  const classes = useStyles(theme);
+  const classes = useStyles(props);
 
   function handleChange(event) {
     props.onChange(event.target.value);
@@ -109,7 +109,7 @@ function NotesCard(props) {
               onChange={handleChange}
               defaultValue={props.notes}
               multiline
-              rows={13}
+              rows={props.height ? 13 : 3}
               rowsMax="14"
               inputProps={{
                 maxLength: 250,
