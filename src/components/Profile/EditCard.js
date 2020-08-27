@@ -129,7 +129,7 @@ const useStyles = makeStyles({
     fontFamily: ["Montserrat", "sans-serif"],
     backgroundColor: "black",
     color: "#FFFFFF",
-    fontsize: (props) =>
+    fontSize: (props) =>
       props.fontSize === "small"
         ? "17px"
         : props.fontSize === "medium"
@@ -156,10 +156,9 @@ const useStyles = makeStyles({
     color: "#000000",
     backgroundColor: "#FFFFFF",
     width: "100%",
-    height: "100%",
-    // minHeight: (props) => (props.size === "small" ? "90px" : "110px"),
-    // minWidth: (props) => (props.size === "small" ? "160px" : "180px"),
-    // maxWidth: (props) => (props.size === "small" ? "175px" : "230px"),
+    minHeight: (props) => (props.size === "small" ? "90px" : "110px"),
+    minWidth: (props) => (props.size === "small" ? "160px" : "180px"),
+    maxWidth: (props) => (props.size === "small" ? "175px" : "230px"),
     margin: "10px 10px",
     borderRadius: "20px",
   },
