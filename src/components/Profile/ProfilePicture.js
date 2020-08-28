@@ -263,6 +263,7 @@ function ProfilePicture(props) {
           />
           <input
             type="file"
+            accept="image/png, image/jpeg"
             ref={fileUpload}
             style={{ display: "none" }}
             onChange={handleChange}

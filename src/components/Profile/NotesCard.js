@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
     borderRadius: "20px",
-    maxWidth: "640px",
+    maxWidth: (props) => (props.width === "small" ? "640px" : "270px"),
   },
   header: {
     fontWeight: 800,

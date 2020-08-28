@@ -634,6 +634,7 @@ function EditBridgeCard(props) {
                   >
                     <input
                       type="file"
+                      accept="image/png, image/jpeg"
                       key={coverImageInputKey}
                       ref={coverImageUpload}
                       style={{ display: "none" }}
@@ -834,6 +835,7 @@ function EditBridgeCard(props) {
                                   >
                                     <input
                                       type="file"
+                                      accept="image/png, image/jpeg"
                                       key={imageInputKey}
                                       ref={fileUpload}
                                       style={{ display: "none" }}
@@ -859,6 +861,7 @@ function EditBridgeCard(props) {
                                   >
                                     <input
                                       type="file"
+                                      accept="image/png, image/jpeg"
                                       key={imageInputKey}
                                       ref={fileUpload}
                                       style={{ display: "none" }}

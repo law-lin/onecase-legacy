@@ -4,7 +4,10 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import { ImHome3 } from "react-icons/im";
+import { ImSearch } from "react-icons/im";
 
+import MediaQuery from "react-responsive";
 import SignOutButton from "./Profile/SignOutButton";
 
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
@@ -25,9 +28,15 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: 0,
   },
+  button: {
+    "&:hover": {
+      color: "#7699a8",
+    },
+    color: "#000000",
+  },
   icon: {
-    width: "50px",
-    marginRight: "20px",
+    width: "32px",
+    height: "32px",
   },
 });
 
@@ -63,31 +72,32 @@ function BottomNavbar(props) {
   }
 
   return (
-    <React.Fragment>
-      {username && (
-        <BottomNavigation className={classes.root}>
-          <BottomNavigationAction
-            onClick={() => {
-              window.location.href = "/feed";
-            }}
-            icon={<HomeIcon />}
-          />
-
-          <BottomNavigationAction
-            onClick={() => {
-              window.location.href = "/exhibitions";
-            }}
-            icon={<ExhibitionsIcon />}
-          />
-          <BottomNavigationAction
-            onClick={() => {
-              window.location.href = "/" + username;
-            }}
-            icon={<img style={{ width: "50px" }} src={profilePicture} />}
-          />
-        </BottomNavigation>
-      )}
-    </React.Fragment>
+    <MediaQuery maxWidth={1114}>
+      <React.Fragment>
+        {username && (
+          <BottomNavigation className={classes.root}>
+            <BottomNavigationAction
+              className={classes.button}
+              component={Link}
+              to="/feed"
+              icon={<ImHome3 className={classes.icon} />}
+            />
+            <BottomNavigationAction
+              className={classes.button}
+              component={Link}
+              to="/explore"
+              icon={<ImSearch className={classes.icon} />}
+            />
+            <BottomNavigationAction
+              className={classes.button}
+              component={Link}
+              to={"/" + username}
+              icon={<img className={classes.icon} src={profilePicture} />}
+            />
+          </BottomNavigation>
+        )}
+      </React.Fragment>
+    </MediaQuery>
   );
 }
 

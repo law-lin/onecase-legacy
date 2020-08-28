@@ -30,11 +30,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    margin: "80px auto 0 auto",
-    minWidth: "1250px",
-    maxWidth: "1250px",
+    margin: "70px auto 55px auto",
     display: "flex",
     padding: 0,
+    justifyContent: "center",
   },
   container: {
     display: "flex",
@@ -73,7 +72,6 @@ const useStyles = makeStyles({
     padding: "0 28px",
     borderRadius: "8px",
     textAlign: "center",
-    width: "350px",
     display: "inline",
   },
   dialog: {
@@ -327,36 +325,24 @@ function BridgeCardContent(props) {
             </Dialog>
           )}
           {!modal && (
-            <MediaQuery minWidth={1400}>
-              <Navbar />
-              <Container className={classes.root}>
-                <Box flex={1}>
-                  <LeftNavbar />
-                </Box>
-                <Box flex={1}>
-                  <Container className={classes.container}>
-                    <Card
-                      style={{
-                        backgroundColor: "#232323",
-                        minHeight: "450px",
-                        minWidth: "800px",
-                      }}
-                    >
+            <React.Fragment>
+              <MediaQuery maxWidth={1114}>
+                <div style={{ backgroundColor: "#232323" }}>
+                  <Navbar />
+                  <Container className={classes.root}>
+                    <Box display="flex" flexDirection="column">
                       <Box
                         display="flex"
-                        style={{
-                          flex: "0 0 auto",
-                          margin: 0,
-                          padding: "16px 24px",
-                        }}
+                        justifyContent="space-around"
+                        flex={1}
+                        style={{ margin: "15px 0" }}
                       >
-                        <Box flex={1}>
+                        <Box display="flex" alignItems="center">
                           <Typography className={classes.title}>
                             {bridgeCardTitle}
                           </Typography>
                         </Box>
-                        <Box flex={1}></Box>
-                        <Box display="flex" justifyContent="flex-end" flex={1}>
+                        <Box>
                           <div>
                             <Link
                               href={"/" + username}
@@ -378,72 +364,190 @@ function BridgeCardContent(props) {
                           </Link>
                         </Box>
                       </Box>
-                      <DialogContent>
-                        <Box display="flex">
-                          <Box>
-                            <React.Fragment>
-                              {cardImageURL && (
-                                <Grid
-                                  container
-                                  justify="center"
-                                  alignItems="center"
+                      <Box flex={1}>
+                        <Box>
+                          <React.Fragment>
+                            {cardImageURL && (
+                              <Grid
+                                container
+                                justify="center"
+                                alignItems="center"
+                                style={{
+                                  minHeight: "350px",
+                                  width: "100%",
+                                }}
+                              >
+                                <img
+                                  src={cardImageURL}
                                   style={{
-                                    minHeight: "350px",
-                                    width: "100%",
+                                    width: "350px",
+                                    height: "350px",
                                   }}
-                                >
-                                  <img
-                                    src={cardImageURL}
-                                    style={{ width: "350px", height: "350px" }}
-                                    alt="Show off your project!"
-                                  />
-                                </Grid>
-                              )}
-                              {!cardImageURL && (
-                                <p
-                                  style={{
-                                    color: "#FFFFFF",
-                                    fontFamily: ["Mukta Mahee", "sans-serif"],
-                                  }}
-                                >
-                                  No image to display
-                                </p>
-                              )}
-                            </React.Fragment>
-                          </Box>
-                          <Box>
-                            <Typography className={classes.caption}>
-                              {caption}
-                            </Typography>
-                            <Typography
-                              gutterBottom
-                              className={classes.description}
-                            >
-                              {description}
-                            </Typography>
-
-                            <Typography className={classes.lastEdited}>
-                              {timeCreated}
-                            </Typography>
-
-                            {lastUpdated && (
-                              <Typography className={classes.lastEdited}>
-                                Last Edited: {lastUpdated}
-                              </Typography>
+                                  alt="Show off your project!"
+                                />
+                              </Grid>
                             )}
+                            {!cardImageURL && (
+                              <p
+                                style={{
+                                  color: "#FFFFFF",
+                                  fontFamily: ["Mukta Mahee", "sans-serif"],
+                                }}
+                              >
+                                No image to display
+                              </p>
+                            )}
+                          </React.Fragment>
+                        </Box>
+                        <Typography
+                          className={classes.caption}
+                          style={{ padding: "10px 0" }}
+                        >
+                          {caption}
+                        </Typography>
+                        <Typography
+                          gutterBottom
+                          className={classes.description}
+                        >
+                          {description}
+                        </Typography>
+
+                        <Typography className={classes.lastEdited}>
+                          {timeCreated}
+                        </Typography>
+
+                        {lastUpdated && (
+                          <Typography className={classes.lastEdited}>
+                            Last Edited: {lastUpdated}
+                          </Typography>
+                        )}
+                      </Box>
+                    </Box>
+                  </Container>
+                  <BottomNavbar />
+                </div>
+              </MediaQuery>
+              <MediaQuery minWidth={1115}>
+                <Navbar />
+                <Container className={classes.root}>
+                  <Box flex={1}>
+                    <LeftNavbar />
+                  </Box>
+                  <Box flex={1}>
+                    <Container className={classes.container}>
+                      <Card
+                        style={{
+                          backgroundColor: "#232323",
+                          minHeight: "450px",
+                          minWidth: "800px",
+                        }}
+                      >
+                        <Box
+                          display="flex"
+                          style={{
+                            flex: "0 0 auto",
+                            margin: 0,
+                            padding: "16px 24px",
+                          }}
+                        >
+                          <Box flex={1}>
+                            <Typography className={classes.title}>
+                              {bridgeCardTitle}
+                            </Typography>
+                          </Box>
+                          <Box flex={1}></Box>
+                          <Box
+                            display="flex"
+                            justifyContent="flex-end"
+                            flex={1}
+                          >
+                            <div>
+                              <Link
+                                href={"/" + username}
+                                className={classes.name}
+                              >
+                                {name}
+                              </Link>
+                              <Typography className={classes.username}>
+                                @{username}
+                              </Typography>
+                            </div>
+                            <Link href={"/" + username}>
+                              <Avatar
+                                style={{ margin: "0 0 0 15px" }}
+                                size="50"
+                                round="50px"
+                                src={profilePicture}
+                              />
+                            </Link>
                           </Box>
                         </Box>
-                      </DialogContent>
-                    </Card>
-                  </Container>
-                </Box>
-                <Box flex={1}>
-                  <Container>
-                    <CategoriesCard />
-                  </Container>
-                </Box>
-              </Container>
-            </MediaQuery>
+                        <DialogContent>
+                          <Box display="flex">
+                            <Box>
+                              <React.Fragment>
+                                {cardImageURL && (
+                                  <Grid
+                                    container
+                                    justify="center"
+                                    alignItems="center"
+                                    style={{
+                                      minHeight: "350px",
+                                      width: "100%",
+                                    }}
+                                  >
+                                    <img
+                                      src={cardImageURL}
+                                      style={{
+                                        width: "350px",
+                                        height: "350px",
+                                      }}
+                                      alt="Show off your project!"
+                                    />
+                                  </Grid>
+                                )}
+                                {!cardImageURL && (
+                                  <p
+                                    style={{
+                                      color: "#FFFFFF",
+                                      fontFamily: ["Mukta Mahee", "sans-serif"],
+                                    }}
+                                  >
+                                    No image to display
+                                  </p>
+                                )}
+                              </React.Fragment>
+                            </Box>
+                            <Box>
+                              <Typography className={classes.caption}>
+                                {caption}
+                              </Typography>
+                              <Typography
+                                gutterBottom
+                                className={classes.description}
+                              >
+                                {description}
+                              </Typography>
+
+                              <Typography className={classes.lastEdited}>
+                                {timeCreated}
+                              </Typography>
+
+                              {lastUpdated && (
+                                <Typography className={classes.lastEdited}>
+                                  Last Edited: {lastUpdated}
+                                </Typography>
+                              )}
+                            </Box>
+                          </Box>
+                        </DialogContent>
+                      </Card>
+                    </Container>
+                  </Box>
+                  <Box flex={1}></Box>
+                </Container>
+              </MediaQuery>
+            </React.Fragment>
           )}
         </React.Fragment>
       )}

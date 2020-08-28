@@ -7,7 +7,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import SignOutButton from "./Profile/SignOutButton";
 import Button from "@material-ui/core/Button";
-
+import MediaQuery from "react-responsive";
 import "./landingpage.css";
 
 import { withFirebase } from "./Firebase";
@@ -26,14 +26,14 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textShadow: "2px 2px black",
     fontSize: "48px",
-
     fontWeight: 700,
   },
   background: {
     backgroundColor: "#3e4e55",
   },
   search: {
-    marginLeft: "10%",
+    flexGrow: 1,
+    margin: "0 10%",
     width: "50%",
   },
   menu: {
@@ -44,6 +44,7 @@ const useStyles = makeStyles({
     color: "#FFFFFF",
     backgroundColor: "#3D3D3D",
     borderRadius: "15px",
+    maxWidth: "50px",
   },
 });
 
@@ -91,11 +92,16 @@ function Navbar(props) {
         <Link href="/feed" className={classes.root}>
           OneCase
         </Link>
-        <SearchBar
-          className={classes.search}
-          onChange={(query) => setQuery(query)}
-          onRequestSearch={() => queryDatabase(query)}
-        />
+        <MediaQuery minWidth={1115}>
+          <SearchBar
+            className={classes.search}
+            onChange={(query) => setQuery(query)}
+            onRequestSearch={() => queryDatabase(query)}
+          />
+        </MediaQuery>
+        <MediaQuery maxWidth={1114}>
+          <div className={classes.search} />
+        </MediaQuery>
         {currentUser && (
           <React.Fragment>
             <Button className={classes.menu} onClick={handleClick}>

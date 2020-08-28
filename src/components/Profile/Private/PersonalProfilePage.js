@@ -273,7 +273,7 @@ function PersonalProfilePage(props) {
   const [canSave, setCanSave] = useState(false);
   const [canCancel, setCanCancel] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [followerCount, setFollowerCount] = useState(null);
   const [followingCount, setFollowingCount] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -311,8 +311,6 @@ function PersonalProfilePage(props) {
   let location = useLocation();
   useEffect(() => {
     let username = props.match.params.username.toString().toLowerCase();
-
-    setLoading(true);
     props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
       const userIDState = snapshot.val();
       if (userIDState) {
@@ -757,34 +755,34 @@ function PersonalProfilePage(props) {
 
   return (
     <div className="bg">
-      <MediaQuery maxWidth={1114}>
-        {!loading && (
-          <React.Fragment>
-            <Navbar />
-            <Container
-              display="flex"
-              flexDirection="column"
-              style={{ margin: "80px 0", padding: "0 2px" }}
-            >
-              <Box flex={1} justifyContent="center">
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  style={{ marginTop: "40px" }}
-                >
+      {!loading && (
+        <React.Fragment>
+          <MediaQuery maxWidth={1114}>
+            <React.Fragment>
+              <Navbar />
+              <Container
+                display="flex"
+                flexDirection="column"
+                style={{ margin: "80px 0", padding: "0 2px" }}
+              >
+                <Box flex={1} justifyContent="center">
                   <Box
                     display="flex"
                     flexDirection="column"
+                    alignItems="center"
                     justifyContent="center"
-                    width="100%"
+                    style={{ marginTop: "40px" }}
                   >
-                    <Box display="flex">
-                      <Box>
-                        <ProfilePicture profilePicture={oldProfilePicture} />
-                      </Box>
-                      {!loading && (
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      justifyContent="center"
+                      width="100%"
+                    >
+                      <Box display="flex">
+                        <Box>
+                          <ProfilePicture profilePicture={oldProfilePicture} />
+                        </Box>
                         <Box style={{ marginLeft: "10px" }}>
                           <React.Fragment>
                             <Box display="flex" alignItems="center">
@@ -803,18 +801,432 @@ function PersonalProfilePage(props) {
                                 </Tooltip>
                               )}
                             </Box>
-
                             <Username username={oldUsername} />
                           </React.Fragment>
                         </Box>
-                      )}
-                    </Box>
-                    <Box display="flex">
-                      <Box flex={1}>
-                        {!loading && <Biography margin="10px" bio={oldBio} />}
                       </Box>
+                      <Box display="flex">
+                        <Box flex={1}>
+                          <Biography margin="10px" bio={oldBio} />
+                        </Box>
+                        <Box display="flex" flex={1} justifyContent="flex-end">
+                          <Card className={classes.infoBox}>
+                            <CardHeader
+                              style={{
+                                padding: "16px 16px 0 0",
+                                height: "0px",
+                              }}
+                              action={
+                                <Button
+                                  className={classes.editProfile}
+                                  onClick={handleEdit}
+                                >
+                                  Edit Profile
+                                </Button>
+                              }
+                            ></CardHeader>
 
-                      <Box display="flex" flex={1} justifyContent="flex-end">
+                            <Dialog
+                              classes={{ paper: classes.dialogPaper }}
+                              PaperProps={{
+                                style: {
+                                  backgroundColor: "#242424",
+                                  borderRadius: "15px",
+                                },
+                              }}
+                              onClose={handleClose}
+                              fullWidth
+                              open={editing}
+                            >
+                              <DialogTitle className={classes.header}>
+                                <Box display="flex">
+                                  <Typography className={classes.title}>
+                                    Edit Profile
+                                  </Typography>
+                                  <div style={{ flexGrow: "1" }} />
+                                  <Button
+                                    className={classes.save}
+                                    onClick={handleSave}
+                                  >
+                                    Save
+                                  </Button>
+                                </Box>
+                              </DialogTitle>
+                              <DialogContent>
+                                <Box
+                                  display="flex"
+                                  flexDirection="column"
+                                  alignItems="center"
+                                >
+                                  <Box
+                                    p={3}
+                                    display="flex"
+                                    justifyContent="center"
+                                  >
+                                    <ProfilePicture
+                                      profilePicture={oldProfilePicture}
+                                      newProfilePicture={profilePicture}
+                                      editable={editing}
+                                      onChange={handleProfilePictureChange}
+                                    />
+                                  </Box>
+                                  <Box p={3}>
+                                    <Container className={classes.box}>
+                                      <Typography className={classes.label}>
+                                        Username
+                                      </Typography>
+                                      <TextField
+                                        name="username"
+                                        type="text"
+                                        className={classes.textField}
+                                        defaultValue={username}
+                                        onChange={(e) =>
+                                          setUsername(e.target.value)
+                                        }
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                        helperText={error}
+                                      />
+                                    </Container>
+                                  </Box>
+                                  <Box p={3}>
+                                    <Container className={classes.box}>
+                                      <Typography className={classes.label}>
+                                        Name
+                                      </Typography>
+                                      <TextField
+                                        name="name"
+                                        type="text"
+                                        className={classes.textField}
+                                        defaultValue={name}
+                                        onChange={(e) =>
+                                          setName(e.target.value)
+                                        }
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                      />
+                                    </Container>
+                                  </Box>
+                                  <Box p={3}>
+                                    <Container className={classes.bio}>
+                                      <Typography className={classes.label}>
+                                        Bio
+                                      </Typography>
+                                      <TextField
+                                        name="bio"
+                                        type="text"
+                                        className={classes.textField}
+                                        fullWidth
+                                        multiline
+                                        rows={3}
+                                        defaultValue={bio}
+                                        onChange={(e) => setBio(e.target.value)}
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                      />
+                                    </Container>
+                                  </Box>
+                                  <Box p={3}>
+                                    <Container className={classes.link}>
+                                      <Typography className={classes.label}>
+                                        Link 1 Title
+                                      </Typography>
+                                      <TextField
+                                        type="text"
+                                        name="link1Title"
+                                        className={classes.textField}
+                                        defaultValue={link1Title}
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                        onChange={(e) =>
+                                          setLink1Title(e.target.value)
+                                        }
+                                      />
+                                      <Typography className={classes.label}>
+                                        Link 1 URL
+                                      </Typography>
+                                      <TextField
+                                        type="text"
+                                        name="link1URL"
+                                        className={classes.textField}
+                                        defaultValue={link1URL}
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                        onChange={(e) =>
+                                          setLink1URL(e.target.value)
+                                        }
+                                      />
+                                    </Container>
+                                  </Box>
+
+                                  <Box p={3}>
+                                    <Container className={classes.link}>
+                                      <Typography className={classes.label}>
+                                        Link 2 Title
+                                      </Typography>
+                                      <TextField
+                                        type="text"
+                                        name="link2Title"
+                                        className={classes.textField}
+                                        defaultValue={link2Title}
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                        onChange={(e) =>
+                                          setLink2Title(e.target.value)
+                                        }
+                                      />
+                                      <Typography className={classes.label}>
+                                        Link 2 URL
+                                      </Typography>
+                                      <TextField
+                                        type="text"
+                                        name="link2Title"
+                                        className={classes.textField}
+                                        defaultValue={link2URL}
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                        onChange={(e) =>
+                                          setLink2URL(e.target.value)
+                                        }
+                                      />
+                                    </Container>
+                                  </Box>
+                                  <Box p={3}>
+                                    <Container className={classes.link}>
+                                      <Typography className={classes.label}>
+                                        Link 3 Title
+                                      </Typography>
+                                      <TextField
+                                        type="text"
+                                        name="link3Title"
+                                        className={classes.textField}
+                                        defaultValue={link3Title}
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                        onChange={(e) =>
+                                          setLink3Title(e.target.value)
+                                        }
+                                      />
+                                      <Typography className={classes.label}>
+                                        Link 3 URL
+                                      </Typography>
+                                      <TextField
+                                        type="text"
+                                        name="link3Title"
+                                        className={classes.textField}
+                                        defaultValue={link3URL}
+                                        fullWidth
+                                        InputProps={{ disableUnderline: true }}
+                                        inputProps={{
+                                          className: classes.input,
+                                        }}
+                                        onChange={(e) =>
+                                          setLink3URL(e.target.value)
+                                        }
+                                      />
+                                    </Container>
+                                  </Box>
+                                </Box>
+                              </DialogContent>
+                            </Dialog>
+                            <CardContent style={{ padding: "28px 0 0 10px" }}>
+                              <Typography className={classes.text}>
+                                <Followers
+                                  followers={followers}
+                                  followerCount={followerCount}
+                                  currentUser={true}
+                                />
+                                <br />
+                                <Following
+                                  following={followings}
+                                  followingCount={followingCount}
+                                  currentUser={true}
+                                />
+                              </Typography>
+                            </CardContent>
+                          </Card>
+                        </Box>
+                      </Box>
+                      <Box display="flex" justifyContent="flex-end">
+                        <Box display="flex" flexDirection="column">
+                          <Box display="flex">
+                            <Box>
+                              <Typography
+                                className={classes.switchLabel}
+                                style={{ paddingRight: "15px" }}
+                              >
+                                cards
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography className={classes.switchLabel}>
+                                links
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Box display="flex" justifyContent="center">
+                            <Switch
+                              classes={{
+                                root: classes.switch,
+                                switchBase: classes.switchBase,
+                                track: classes.track,
+                                checked: classes.checked,
+                              }}
+                              checked={checked}
+                              onChange={handleSwitch}
+                            />
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                    {!checked && (
+                      <Container
+                        className={classes.center}
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          padding: "0px",
+                        }}
+                      >
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card1"
+                          personal={true}
+                          size="small"
+                        />
+
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card2"
+                          personal={true}
+                          size="small"
+                        />
+
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card3"
+                          personal={true}
+                          size="small"
+                        />
+
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card4"
+                          personal={true}
+                          size="small"
+                        />
+
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card5"
+                          personal={true}
+                          size="small"
+                        />
+
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card6"
+                          personal={true}
+                          size="small"
+                        />
+                      </Container>
+                    )}
+                    {checked && (
+                      <Container
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <LinksCard personal={true} />
+                      </Container>
+                    )}
+                  </Box>
+                </Box>
+              </Container>
+              <BottomNavbar />
+            </React.Fragment>
+          </MediaQuery>
+          <MediaQuery minWidth={1115}>
+            <React.Fragment>
+              <Navbar />
+              <Box display="flex" className={classes.container}>
+                <LeftNavbar />
+                <Box flex={1} justifyContent="center">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    style={{ marginTop: "40px", width: "700px" }}
+                  >
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      width="100%"
+                    >
+                      <Box
+                        flex={1}
+                        flexBasis="100%"
+                        style={{ paddingLeft: "40px" }}
+                      >
+                        <Box display="flex" alignItems="center">
+                          <Name name={oldName} />
+                          {isVerified && (
+                            <Tooltip title="Verified User" arrow>
+                              <img
+                                style={{
+                                  display: "inline-block",
+                                  width: "25px",
+                                  marginLeft: "5px",
+                                }}
+                                src={verifiedBadge}
+                                alt="verified badge"
+                              />
+                            </Tooltip>
+                          )}
+                        </Box>
+                        <Username username={oldUsername} />
+                        <Biography bio={oldBio} />
+                      </Box>
+                      <Box
+                        flex={1}
+                        flexBasis="100%"
+                        style={{ textAlign: "center" }}
+                      >
+                        <ProfilePicture
+                          profilePicture={oldProfilePicture}
+                          newProfilePicture={profilePicture}
+                        />
+                      </Box>
+                      <Box
+                        display="flex"
+                        flex={1}
+                        flexBasis="100%"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
                         <Card className={classes.infoBox}>
                           <CardHeader
                             style={{ padding: "16px 16px 0 0", height: "0px" }}
@@ -829,6 +1241,8 @@ function PersonalProfilePage(props) {
                           ></CardHeader>
 
                           <Dialog
+                            open={editing}
+                            onClose={handleClose}
                             classes={{ paper: classes.dialogPaper }}
                             PaperProps={{
                               style: {
@@ -836,9 +1250,7 @@ function PersonalProfilePage(props) {
                                 borderRadius: "15px",
                               },
                             }}
-                            onClose={handleClose}
                             fullWidth
-                            open={editing}
                           >
                             <DialogTitle className={classes.header}>
                               <Box display="flex">
@@ -855,405 +1267,6 @@ function PersonalProfilePage(props) {
                               </Box>
                             </DialogTitle>
                             <DialogContent>
-                              <Box
-                                display="flex"
-                                flexDirection="column"
-                                alignItems="center"
-                              >
-                                <Box
-                                  p={3}
-                                  display="flex"
-                                  justifyContent="center"
-                                >
-                                  <ProfilePicture
-                                    profilePicture={oldProfilePicture}
-                                    newProfilePicture={profilePicture}
-                                    editable={editing}
-                                    onChange={handleProfilePictureChange}
-                                  />
-                                </Box>
-                                <Box p={3}>
-                                  <Container className={classes.box}>
-                                    <Typography className={classes.label}>
-                                      Username
-                                    </Typography>
-                                    <TextField
-                                      name="username"
-                                      type="text"
-                                      className={classes.textField}
-                                      defaultValue={username}
-                                      onChange={(e) =>
-                                        setUsername(e.target.value)
-                                      }
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                      helperText={error}
-                                    />
-                                  </Container>
-                                </Box>
-                                <Box p={3}>
-                                  <Container className={classes.box}>
-                                    <Typography className={classes.label}>
-                                      Name
-                                    </Typography>
-                                    <TextField
-                                      name="name"
-                                      type="text"
-                                      className={classes.textField}
-                                      defaultValue={name}
-                                      onChange={(e) => setName(e.target.value)}
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                    />
-                                  </Container>
-                                </Box>
-                                <Box p={3}>
-                                  <Container className={classes.bio}>
-                                    <Typography className={classes.label}>
-                                      Bio
-                                    </Typography>
-                                    <TextField
-                                      name="bio"
-                                      type="text"
-                                      className={classes.textField}
-                                      fullWidth
-                                      multiline
-                                      rows={3}
-                                      defaultValue={bio}
-                                      onChange={(e) => setBio(e.target.value)}
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                    />
-                                  </Container>
-                                </Box>
-                                <Box p={3}>
-                                  <Container className={classes.link}>
-                                    <Typography className={classes.label}>
-                                      Link 1 Title
-                                    </Typography>
-                                    <TextField
-                                      type="text"
-                                      name="link1Title"
-                                      className={classes.textField}
-                                      defaultValue={link1Title}
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                      onChange={(e) =>
-                                        setLink1Title(e.target.value)
-                                      }
-                                    />
-                                    <Typography className={classes.label}>
-                                      Link 1 URL
-                                    </Typography>
-                                    <TextField
-                                      type="text"
-                                      name="link1URL"
-                                      className={classes.textField}
-                                      defaultValue={link1URL}
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                      onChange={(e) =>
-                                        setLink1URL(e.target.value)
-                                      }
-                                    />
-                                  </Container>
-                                </Box>
-
-                                <Box p={3}>
-                                  <Container className={classes.link}>
-                                    <Typography className={classes.label}>
-                                      Link 2 Title
-                                    </Typography>
-                                    <TextField
-                                      type="text"
-                                      name="link2Title"
-                                      className={classes.textField}
-                                      defaultValue={link2Title}
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                      onChange={(e) =>
-                                        setLink2Title(e.target.value)
-                                      }
-                                    />
-                                    <Typography className={classes.label}>
-                                      Link 2 URL
-                                    </Typography>
-                                    <TextField
-                                      type="text"
-                                      name="link2Title"
-                                      className={classes.textField}
-                                      defaultValue={link2URL}
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                      onChange={(e) =>
-                                        setLink2URL(e.target.value)
-                                      }
-                                    />
-                                  </Container>
-                                </Box>
-                                <Box p={3}>
-                                  <Container className={classes.link}>
-                                    <Typography className={classes.label}>
-                                      Link 3 Title
-                                    </Typography>
-                                    <TextField
-                                      type="text"
-                                      name="link3Title"
-                                      className={classes.textField}
-                                      defaultValue={link3Title}
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                      onChange={(e) =>
-                                        setLink3Title(e.target.value)
-                                      }
-                                    />
-                                    <Typography className={classes.label}>
-                                      Link 3 URL
-                                    </Typography>
-                                    <TextField
-                                      type="text"
-                                      name="link3Title"
-                                      className={classes.textField}
-                                      defaultValue={link3URL}
-                                      fullWidth
-                                      InputProps={{ disableUnderline: true }}
-                                      inputProps={{ className: classes.input }}
-                                      onChange={(e) =>
-                                        setLink3URL(e.target.value)
-                                      }
-                                    />
-                                  </Container>
-                                </Box>
-                              </Box>
-                            </DialogContent>
-                          </Dialog>
-                          <CardContent style={{ padding: "28px 0 0 10px" }}>
-                            <Typography className={classes.text}>
-                              <Followers
-                                followers={followers}
-                                followerCount={followerCount}
-                                currentUser={true}
-                              />
-                              <br />
-                              <Following
-                                following={followings}
-                                followingCount={followingCount}
-                                currentUser={true}
-                              />
-                            </Typography>
-                          </CardContent>
-                        </Card>
-                      </Box>
-                    </Box>
-                    <Box display="flex" justifyContent="flex-end">
-                      <Box display="flex" flexDirection="column">
-                        <Box display="flex">
-                          <Box>
-                            <Typography
-                              className={classes.switchLabel}
-                              style={{ paddingRight: "15px" }}
-                            >
-                              cards
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Typography className={classes.switchLabel}>
-                              links
-                            </Typography>
-                          </Box>
-                        </Box>
-                        <Box display="flex" justifyContent="center">
-                          <Switch
-                            classes={{
-                              root: classes.switch,
-                              switchBase: classes.switchBase,
-                              track: classes.track,
-                              checked: classes.checked,
-                            }}
-                            checked={checked}
-                            onChange={handleSwitch}
-                          />
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Box>
-                  {!checked && (
-                    <Container
-                      className={classes.center}
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        padding: "0px",
-                      }}
-                    >
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card1"
-                        personal={true}
-                        size="small"
-                      />
-
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card2"
-                        personal={true}
-                        size="small"
-                      />
-
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card3"
-                        personal={true}
-                        size="small"
-                      />
-
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card4"
-                        personal={true}
-                        size="small"
-                      />
-
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card5"
-                        personal={true}
-                        size="small"
-                      />
-
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card6"
-                        personal={true}
-                        size="small"
-                      />
-                    </Container>
-                  )}
-                  {checked && (
-                    <Container
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <LinksCard personal={true} />
-                    </Container>
-                  )}
-                </Box>
-              </Box>
-            </Container>
-            <BottomNavbar />
-          </React.Fragment>
-        )}
-      </MediaQuery>
-      <MediaQuery minWidth={1115} maxWidth={1399}>
-        {!loading && (
-          <React.Fragment>
-            <Navbar />
-            <Box display="flex" className={classes.container}>
-              <Box justifyContent="center">
-                <LeftNavbar noText={true} />
-              </Box>
-              <Box justifyContent="center">
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  style={{ marginTop: "40px", width: "700px" }}
-                >
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="center"
-                    width="100%"
-                  >
-                    <Box
-                      flex={1}
-                      flexBasis="100%"
-                      style={{ paddingLeft: "40px" }}
-                    >
-                      <Box display="flex" alignItems="center">
-                        <Name name={oldName} />
-                        {isVerified && (
-                          <Tooltip title="Verified User" arrow>
-                            <img
-                              style={{
-                                display: "inline-block",
-                                width: "25px",
-                                marginLeft: "5px",
-                              }}
-                              src={verifiedBadge}
-                              alt="verified badge"
-                            />
-                          </Tooltip>
-                        )}
-                      </Box>
-                      <Username username={oldUsername} />
-                      <Biography bio={oldBio} />
-                    </Box>
-                    <Box
-                      flex={1}
-                      flexBasis="100%"
-                      style={{ textAlign: "center" }}
-                    >
-                      <ProfilePicture
-                        profilePicture={oldProfilePicture}
-                        newProfilePicture={profilePicture}
-                      />
-                    </Box>
-                    <Box
-                      display="flex"
-                      flex={1}
-                      flexBasis="100%"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Card className={classes.infoBox}>
-                        <CardHeader
-                          style={{ padding: "16px 16px 0 0", height: "0px" }}
-                          action={
-                            <Button
-                              className={classes.editProfile}
-                              onClick={handleEdit}
-                            >
-                              Edit Profile
-                            </Button>
-                          }
-                        ></CardHeader>
-
-                        <Dialog
-                          open={editing}
-                          onClose={handleClose}
-                          classes={{ paper: classes.dialogPaper }}
-                          PaperProps={{
-                            style: {
-                              backgroundColor: "#242424",
-                              borderRadius: "15px",
-                            },
-                          }}
-                          fullWidth
-                        >
-                          <DialogTitle className={classes.header}>
-                            <Box display="flex">
-                              <Typography className={classes.title}>
-                                Edit Profile
-                              </Typography>
-                              <div style={{ flexGrow: "1" }} />
-                              <Button
-                                className={classes.save}
-                                onClick={handleSave}
-                              >
-                                Save
-                              </Button>
-                            </Box>
-                          </DialogTitle>
-                          <DialogContent>
-                            <Container>
                               <Box p={3} display="flex" justifyContent="center">
                                 <ProfilePicture
                                   profilePicture={oldProfilePicture}
@@ -1423,7 +1436,7 @@ function PersonalProfilePage(props) {
                                   </Typography>
                                   <TextField
                                     type="text"
-                                    name="link2Title"
+                                    name="link2URL"
                                     className={classes.textField}
                                     defaultValue={link2URL}
                                     fullWidth
@@ -1486,419 +1499,23 @@ function PersonalProfilePage(props) {
                                   </Typography>
                                 </Container>
                               </Box>
-                            </Container>
-                          </DialogContent>
-                        </Dialog>
-                        <CardContent style={{ padding: "28px 0 0 10px" }}>
-                          <Typography className={classes.text}>
-                            <Followers
-                              followers={followers}
-                              followerCount={followerCount}
-                              currentUser={true}
-                            />
-                            <br />
-                            <Following
-                              following={followings}
-                              followingCount={followingCount}
-                              currentUser={true}
-                            />
-
-                            {/* <ModalRoute
-                              path={`/${username}/followers`}
-                              component={() => (
-                                <Followers followers={followers} />
-                              )}
-                            />
-                            <ModalRoute
-                              path={`/${username}/following`}
-                              component={Following}
-                            /> */}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Box>
-                  </Box>
-                  <Container className={classes.center}>
-                    <Box display="flex" p={1}>
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card1"
-                        personal={true}
-                      />
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card2"
-                        personal={true}
-                      />
-                    </Box>
-                    <Box display="flex" p={1}>
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card3"
-                        personal={true}
-                      />
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card4"
-                        personal={true}
-                      />
-                    </Box>
-                    <Box display="flex" p={1}>
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card5"
-                        personal={true}
-                      />
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card6"
-                        personal={true}
-                      />
-                    </Box>
-                  </Container>
-                </Box>
-              </Box>
-              <Box justifyContent="center">
-                <Container style={{ margin: "37% 0 0 10%" }}>
-                  <LinksCard personal={true} />
-                </Container>
-              </Box>
-            </Box>
-          </React.Fragment>
-        )}
-      </MediaQuery>
-      <MediaQuery minWidth={1400}>
-        {!loading && (
-          <React.Fragment>
-            <Navbar />
-            <Box display="flex" className={classes.container}>
-              <Box flex={1} justifyContent="center">
-                <LeftNavbar />
-              </Box>
-              <Box flex={1} justifyContent="center">
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  style={{ marginTop: "40px", width: "700px" }}
-                >
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="center"
-                    width="100%"
-                  >
-                    <Box
-                      flex={1}
-                      flexBasis="100%"
-                      style={{ paddingLeft: "40px" }}
-                    >
-                      <Box display="flex" alignItems="center">
-                        <Name name={oldName} />
-                        {isVerified && (
-                          <Tooltip title="Verified User" arrow>
-                            <img
-                              style={{
-                                display: "inline-block",
-                                width: "25px",
-                                marginLeft: "5px",
-                              }}
-                              src={verifiedBadge}
-                              alt="verified badge"
-                            />
-                          </Tooltip>
-                        )}
-                      </Box>
-                      <Username username={oldUsername} />
-                      <Biography bio={oldBio} />
-                    </Box>
-                    <Box
-                      flex={1}
-                      flexBasis="100%"
-                      style={{ textAlign: "center" }}
-                    >
-                      <ProfilePicture
-                        profilePicture={oldProfilePicture}
-                        newProfilePicture={profilePicture}
-                      />
-                    </Box>
-                    <Box
-                      display="flex"
-                      flex={1}
-                      flexBasis="100%"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Card className={classes.infoBox}>
-                        <CardHeader
-                          style={{ padding: "16px 16px 0 0", height: "0px" }}
-                          action={
-                            <Button
-                              className={classes.editProfile}
-                              onClick={handleEdit}
-                            >
-                              Edit Profile
-                            </Button>
-                          }
-                        ></CardHeader>
-
-                        <Dialog
-                          open={editing}
-                          onClose={handleClose}
-                          classes={{ paper: classes.dialogPaper }}
-                          PaperProps={{
-                            style: {
-                              backgroundColor: "#242424",
-                              borderRadius: "15px",
-                            },
-                          }}
-                          fullWidth
-                        >
-                          <DialogTitle className={classes.header}>
-                            <Box display="flex">
-                              <Typography className={classes.title}>
-                                Edit Profile
-                              </Typography>
-                              <div style={{ flexGrow: "1" }} />
-                              <Button
-                                className={classes.save}
-                                onClick={handleSave}
-                              >
-                                Save
-                              </Button>
-                            </Box>
-                          </DialogTitle>
-                          <DialogContent>
-                            <Box p={3} display="flex" justifyContent="center">
-                              <ProfilePicture
-                                profilePicture={oldProfilePicture}
-                                newProfilePicture={profilePicture}
-                                editable={editing}
-                                onChange={handleProfilePictureChange}
+                            </DialogContent>
+                          </Dialog>
+                          <CardContent style={{ padding: "28px 0 0 10px" }}>
+                            <Typography className={classes.text}>
+                              <Followers
+                                followers={followers}
+                                followerCount={followerCount}
+                                currentUser={true}
                               />
-                            </Box>
-                            <Box p={3}>
-                              <Container className={classes.box}>
-                                <Typography className={classes.label}>
-                                  Username
-                                </Typography>
-                                <TextField
-                                  name="username"
-                                  type="text"
-                                  className={classes.textField}
-                                  defaultValue={username}
-                                  onChange={(e) => setUsername(e.target.value)}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{
-                                    className: classes.input,
-                                    maxLength: 30,
-                                  }}
-                                  helperText={error}
-                                />
-                                <Typography className={classes.characterLimit}>
-                                  {`${username.length}/${30}`}
-                                </Typography>
-                              </Container>
-                            </Box>
-                            <Box p={3}>
-                              <Container className={classes.box}>
-                                <Typography className={classes.label}>
-                                  Name
-                                </Typography>
-                                <TextField
-                                  name="name"
-                                  type="text"
-                                  className={classes.textField}
-                                  defaultValue={name}
-                                  onChange={(e) => setName(e.target.value)}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{
-                                    className: classes.input,
-                                    maxLength: 50,
-                                  }}
-                                />
-                                <Typography className={classes.characterLimit}>
-                                  {`${name.length}/${50}`}
-                                </Typography>
-                              </Container>
-                            </Box>
-                            <Box p={3}>
-                              <Container className={classes.bio}>
-                                <Typography className={classes.label}>
-                                  Bio
-                                </Typography>
-                                <TextField
-                                  name="bio"
-                                  type="text"
-                                  className={classes.textField}
-                                  fullWidth
-                                  multiline
-                                  rows={3}
-                                  defaultValue={bio}
-                                  onChange={(e) => setBio(e.target.value)}
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{
-                                    className: classes.input,
-                                    maxLength: 75,
-                                  }}
-                                />
-                                <Typography className={classes.characterLimit}>
-                                  {`${bio.length}/${75}`}
-                                </Typography>
-                              </Container>
-                            </Box>
-                            <Box p={3}>
-                              <Container className={classes.link}>
-                                <Typography className={classes.label}>
-                                  Link 1 Title
-                                </Typography>
-                                <TextField
-                                  type="text"
-                                  name="link1Title"
-                                  className={classes.textField}
-                                  defaultValue={link1Title}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{
-                                    className: classes.input,
-                                    maxLength: 25,
-                                  }}
-                                  onChange={(e) =>
-                                    setLink1Title(e.target.value)
-                                  }
-                                />
-                                <Typography className={classes.error}>
-                                  {link1TitleError}
-                                </Typography>
-                                <Typography className={classes.characterLimit}>
-                                  {`${link1Title.length}/${25}`}
-                                </Typography>
-                                <Typography className={classes.label}>
-                                  Link 1 URL
-                                </Typography>
-                                <TextField
-                                  type="text"
-                                  name="link1URL"
-                                  className={classes.textField}
-                                  defaultValue={link1URL}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{ className: classes.input }}
-                                  onChange={(e) => setLink1URL(e.target.value)}
-                                />
-                                <Typography className={classes.error}>
-                                  {link1URLError}
-                                </Typography>
-                              </Container>
-                            </Box>
-                            <Box p={3}>
-                              <Container className={classes.link}>
-                                <Typography className={classes.label}>
-                                  Link 2 Title
-                                </Typography>
-                                <TextField
-                                  type="text"
-                                  name="link2Title"
-                                  className={classes.textField}
-                                  defaultValue={link2Title}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{
-                                    className: classes.input,
-                                    maxLength: 25,
-                                  }}
-                                  onChange={(e) =>
-                                    setLink2Title(e.target.value)
-                                  }
-                                />
-                                <Typography className={classes.error}>
-                                  {link2TitleError}
-                                </Typography>
-                                <Typography className={classes.characterLimit}>
-                                  {`${link2Title.length}/${25}`}
-                                </Typography>
-                                <Typography className={classes.label}>
-                                  Link 2 URL
-                                </Typography>
-                                <TextField
-                                  type="text"
-                                  name="link2URL"
-                                  className={classes.textField}
-                                  defaultValue={link2URL}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{ className: classes.input }}
-                                  onChange={(e) => setLink2URL(e.target.value)}
-                                />
-                                <Typography className={classes.error}>
-                                  {link2URLError}
-                                </Typography>
-                              </Container>
-                            </Box>
-                            <Box p={3}>
-                              <Container className={classes.link}>
-                                <Typography className={classes.label}>
-                                  Link 3 Title
-                                </Typography>
-                                <TextField
-                                  type="text"
-                                  name="link3Title"
-                                  className={classes.textField}
-                                  defaultValue={link3Title}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{
-                                    className: classes.input,
-                                    maxLength: 25,
-                                  }}
-                                  onChange={(e) =>
-                                    setLink3Title(e.target.value)
-                                  }
-                                />
-                                <Typography className={classes.error}>
-                                  {link3TitleError}
-                                </Typography>
-                                <Typography className={classes.characterLimit}>
-                                  {`${link3Title.length}/${25}`}
-                                </Typography>
-                                <Typography className={classes.label}>
-                                  Link 3 URL
-                                </Typography>
-                                <TextField
-                                  type="text"
-                                  name="link3Title"
-                                  className={classes.textField}
-                                  defaultValue={link3URL}
-                                  fullWidth
-                                  InputProps={{ disableUnderline: true }}
-                                  inputProps={{ className: classes.input }}
-                                  onChange={(e) => setLink3URL(e.target.value)}
-                                />
-                                <Typography className={classes.error}>
-                                  {link3URLError}
-                                </Typography>
-                              </Container>
-                            </Box>
-                          </DialogContent>
-                        </Dialog>
-                        <CardContent style={{ padding: "28px 0 0 10px" }}>
-                          <Typography className={classes.text}>
-                            <Followers
-                              followers={followers}
-                              followerCount={followerCount}
-                              currentUser={true}
-                            />
-                            <br />
-                            <Following
-                              following={followings}
-                              followingCount={followingCount}
-                              currentUser={true}
-                            />
+                              <br />
+                              <Following
+                                following={followings}
+                                followingCount={followingCount}
+                                currentUser={true}
+                              />
 
-                            {/* <ModalRoute
+                              {/* <ModalRoute
                               path={`/${username}/followers`}
                               component={() => (
                                 <Followers followers={followers} />
@@ -1908,60 +1525,61 @@ function PersonalProfilePage(props) {
                               path={`/${username}/following`}
                               component={Following}
                             /> */}
-                          </Typography>
-                        </CardContent>
-                      </Card>
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Box>
                     </Box>
+                    <Container className={classes.center}>
+                      <Box display="flex" p={1}>
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card1"
+                          personal={true}
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card2"
+                          personal={true}
+                        />
+                      </Box>
+                      <Box display="flex" p={1}>
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card3"
+                          personal={true}
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card4"
+                          personal={true}
+                        />
+                      </Box>
+                      <Box display="flex" p={1}>
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card5"
+                          personal={true}
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card6"
+                          personal={true}
+                        />
+                      </Box>
+                    </Container>
                   </Box>
-                  <Container className={classes.center}>
-                    <Box display="flex" p={1}>
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card1"
-                        personal={true}
-                      />
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card2"
-                        personal={true}
-                      />
-                    </Box>
-                    <Box display="flex" p={1}>
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card3"
-                        personal={true}
-                      />
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card4"
-                        personal={true}
-                      />
-                    </Box>
-                    <Box display="flex" p={1}>
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card5"
-                        personal={true}
-                      />
-                      <ProfileCard
-                        username={username}
-                        cardNumber="card6"
-                        personal={true}
-                      />
-                    </Box>
+                </Box>
+                <Box flex={1} justifyContent="center">
+                  <Container style={{ margin: "37% 0 0 10%" }}>
+                    <LinksCard personal={true} />
                   </Container>
                 </Box>
               </Box>
-              <Box flex={1} justifyContent="center">
-                <Container style={{ margin: "37% 0 0 10%" }}>
-                  <LinksCard personal={true} />
-                </Container>
-              </Box>
-            </Box>
-          </React.Fragment>
-        )}
-      </MediaQuery>
+            </React.Fragment>
+          </MediaQuery>
+        </React.Fragment>
+      )}
     </div>
   );
 }

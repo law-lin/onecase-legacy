@@ -23,18 +23,14 @@ import { BrowserRouter as Router, Switch, useLocation } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 
 import { makeStyles } from "@material-ui/core/styles";
+import BottomNavbar from "./BottomNavbar";
 
 const useStyles = makeStyles({
   root: {
     margin: "80px auto 0 auto",
-    minWidth: "1250px",
-    maxWidth: "1250px",
-  },
-  paper: {
-    minWidth: "40vh",
-    maxWidth: "50vh",
-    minHeight: "70vh",
-    maxHeight: "80vh",
+    display: "flex",
+    justifyContent: "center",
+    padding: 0,
   },
   paper: {
     minWidth: "40vh",
@@ -174,118 +170,121 @@ function SearchResults(props) {
 
   useEffect(() => {
     setLoading(true);
-
-    props.firebase.auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        setCurrentUser(true);
-        props.firebase
-          .searchUsernames(
-            queryString.parse(location.search).username.toLowerCase()
-          )
-          .once("value")
-          .then((snapshot) => {
-            var promises = [];
-            snapshot.forEach((snap) => {
-              var results = [];
-              results.push(
-                props.firebase.user(snap.val()).once("value"),
-                props.firebase
-                  .checkFollowing(
-                    props.firebase.auth.currentUser.uid,
-                    snap.val()
-                  )
-                  .once("value")
-              );
-              promises.push(Promise.all(results));
-            });
-            return Promise.all(promises);
-          })
-          .then((results) => {
-            var usernames = [];
-            results.forEach((result) => {
-              let user = {
-                userID: result[0].key,
-                name: result[0].val().name,
-                username: result[0].val().username,
-                profilePicture: result[0].val().profilePicture,
-                isFollowing: result[1].val(),
-              };
-              usernames.push(user);
-            });
-            props.firebase
-              .searchNames(
-                queryString.parse(location.search).username.toLowerCase()
-              )
-              .once("value")
-              .then((snapshot) => {
-                var promises = [];
-                snapshot.forEach((snap) => {
-                  var results = [];
-                  results.push(
-                    props.firebase.user(snap.val()).once("value"),
-                    props.firebase
-                      .checkFollowing(
-                        props.firebase.auth.currentUser.uid,
-                        snap.val()
-                      )
-                      .once("value")
-                  );
-                  promises.push(Promise.all(results));
-                });
-                return Promise.all(promises);
-              })
-              .then((results) => {
-                results.forEach((result) => {
-                  let user = {
-                    userID: result[0].key,
-                    name: result[0].val().name,
-                    username: result[0].val().username,
-                    profilePicture: result[0].val().profilePicture,
-                    isFollowing: result[1].val(),
-                  };
-                  usernames.push(user);
-                });
-                // eliminate duplicate results
-                let jsonObject = usernames.map(JSON.stringify);
-                let uniqueSet = new Set(jsonObject);
-                let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
-                setResults(uniqueArray);
-                setLoading(false);
+    if (queryString.parse(location.search).username === undefined) {
+      window.location.href = "/";
+    } else {
+      props.firebase.auth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+          setCurrentUser(true);
+          props.firebase
+            .searchUsernames(
+              queryString.parse(location.search).username.toLowerCase()
+            )
+            .once("value")
+            .then((snapshot) => {
+              var promises = [];
+              snapshot.forEach((snap) => {
+                var results = [];
+                results.push(
+                  props.firebase.user(snap.val()).once("value"),
+                  props.firebase
+                    .checkFollowing(
+                      props.firebase.auth.currentUser.uid,
+                      snap.val()
+                    )
+                    .once("value")
+                );
+                promises.push(Promise.all(results));
               });
-          });
-      } else {
-        props.firebase
-          .searchUsernames(
-            queryString.parse(location.search).username.toLowerCase()
-          )
-          .once("value")
-          .then((snapshot) => {
-            var promises = [];
-            snapshot.forEach((snap) => {
-              promises.push(props.firebase.user(snap.val()).once("value"));
+              return Promise.all(promises);
+            })
+            .then((results) => {
+              var usernames = [];
+              results.forEach((result) => {
+                let user = {
+                  userID: result[0].key,
+                  name: result[0].val().name,
+                  username: result[0].val().username,
+                  profilePicture: result[0].val().profilePicture,
+                  isFollowing: result[1].val(),
+                };
+                usernames.push(user);
+              });
+              props.firebase
+                .searchNames(
+                  queryString.parse(location.search).username.toLowerCase()
+                )
+                .once("value")
+                .then((snapshot) => {
+                  var promises = [];
+                  snapshot.forEach((snap) => {
+                    var results = [];
+                    results.push(
+                      props.firebase.user(snap.val()).once("value"),
+                      props.firebase
+                        .checkFollowing(
+                          props.firebase.auth.currentUser.uid,
+                          snap.val()
+                        )
+                        .once("value")
+                    );
+                    promises.push(Promise.all(results));
+                  });
+                  return Promise.all(promises);
+                })
+                .then((results) => {
+                  results.forEach((result) => {
+                    let user = {
+                      userID: result[0].key,
+                      name: result[0].val().name,
+                      username: result[0].val().username,
+                      profilePicture: result[0].val().profilePicture,
+                      isFollowing: result[1].val(),
+                    };
+                    usernames.push(user);
+                  });
+                  // eliminate duplicate results
+                  let jsonObject = usernames.map(JSON.stringify);
+                  let uniqueSet = new Set(jsonObject);
+                  let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+                  setResults(uniqueArray);
+                  setLoading(false);
+                });
             });
-            return Promise.all(promises);
-          })
-          .then((results) => {
-            var usernames = [];
-            results.forEach((result) => {
-              let user = {
-                userID: result.key,
-                name: result.val().name,
-                username: result.val().username,
-                profilePicture: result.val().profilePicture,
-              };
-              usernames.push(user);
+        } else {
+          props.firebase
+            .searchUsernames(
+              queryString.parse(location.search).username.toLowerCase()
+            )
+            .once("value")
+            .then((snapshot) => {
+              var promises = [];
+              snapshot.forEach((snap) => {
+                promises.push(props.firebase.user(snap.val()).once("value"));
+              });
+              return Promise.all(promises);
+            })
+            .then((results) => {
+              var usernames = [];
+              results.forEach((result) => {
+                let user = {
+                  userID: result.key,
+                  name: result.val().name,
+                  username: result.val().username,
+                  profilePicture: result.val().profilePicture,
+                };
+                usernames.push(user);
+              });
+              // eliminate duplicate results
+              let jsonObject = usernames.map(JSON.stringify);
+              let uniqueSet = new Set(jsonObject);
+              let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+              setResults(uniqueArray);
+              setLoading(false);
             });
-            // eliminate duplicate results
-            let jsonObject = usernames.map(JSON.stringify);
-            let uniqueSet = new Set(jsonObject);
-            let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
-            setResults(uniqueArray);
-            setLoading(false);
-          });
-      }
-    });
+        }
+      });
+    }
   }, []);
 
   const handleFollow = (userID) => {
@@ -331,12 +330,10 @@ function SearchResults(props) {
     return (
       <div className="bg">
         <Navbar />
-        <Box display="flex" className={classes.root}>
-          <Box flex={1}>
-            <LeftNavbar />
-          </Box>
-          <Box flex={1}>
-            <Container style={{ width: "700px" }}>
+        <Container className={classes.root}>
+          <LeftNavbar />
+          <Box flex={5}>
+            <Container style={{ maxWidth: "700px" }}>
               <Typography className={classes.title}>
                 Search Results for {queryString.parse(location.search).username}
               </Typography>
@@ -409,8 +406,8 @@ function SearchResults(props) {
               </List>
             </Container>
           </Box>
-          <Box flex={1}></Box>
-        </Box>
+        </Container>
+        <BottomNavbar />
       </div>
     );
   } else {

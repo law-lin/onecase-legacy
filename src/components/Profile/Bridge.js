@@ -248,16 +248,24 @@ function Bridge(props) {
                       />
                     )}
                   </Card>
-                  <Box marginTop="-8%" marginLeft="5%">
+                  <Box>
                     {personal && (
                       <React.Fragment>
                         {!editing && (
-                          <Button className={classes.root} onClick={handleEdit}>
+                          <Button
+                            className={classes.root}
+                            style={{ margin: 0 }}
+                            onClick={handleEdit}
+                          >
                             Edit
                           </Button>
                         )}
                         {editing && (
-                          <Button className={classes.root} onClick={handleDone}>
+                          <Button
+                            className={classes.root}
+                            style={{ margin: 0 }}
+                            onClick={handleDone}
+                          >
                             Done
                           </Button>
                         )}
@@ -283,11 +291,12 @@ function Bridge(props) {
               <Box
                 display="flex"
                 flex={1}
-                height="160px"
+                height="200px"
                 justifyContent="center"
                 style={{ margin: "50px 0" }}
               >
                 <NotesCard
+                  width="small"
                   notes={notes}
                   cardNumber={cardNumber}
                   editable={editing}
@@ -423,230 +432,10 @@ function Bridge(props) {
             </Container>
             <BottomNavbar />
           </MediaQuery>
-          <MediaQuery minWidth={1115} maxWidth={1399}>
+          <MediaQuery minWidth={1115}>
             <Navbar />
             <Box display="flex" className={classes.container}>
-              <Box justifyContent="center">
-                <LeftNavbar noText={true} />
-              </Box>
-              <Box flex={1} justifyContent="center">
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  style={{ width: "700px" }}
-                >
-                  <Grid
-                    container
-                    style={{ minHeight: "120px", maxHeight: "200px" }}
-                  >
-                    <Grid container item xs={12} sm={4}>
-                      <BackButton username={username} />
-                    </Grid>
-                    <Grid container item xs={12} sm={4}>
-                      <Card
-                        style={{
-                          fontFamily: ["Montserrat", "sans-serif"],
-                          backgroundColor: "black",
-                          color: "#FFFFFF",
-                          fontSize: "30px",
-                          fontWeight: 800,
-                          borderRadius: "15px",
-                          alignSelf: "center",
-                          width: "100%",
-                          textAlign: "center",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                        }}
-                      >
-                        {!editing && <span>{cardTitle}</span>}
-                        {editing && (
-                          <EditCard
-                            display="none"
-                            name={name}
-                            username={username}
-                            oldCardTitle={oldCardTitle}
-                            cardTitle={cardTitle}
-                            cardNumber={cardNumber}
-                            bridge={true}
-                            editable={true}
-                          />
-                        )}
-                      </Card>
-                    </Grid>
-                    <Grid container item xs={12} sm={4}>
-                      {personal && (
-                        <React.Fragment>
-                          {!editing && (
-                            <Button
-                              className={classes.root}
-                              onClick={handleEdit}
-                            >
-                              Edit
-                            </Button>
-                          )}
-                          {editing && (
-                            <Button
-                              className={classes.root}
-                              onClick={handleDone}
-                            >
-                              Done
-                            </Button>
-                          )}
-                        </React.Fragment>
-                      )}
-                    </Grid>
-                  </Grid>
-
-                  <Container style={{ padding: "0 5px 0 5px" }}>
-                    <Box className={classes.row}>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard1"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard2"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard3"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                    </Box>
-                    <Box className={classes.row}>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard4"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard5"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard6"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                    </Box>
-                    <Box className={classes.row}>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard7"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard8"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                      <Box m={1} className={classes.card}>
-                        <BridgeCard
-                          userID={userID}
-                          name={name}
-                          username={username}
-                          profilePicture={profilePicture}
-                          cardNumber={cardNumber}
-                          bridgeCardNumber="bridgeCard9"
-                          editable={editing}
-                          personal={true}
-                        />
-                      </Box>
-                    </Box>
-                  </Container>
-                </Box>
-              </Box>
-              <Box flex={1} justifyContent="center" pl={3}>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  style={{ marginTop: "10px", width: "280px" }}
-                >
-                  <Box style={{ textAlign: "center" }}>
-                    {" "}
-                    <UsernameButton display="block" username={username} />
-                    <ProfilePicture profilePicture={profilePicture} />
-                  </Box>
-                  <Box style={{ marginTop: "10px" }}>
-                    <NotesCard
-                      height={630}
-                      notes={notes}
-                      cardNumber={cardNumber}
-                      editable={editing}
-                      personal={true}
-                      onChange={onNotesChange}
-                    />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </MediaQuery>
-          <MediaQuery minWidth={1400}>
-            <Navbar />
-            <Box display="flex" className={classes.container}>
-              <Box flex={1} justifyContent="center">
-                <LeftNavbar />
-              </Box>
+              <LeftNavbar />
               <Box flex={1} justifyContent="center">
                 <Box
                   display="flex"

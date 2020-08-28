@@ -58,6 +58,7 @@ export const NON_USERNAMES = [
   "edit_announcements",
   "exhibition",
   "exhibitions",
+  "explore",
   "f",
   "faq",
   "favorites",

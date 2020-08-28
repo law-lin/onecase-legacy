@@ -47,7 +47,7 @@ const useStyles = makeStyles({
     fontWeight: 800,
     borderRadius: "15px",
     alignSelf: "center",
-    width: "50%",
+    width: "40%",
     textAlign: "center",
     margin: "10px",
     boxShadow: "none",
@@ -267,6 +267,7 @@ function CategoriesPage(props) {
                                         <Link
                                           href={"/" + card.username}
                                           className={classes.name}
+                                          style={{ fontSize: "20px" }}
                                         >
                                           {card.name}
                                         </Link>
@@ -274,13 +275,17 @@ function CategoriesPage(props) {
                                       subheader={
                                         <Typography
                                           className={classes.username}
+                                          style={{ fontSize: "16px" }}
                                         >
                                           @{card.username}
                                         </Typography>
                                       }
                                       action={
                                         <React.Fragment>
-                                          <Typography className={classes.date}>
+                                          <Typography
+                                            className={classes.date}
+                                            style={{ fontSize: "16px" }}
+                                          >
                                             {card.dateCreated}
                                           </Typography>
                                         </React.Fragment>
@@ -319,98 +324,11 @@ function CategoriesPage(props) {
                 </Container>
                 <BottomNavbar />
               </MediaQuery>
-              <MediaQuery minWidth={1115} maxWidth={1399}>
+              <MediaQuery minWidth={1115}>
                 <Navbar />
                 <Container className={classes.root}>
-                  <Box flex={1}>
-                    <LeftNavbar noText={true} />
-                  </Box>
-                  <Box flex={1}>
-                    <Container
-                      className={classes.container}
-                      style={{ minWidth: "650px" }}
-                    >
-                      <Card className={classes.category}>
-                        {categoryDisplay}
-                      </Card>
-                      <List style={{ width: "100%" }}>
-                        {!loading &&
-                          cards.map((card) => {
-                            return (
-                              <ListItem>
-                                <Card
-                                  classes={{ root: classes.card }}
-                                  key={card.cardID}
-                                >
-                                  <CardHeader
-                                    avatar={
-                                      <Link href={"/" + card.username}>
-                                        <Avatar
-                                          src={card.profilePicture}
-                                          style={{
-                                            width: "75px",
-                                            height: "75px",
-                                          }}
-                                        />
-                                      </Link>
-                                    }
-                                    title={
-                                      <Link
-                                        href={"/" + card.username}
-                                        className={classes.name}
-                                      >
-                                        {card.name}
-                                      </Link>
-                                    }
-                                    subheader={
-                                      <Typography className={classes.username}>
-                                        @{card.username}
-                                      </Typography>
-                                    }
-                                    action={
-                                      <React.Fragment>
-                                        <Typography className={classes.date}>
-                                          {card.dateCreated}
-                                        </Typography>
-                                      </React.Fragment>
-                                    }
-                                  />
-                                  <CardContent
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <BridgeCard
-                                      size={"200px"}
-                                      cardID={card.cardID}
-                                      name={card.name}
-                                      username={card.username}
-                                      profilePicture={card.profilePicture}
-                                      timeCreated={card.dateCreated}
-                                      lastUpdated={card.dateUpdated}
-                                    ></BridgeCard>
-                                  </CardContent>
-                                </Card>
-                              </ListItem>
-                            );
-                          })}
-                      </List>
-                    </Container>
-                  </Box>
-                  <Box flex={1}>
-                    <Container>
-                      <CategoriesCard />
-                    </Container>
-                  </Box>
-                </Container>
-              </MediaQuery>
-              <MediaQuery minWidth={1400}>
-                <Navbar />
-                <Container className={classes.root}>
-                  <Box flex={1}>
-                    <LeftNavbar />
-                  </Box>
+                  <LeftNavbar />
+
                   <Box flex={1}>
                     <Box display="flex" justifyContent="center">
                       <Card className={classes.category}>

@@ -10,6 +10,7 @@ import { ReactComponent as HomeIcon } from "./icons/home.svg";
 import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
 import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
+import MediaQuery from "react-responsive";
 import "./landingpage.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
     },
     fontFamily: ["Montserrat", "sans-serif"],
     fontWeight: 600,
-    color: "#3E4E56",
+    color: "#FFFFFF",
     textDecoration: "none",
     textTransform: "none",
     fontSize: "20px",
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
   },
   noTextIcon: {
     width: "50px",
+    height: "50px",
   },
   button: {
     "&:hover": {
@@ -56,7 +58,7 @@ const useStyles = makeStyles({
     },
     fontFamily: ["Montserrat", "sans-serif"],
     borderRadius: "15px",
-    color: "#3E4E56",
+    color: "#000000",
     fontSize: "20px",
     fontWeight: 700,
     height: "80px",
@@ -105,60 +107,76 @@ function LeftNavbar(props) {
   }
 
   return (
-    <Box display="flex" flexDirection="column" style={{ marginTop: "25vh" }}>
-      {!props.noText && (
-        <React.Fragment>
-          {username && (
+    <React.Fragment>
+      <MediaQuery minWidth={1400}>
+        <Box flex={1}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            style={{ marginTop: "25vh" }}
+          >
             <React.Fragment>
-              <Link href={"/feed"} className={classes.button}>
-                <div>
-                  <ImHome3 className={classes.icon} />
-                  Home
-                </div>
-              </Link>
+              {username && (
+                <React.Fragment>
+                  <Link href={"/feed"} className={classes.button}>
+                    <div>
+                      <ImHome3 className={classes.icon} />
+                      Home
+                    </div>
+                  </Link>
 
-              <Link href={"/feed"} className={classes.button}>
-                <ExhibitionsIcon className={classes.icon} />
-                Exhibitions
-              </Link>
+                  <Link href={"/feed"} className={classes.button}>
+                    <ExhibitionsIcon className={classes.icon} />
+                    Exhibitions
+                  </Link>
 
-              <Link href={"/" + username} className={classes.button}>
-                {!loading && (
-                  <Avatar
-                    round="50px"
-                    size="50"
-                    style={{ marginRight: "20px" }}
-                    src={profilePicture}
-                  />
-                )}
-                Profile
-              </Link>
+                  <Link href={"/" + username} className={classes.button}>
+                    {!loading && (
+                      <Avatar
+                        round="50px"
+                        size="50"
+                        style={{ marginRight: "20px" }}
+                        src={profilePicture}
+                      />
+                    )}
+                    Profile
+                  </Link>
+                </React.Fragment>
+              )}
             </React.Fragment>
-          )}
-        </React.Fragment>
-      )}
-      {props.noText && (
-        <React.Fragment>
-          {username && (
+          </Box>
+        </Box>
+      </MediaQuery>
+      <MediaQuery minWidth={1115} maxWidth={1399}>
+        <Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            style={{ marginTop: "25vh" }}
+          >
             <React.Fragment>
-              <Link href={"/feed"} className={classes.button}>
-                <HomeIcon className={classes.noTextIcon} />
-              </Link>
-
-              <Link href={"/feed"} className={classes.button}>
-                <ExhibitionsIcon className={classes.noTextIcon} />
-              </Link>
-
-              <Link href={"/" + username} className={classes.button}>
-                {!loading && (
-                  <Avatar round="50px" size="50" src={profilePicture} />
-                )}
-              </Link>
+              {username && (
+                <React.Fragment>
+                  <Link href={"/feed"} className={classes.button}>
+                    <div>
+                      <ImHome3 className={classes.noTextIcon} />
+                    </div>
+                  </Link>
+                  <Link href={"/feed"} className={classes.button}>
+                    <ExhibitionsIcon className={classes.noTextIcon} />
+                  </Link>
+                  <Link href={"/" + username} className={classes.button}>
+                    {!loading && (
+                      <Avatar round="50px" size="50" src={profilePicture} />
+                    )}
+                  </Link>
+                </React.Fragment>
+              )}
             </React.Fragment>
-          )}
-        </React.Fragment>
-      )}
-    </Box>
+          </Box>
+        </Box>
+      </MediaQuery>
+    </React.Fragment>
   );
 }
 
