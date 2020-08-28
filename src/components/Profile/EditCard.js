@@ -70,7 +70,7 @@ const useStyles = makeStyles({
     color: "#FFFFFF",
     borderRadius: "15px",
     height: "100px",
-    width: "250px",
+    width: "100%",
   },
   confirmation: {
     fontSize: "24px",
@@ -263,7 +263,7 @@ function EditCard(props) {
             <DialogContent>
               <Grid container spacing={3} alignItems="center">
                 <Grid container item xs={12} spacing={3} align="center">
-                  <Grid item xs={4} sm={4}>
+                  <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
                       onClick={() => handleClick("None")}
@@ -310,8 +310,7 @@ function EditCard(props) {
                       Music
                     </Button>
                   </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} align="center">
+
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
@@ -336,8 +335,6 @@ function EditCard(props) {
                       Photography
                     </Button>
                   </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
@@ -362,8 +359,6 @@ function EditCard(props) {
                       Stuff I Like
                     </Button>
                   </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} align="center">
                   <Grid item xs={6} sm={4}>
                     <Button
                       className={classes.category}
