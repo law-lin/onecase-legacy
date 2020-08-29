@@ -1090,7 +1090,10 @@ function PersonalProfilePage(props) {
                                 </Box>
                               </DialogContent>
                               <DialogActions>
-                                <IconButton className={classes.close}>
+                                <IconButton
+                                  className={classes.close}
+                                  onClick={handleClose}
+                                >
                                   <IoMdClose />
                                 </IconButton>
                               </DialogActions>
@@ -1554,7 +1557,10 @@ function PersonalProfilePage(props) {
                               </Box>
                             </DialogContent>
                             <DialogActions>
-                              <IconButton className={classes.close}>
+                              <IconButton
+                                className={classes.close}
+                                onClick={handleClose}
+                              >
                                 <IoMdClose />
                               </IconButton>
                             </DialogActions>
