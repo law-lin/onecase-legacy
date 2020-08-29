@@ -65,7 +65,7 @@ function Routes() {
       setPreviousLocation(location);
     }
   });
-  console.log(size.width);
+
   const isModal =
     location.state &&
     location.state.modal &&

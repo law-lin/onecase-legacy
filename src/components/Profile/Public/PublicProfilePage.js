@@ -169,7 +169,6 @@ function PublicProfilePage(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    setLoading(true);
     let username = props.match.params.username.toString().toLowerCase();
 
     props.firebase.auth.onAuthStateChanged((currentUser) => {
@@ -379,293 +378,54 @@ function PublicProfilePage(props) {
       return (
         <div className="bg">
           <MediaQuery maxWidth={1114}>
-            {!loading && (
-              <React.Fragment>
-                <Navbar />
-                <Container
-                  display="flex"
-                  flexDirection="column"
-                  style={{ margin: "80px 0", padding: "0 2px" }}
-                >
-                  <Box flex={1} justifyContent="center">
+            <React.Fragment>
+              <Navbar />
+              <Container
+                display="flex"
+                flexDirection="column"
+                style={{ margin: "80px 0", padding: "0 2px" }}
+              >
+                <Box flex={1} justifyContent="center">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    style={{ marginTop: "40px" }}
+                  >
                     <Box
                       display="flex"
                       flexDirection="column"
-                      alignItems="center"
                       justifyContent="center"
-                      style={{ marginTop: "40px" }}
+                      width="100%"
                     >
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="center"
-                        width="100%"
-                      >
-                        <Box display="flex">
-                          <Box>
-                            <ProfilePicture profilePicture={profilePicture} />
-                          </Box>
-                          {!loading && (
-                            <Box style={{ marginLeft: "10px" }}>
-                              <React.Fragment>
-                                <Box display="flex" alignItems="center">
-                                  <Name name={name} />
-                                  {isVerified && (
-                                    <Tooltip title="Verified User" arrow>
-                                      <img
-                                        style={{
-                                          display: "inline-block",
-                                          width: "25px",
-                                          marginLeft: "5px",
-                                        }}
-                                        src={verifiedBadge}
-                                        alt="verified badge"
-                                      />
-                                    </Tooltip>
-                                  )}
-                                </Box>
-                                <Username username={username} />
-                                {currentUser && (
-                                  <React.Fragment>
-                                    {!isFollowing && (
-                                      <CardHeader
-                                        style={{
-                                          padding: "16px 16px 0 0",
-                                          height: "0px",
-                                        }}
-                                        action={
-                                          <Button
-                                            className={classes.followButton}
-                                            onClick={handleFollow}
-                                            style={{
-                                              width: "50vw",
-                                              maxWidth: "350px",
-                                            }}
-                                          >
-                                            Follow
-                                          </Button>
-                                        }
-                                      />
-                                    )}
-                                    {isFollowing && (
-                                      <React.Fragment>
-                                        <CardHeader
-                                          style={{
-                                            padding: "16px 16px 0 0",
-                                            height: "0px",
-                                          }}
-                                          action={
-                                            <Button
-                                              className={classes.followButton}
-                                              onClick={openUnfollowDialog}
-                                              style={{
-                                                width: "50vw",
-                                                maxWidth: "350px",
-                                              }}
-                                            >
-                                              Unfollow
-                                            </Button>
-                                          }
-                                        />
-                                        <UnfollowDialog />
-                                      </React.Fragment>
-                                    )}
-                                  </React.Fragment>
-                                )}
-                              </React.Fragment>
-                            </Box>
-                          )}
-                        </Box>
-                        <Box display="flex">
-                          <Box flex={1}>
-                            <Biography margin="10px" bio={bio} />
-                          </Box>
-                        </Box>
-                        <Box display="flex" flex={1}>
-                          <Card className={classes.infoSection}>
-                            <Typography className={classes.text}>
-                              <Followers
-                                followers={followers}
-                                followerCount={followerCount}
-                                currentUser={currentUser}
-                              />
-
-                              <Following
-                                following={followings}
-                                followingCount={followingCount}
-                                currentUser={currentUser}
-                              />
-                            </Typography>
-                          </Card>
-                        </Box>
-                        <Box display="flex" justifyContent="flex-end">
-                          <Box display="flex" flexDirection="column">
-                            <Box display="flex">
-                              <Box>
-                                <Typography
-                                  className={classes.switchLabel}
-                                  style={{ paddingRight: "15px" }}
-                                >
-                                  cards
-                                </Typography>
-                              </Box>
-                              <Box>
-                                <Typography className={classes.switchLabel}>
-                                  links
-                                </Typography>
-                              </Box>
-                            </Box>
-                            <Box display="flex" justifyContent="center">
-                              <Switch
-                                classes={{
-                                  root: classes.switch,
-                                  switchBase: classes.switchBase,
-                                  track: classes.track,
-                                  checked: classes.checked,
-                                }}
-                                checked={checked}
-                                onChange={handleSwitch}
-                              />
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Box>
-                      {!checked && (
-                        <Container
-                          className={classes.center}
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            padding: "0px",
-                          }}
-                        >
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card1"
-                            size="small"
-                          />
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card2"
-                            size="small"
-                          />
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card3"
-                            size="small"
-                          />
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card4"
-                            size="small"
-                          />
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card5"
-                            size="small"
-                          />
-                          <ProfileCard
-                            username={username}
-                            cardNumber="card6"
-                            size="small"
-                          />
-                        </Container>
-                      )}
-                      {checked && (
-                        <Container
-                          style={{ display: "flex", justifyContent: "center" }}
-                        >
-                          <LinksCard />
-                        </Container>
-                      )}
-                    </Box>
-                  </Box>
-                </Container>
-                <BottomNavbar />
-              </React.Fragment>
-            )}
-          </MediaQuery>
-          <MediaQuery minWidth={1115}>
-            {!loading && (
-              <React.Fragment>
-                <Navbar />
-                <Box display="flex" className={classes.container}>
-                  <LeftNavbar />
-
-                  <Box flex={1} justifyContent="center">
-                    <Box
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      justifyContent="center"
-                      style={{ marginTop: "40px", width: "700px" }}
-                    >
-                      <Box
-                        display="flex"
-                        flexDirection="row"
-                        justifyContent="center"
-                        width="100%"
-                      >
-                        <Box
-                          flex={1}
-                          flexBasis="100%"
-                          style={{ paddingLeft: "40px" }}
-                        >
-                          <Box display="flex" alignItems="center">
-                            <Name name={name} />
-                            {isVerified && (
-                              <Tooltip title="Verified User" arrow>
-                                <img
-                                  style={{
-                                    display: "inline-block",
-                                    width: "25px",
-                                    marginLeft: "5px",
-                                  }}
-                                  src={verifiedBadge}
-                                  alt="verified badge"
-                                />
-                              </Tooltip>
-                            )}
-                          </Box>
-
-                          <Username username={username} />
-                          <Biography bio={bio} />
-                        </Box>
-                        <Box
-                          flex={1}
-                          flexBasis="100%"
-                          style={{ textAlign: "center" }}
-                        >
+                      <Box display="flex">
+                        <Box>
                           <ProfilePicture profilePicture={profilePicture} />
                         </Box>
-                        <Box
-                          display="flex"
-                          flex={1}
-                          flexBasis="100%"
-                          alignItems="center"
-                          justifyContent="center"
-                        >
-                          <Card className={classes.infoBox}>
-                            {currentUser && (
-                              <React.Fragment>
-                                {!isFollowing && (
-                                  <CardHeader
-                                    style={{
-                                      padding: "16px 16px 0 0",
-                                      height: "0px",
-                                    }}
-                                    action={
-                                      <Button
-                                        className={classes.followButton}
-                                        onClick={handleFollow}
-                                      >
-                                        Follow
-                                      </Button>
-                                    }
-                                  />
+                        {!loading && (
+                          <Box style={{ marginLeft: "10px" }}>
+                            <React.Fragment>
+                              <Box display="flex" alignItems="center">
+                                <Name name={name} />
+                                {isVerified && (
+                                  <Tooltip title="Verified User" arrow>
+                                    <img
+                                      style={{
+                                        display: "inline-block",
+                                        width: "25px",
+                                        marginLeft: "5px",
+                                      }}
+                                      src={verifiedBadge}
+                                      alt="verified badge"
+                                    />
+                                  </Tooltip>
                                 )}
-                                {isFollowing && (
-                                  <React.Fragment>
+                              </Box>
+                              <Username username={username} />
+                              {currentUser && (
+                                <React.Fragment>
+                                  {!isFollowing && (
                                     <CardHeader
                                       style={{
                                         padding: "16px 16px 0 0",
@@ -674,59 +434,294 @@ function PublicProfilePage(props) {
                                       action={
                                         <Button
                                           className={classes.followButton}
-                                          onClick={openUnfollowDialog}
+                                          onClick={handleFollow}
+                                          style={{
+                                            width: "50vw",
+                                            maxWidth: "350px",
+                                          }}
                                         >
-                                          Unfollow
+                                          Follow
                                         </Button>
                                       }
                                     />
-                                    <UnfollowDialog />
-                                  </React.Fragment>
-                                )}
-                              </React.Fragment>
-                            )}
-                            <CardContent style={{ padding: "28px 0 0 10px" }}>
-                              <Typography className={classes.text}>
-                                <Followers
-                                  followers={followers}
-                                  followerCount={followerCount}
-                                  currentUser={currentUser}
-                                />
-                                <br />
-                                <Following
-                                  following={followings}
-                                  followingCount={followingCount}
-                                  currentUser={currentUser}
-                                />
-                              </Typography>
-                            </CardContent>
-                          </Card>
+                                  )}
+                                  {isFollowing && (
+                                    <React.Fragment>
+                                      <CardHeader
+                                        style={{
+                                          padding: "16px 16px 0 0",
+                                          height: "0px",
+                                        }}
+                                        action={
+                                          <Button
+                                            className={classes.followButton}
+                                            onClick={openUnfollowDialog}
+                                            style={{
+                                              width: "50vw",
+                                              maxWidth: "350px",
+                                            }}
+                                          >
+                                            Unfollow
+                                          </Button>
+                                        }
+                                      />
+                                      <UnfollowDialog />
+                                    </React.Fragment>
+                                  )}
+                                </React.Fragment>
+                              )}
+                            </React.Fragment>
+                          </Box>
+                        )}
+                      </Box>
+                      <Box display="flex">
+                        <Box flex={1}>
+                          <Biography margin="10px" bio={bio} />
                         </Box>
                       </Box>
-                      <Container className={classes.center}>
-                        <Box display="flex" p={1}>
-                          <ProfileCard username={username} cardNumber="card1" />
-                          <ProfileCard username={username} cardNumber="card2" />
+                      <Box display="flex" flex={1}>
+                        <Card className={classes.infoSection}>
+                          <Typography className={classes.text}>
+                            <Followers
+                              followers={followers}
+                              followerCount={followerCount}
+                              currentUser={currentUser}
+                            />
+
+                            <Following
+                              following={followings}
+                              followingCount={followingCount}
+                              currentUser={currentUser}
+                            />
+                          </Typography>
+                        </Card>
+                      </Box>
+                      <Box display="flex" justifyContent="flex-end">
+                        <Box display="flex" flexDirection="column">
+                          <Box display="flex">
+                            <Box>
+                              <Typography
+                                className={classes.switchLabel}
+                                style={{ paddingRight: "15px" }}
+                              >
+                                cards
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography className={classes.switchLabel}>
+                                links
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Box display="flex" justifyContent="center">
+                            <Switch
+                              classes={{
+                                root: classes.switch,
+                                switchBase: classes.switchBase,
+                                track: classes.track,
+                                checked: classes.checked,
+                              }}
+                              checked={checked}
+                              onChange={handleSwitch}
+                            />
+                          </Box>
                         </Box>
-                        <Box display="flex" p={1}>
-                          <ProfileCard username={username} cardNumber="card3" />
-                          <ProfileCard username={username} cardNumber="card4" />
-                        </Box>
-                        <Box display="flex" p={1}>
-                          <ProfileCard username={username} cardNumber="card5" />
-                          <ProfileCard username={username} cardNumber="card6" />
-                        </Box>
-                      </Container>
+                      </Box>
                     </Box>
+                    {!checked && (
+                      <Container
+                        className={classes.center}
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          padding: "0px",
+                        }}
+                      >
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card1"
+                          size="small"
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card2"
+                          size="small"
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card3"
+                          size="small"
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card4"
+                          size="small"
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card5"
+                          size="small"
+                        />
+                        <ProfileCard
+                          username={username}
+                          cardNumber="card6"
+                          size="small"
+                        />
+                      </Container>
+                    )}
+                    {checked && (
+                      <Container
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <LinksCard />
+                      </Container>
+                    )}
                   </Box>
-                  <Box flex={1} justifyContent="center">
-                    <Container style={{ margin: "37% 0 0 10%" }}>
-                      <LinksCard />
+                </Box>
+              </Container>
+              <BottomNavbar />
+            </React.Fragment>
+          </MediaQuery>
+          <MediaQuery minWidth={1115}>
+            <React.Fragment>
+              <Navbar />
+              <Box display="flex" className={classes.container}>
+                <LeftNavbar />
+
+                <Box flex={1} justifyContent="center">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    style={{ marginTop: "40px", width: "700px" }}
+                  >
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      width="100%"
+                    >
+                      <Box
+                        flex={1}
+                        flexBasis="100%"
+                        style={{ paddingLeft: "40px" }}
+                      >
+                        <Box display="flex" alignItems="center">
+                          <Name name={name} />
+                          {isVerified && (
+                            <Tooltip title="Verified User" arrow>
+                              <img
+                                style={{
+                                  display: "inline-block",
+                                  width: "25px",
+                                  marginLeft: "5px",
+                                }}
+                                src={verifiedBadge}
+                                alt="verified badge"
+                              />
+                            </Tooltip>
+                          )}
+                        </Box>
+
+                        <Username username={username} />
+                        <Biography bio={bio} />
+                      </Box>
+                      <Box
+                        flex={1}
+                        flexBasis="100%"
+                        style={{ textAlign: "center" }}
+                      >
+                        <ProfilePicture profilePicture={profilePicture} />
+                      </Box>
+                      <Box
+                        display="flex"
+                        flex={1}
+                        flexBasis="100%"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Card className={classes.infoBox}>
+                          {currentUser && (
+                            <React.Fragment>
+                              {!isFollowing && (
+                                <CardHeader
+                                  style={{
+                                    padding: "16px 16px 0 0",
+                                    height: "0px",
+                                  }}
+                                  action={
+                                    <Button
+                                      className={classes.followButton}
+                                      onClick={handleFollow}
+                                    >
+                                      Follow
+                                    </Button>
+                                  }
+                                />
+                              )}
+                              {isFollowing && (
+                                <React.Fragment>
+                                  <CardHeader
+                                    style={{
+                                      padding: "16px 16px 0 0",
+                                      height: "0px",
+                                    }}
+                                    action={
+                                      <Button
+                                        className={classes.followButton}
+                                        onClick={openUnfollowDialog}
+                                      >
+                                        Unfollow
+                                      </Button>
+                                    }
+                                  />
+                                  <UnfollowDialog />
+                                </React.Fragment>
+                              )}
+                            </React.Fragment>
+                          )}
+                          <CardContent style={{ padding: "28px 0 0 10px" }}>
+                            <Typography className={classes.text}>
+                              <Followers
+                                followers={followers}
+                                followerCount={followerCount}
+                                currentUser={currentUser}
+                              />
+                              <br />
+                              <Following
+                                following={followings}
+                                followingCount={followingCount}
+                                currentUser={currentUser}
+                              />
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Box>
+                    </Box>
+                    <Container className={classes.center}>
+                      <Box display="flex" p={1}>
+                        <ProfileCard username={username} cardNumber="card1" />
+                        <ProfileCard username={username} cardNumber="card2" />
+                      </Box>
+                      <Box display="flex" p={1}>
+                        <ProfileCard username={username} cardNumber="card3" />
+                        <ProfileCard username={username} cardNumber="card4" />
+                      </Box>
+                      <Box display="flex" p={1}>
+                        <ProfileCard username={username} cardNumber="card5" />
+                        <ProfileCard username={username} cardNumber="card6" />
+                      </Box>
                     </Container>
                   </Box>
                 </Box>
-              </React.Fragment>
-            )}
+                <Box flex={1} justifyContent="center">
+                  <Container style={{ margin: "37% 0 0 10%" }}>
+                    <LinksCard />
+                  </Container>
+                </Box>
+              </Box>
+            </React.Fragment>
           </MediaQuery>
         </div>
       );

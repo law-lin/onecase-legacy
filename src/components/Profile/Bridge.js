@@ -114,7 +114,7 @@ function Bridge(props) {
   const [cardTitle, setCardTitle] = useState(null);
   const [cardNumber, setCardNumber] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [personal, setPersonal] = useState(false);
 
   const classes = useStyles();
@@ -133,7 +133,6 @@ function Bridge(props) {
   };
 
   useEffect(() => {
-    setLoading(true);
     const username = props.match.params.username.toString().toLowerCase();
     const cardTitle = props.match.params.cardTitle;
 
@@ -154,7 +153,6 @@ function Bridge(props) {
       setCardTitle(modifiedCardTitle);
       if (cardTitle !== null) {
         props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
-          console.log("aah");
           const userIDState = snapshot.val();
           if (userIDState) {
             props.firebase
@@ -276,6 +274,7 @@ function Bridge(props) {
                 <Box style={{ textAlign: "right" }}>
                   <UsernameButton
                     display="block"
+                    name={name}
                     username={username}
                     size="small"
                   />
@@ -626,7 +625,11 @@ function Bridge(props) {
               <Box flex={1} justifyContent="center" pl={3}>
                 <Box style={{ textAlign: "center" }}>
                   {" "}
-                  <UsernameButton display="block" username={username} />
+                  <UsernameButton
+                    display="block"
+                    name={name}
+                    username={username}
+                  />
                   <ProfilePicture profilePicture={profilePicture} />
                 </Box>
                 <Box style={{ marginTop: "10px" }}>
