@@ -9,8 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import UsernameButton from "./UsernameButton";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import { IoMdClose } from "react-icons/io";
 import Typography from "@material-ui/core/Typography";
 
 import Link from "@material-ui/core/Link";
@@ -154,6 +155,15 @@ const useStyles = makeStyles({
     width: "100%",
     padding: "10px",
     height: "60px",
+  },
+  close: {
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#FFFFFF",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
 });
 
@@ -350,6 +360,11 @@ const Following = (props) => {
               })}
             </List>
           </DialogContent>
+          <DialogActions>
+            <IconButton onClick={handleClose} className={classes.close}>
+              <IoMdClose />
+            </IconButton>
+          </DialogActions>
         </Dialog>
       )}
     </React.Fragment>

@@ -17,6 +17,8 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import PencilIcon from "@material-ui/icons/Create";
+
+import { IoMdClose } from "react-icons/io";
 import { makeStyles } from "@material-ui/core/styles";
 import { withFirebase } from "../Firebase";
 import { Typography } from "@material-ui/core";
@@ -161,6 +163,15 @@ const useStyles = makeStyles({
     maxWidth: (props) => (props.size === "small" ? "175px" : "230px"),
     margin: "10px 10px",
     borderRadius: "20px",
+  },
+  close: {
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#FFFFFF",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
 });
 
@@ -424,6 +435,11 @@ function EditCard(props) {
                 </MuiAlert>
               </Snackbar>
             </DialogContent>
+            <DialogActions>
+              <IconButton onClick={handleClose} className={classes.close}>
+                <IoMdClose />
+              </IconButton>
+            </DialogActions>
           </Dialog>
         </Fragment>
       )}

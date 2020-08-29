@@ -52,6 +52,12 @@ const useStyles = makeStyles({
     color: "#FFFFFF",
     backgroundColor: "#3E4E55",
   },
+  infoSection: {
+    width: "100%",
+    borderRadius: 0,
+    backgroundColor: "#7A8489",
+    textAlign: "center",
+  },
   text: {
     fontFamily: ["Montserrat", "sans-serif"],
     fontSize: "16px",
@@ -349,74 +355,75 @@ function PublicProfilePage(props) {
                                   )}
                                 </Box>
                                 <Username username={username} />
+                                {currentUser && (
+                                  <React.Fragment>
+                                    {!isFollowing && (
+                                      <CardHeader
+                                        style={{
+                                          padding: "16px 16px 0 0",
+                                          height: "0px",
+                                        }}
+                                        action={
+                                          <Button
+                                            className={classes.followButton}
+                                            onClick={handleFollow}
+                                            style={{
+                                              width: "50vw",
+                                              maxWidth: "350px",
+                                            }}
+                                          >
+                                            Follow
+                                          </Button>
+                                        }
+                                      />
+                                    )}
+                                    {isFollowing && (
+                                      <CardHeader
+                                        style={{
+                                          padding: "16px 16px 0 0",
+                                          height: "0px",
+                                        }}
+                                        action={
+                                          <Button
+                                            className={classes.followButton}
+                                            onClick={handleUnfollow}
+                                            style={{
+                                              width: "50vw",
+                                              maxWidth: "350px",
+                                            }}
+                                          >
+                                            Unfollow
+                                          </Button>
+                                        }
+                                      />
+                                    )}
+                                  </React.Fragment>
+                                )}
                               </React.Fragment>
                             </Box>
                           )}
                         </Box>
                         <Box display="flex">
                           <Box flex={1}>
-                            {!loading && <Biography margin="10px" bio={bio} />}
+                            <Biography margin="10px" bio={bio} />
                           </Box>
+                        </Box>
+                        <Box display="flex" flex={1}>
+                          <Card className={classes.infoSection}>
+                            <Typography className={classes.text}>
+                              <Followers
+                                followers={followers}
+                                followerCount={followerCount}
+                                currentUser={currentUser}
+                              />
 
-                          <Box
-                            display="flex"
-                            flex={1}
-                            justifyContent="flex-end"
-                          >
-                            <Card className={classes.infoBox}>
-                              {currentUser && (
-                                <React.Fragment>
-                                  {!isFollowing && (
-                                    <CardHeader
-                                      style={{
-                                        padding: "16px 16px 0 0",
-                                        height: "0px",
-                                      }}
-                                      action={
-                                        <Button
-                                          className={classes.followButton}
-                                          onClick={handleFollow}
-                                        >
-                                          Follow
-                                        </Button>
-                                      }
-                                    />
-                                  )}
-                                  {isFollowing && (
-                                    <CardHeader
-                                      style={{
-                                        padding: "16px 16px 0 0",
-                                        height: "0px",
-                                      }}
-                                      action={
-                                        <Button
-                                          className={classes.followButton}
-                                          onClick={handleUnfollow}
-                                        >
-                                          Unfollow
-                                        </Button>
-                                      }
-                                    />
-                                  )}
-                                </React.Fragment>
-                              )}
-                              <CardContent style={{ padding: "28px 0 0 10px" }}>
-                                <Typography className={classes.text}>
-                                  <Followers
-                                    followers={followers}
-                                    followerCount={followerCount}
-                                    currentUser={currentUser}
-                                  />
-                                  <br />
-                                  <Following
-                                    following={followings}
-                                    followingCount={followingCount}
-                                    currentUser={currentUser}
-                                  />
-                                </Typography>
-                              </CardContent>
-                            </Card>
-                          </Box>
+                              <Following
+                                following={followings}
+                                followingCount={followingCount}
+                                currentUser={currentUser}
+                              />
+                            </Typography>
+                          </Card>
                         </Box>
                         <Box display="flex" justifyContent="flex-end">
                           <Box display="flex" flexDirection="column">

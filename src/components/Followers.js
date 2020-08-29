@@ -13,6 +13,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
+import IconButton from "@material-ui/core/IconButton";
+import { IoMdClose } from "react-icons/io";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
@@ -184,6 +186,15 @@ const useStyles = makeStyles({
     width: "100%",
     padding: "10px",
     height: "60px",
+  },
+  close: {
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#FFFFFF",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
 });
 
@@ -382,6 +393,11 @@ function Followers(props) {
               })}
             </List>
           </DialogContent>
+          <DialogActions>
+            <IconButton onClick={handleClose} className={classes.close}>
+              <IoMdClose />
+            </IconButton>
+          </DialogActions>
         </Dialog>
       )}
     </React.Fragment>
