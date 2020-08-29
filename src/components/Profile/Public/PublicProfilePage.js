@@ -29,6 +29,8 @@ import Typography from "@material-ui/core/Typography";
 import MediaQuery from "react-responsive";
 import LeftNavbar from "../../LeftNavbar";
 import BottomNavbar from "../../BottomNavbar";
+import Dialog from "@material-ui/core/Dialog";
+import Avatar from "react-avatar";
 
 import { size } from "lodash";
 
@@ -109,6 +111,39 @@ const useStyles = makeStyles({
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 800,
   },
+  unfollowPrompt: {
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontSize: "18px",
+    color: "#000000",
+    fontWeight: 500,
+    padding: "25px 0",
+  },
+  unfollow: {
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    textDecoration: "none",
+    textTransform: "none",
+    color: "#FF0000",
+    width: "100%",
+    padding: "10px",
+    height: "60px",
+  },
+  cancel: {
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    textDecoration: "none",
+    textTransform: "none",
+    color: "#000000",
+    width: "100%",
+    padding: "10px",
+    height: "60px",
+  },
 });
 
 function PublicProfilePage(props) {
@@ -130,7 +165,7 @@ function PublicProfilePage(props) {
   const [followings, setFollowings] = useState([]);
 
   const [checked, setChecked] = useState(false);
-
+  const [openUnfollow, setOpenUnfollow] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -304,6 +339,41 @@ function PublicProfilePage(props) {
     setChecked(event.target.checked);
   };
 
+  const openUnfollowDialog = () => {
+    setOpenUnfollow(true);
+  };
+
+  const closeUnfollowDialog = () => {
+    setOpenUnfollow(false);
+  };
+
+  function UnfollowDialog() {
+    return (
+      <Dialog
+        PaperProps={{
+          style: {
+            alignItems: "center",
+            padding: "50px 50px 20px 50px",
+          },
+        }}
+        open={openUnfollow}
+        onClose={closeUnfollowDialog}
+      >
+        <ProfilePicture profilePicture={profilePicture} />
+        <Typography className={classes.unfollowPrompt}>
+          Are you sure you want to unfollow @{username}?
+        </Typography>
+
+        <Button className={classes.unfollow} onClick={handleUnfollow}>
+          Unfollow
+        </Button>
+        <Button className={classes.cancel} onClick={closeUnfollowDialog}>
+          Cancel
+        </Button>
+      </Dialog>
+    );
+  }
+
   if (!loading) {
     if (exists) {
       return (
@@ -378,24 +448,27 @@ function PublicProfilePage(props) {
                                       />
                                     )}
                                     {isFollowing && (
-                                      <CardHeader
-                                        style={{
-                                          padding: "16px 16px 0 0",
-                                          height: "0px",
-                                        }}
-                                        action={
-                                          <Button
-                                            className={classes.followButton}
-                                            onClick={handleUnfollow}
-                                            style={{
-                                              width: "50vw",
-                                              maxWidth: "350px",
-                                            }}
-                                          >
-                                            Unfollow
-                                          </Button>
-                                        }
-                                      />
+                                      <React.Fragment>
+                                        <CardHeader
+                                          style={{
+                                            padding: "16px 16px 0 0",
+                                            height: "0px",
+                                          }}
+                                          action={
+                                            <Button
+                                              className={classes.followButton}
+                                              onClick={openUnfollowDialog}
+                                              style={{
+                                                width: "50vw",
+                                                maxWidth: "350px",
+                                              }}
+                                            >
+                                              Unfollow
+                                            </Button>
+                                          }
+                                        />
+                                        <UnfollowDialog />
+                                      </React.Fragment>
                                     )}
                                   </React.Fragment>
                                 )}
@@ -592,20 +665,23 @@ function PublicProfilePage(props) {
                                   />
                                 )}
                                 {isFollowing && (
-                                  <CardHeader
-                                    style={{
-                                      padding: "16px 16px 0 0",
-                                      height: "0px",
-                                    }}
-                                    action={
-                                      <Button
-                                        className={classes.followButton}
-                                        onClick={handleUnfollow}
-                                      >
-                                        Unfollow
-                                      </Button>
-                                    }
-                                  />
+                                  <React.Fragment>
+                                    <CardHeader
+                                      style={{
+                                        padding: "16px 16px 0 0",
+                                        height: "0px",
+                                      }}
+                                      action={
+                                        <Button
+                                          className={classes.followButton}
+                                          onClick={openUnfollowDialog}
+                                        >
+                                          Unfollow
+                                        </Button>
+                                      }
+                                    />
+                                    <UnfollowDialog />
+                                  </React.Fragment>
                                 )}
                               </React.Fragment>
                             )}
