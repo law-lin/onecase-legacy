@@ -155,18 +155,64 @@ const useStyles = makeStyles({
     textTransform: "none",
     color: "#FFFFFF",
   },
+  unfollowPrompt: {
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontSize: "18px",
+    color: "#000000",
+    fontWeight: 500,
+    padding: "25px 0",
+  },
+  unfollow: {
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    textDecoration: "none",
+    textTransform: "none",
+    color: "#FF0000",
+    width: "100%",
+    padding: "10px",
+    height: "60px",
+  },
+  cancel: {
+    "&:focus": {
+      outline: "none",
+    },
+    fontFamily: ["Montserrat", "sans-serif"],
+    fontWeight: 800,
+    textDecoration: "none",
+    textTransform: "none",
+    color: "#000000",
+    width: "100%",
+    padding: "10px",
+    height: "60px",
+  },
+  close: {
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#FFFFFF",
+    position: "absolute",
+    right: 0,
+    top: 0,
+  },
 });
 
 function SearchResults(props) {
   let location = useLocation();
   const classes = useStyles();
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
 
   const [currentUser, setCurrentUser] = useState(false);
+
+  const [userID, setUserID] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -302,12 +348,18 @@ function SearchResults(props) {
     props.firebase.follow(props.firebase.auth.currentUser.uid, userID);
   };
 
-  const openUnfollowDialog = () => {
+  const openUnfollowDialog = (userID, username, profilePicture) => {
     setOpenUnfollow(true);
+    setUserID(userID);
+    setUsername(username);
+    setProfilePicture(profilePicture);
   };
 
   const closeUnfollowDialog = () => {
     setOpenUnfollow(false);
+    setUserID(null);
+    setUsername(null);
+    setProfilePicture(null);
   };
 
   const handleUnfollow = (userID) => {
@@ -325,6 +377,38 @@ function SearchResults(props) {
     setResults(newList);
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
   };
+
+  function UnfollowDialog() {
+    return (
+      <Dialog
+        PaperProps={{
+          style: {
+            alignItems: "center",
+            padding: "50px 50px 20px 50px",
+          },
+        }}
+        open={openUnfollow}
+        onClose={closeUnfollowDialog}
+      >
+        <Avatar
+          src={profilePicture}
+          style={{ width: "75px", height: "75px" }}
+        />
+        <Typography className={classes.unfollowPrompt}>
+          Are you sure you want to unfollow @{username}?
+        </Typography>
+        <Button
+          className={classes.unfollow}
+          onClick={() => handleUnfollow(userID)}
+        >
+          Unfollow
+        </Button>
+        <Button className={classes.cancel} onClick={closeUnfollowDialog}>
+          Cancel
+        </Button>
+      </Dialog>
+    );
+  }
 
   if (!loading) {
     return (
@@ -379,24 +463,17 @@ function SearchResults(props) {
                             <React.Fragment>
                               <Button
                                 className={classes.followingButton}
-                                onClick={openUnfollowDialog}
+                                onClick={() =>
+                                  openUnfollowDialog(
+                                    result.userID,
+                                    result.username,
+                                    result.profilePicture
+                                  )
+                                }
                               >
                                 Following
                               </Button>
-                              <Dialog
-                                open={openUnfollow}
-                                onClose={closeUnfollowDialog}
-                              >
-                                Are you sure you want to unfollow?
-                                <Button
-                                  onClick={() => handleUnfollow(result.userID)}
-                                >
-                                  Unfollow
-                                </Button>
-                                <Button onClick={closeUnfollowDialog}>
-                                  Cancel
-                                </Button>
-                              </Dialog>
+                              <UnfollowDialog />
                             </React.Fragment>
                           )}
                         </React.Fragment>
