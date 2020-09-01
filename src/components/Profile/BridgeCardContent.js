@@ -185,10 +185,14 @@ function BridgeCardContent(props) {
         props.firebase.currentUser().once("value", (snapshot) => {
           if (snapshot.val()) {
             if (snapshot.val().username !== state.username) {
-              Mixpanel.track("Card Click", { Category: state.category });
+              Mixpanel.track("Card Click", {
+                Category: state.category,
+                "Card ID": snapshot.key,
+              });
             } else {
               Mixpanel.track("Card Click (user's own cards)", {
                 Category: state.category,
+                "Card ID": snapshot.key,
               });
             }
             setName(state.name);

@@ -471,7 +471,10 @@ function EditBridgeCard(props) {
 
   const handleSubmit = useCallback(async () => {
     if (props.bridgeCardTitle) {
-      Mixpanel.track("Card Edit", { Category: cardTitle });
+      Mixpanel.track("Card Edit", {
+        Category: cardTitle,
+        "Card ID": props.cardID,
+      });
       props.firebase.editBridgeCard(props.cardID, caption, description);
       handleClose();
     } else {
@@ -546,7 +549,10 @@ function EditBridgeCard(props) {
   });
 
   const handleDelete = () => {
-    Mixpanel.track("Card Delete", { Category: cardTitle });
+    Mixpanel.track("Card Delete", {
+      Category: cardTitle,
+      "Card ID": props.cardID,
+    });
     props.firebase.deleteBridgeCard(
       props.cardID,
       cardTitle,
