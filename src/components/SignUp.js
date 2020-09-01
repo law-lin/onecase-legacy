@@ -146,6 +146,7 @@ function SignUp(props) {
                   username,
                   email,
                   bio: "",
+                  cardCount: 0,
                   followerCount: 0,
                   followingCount: 0,
                   profilePicture: DefaultProfilePicture,
