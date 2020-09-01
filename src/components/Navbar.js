@@ -9,7 +9,7 @@ import SignOutButton from "./Profile/SignOutButton";
 import Button from "@material-ui/core/Button";
 import MediaQuery from "react-responsive";
 import "./landingpage.css";
-
+import { IoMdSearch, IoMdClose } from "react-icons/io";
 import { withFirebase } from "./Firebase";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,6 +45,11 @@ const useStyles = makeStyles({
     backgroundColor: "#3D3D3D",
     borderRadius: "15px",
     maxWidth: "50px",
+  },
+  button: {
+    "&:focus": {
+      outline: "none",
+    },
   },
 });
 
@@ -95,8 +100,13 @@ function Navbar(props) {
         <MediaQuery minWidth={1115}>
           <SearchBar
             className={classes.search}
+            classes={{
+              iconButton: classes.button,
+            }}
             onChange={(query) => setQuery(query)}
             onRequestSearch={() => queryDatabase(query)}
+            searchIcon={<IoMdSearch />}
+            closeIcon={<IoMdClose />}
           />
         </MediaQuery>
         <MediaQuery maxWidth={1114}>
