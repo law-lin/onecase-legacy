@@ -223,7 +223,7 @@ function SignUp(props) {
             label="Name"
             type="name"
             value={name}
-            placeholder="Ex: johndoe123"
+            placeholder="Ex: John Doe"
             helperText={nameError}
             fullWidth
             inputProps={{
@@ -238,7 +238,7 @@ function SignUp(props) {
             label="Username"
             type="username"
             value={username}
-            placeholder="Ex: John Doe"
+            placeholder="Ex: johndoe123"
             helperText={usernameError}
             fullWidth
             onChange={(e) => setUsername(e.target.value)}
