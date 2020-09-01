@@ -40,6 +40,7 @@ import { withRouter } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { setDisplayName } from "recompose";
+import { Mixpanel } from "../../Mixpanel";
 
 const useStyles = makeStyles({
   container: {
@@ -170,7 +171,7 @@ function PublicProfilePage(props) {
 
   useEffect(() => {
     let username = props.match.params.username.toString().toLowerCase();
-
+    Mixpanel.track("Profile Visit", { "Profile Name": username });
     props.firebase.auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         setCurrentUser(true);

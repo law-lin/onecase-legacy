@@ -28,6 +28,7 @@ import BottomNavbar from "./BottomNavbar";
 import MediaQuery from "react-responsive";
 import { useParams } from "react-router-dom";
 import { withFirebase } from "./Firebase";
+import { Mixpanel } from "./Mixpanel";
 
 import NotFound from "./NotFound";
 
@@ -150,64 +151,65 @@ function CategoriesPage(props) {
 
   useEffect(() => {
     if (ROUTES.CATEGORIES.includes(category)) {
+      Mixpanel.track("Category Click", { "Category Name": category });
       setValid(true);
-    }
-    setCards(
-      props.firebase.getCardsInCategory(category).then((results) => {
-        var cards = [];
-        const monthNames = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
-        results.forEach((result) => {
-          const dateC = new Date(result[1].val().timeCreated);
-          const dateU = new Date(result[1].val().lastUpdated);
-          const dateCreated =
-            monthNames[dateC.getMonth()] +
-            " " +
-            dateC.getDate() +
-            ", " +
-            dateC.getFullYear();
-          const dateUpdated =
-            monthNames[dateU.getMonth()] +
-            " " +
-            dateU.getDate() +
-            ", " +
-            dateU.getFullYear();
+      setCards(
+        props.firebase.getCardsInCategory(category).then((results) => {
+          var cards = [];
+          const monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          results.forEach((result) => {
+            const dateC = new Date(result[1].val().timeCreated);
+            const dateU = new Date(result[1].val().lastUpdated);
+            const dateCreated =
+              monthNames[dateC.getMonth()] +
+              " " +
+              dateC.getDate() +
+              ", " +
+              dateC.getFullYear();
+            const dateUpdated =
+              monthNames[dateU.getMonth()] +
+              " " +
+              dateU.getDate() +
+              ", " +
+              dateU.getFullYear();
 
-          let card = {
-            userID: result[0].key,
-            name: result[0].val().name,
-            username: result[0].val().username,
-            profilePicture: result[0].val().profilePicture,
-            cardID: result[1].key,
-            bridgeCardTitle: result[1].val().bridgeCardTitle,
-            caption: result[1].val().caption,
-            description: result[1].val().description,
-            timeCreated: result[1].val().timeCreated,
-            lastUpdated: result[1].val().lastUpdated,
-            dateCreated: dateCreated,
-            dateUpdated: dateUpdated,
-          };
-          cards.push(card);
-        });
-        cards = cards.sort((a, b) => {
-          return a - b;
-        });
-        setCards(cards);
-        setLoading(false);
-      })
-    );
+            let card = {
+              userID: result[0].key,
+              name: result[0].val().name,
+              username: result[0].val().username,
+              profilePicture: result[0].val().profilePicture,
+              cardID: result[1].key,
+              bridgeCardTitle: result[1].val().bridgeCardTitle,
+              caption: result[1].val().caption,
+              description: result[1].val().description,
+              timeCreated: result[1].val().timeCreated,
+              lastUpdated: result[1].val().lastUpdated,
+              dateCreated: dateCreated,
+              dateUpdated: dateUpdated,
+            };
+            cards.push(card);
+          });
+          cards = cards.sort((a, b) => {
+            return a - b;
+          });
+          setCards(cards);
+          setLoading(false);
+        })
+      );
+    }
   }, [props.firebase, category]);
 
   return (

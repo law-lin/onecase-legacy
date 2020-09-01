@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DefaultProfilePicture from "../images/default-profile-pic.png";
 import { withFirebase } from "./Firebase";
 import { makeStyles } from "@material-ui/core/styles";
+import { Mixpanel } from "./Mixpanel";
 
 const useStyles = makeStyles({
   button: {
@@ -132,7 +133,14 @@ function SignUp(props) {
             props.firebase
               .doCreateUserWithEmailAndPassword(email, password)
               .then((authUser) => {
+                Mixpanel.alias(authUser.user.uid);
+                Mixpanel.track("Signup");
+                Mixpanel.people.set({
+                  Username: username,
+                  $email: email,
+                });
                 // Create a user in your Firebase realtime database
+
                 props.firebase.user(authUser.user.uid).set({
                   name: username,
                   username,

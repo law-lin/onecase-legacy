@@ -30,6 +30,7 @@ import Cropper from "react-easy-crop";
 import { getOrientation } from "get-orientation/browser";
 import { getCroppedImg, getRotatedImage } from "../canvasUtils";
 import { useParams } from "react-router-dom";
+import { Mixpanel } from "../Mixpanel";
 // Icons
 
 const useStyles = makeStyles((theme) => ({
@@ -470,12 +471,14 @@ function EditBridgeCard(props) {
 
   const handleSubmit = useCallback(async () => {
     if (props.bridgeCardTitle) {
+      Mixpanel.track("Card Edit");
       props.firebase.editBridgeCard(props.cardID, caption, description);
       handleClose();
     } else {
       if (imagePreview === null) {
         setImageAlert(true);
       } else {
+        Mixpanel.track("Card Create");
         setImageAlert(false);
         props.firebase.createBridgeCard(
           props.name,
@@ -543,6 +546,7 @@ function EditBridgeCard(props) {
   });
 
   const handleDelete = () => {
+    Mixpanel.track("Card Delete");
     props.firebase.deleteBridgeCard(
       props.cardID,
       cardTitle,
