@@ -14,6 +14,7 @@ import { Divider, CardActionArea } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     minWidth: "280px",
+    maxWidth: "280px",
     backgroundColor: "#232323",
     color: "#FFFFFF",
     fontFamily: ["Montserrat", "sans-serif"],
