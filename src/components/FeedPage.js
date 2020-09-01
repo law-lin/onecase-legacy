@@ -297,7 +297,7 @@ function FeedPage(props) {
                                           href={"/categories/" + card.category}
                                           className={classes.categoryLink}
                                         >
-                                          {card.category}
+                                          {card.category.replace(/_/g, " ")}
                                         </Link>
                                       </React.Fragment>
                                     }
@@ -414,7 +414,7 @@ function FeedPage(props) {
                                         href={"/categories/" + card.category}
                                         className={classes.categoryLink}
                                       >
-                                        {card.category}
+                                        {card.category.replace(/_/g, " ")}
                                       </Link>
                                     </React.Fragment>
                                   }
