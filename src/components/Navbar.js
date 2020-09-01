@@ -97,23 +97,23 @@ function Navbar(props) {
         <Link href="/feed" className={classes.root}>
           OneCase
         </Link>
-        <MediaQuery minWidth={1115}>
-          <SearchBar
-            className={classes.search}
-            classes={{
-              iconButton: classes.button,
-            }}
-            onChange={(query) => setQuery(query)}
-            onRequestSearch={() => queryDatabase(query)}
-            searchIcon={<IoMdSearch />}
-            closeIcon={<IoMdClose />}
-          />
-        </MediaQuery>
-        <MediaQuery maxWidth={1114}>
-          <div className={classes.search} />
-        </MediaQuery>
         {currentUser && (
           <React.Fragment>
+            <MediaQuery minWidth={1115}>
+              <SearchBar
+                className={classes.search}
+                classes={{
+                  iconButton: classes.button,
+                }}
+                onChange={(query) => setQuery(query)}
+                onRequestSearch={() => queryDatabase(query)}
+                searchIcon={<IoMdSearch />}
+                closeIcon={<IoMdClose />}
+              />
+            </MediaQuery>
+            <MediaQuery maxWidth={1114}>
+              <div className={classes.search} />
+            </MediaQuery>
             <Button className={classes.menu} onClick={handleClick}>
               Menu
             </Button>

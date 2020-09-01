@@ -261,7 +261,6 @@ function FeedPage(props) {
                       {cards && (
                         <List style={{ width: "100%" }}>
                           {cards.map((card) => {
-                            console.log(card.name);
                             return (
                               <ListItem>
                                 <Card
@@ -379,7 +378,6 @@ function FeedPage(props) {
                     {cards && (
                       <List style={{ width: "100%" }}>
                         {cards.map((card) => {
-                          console.log(card.name);
                           return (
                             <ListItem>
                               <Card

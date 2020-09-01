@@ -298,11 +298,9 @@ function PublicProfilePage(props) {
         props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
           const userIDState = snapshot.val();
           if (userIDState) {
-            console.log(userIDState);
             setUserID(userIDState);
             props.firebase.user(userIDState).on("value", (snapshot) => {
               const state = snapshot.val();
-              console.log(snapshot.val());
               if (state) {
                 setExists(true);
                 setName(state.name);
