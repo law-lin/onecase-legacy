@@ -71,9 +71,12 @@ const useStyles = makeStyles({
 function SignUp(props) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [nameError, setNameError] = useState(null);
   const [usernameError, setUsernameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
@@ -105,6 +108,16 @@ function SignUp(props) {
           valid = false;
         }
 
+        // Name validation
+        const nameRegexp = /^(?=.{1,50}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+$/;
+        if (nameRegexp.test(name)) {
+          setNameError(null);
+        } else {
+          setNameError(
+            "Please use only letters (a-z/A-Z), numbers, underscores, and periods. (1-30 characters)"
+          );
+          valid = false;
+        }
         // Username validation
         const usernameRegexp = /^(?=.{1,20}$)(?:[a-z\d]+(?:(?:\.|-|_)[a-z\d])*)+$/;
         if (usernameRegexp.test(username)) {
@@ -142,7 +155,7 @@ function SignUp(props) {
                 // Create a user in your Firebase realtime database
 
                 props.firebase.user(authUser.user.uid).set({
-                  name: username,
+                  name,
                   username,
                   email,
                   bio: "",
@@ -172,6 +185,7 @@ function SignUp(props) {
   const validateNotEmpty = () => {
     return (
       email !== "" &&
+      name !== "" &&
       username !== "" &&
       password !== "" &&
       confirmPassword !== ""
@@ -203,16 +217,33 @@ function SignUp(props) {
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
+            error={nameError}
+            margin="dense"
+            id="name"
+            label="Name"
+            type="name"
+            value={name}
+            placeholder="Ex: johndoe123"
+            helperText={nameError}
+            fullWidth
+            inputProps={{
+              maxLength: 50,
+            }}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
             error={usernameError}
             margin="dense"
             id="username"
             label="Username"
             type="username"
             value={username}
+            placeholder="Ex: John Doe"
             helperText={usernameError}
             fullWidth
             onChange={(e) => setUsername(e.target.value)}
           />
+
           <TextField
             error={passwordError}
             margin="dense"
