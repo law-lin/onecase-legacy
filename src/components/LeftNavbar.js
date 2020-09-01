@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import { ImHome3 } from "react-icons/im";
 import SignOutButton from "./Profile/SignOutButton";
 import Avatar from "react-avatar";
+import { ImSearch } from "react-icons/im";
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
 import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
 import { withFirebase } from "./Firebase";
@@ -125,9 +126,9 @@ function LeftNavbar(props) {
                     </div>
                   </Link>
 
-                  <Link href={"/feed"} className={classes.button}>
-                    <ExhibitionsIcon className={classes.icon} />
-                    Exhibitions
+                  <Link href={"/explore"} className={classes.button}>
+                    <ImSearch className={classes.icon} />
+                    Explore
                   </Link>
 
                   <Link href={"/" + username} className={classes.button}>
@@ -162,8 +163,8 @@ function LeftNavbar(props) {
                       <ImHome3 className={classes.noTextIcon} />
                     </div>
                   </Link>
-                  <Link href={"/feed"} className={classes.button}>
-                    <ExhibitionsIcon className={classes.noTextIcon} />
+                  <Link href={"/explore"} className={classes.button}>
+                    <ImSearch className={classes.noTextIcon} />
                   </Link>
                   <Link href={"/" + username} className={classes.button}>
                     {!loading && (
