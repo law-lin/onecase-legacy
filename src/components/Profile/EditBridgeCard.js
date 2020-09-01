@@ -471,14 +471,14 @@ function EditBridgeCard(props) {
 
   const handleSubmit = useCallback(async () => {
     if (props.bridgeCardTitle) {
-      Mixpanel.track("Card Edit");
+      Mixpanel.track("Card Edit", { Category: cardTitle });
       props.firebase.editBridgeCard(props.cardID, caption, description);
       handleClose();
     } else {
       if (imagePreview === null) {
         setImageAlert(true);
       } else {
-        Mixpanel.track("Card Create");
+        Mixpanel.track("Card Create", { Category: cardTitle });
         setImageAlert(false);
         props.firebase.createBridgeCard(
           props.name,
@@ -546,7 +546,7 @@ function EditBridgeCard(props) {
   });
 
   const handleDelete = () => {
-    Mixpanel.track("Card Delete");
+    Mixpanel.track("Card Delete", { Category: cardTitle });
     props.firebase.deleteBridgeCard(
       props.cardID,
       cardTitle,
