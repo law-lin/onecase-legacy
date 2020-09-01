@@ -21,9 +21,10 @@ import LeftNavbar from "./LeftNavbar";
 import queryString from "query-string";
 import { BrowserRouter as Router, Switch, useLocation } from "react-router-dom";
 import { withFirebase } from "./Firebase";
-
+import { withAuthorization } from "./Session";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavbar from "./BottomNavbar";
+import { Mixpanel } from "./Mixpanel";
 
 const useStyles = makeStyles({
   root: {
@@ -221,6 +222,9 @@ function SearchResults(props) {
     } else {
       props.firebase.auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
+          Mixpanel.track("Search Query", {
+            "Query String": queryString.parse(location.search).username,
+          });
           setCurrentUser(true);
           props.firebase
             .searchUsernames(
@@ -296,37 +300,6 @@ function SearchResults(props) {
                   setResults(uniqueArray);
                   setLoading(false);
                 });
-            });
-        } else {
-          props.firebase
-            .searchUsernames(
-              queryString.parse(location.search).username.toLowerCase()
-            )
-            .once("value")
-            .then((snapshot) => {
-              var promises = [];
-              snapshot.forEach((snap) => {
-                promises.push(props.firebase.user(snap.val()).once("value"));
-              });
-              return Promise.all(promises);
-            })
-            .then((results) => {
-              var usernames = [];
-              results.forEach((result) => {
-                let user = {
-                  userID: result.key,
-                  name: result.val().name,
-                  username: result.val().username,
-                  profilePicture: result.val().profilePicture,
-                };
-                usernames.push(user);
-              });
-              // eliminate duplicate results
-              let jsonObject = usernames.map(JSON.stringify);
-              let uniqueSet = new Set(jsonObject);
-              let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
-              setResults(uniqueArray);
-              setLoading(false);
             });
         }
       });
@@ -492,4 +465,6 @@ function SearchResults(props) {
   }
 }
 
-export default withFirebase(SearchResults);
+const condition = (authenticated) => !!authenticated;
+
+export default withFirebase(withAuthorization(condition)(SearchResults));
