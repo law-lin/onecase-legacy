@@ -18,7 +18,7 @@ export const CATEGORIES = [
   "fashion",
   "fitness",
   "food",
-  "funny_stuff",
+  "fun_stuff",
   "music",
   "photography",
   "projects",
