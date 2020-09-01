@@ -6,6 +6,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Link from "@material-ui/core/Link";
 import DefaultProfilePicture from "../images/default-profile-pic.png";
 import { withFirebase } from "./Firebase";
 import { makeStyles } from "@material-ui/core/styles";
@@ -176,7 +177,17 @@ function LogIn(props) {
         Mixpanel.track("Login");
       })
       .catch((error) => {
-        setError(error);
+        console.log(error.message);
+        console.log(error.message.includes("badly formatted"));
+        if (error.message.includes("password is invalid")) {
+          setError("The password you've entered is incorrect.");
+        } else if (error.message.includes("no user record")) {
+          setError(
+            "The email address you've entered doesn't match any account."
+          );
+        } else if (error.message.includes("badly formatted")) {
+          setError("Please enter a valid email address.");
+        }
       });
   };
 
@@ -190,7 +201,13 @@ function LogIn(props) {
 
   return (
     <React.Fragment>
-      <Dialog open={props.handleOpen} onClose={props.handleClose}>
+      <Dialog
+        open={props.handleOpen}
+        onClose={() => {
+          props.handleClose();
+          setError(null);
+        }}
+      >
         <DialogTitle>Login</DialogTitle>
         <DialogContent>
           <TextField
@@ -212,9 +229,27 @@ function LogIn(props) {
             fullWidth
             onChange={(e) => setPassword(e.target.value)}
           />
-          <DialogContentText>
-            {error && <p style={{ color: "red" }}>{error.message}</p>}
-          </DialogContentText>
+          {error && (
+            <React.Fragment>
+              {error.includes("incorrect") && (
+                <DialogContentText style={{ color: "red" }}>
+                  {error}{" "}
+                  <Link href="/account/password-reset">Forgot password?</Link>
+                </DialogContentText>
+              )}
+              {error.includes("doesn't match") && (
+                <DialogContentText style={{ color: "red" }}>
+                  {error} Sign up for an account here.
+                </DialogContentText>
+              )}
+              {error.includes("enter a valid") && (
+                <DialogContentText style={{ color: "red" }}>
+                  {error}
+                </DialogContentText>
+              )}
+            </React.Fragment>
+          )}
+          <Link href="/account/password-reset">Forgot password?</Link>
         </DialogContent>
         <DialogActions>
           <button

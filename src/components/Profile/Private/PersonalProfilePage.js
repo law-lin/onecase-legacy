@@ -127,12 +127,13 @@ const useStyles = makeStyles({
   infoSection: {
     width: "100%",
     borderRadius: 0,
+    color: "#FFFFFF",
     backgroundColor: "#7A8489",
     textAlign: "center",
   },
   text: {
     fontFamily: ["Montserrat", "sans-serif"],
-    fontSize: "16px",
+    fontSize: "0.875rem",
   },
   editProfile: {
     "&:hover": {
@@ -290,8 +291,9 @@ function PersonalProfilePage(props) {
   const [canCancel, setCanCancel] = useState(false);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [followerCount, setFollowerCount] = useState(null);
-  const [followingCount, setFollowingCount] = useState(null);
+  const [cardCount, setCardCount] = useState(0);
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [error, setError] = useState(null);
 
@@ -343,6 +345,7 @@ function PersonalProfilePage(props) {
             setOldProfilePicture(state.profilePicture);
             setProfilePicture(state.profilePicture);
             setNewProfilePicture(null);
+            setCardCount(state.cardCount);
             setFollowerCount(state.followerCount);
             setFollowingCount(state.followingCount);
 
@@ -1108,19 +1111,38 @@ function PersonalProfilePage(props) {
                       </Box>
                       <Box display="flex" flex={1}>
                         <Card className={classes.infoSection}>
-                          <Typography className={classes.text}>
-                            <Followers
-                              followers={followers}
-                              followerCount={followerCount}
-                              currentUser={true}
-                            />
-
-                            <Following
-                              following={followings}
-                              followingCount={followingCount}
-                              currentUser={true}
-                            />
-                          </Typography>
+                          <Box display="flex" justifyContent="space-evenly">
+                            <Box>
+                              <Typography
+                                className={classes.text}
+                                style={{ display: "inline" }}
+                              >
+                                <span
+                                  style={{
+                                    fontWeight: 700,
+                                    marginRight: "10px",
+                                  }}
+                                >
+                                  {cardCount}
+                                </span>{" "}
+                                Entries
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Followers
+                                followers={followers}
+                                followerCount={followerCount}
+                                currentUser={true}
+                              />
+                            </Box>
+                            <Box>
+                              <Following
+                                following={followings}
+                                followingCount={followingCount}
+                                currentUser={true}
+                              />
+                            </Box>
+                          </Box>
                         </Card>
                       </Box>
                       <Box
@@ -1566,20 +1588,37 @@ function PersonalProfilePage(props) {
                             </DialogActions>
                           </Dialog>
                           <CardContent style={{ padding: "28px 0 0 10px" }}>
-                            <Typography className={classes.text}>
-                              <Followers
-                                followers={followers}
-                                followerCount={followerCount}
-                                currentUser={true}
-                              />
-                              <br />
-                              <Following
-                                following={followings}
-                                followingCount={followingCount}
-                                currentUser={true}
-                              />
+                            <Box display="flex" flexDirection="column">
+                              <Box flex={1}>
+                                <Typography className={classes.text}>
+                                  <span
+                                    style={{
+                                      fontWeight: 700,
+                                      marginRight: "10px",
+                                    }}
+                                  >
+                                    {cardCount}
+                                  </span>{" "}
+                                  Entries
+                                </Typography>
+                              </Box>
+                              <Box flex={1}>
+                                <Followers
+                                  followers={followers}
+                                  followerCount={followerCount}
+                                  currentUser={true}
+                                />
+                              </Box>
+                              <Box flex={1}>
+                                <Following
+                                  following={followings}
+                                  followingCount={followingCount}
+                                  currentUser={true}
+                                />
+                              </Box>
+                            </Box>
 
-                              {/* <ModalRoute
+                            {/* <ModalRoute
                               path={`/${username}/followers`}
                               component={() => (
                                 <Followers followers={followers} />
@@ -1589,7 +1628,6 @@ function PersonalProfilePage(props) {
                               path={`/${username}/following`}
                               component={Following}
                             /> */}
-                            </Typography>
                           </CardContent>
                         </Card>
                       </Box>

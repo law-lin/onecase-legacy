@@ -75,6 +75,8 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textTransform: "none",
     color: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    padding: 0,
   },
   name: {
     "&:hover": {
@@ -128,31 +130,6 @@ const useStyles = makeStyles({
     backgroundColor: "#FFFFFF",
     textTransform: "none",
     width: "85px",
-  },
-  title: {
-    color: "#FFFFFF",
-    fontFamily: ["Montserrat", "sans-serif"],
-    fontSize: "26px",
-    fontWeight: 800,
-    display: "inline-block",
-    verticalAlign: "middle",
-    textAlign: "center",
-  },
-  button: {
-    "&:hover": {
-      textDecoration: "none",
-      color: "#FFFFFF",
-    },
-    "&:active": {
-      outline: "none",
-      color: "#adadad",
-    },
-    "&:focus": {
-      outline: "none",
-    },
-    textDecoration: "none",
-    textTransform: "none",
-    color: "#FFFFFF",
   },
   unfollowPrompt: {
     fontFamily: ["Montserrat", "sans-serif"],
@@ -309,7 +286,9 @@ function Followers(props) {
   return (
     <React.Fragment>
       <Button className={classes.button} disableRipple onClick={handleOpen}>
-        <span style={{ fontWeight: 700 }}>{props.followerCount}</span>
+        <span style={{ fontWeight: 700, marginRight: "10px" }}>
+          {props.followerCount}
+        </span>
         &nbsp;Followers
       </Button>
       <LogIn handleOpen={openSignUp} handleClose={() => setOpenSignUp(false)} />

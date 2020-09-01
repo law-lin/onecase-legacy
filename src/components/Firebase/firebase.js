@@ -233,6 +233,10 @@ class Firebase {
           [bridgeCardNumber]: cardID,
         });
 
+        this.db
+          .ref(`users/${this.auth.currentUser.uid}/cardCount`)
+          .set(this.database.ServerValue.increment(1));
+
         this.db.ref(`bridgeCards/${cardID}`).update({
           name,
           username,
@@ -275,6 +279,10 @@ class Firebase {
     this.db.ref(`bridgeCards/${cardID}`).remove();
     this.db.ref(`${category.toLowerCase()}/${cardID}`).remove();
     this.db.ref(`users/${userID}/${cardNumber}/${bridgeCardNumber}`).remove();
+    this.db
+      .ref(`users/${this.auth.currentUser.uid}/cardCount`)
+      .set(this.database.ServerValue.increment(-1));
+
     this.db
       .ref(`categories/${category.toLowerCase()}`)
       .set(this.database.ServerValue.increment(-1));

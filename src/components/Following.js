@@ -69,6 +69,8 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textTransform: "none",
     color: "#FFFFFF",
+    fontFamily: ["Montserrat", "sans-serif"],
+    padding: 0,
   },
   name: {
     "&:hover": {
@@ -276,7 +278,9 @@ const Following = (props) => {
   return (
     <React.Fragment>
       <Button className={classes.button} disableRipple onClick={handleOpen}>
-        <span style={{ fontWeight: 700 }}>{props.followingCount}</span>
+        <span style={{ fontWeight: 700, marginRight: "10px" }}>
+          {props.followingCount}
+        </span>
         &nbsp;Following
       </Button>
       <LogIn handleOpen={openSignUp} handleClose={() => setOpenSignUp(false)} />

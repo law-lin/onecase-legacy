@@ -12,6 +12,7 @@ import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import BridgeCardContent from "./components/Profile/BridgeCardContent";
 import AdminPage from "./components/AdminPage";
+import PasswordResetPage from "./components/PasswordResetPage";
 import FeedPage from "./components/FeedPage";
 import ExplorePage from "./components/ExplorePage";
 import CategoriesPage from "./components/CategoriesPage";
@@ -84,6 +85,11 @@ function Routes() {
         <Route exact path={"/explore"} component={ExplorePage} />
         <Route exact path={ROUTES.SEARCH} component={SearchResultsPage} />
         <Route exact path={ROUTES.ADMIN} component={AdminPage} />
+        <Route
+          exact
+          path={"/account/password-reset"}
+          component={PasswordResetPage}
+        />
         <Route exact path="/c/:cardID">
           <BridgeCardContent isModal={isModal} />
         </Route>

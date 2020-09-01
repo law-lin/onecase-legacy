@@ -29,6 +29,7 @@ export const NON_USERNAMES = [
   "a",
   "add",
   "about",
+  "acc",
   "account",
   "accounts",
   "activity",

@@ -58,12 +58,13 @@ const useStyles = makeStyles({
   infoSection: {
     width: "100%",
     borderRadius: 0,
+    color: "#FFFFFF",
     backgroundColor: "#7A8489",
     textAlign: "center",
   },
   text: {
     fontFamily: ["Montserrat", "sans-serif"],
-    fontSize: "16px",
+    fontSize: "0.875rem",
   },
   followButton: {
     "&:hover": {
@@ -155,8 +156,10 @@ function PublicProfilePage(props) {
   const [profilePicture, setProfilePicture] = useState(null);
   const [exists, setExists] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [followerCount, setFollowerCount] = useState(null);
-  const [followingCount, setFollowingCount] = useState(null);
+
+  const [cardCount, setCardCount] = useState(0);
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
 
   const [currentUser, setCurrentUser] = useState(false);
@@ -187,6 +190,7 @@ function PublicProfilePage(props) {
                 setUsername(state.username);
                 setBio(state.bio);
                 setProfilePicture(state.profilePicture);
+                setCardCount(state.cardCount);
                 setFollowerCount(state.followerCount);
                 setFollowingCount(state.followingCount);
               }
@@ -282,9 +286,7 @@ function PublicProfilePage(props) {
                 setFollowings(followingUsers);
                 setLoading(false);
               });
-            // props.firebase.getFollowers(userIDState).on("value", (snapshot) => {
-            //   setFollowerCount(snapshot.numChildren());
-            // });
+
             props.firebase
               .checkFollowing(props.firebase.auth.currentUser.uid, userIDState)
               .on("value", (snapshot) => {
@@ -307,6 +309,7 @@ function PublicProfilePage(props) {
                 setUsername(state.username);
                 setBio(state.bio);
                 setProfilePicture(state.profilePicture);
+                setCardCount(state.cardCount);
                 setFollowerCount(state.followerCount);
                 setFollowingCount(state.followingCount);
                 setLoading(false);
@@ -480,19 +483,36 @@ function PublicProfilePage(props) {
                       </Box>
                       <Box display="flex" flex={1}>
                         <Card className={classes.infoSection}>
-                          <Typography className={classes.text}>
-                            <Followers
-                              followers={followers}
-                              followerCount={followerCount}
-                              currentUser={currentUser}
-                            />
-
-                            <Following
-                              following={followings}
-                              followingCount={followingCount}
-                              currentUser={currentUser}
-                            />
-                          </Typography>
+                          <Box display="flex" justifyContent="space-evenly">
+                            <Box>
+                              <Typography
+                                className={classes.text}
+                                style={{ display: "inline" }}
+                              >
+                                <span
+                                  style={{
+                                    fontWeight: 700,
+                                    marginRight: "10px",
+                                  }}
+                                >
+                                  {cardCount}
+                                </span>{" "}
+                                Entries
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Followers
+                                followers={followers}
+                                followerCount={followerCount}
+                              />
+                            </Box>
+                            <Box>
+                              <Following
+                                following={followings}
+                                followingCount={followingCount}
+                              />
+                            </Box>
+                          </Box>
                         </Card>
                       </Box>
                       <Box display="flex" justifyContent="flex-end">
@@ -681,19 +701,33 @@ function PublicProfilePage(props) {
                             </React.Fragment>
                           )}
                           <CardContent style={{ padding: "28px 0 0 10px" }}>
-                            <Typography className={classes.text}>
-                              <Followers
-                                followers={followers}
-                                followerCount={followerCount}
-                                currentUser={currentUser}
-                              />
-                              <br />
-                              <Following
-                                following={followings}
-                                followingCount={followingCount}
-                                currentUser={currentUser}
-                              />
-                            </Typography>
+                            <Box display="flex" flexDirection="column">
+                              <Box flex={1}>
+                                <Typography className={classes.text}>
+                                  <span
+                                    style={{
+                                      fontWeight: 700,
+                                      marginRight: "10px",
+                                    }}
+                                  >
+                                    {cardCount}
+                                  </span>{" "}
+                                  Entries
+                                </Typography>
+                              </Box>
+                              <Box flex={1}>
+                                <Followers
+                                  followers={followers}
+                                  followerCount={followerCount}
+                                />
+                              </Box>
+                              <Box flex={1}>
+                                <Following
+                                  following={followings}
+                                  followingCount={followingCount}
+                                />
+                              </Box>
+                            </Box>
                           </CardContent>
                         </Card>
                       </Box>
