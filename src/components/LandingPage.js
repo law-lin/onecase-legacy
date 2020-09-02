@@ -238,7 +238,7 @@ function LandingPage(props) {
           <Box
             display="flex"
             justifyContent="center"
-            style={{ marginTop: "15vh" }}
+            style={{ marginTop: "150px" }}
           >
             <Typography
               align="center"
@@ -259,7 +259,7 @@ function LandingPage(props) {
               <span style={{ color: "#FFFFFF" }}>friends</span>
             </Typography>
           </Box>
-          <Grid container style={{ marginTop: "15vh" }}>
+          <Grid container style={{ marginTop: "150px" }}>
             <Grid item xs={12} sm={4} align="center">
               <img
                 style={{ width: "100px", height: "100px" }}
@@ -375,7 +375,7 @@ function LandingPage(props) {
           <Box
             display="flex"
             justifyContent="center"
-            style={{ marginTop: "15vh" }}
+            style={{ marginTop: "150px" }}
           >
             <Typography
               align="center"
@@ -389,7 +389,7 @@ function LandingPage(props) {
               TLDR...
             </Typography>
           </Box>
-          <Grid container style={{ marginTop: "15vh" }} spacing={3}>
+          <Grid container style={{ marginTop: "150px" }} spacing={3}>
             <Grid item xs={12} sm={4} align="center">
               <Typography
                 style={{
@@ -457,8 +457,8 @@ function LandingPage(props) {
             <Grid
               container
               style={{
-                marginTop: "15vh",
-                minHeight: "15vh",
+                marginTop: "150px",
+                minHeight: "150px",
                 color: "#FFFFFF",
                 fontSize: 20,
               }}
