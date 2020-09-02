@@ -34,7 +34,6 @@ function PasswordResetPage(props) {
   const handleSubmit = () => {
     console.log(email);
     props.firebase.doPasswordReset(email);
-    window.location.href = "/";
   };
 
   return (
