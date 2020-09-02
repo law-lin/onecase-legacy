@@ -737,25 +737,65 @@ function EditBridgeCard(props) {
                             className={classes.controls}
                             style={{ left: "25%" }}
                           >
-                            <div className={classes.sliderContainer}>
-                              <Typography
-                                variant="overline"
-                                classes={{ root: classes.sliderLabel }}
-                              >
-                                Rotation
-                              </Typography>
-                              <Slider
-                                value={rotation}
-                                min={0}
-                                max={360}
-                                step={1}
-                                aria-labelledby="Rotation"
-                                classes={{ container: classes.slider }}
-                                onChange={(e, rotation) =>
-                                  setRotation(rotation)
-                                }
-                              />
-                            </div>
+                            <MediaQuery maxDeviceWidth={1114}>
+                              <div className={classes.sliderContainer}>
+                                <Typography
+                                  variant="overline"
+                                  classes={{ root: classes.sliderLabel }}
+                                >
+                                  Rotation
+                                </Typography>
+                                <Slider
+                                  value={rotation}
+                                  min={0}
+                                  max={360}
+                                  step={1}
+                                  aria-labelledby="Rotation"
+                                  classes={{ container: classes.slider }}
+                                  onChange={(e, rotation) =>
+                                    setRotation(rotation)
+                                  }
+                                />
+                              </div>
+                            </MediaQuery>
+                            <MediaQuery minDeviceWidth={1115}>
+                              <div className={classes.sliderContainer}>
+                                <Typography
+                                  variant="overline"
+                                  classes={{ root: classes.sliderLabel }}
+                                >
+                                  Zoom
+                                </Typography>
+                                <Slider
+                                  value={zoom}
+                                  min={1}
+                                  max={3}
+                                  step={0.1}
+                                  aria-labelledby="Zoom"
+                                  onChange={(e, zoom) => setZoom(zoom)}
+                                  classes={{ container: classes.slider }}
+                                />
+                              </div>
+                              <div className={classes.sliderContainer}>
+                                <Typography
+                                  variant="overline"
+                                  classes={{ root: classes.sliderLabel }}
+                                >
+                                  Rotation
+                                </Typography>
+                                <Slider
+                                  value={rotation}
+                                  min={0}
+                                  max={360}
+                                  step={1}
+                                  aria-labelledby="Rotation"
+                                  classes={{ container: classes.slider }}
+                                  onChange={(e, rotation) =>
+                                    setRotation(rotation)
+                                  }
+                                />
+                              </div>
+                            </MediaQuery>
                           </div>
                         </DialogContent>
                         <DialogActions>
@@ -925,7 +965,7 @@ function EditBridgeCard(props) {
                               <DialogContent>
                                 <div className={classes.crop}>
                                   <Cropper
-                                    image={imageSrc}
+                                    image={coverImageSrc}
                                     crop={crop}
                                     rotation={rotation}
                                     zoom={zoom}
@@ -939,25 +979,65 @@ function EditBridgeCard(props) {
                                   className={classes.controls}
                                   style={{ left: "25%" }}
                                 >
-                                  <div className={classes.sliderContainer}>
-                                    <Typography
-                                      variant="overline"
-                                      classes={{ root: classes.sliderLabel }}
-                                    >
-                                      Rotation
-                                    </Typography>
-                                    <Slider
-                                      value={rotation}
-                                      min={0}
-                                      max={360}
-                                      step={1}
-                                      aria-labelledby="Rotation"
-                                      classes={{ container: classes.slider }}
-                                      onChange={(e, rotation) =>
-                                        setRotation(rotation)
-                                      }
-                                    />
-                                  </div>
+                                  <MediaQuery maxDeviceWidth={1114}>
+                                    <div className={classes.sliderContainer}>
+                                      <Typography
+                                        variant="overline"
+                                        classes={{ root: classes.sliderLabel }}
+                                      >
+                                        Rotation
+                                      </Typography>
+                                      <Slider
+                                        value={rotation}
+                                        min={0}
+                                        max={360}
+                                        step={1}
+                                        aria-labelledby="Rotation"
+                                        classes={{ container: classes.slider }}
+                                        onChange={(e, rotation) =>
+                                          setRotation(rotation)
+                                        }
+                                      />
+                                    </div>
+                                  </MediaQuery>
+                                  <MediaQuery minDeviceWidth={1115}>
+                                    <div className={classes.sliderContainer}>
+                                      <Typography
+                                        variant="overline"
+                                        classes={{ root: classes.sliderLabel }}
+                                      >
+                                        Zoom
+                                      </Typography>
+                                      <Slider
+                                        value={zoom}
+                                        min={1}
+                                        max={3}
+                                        step={0.1}
+                                        aria-labelledby="Zoom"
+                                        onChange={(e, zoom) => setZoom(zoom)}
+                                        classes={{ container: classes.slider }}
+                                      />
+                                    </div>
+                                    <div className={classes.sliderContainer}>
+                                      <Typography
+                                        variant="overline"
+                                        classes={{ root: classes.sliderLabel }}
+                                      >
+                                        Rotation
+                                      </Typography>
+                                      <Slider
+                                        value={rotation}
+                                        min={0}
+                                        max={360}
+                                        step={1}
+                                        aria-labelledby="Rotation"
+                                        classes={{ container: classes.slider }}
+                                        onChange={(e, rotation) =>
+                                          setRotation(rotation)
+                                        }
+                                      />
+                                    </div>
+                                  </MediaQuery>
                                 </div>
                               </DialogContent>
                               <DialogActions>

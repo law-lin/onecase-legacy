@@ -13,6 +13,7 @@ import { getCroppedImg, getRotatedImage } from "../canvasUtils";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import MediaQuery from "react-responsive";
 import { v4 as uuidv4 } from "uuid";
 
 import DefaultProfilePic from "../../images/default-profile-pic.png";
@@ -294,55 +295,93 @@ function ProfilePicture(props) {
                   zoom={zoom}
                   aspect={3 / 3}
                   onCropChange={setCrop}
-                  onRotationChange={setRotation}
                   onCropComplete={onCropComplete}
                   onZoomChange={setZoom}
                 />
               </div>
-              <div className={classes.controls}>
-                <div className={classes.sliderContainer}>
-                  <Typography
-                    variant="overline"
-                    classes={{ root: classes.sliderLabel }}
-                  >
-                    Zoom
-                  </Typography>
-                  <Slider
-                    value={zoom}
-                    min={1}
-                    max={3}
-                    step={0.1}
-                    aria-labelledby="Zoom"
-                    onChange={(e, zoom) => setZoom(zoom)}
-                    classes={{ container: classes.slider }}
-                  />
-                </div>
-                <div className={classes.sliderContainer}>
-                  <Typography
-                    variant="overline"
-                    classes={{ root: classes.sliderLabel }}
-                  >
-                    Rotation
-                  </Typography>
-                  <Slider
-                    value={rotation}
-                    min={0}
-                    max={360}
-                    step={1}
-                    aria-labelledby="Rotation"
-                    classes={{ container: classes.slider }}
-                    onChange={(e, rotation) => setRotation(rotation)}
-                  />
-                </div>
+              <div className={classes.controls} style={{ left: "25%" }}>
+                <MediaQuery maxDeviceWidth={1114}>
+                  <div className={classes.sliderContainer}>
+                    <Typography
+                      variant="overline"
+                      classes={{ root: classes.sliderLabel }}
+                    >
+                      Rotation
+                    </Typography>
+                    <Slider
+                      value={rotation}
+                      min={0}
+                      max={360}
+                      step={1}
+                      aria-labelledby="Rotation"
+                      classes={{ container: classes.slider }}
+                      onChange={(e, rotation) => setRotation(rotation)}
+                    />
+                  </div>
+                </MediaQuery>
+                <MediaQuery minDeviceWidth={1115}>
+                  <div className={classes.sliderContainer}>
+                    <Typography
+                      variant="overline"
+                      classes={{ root: classes.sliderLabel }}
+                    >
+                      Zoom
+                    </Typography>
+                    <Slider
+                      value={zoom}
+                      min={1}
+                      max={3}
+                      step={0.1}
+                      aria-labelledby="Zoom"
+                      onChange={(e, zoom) => setZoom(zoom)}
+                      classes={{ container: classes.slider }}
+                    />
+                  </div>
+                  <div className={classes.sliderContainer}>
+                    <Typography
+                      variant="overline"
+                      classes={{ root: classes.sliderLabel }}
+                    >
+                      Rotation
+                    </Typography>
+                    <Slider
+                      value={rotation}
+                      min={0}
+                      max={360}
+                      step={1}
+                      aria-labelledby="Rotation"
+                      classes={{ container: classes.slider }}
+                      onChange={(e, rotation) => setRotation(rotation)}
+                    />
+                  </div>
+                </MediaQuery>
               </div>
             </DialogContent>
             <DialogActions>
-              <Button className={classes.cancel} onClick={handleClose}>
-                Cancel
-              </Button>
-              <Button className={classes.save} onClick={handleSave}>
-                Save
-              </Button>
+              <MediaQuery maxWidth={1114}>
+                <Button
+                  className={classes.cancel}
+                  style={{ fontSize: "14px" }}
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className={classes.save}
+                  style={{ fontSize: "14px" }}
+                  onClick={handleSave}
+                >
+                  Save
+                </Button>
+              </MediaQuery>
+              <MediaQuery minWidth={1115}>
+                <Button className={classes.cancel} onClick={handleClose}>
+                  Cancel
+                </Button>
+                <Button className={classes.save} onClick={handleSave}>
+                  Save
+                </Button>
+              </MediaQuery>
             </DialogActions>
           </Dialog>
         </div>
