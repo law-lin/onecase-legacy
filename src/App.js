@@ -78,25 +78,25 @@ function Routes() {
       <Switch location={isModal ? previousLocation : location}>
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
         {/* <Route exact path={ROUTES.LANDING} component={EarlyAccessLandingPage} /> */}
-        <Route path="/categories/:category" component={CategoriesPage} />
+        <Route exact path={ROUTES.CATEGORY} component={CategoriesPage} />
         <Route exact path={ROUTES.WELCOME} component={WelcomePage} />
-        <Route path={ROUTES.FEED} component={FeedPage} />
+        <Route exact path={ROUTES.FEED} component={FeedPage} />
         <Route exact path={ROUTES.EXHIBITIONS} component={ExhibitionsPage} />
-        <Route exact path={"/explore"} component={ExplorePage} />
+        <Route exact path={ROUTES.EXPLORE} component={ExplorePage} />
         <Route exact path={ROUTES.SEARCH} component={SearchResultsPage} />
         <Route exact path={ROUTES.ADMIN} component={AdminPage} />
         <Route
           exact
-          path={"/account/password-reset"}
+          path={ROUTES.PASSWORD_RESET}
           component={PasswordResetPage}
         />
-        <Route exact path="/c/:cardID">
+        <Route exact path={ROUTES.CARD}>
           <BridgeCardContent isModal={isModal} />
         </Route>
         <Route path={ROUTES.USERNAME} component={ProfilePage} />
       </Switch>
       {isModal ? (
-        <Route exact path="/c/:cardID">
+        <Route exact path={ROUTES.CARD}>
           <BridgeCardContent isModal={isModal} />
         </Route>
       ) : null}

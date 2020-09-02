@@ -133,18 +133,6 @@ function Navbar(props) {
         )}
       </Toolbar>
     </AppBar>
-    // <nav className="zone top">
-    //   <ul className="main-nav">
-    //     <li className="logo">
-    //       <Link href="/feed" className={classes.root}>
-    //         OneCase
-    //       </Link>
-    //     </li>
-    //     <li>
-    //       <SearchBar />
-    //     </li>
-    //   </ul>
-    // </nav>
   );
 }
 
