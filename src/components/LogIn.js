@@ -177,8 +177,6 @@ function LogIn(props) {
         Mixpanel.track("Login");
       })
       .catch((error) => {
-        console.log(error.message);
-        console.log(error.message.includes("badly formatted"));
         if (error.message.includes("password is invalid")) {
           setError("The password you've entered is incorrect.");
         } else if (error.message.includes("no user record")) {

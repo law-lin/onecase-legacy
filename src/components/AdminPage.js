@@ -1,64 +1,142 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { withFirebase } from './Firebase';
+import SignUp from "./SignUp";
+import { withFirebase } from "./Firebase";
+import { TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
-class AdminPage extends Component {
-  constructor(props) {
-    super(props);
+const useStyles = makeStyles({
+  button: {
+    "&:hover": {
+      backgroundColor: "#0069d9",
+      borderColor: "#0062cc",
+    },
+    "&:active": {
+      backgroundColor: "#0062cc",
+      borderColor: "#005cbf",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(38, 143, 255, 0.5)",
+      outline: "none",
+    },
+    color: "#FFFFFF",
+    display: "inline-block",
+    backgroundColor: "#007bff",
+    fontFamily: ["Mukta Mahee", "san-serif"],
+    border: "1px solid transparent",
+    borderColor: "#007bff",
+    padding: "0.5rem 1rem",
+    fontSize: "1.25rem",
+    lineHeight: 1.5,
+    borderRadius: "15px",
+    transition:
+      "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+    fontWeight: 400,
+    textTransform: "none",
+  },
+});
+function AdminPage(props) {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    this.state = {
-      loading: false,
-      users: [],
-    };
-  }
+  const [admin, setAdmin] = useState(null);
 
-  componentDidMount() {
-    this.setState({ loading: true });
+  const classes = useStyles();
 
-    this.props.firebase.users().on('value', snapshot => {
+  useEffect(() => {
+    props.firebase.users().on("value", (snapshot) => {
       const usersObject = snapshot.val();
 
-      const usersList = Object.keys(usersObject).map(key => ({
+      const usersList = Object.keys(usersObject).map((key) => ({
         ...usersObject[key],
         uid: key,
       }));
 
-      this.setState({
-        users: usersList,
-        loading: false,
-      });
+      setUsers(usersList);
     });
-  }
+    setLoading(false);
+  }, []);
 
-  componentWillUnmount() {
-    this.props.firebase.users().off();
-  }
+  const validateLogin = () => {
+    return password !== "" && email !== "";
+  };
+  const handleLogin = () => {
+    props.firebase
+      .doSignInWithEmailAndPassword(email, password)
+      .then((user) => {
+        if (
+          user.user.uid === "9veyfG7BqkPVsfzCn9Ur3fXE3Gz1" ||
+          user.user.uid === "1IH2Hx5FgkUZcPU2n6xTqQFhHls1"
+        ) {
+          setAdmin(true);
+        } else {
+          setAdmin(false);
+        }
+      });
+  };
 
-  render() {
-    const { users, loading } = this.state;
-
-    return (
-      <div>
-        <h1>Admin</h1>
-
-        {loading && <div>Loading ...</div>}
-
-        <UserList users={users} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      {admin === null && (
+        <React.Fragment>
+          <h1>Admin</h1>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="email"
+            label="Email Address"
+            type="email"
+            value={email}
+            fullWidth
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            id="password"
+            label="Password"
+            type="password"
+            value={password}
+            fullWidth
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button disabled={!validateLogin()} onClick={handleLogin}>
+            Login
+          </Button>
+        </React.Fragment>
+      )}
+      {admin === true && (
+        <React.Fragment>
+          <Button className={classes.button} onClick={() => setOpen(true)}>
+            Create A New User
+          </Button>
+          <SignUp
+            handleOpen={open}
+            handleClose={() => setOpen(false)}
+            admin={true}
+          />
+          <UserList users={users} />
+        </React.Fragment>
+      )}
+      {admin === false && <React.Fragment>invalid user</React.Fragment>}
+    </div>
+  );
 }
 
 const UserList = ({ users }) => (
   <ul>
-    {users.map(user => (
+    {users.map((user) => (
       <li key={user.uid}>
         <span>
           <strong>ID:</strong> {user.uid}
         </span>
+        <br />
         <span>
-          <strong>E-Mail:</strong> {user.email}
+          <strong>Email:</strong> {user.email}
         </span>
+        <br />
         <span>
           <strong>Username:</strong> {user.username}
         </span>

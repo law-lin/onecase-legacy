@@ -172,8 +172,20 @@ function SignUp(props) {
                 });
               })
               .then(() => {
-                setOpen(false);
-                window.location.href = "/" + username;
+                props.handleClose();
+                setError(null);
+                setEmail("");
+                setEmailError(null);
+                setName("");
+                setNameError(null);
+                setUsername("");
+                setUsernameError(null);
+                setPassword("");
+                setPasswordError(null);
+                setConfirmPassword("");
+                if (!props.admin) {
+                  window.location.href = "/" + username;
+                }
               })
               .catch((error) => {
                 setError(error);
@@ -198,10 +210,29 @@ function SignUp(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <React.Fragment>
-      <Dialog open={props.handleOpen} onClose={props.handleClose}>
-        <DialogTitle>Sign Up</DialogTitle>
+      <Dialog
+        open={props.handleOpen}
+        onClose={() => {
+          props.handleClose();
+          setError(null);
+          setEmail("");
+          setEmailError(null);
+          setName("");
+          setNameError(null);
+          setUsername("");
+          setUsernameError(null);
+          setPassword("");
+          setPasswordError(null);
+          setConfirmPassword("");
+        }}
+      >
+        <DialogTitle>
+          {!props.admin && <React.Fragment>Sign Up</React.Fragment>}
+          {props.admin && <React.Fragment>Create A New User</React.Fragment>}
+        </DialogTitle>
 
         <DialogContent>
           <TextField

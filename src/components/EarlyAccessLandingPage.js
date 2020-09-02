@@ -6,6 +6,7 @@ import { ReactComponent as LinkedinIcon } from "./icons/linkedin.svg";
 
 import "./landingpage.css";
 import background from "../images/background2.png";
+// import newbackground from "../images/newbackground.png";
 import platform from "../images/user-centered-platform.png";
 import potential from "../images/untapped-potential.png";
 import hub from "../images/creative-and-pro-hub.png";
@@ -113,8 +114,8 @@ export default function EarlyAccessLandingPage() {
         justify="center"
         direction="column"
         style={{
-          minHeight: "70vh",
-          backgroundImage: `url(${background})`,
+          minHeight: "89vh",
+          // backgroundImage: `url(${newbackground})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -125,11 +126,12 @@ export default function EarlyAccessLandingPage() {
           xs={12}
           style={{
             minWidth: "35%",
-            maxWidth: "80%",
+            maxWidth: "25%",
             backgroundColor: "#3e4e55",
             borderRadius: "15px",
             borderStyle: "solid",
             borderColor: "#ffffff",
+            marginLeft: "15em",
           }}
         >
           <Grid
