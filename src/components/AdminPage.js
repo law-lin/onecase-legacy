@@ -47,19 +47,21 @@ function AdminPage(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    props.firebase.users().on("value", (snapshot) => {
-      const usersObject = snapshot.val();
-      if (usersObject) {
-        const usersList = Object.keys(usersObject).map((key) => ({
-          ...usersObject[key],
-          uid: key,
-        }));
+    if (!admin) {
+      props.firebase.users().on("value", (snapshot) => {
+        const usersObject = snapshot.val();
+        if (usersObject) {
+          const usersList = Object.keys(usersObject).map((key) => ({
+            ...usersObject[key],
+            uid: key,
+          }));
 
-        setUsers(usersList);
-      }
-    });
-    setLoading(false);
-  }, []);
+          setUsers(usersList);
+        }
+      });
+      setLoading(false);
+    }
+  }, [admin]);
 
   const validateLogin = () => {
     return password !== "" && email !== "";
@@ -68,8 +70,6 @@ function AdminPage(props) {
     props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then((user) => {
-        console.log(user);
-        console.log(user.user.uid);
         if (user.user.uid === "UGmUJDQMjPbubeVXq7pGz0IUObG3") {
           setAdmin(true);
         } else {

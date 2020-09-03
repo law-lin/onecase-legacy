@@ -9,6 +9,7 @@ import {
   useParams,
 } from "react-router-dom";
 
+import NotFound from "../NotFound";
 import BridgePage from "./BridgePage";
 import PersonalProfilePage from "./Private/PersonalProfilePage";
 import PublicProfilePage from "./Public/PublicProfilePage";
@@ -87,7 +88,7 @@ function ProfilePage(props) {
       return null;
     }
   } else {
-    return null;
+    return <NotFound />;
   }
 }
 

@@ -1,46 +1,6 @@
 {
   "rules": {
-    "emails": {
-      ".read": true,
-      ".write": true
-    },
-    "users": {
-      ".read": true,
-      "$user_id": {
-        ".write": "$user_id === auth.uid",
-        "followerCount": {
-          ".write": true
-        }
-      }
-    },
-    "usernames": {
-      ".read": true,
-      ".write": true
-    },
-    "names": {
-      ".read": true,
-      ".write": true
-    },
-
-    "cards": {
-      ".read": true,
-      "$user_id": {
-        ".write": "$user_id === auth.uid"
-      }
-    },
-    "followers": {
-      ".read": true,
-      "$followed_id": {
-        "$user_id": {
-          ".write": "$user_id === auth.uid"
-        }
-      }
-    },
-    "following": {
-      ".read": true,
-      "$user_id": {
-        ".write": "$user_id === auth.uid"
-      }
-    }
+    ".read": true,
+    ".write": "auth.uid !== null"
   }
 }

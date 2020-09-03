@@ -4,12 +4,15 @@ import Navbar from "./Navbar";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import BottomNavbar from "./BottomNavbar";
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles({
   container: {
     margin: "80px auto 0 auto",
-    minWidth: "1250px",
-    maxWidth: "1250px",
+    display: "flex",
+    justifyContent: "center",
+    padding: 0,
   },
   center: {
     display: "flex",
@@ -35,19 +38,18 @@ function NotFound() {
   return (
     <div className="bg">
       <Navbar />
-      <Box display="flex" className={classes.container}>
-        <Box flex={1}>
-          <LeftNavbar />
-        </Box>
-        <Box className={classes.center} flex={1}>
+      <Container className={classes.container}>
+        <LeftNavbar />
+        <Box className={classes.center} flex={3}>
           <Typography className={classes.text}>
             Oops, there was an
             <span className={classes.error}> error</span>. This page doesn't
             exist!
           </Typography>
         </Box>
-        <Box flex={1}></Box>
-      </Box>
+      </Container>
+
+      <BottomNavbar />
     </div>
   );
 }

@@ -32,7 +32,6 @@ function PasswordResetPage(props) {
   const [email, setEmail] = useState(null);
 
   const handleSubmit = () => {
-    console.log(email);
     props.firebase.doPasswordReset(email);
   };
 

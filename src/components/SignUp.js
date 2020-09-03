@@ -94,6 +94,7 @@ function SignUp(props) {
 
     let valid = true;
     let formattedUsername = username.toLowerCase();
+    let formattedName = name.toLowerCase();
 
     props.firebase
       .checkDuplicateUsername(formattedUsername)
@@ -168,7 +169,7 @@ function SignUp(props) {
                   [formattedUsername]: authUser.user.uid,
                 });
                 props.firebase.names().update({
-                  [formattedUsername]: authUser.user.uid,
+                  [formattedName]: authUser.user.uid,
                 });
               })
               .then(() => {

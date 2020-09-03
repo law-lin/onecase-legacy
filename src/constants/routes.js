@@ -105,7 +105,6 @@ export const NON_USERNAMES = [
   "nudge",
   "o",
   "oauth",
-  "onecase",
   "onecaseapp",
   "p",
   "phoenix_search",
