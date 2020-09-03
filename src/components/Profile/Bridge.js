@@ -158,7 +158,10 @@ function Bridge(props) {
           const userIDState = snapshot.val();
           if (userIDState) {
             props.firebase
-              .getCardNumberWithCardTitle(userIDState, cardTitle)
+              .getCardNumberWithCardTitle(
+                userIDState,
+                cardTitle[0].toUpperCase() + cardTitle.slice(1)
+              )
               .on("value", (snapshot) => {
                 const cn = snapshot.val();
                 if (cn) {
