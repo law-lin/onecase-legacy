@@ -49,13 +49,14 @@ function AdminPage(props) {
   useEffect(() => {
     props.firebase.users().on("value", (snapshot) => {
       const usersObject = snapshot.val();
+      if (usersObject) {
+        const usersList = Object.keys(usersObject).map((key) => ({
+          ...usersObject[key],
+          uid: key,
+        }));
 
-      const usersList = Object.keys(usersObject).map((key) => ({
-        ...usersObject[key],
-        uid: key,
-      }));
-
-      setUsers(usersList);
+        setUsers(usersList);
+      }
     });
     setLoading(false);
   }, []);
