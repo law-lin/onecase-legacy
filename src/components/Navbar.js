@@ -22,7 +22,7 @@ const useStyles = makeStyles({
       textShadow: "2px 2px transparent",
     },
     fontFamily: ["Mukta Mahee", "sans-serif"],
-    color: "#d4f1f3",
+    color: "#FFFFFF",
     textDecoration: "none",
     textShadow: "2px 2px black",
     fontSize: "48px",

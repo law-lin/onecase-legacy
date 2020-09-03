@@ -23,7 +23,7 @@ const useStyles = makeStyles({
       textDecoration: "none",
       textShadow: "2px 2px transparent",
     },
-    color: "#d4f1f3",
+    color: "#FFFFFF",
     textDecoration: "none",
     textShadow: "2px 2px black",
   },
