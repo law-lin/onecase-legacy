@@ -299,7 +299,7 @@ function Bridge(props) {
                   notes={notes}
                   cardNumber={cardNumber}
                   editable={editing}
-                  personal={true}
+                  personal={personal}
                   onChange={onNotesChange}
                 />
               </Box>
@@ -315,7 +315,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard1"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                   <Box m={1} className={classes.card}>
@@ -328,7 +328,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard2"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                   <Box m={1} className={classes.card}>
@@ -341,7 +341,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard3"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                 </Box>
@@ -356,7 +356,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard4"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                   <Box m={1} className={classes.card}>
@@ -369,7 +369,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard5"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                   <Box m={1} className={classes.card}>
@@ -382,7 +382,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard6"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                 </Box>
@@ -397,7 +397,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard7"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                   <Box m={1} className={classes.card}>
@@ -410,7 +410,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard8"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                   <Box m={1} className={classes.card}>
@@ -423,7 +423,7 @@ function Bridge(props) {
                       cardNumber={cardNumber}
                       bridgeCardNumber="bridgeCard9"
                       editable={editing}
-                      personal={true}
+                      personal={personal}
                     />
                   </Box>
                 </Box>
@@ -515,7 +515,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard1"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                       <Box m={1} className={classes.card}>
@@ -527,7 +527,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard2"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                       <Box m={1} className={classes.card}>
@@ -539,7 +539,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard3"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                     </Box>
@@ -553,7 +553,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard4"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                       <Box m={1} className={classes.card}>
@@ -565,7 +565,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard5"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                       <Box m={1} className={classes.card}>
@@ -577,7 +577,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard6"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                     </Box>
@@ -591,7 +591,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard7"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                       <Box m={1} className={classes.card}>
@@ -603,7 +603,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard8"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                       <Box m={1} className={classes.card}>
@@ -615,7 +615,7 @@ function Bridge(props) {
                           cardNumber={cardNumber}
                           bridgeCardNumber="bridgeCard9"
                           editable={editing}
-                          personal={true}
+                          personal={personal}
                         />
                       </Box>
                     </Box>
@@ -638,7 +638,7 @@ function Bridge(props) {
                     notes={notes}
                     cardNumber={cardNumber}
                     editable={editing}
-                    personal={true}
+                    personal={personal}
                     onChange={onNotesChange}
                   />
                 </Box>
