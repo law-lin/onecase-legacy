@@ -146,7 +146,7 @@ function LandingPage(props) {
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState(null);
-  const [email, setEmail] = useState("");
+  const [waitlistEmail, setWaitlistEmail] = useState("");
 
   const classes = useStyles();
 
@@ -167,16 +167,18 @@ function LandingPage(props) {
     return regexp.test(email);
   };
   const handleSubmit = () => {
-    if (validateEmail(email)) {
-      props.firebase.checkDuplicateEmail(email).on("value", (snapshot) => {
-        if (snapshot.exists()) {
-          setError("This email is already signed up!");
-        } else {
-          setError(null);
-          props.firebase.earlyAccess(email);
-          props.history.push("welcome");
-        }
-      });
+    if (validateEmail(waitlistEmail)) {
+      props.firebase
+        .checkDuplicateEmail(waitlistEmail)
+        .on("value", (snapshot) => {
+          if (snapshot.exists()) {
+            setError("This email is already signed up!");
+          } else {
+            setError(null);
+            props.firebase.earlyAccess(waitlistEmail);
+            props.history.push("welcome");
+          }
+        });
     } else {
       setError("Please enter a valid email address.");
     }
@@ -220,7 +222,7 @@ function LandingPage(props) {
                   },
                 }}
                 label="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setWaitlistEmail(e.target.value)}
                 error={error}
                 helperText={error}
               />
@@ -509,6 +511,7 @@ function LandingPage(props) {
                       },
                     }}
                     label="Email"
+                    onChange={(e) => setWaitlistEmail(e.target.value)}
                     error={error}
                     helperText={error}
                   />
