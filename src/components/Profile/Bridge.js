@@ -148,7 +148,9 @@ function Bridge(props) {
       } else {
         setPersonal(false);
       }
-      const modifiedCardTitle = cardTitle.replace(/_/g, " ");
+      let modifiedCardTitle = cardTitle.replace(/_/g, " ");
+      modifiedCardTitle =
+        modifiedCardTitle[0].toUpperCase() + modifiedCardTitle.slice(1);
       if (cardTitle) setOldCardTitle(modifiedCardTitle);
       setCardTitle(modifiedCardTitle);
       if (cardTitle !== null) {

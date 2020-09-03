@@ -22,13 +22,13 @@ function BridgePage(props) {
 
     if (!ROUTES.NON_USERNAMES.includes(username)) {
       setValid(true);
-
       if (cardTitle !== null) {
+        let modifiedCardTitle = cardTitle[0].toUpperCase() + cardTitle.slice(1);
         props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
           const userIDState = snapshot.val();
           if (userIDState) {
             props.firebase
-              .getCardNumberWithCardTitle(userIDState, cardTitle)
+              .getCardNumberWithCardTitle(userIDState, modifiedCardTitle)
               .on("value", (snapshot) => {
                 const state = snapshot.val();
                 if (state) {
