@@ -182,50 +182,54 @@ function BridgeCardContent(props) {
     props.firebase.bridgeCards(cardID).on("value", (snapshot) => {
       const state = snapshot.val();
       if (state) {
-        props.firebase.currentUser().once("value", (snapshot) => {
-          if (snapshot.val()) {
-            if (snapshot.val().username !== state.username) {
-              Mixpanel.track("Card Click", {
-                Category: state.category,
-                "Card ID": snapshot.key,
-              });
-            } else {
-              Mixpanel.track("Card Click (user's own cards)", {
-                Category: state.category,
-                "Card ID": snapshot.key,
-              });
-            }
-            setName(state.name);
-            setUsername(state.username);
-            setProfilePicture(state.profilePicture);
-            setBridgeCardTitle(state.bridgeCardTitle);
-            setCaption(state.caption);
-            setDescription(state.description);
-            setCardCoverImageURL(state.cardCoverImageURL);
-            setCardImageURL(state.cardImageURL);
-            if (state.timeCreated) {
-              const date = new Date(state.timeCreated);
-              const dateCreated =
-                monthNames[date.getMonth()] +
-                " " +
-                date.getDate() +
-                ", " +
-                date.getFullYear();
-              setTimeCreated(dateCreated);
-            }
-            if (state.lastUpdated) {
-              const date = new Date(state.lastUpdated);
-              const dateUpdated =
-                monthNames[date.getMonth()] +
-                " " +
-                date.getDate() +
-                ", " +
-                date.getFullYear();
-              setLastUpdated(dateUpdated);
-            }
-            setLoading(false);
+        props.firebase.auth.onAuthStateChanged((currentUser) => {
+          if (currentUser) {
+            props.firebase.currentUser().once("value", (snapshot) => {
+              if (snapshot.val()) {
+                if (snapshot.val().username !== state.username) {
+                  Mixpanel.track("Card Click", {
+                    Category: state.category,
+                    "Card ID": snapshot.key,
+                  });
+                } else {
+                  Mixpanel.track("Card Click (user's own cards)", {
+                    Category: state.category,
+                    "Card ID": snapshot.key,
+                  });
+                }
+              }
+            });
           }
         });
+        setName(state.name);
+        setUsername(state.username);
+        setProfilePicture(state.profilePicture);
+        setBridgeCardTitle(state.bridgeCardTitle);
+        setCaption(state.caption);
+        setDescription(state.description);
+        setCardCoverImageURL(state.cardCoverImageURL);
+        setCardImageURL(state.cardImageURL);
+        if (state.timeCreated) {
+          const date = new Date(state.timeCreated);
+          const dateCreated =
+            monthNames[date.getMonth()] +
+            " " +
+            date.getDate() +
+            ", " +
+            date.getFullYear();
+          setTimeCreated(dateCreated);
+        }
+        if (state.lastUpdated) {
+          const date = new Date(state.lastUpdated);
+          const dateUpdated =
+            monthNames[date.getMonth()] +
+            " " +
+            date.getDate() +
+            ", " +
+            date.getFullYear();
+          setLastUpdated(dateUpdated);
+        }
+        setLoading(false);
       } else {
         setName(null);
         setUsername(null);
