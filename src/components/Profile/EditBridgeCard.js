@@ -833,7 +833,7 @@ function EditBridgeCard(props) {
                             alignItems: "center",
                             width: "200px",
                             height: "200px",
-                            background: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${coverImagePreview}) 0 0/250px 250px no-repeat`,
+                            background: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${coverImagePreview}) center/250px 250px no-repeat`,
                           }}
                         >
                           <TextField
@@ -1316,7 +1316,7 @@ function EditBridgeCard(props) {
                             alignItems: "center",
                             width: "200px",
                             height: "200px",
-                            background: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${coverImagePreview}) 0 0/250px 250px no-repeat`,
+                            background: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${coverImagePreview}) center/250px 250px no-repeat`,
                           }}
                         >
                           <TextField
