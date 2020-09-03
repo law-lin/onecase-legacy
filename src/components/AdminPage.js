@@ -68,10 +68,9 @@ function AdminPage(props) {
     props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then((user) => {
-        if (
-          user.user.uid === "9veyfG7BqkPVsfzCn9Ur3fXE3Gz1" ||
-          user.user.uid === "1IH2Hx5FgkUZcPU2n6xTqQFhHls1"
-        ) {
+        console.log(user);
+        console.log(user.user.uid);
+        if (user.user.uid === "UGmUJDQMjPbubeVXq7pGz0IUObG3") {
           setAdmin(true);
         } else {
           setAdmin(false);
