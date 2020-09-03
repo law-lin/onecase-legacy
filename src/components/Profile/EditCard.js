@@ -137,9 +137,9 @@ const useStyles = makeStyles({
     backgroundColor: "black",
     color: "#FFFFFF",
     fontSize: (props) =>
-      props.fontSize === "small"
+      props.size === "small"
         ? "17px"
-        : props.fontSize === "medium"
+        : props.size === "medium"
         ? "20px"
         : "30px",
     fontWeight: 800,

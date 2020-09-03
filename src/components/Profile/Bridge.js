@@ -222,7 +222,7 @@ function Bridge(props) {
                       fontWeight: 800,
                       borderRadius: "100px",
                       alignSelf: "flex-start",
-                      width: "40%",
+                      width: "fit-content",
                       padding: "10px",
                       textAlign: "center",
                       display: "flex",
@@ -234,7 +234,6 @@ function Bridge(props) {
                     {!editing && <span>{cardTitle}</span>}
                     {editing && (
                       <EditCard
-                        fontSize="small"
                         className={classes.test}
                         display="none"
                         username={username}
@@ -243,6 +242,7 @@ function Bridge(props) {
                         cardNumber={cardNumber}
                         bridge={true}
                         editable={true}
+                        size="small"
                       />
                     )}
                   </Card>
