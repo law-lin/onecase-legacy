@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 
 import { IoMdClose } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
@@ -23,7 +23,7 @@ import PencilIcon from "@material-ui/icons/Create";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { withFirebase } from "../Firebase";
 import { v4 as uuidv4 } from "uuid";
 import Cropper from "react-easy-crop";

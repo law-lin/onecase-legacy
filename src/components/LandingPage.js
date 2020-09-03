@@ -7,14 +7,11 @@ import { ReactComponent as LinkedinIcon } from "./icons/linkedin.svg";
 import "./landingpage.css";
 
 import LandingPageNavbar from "./LandingPageNavbar";
-import background from "../images/background2.png";
-import platform from "../images/user-centered-platform.png";
-import potential from "../images/untapped-potential.png";
-import hub from "../images/creative-and-pro-hub.png";
+
 import lightbulb from "../images/lightbulb.png";
 import scrapbook from "../images/scrapbook.png";
 import community from "../images/community.png";
-import roundedlogo from "../images/roundedlogo.png";
+
 import one from "../images/one.png";
 import two from "../images/two.png";
 import three from "../images/three.png";
@@ -22,9 +19,7 @@ import newbackground from "../images/newbackground.png";
 
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import SignUp from "./SignUp";
 
-import DefaultProfilePicture from "../images/default-profile-pic.png";
 import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";

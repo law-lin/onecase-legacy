@@ -2,44 +2,39 @@ import React, { useState, useEffect } from "react";
 
 import verifiedBadge from "../../../images/verified.png";
 import "../profile.css";
+
 import Navbar from "../../Navbar";
-import DefaultProfilePicture from "../../../images/default-profile-pic.png";
+import LeftNavbar from "../../LeftNavbar";
+import BottomNavbar from "../../BottomNavbar";
 import NotFound from "../../NotFound";
+
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-
-import Followers from "../../Followers.js";
-import Following from "../../Following";
-
 import Tooltip from "@material-ui/core/Tooltip";
 import Container from "@material-ui/core/Container";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+
 import ProfilePicture from "../ProfilePicture";
-import Grid from "@material-ui/core/Grid";
 import ProfileCard from "../ProfileCard";
 import LinksCard from "../LinksCard";
 import Biography from "../Biography";
 import Name from "../Name";
 import Username from "../Username";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
+import Followers from "../../Followers.js";
+import Following from "../../Following";
+
 import MediaQuery from "react-responsive";
-import LeftNavbar from "../../LeftNavbar";
-import BottomNavbar from "../../BottomNavbar";
+
 import Dialog from "@material-ui/core/Dialog";
-import Avatar from "react-avatar";
 
-import { size } from "lodash";
-
-import { withAuthorization } from "../../Session";
 import { withFirebase } from "../../Firebase";
 import { withRouter } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { setDisplayName } from "recompose";
 import { Mixpanel } from "../../Mixpanel";
 
 const useStyles = makeStyles({

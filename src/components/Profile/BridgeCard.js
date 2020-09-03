@@ -1,37 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-import { withFirebase } from "../Firebase";
-
+import EditBridgeCard from "./EditBridgeCard";
+// MUI
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import Box from "@material-ui/core/Box";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import MediaQuery from "react-responsive";
-
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import Container from "@material-ui/core/Container";
-import background from "../../images/background3.png";
-
+import { Link, useParams, withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { withRouter } from "react-router-dom";
-import EditBridgeCard from "./EditBridgeCard";
-import { CardActionArea } from "@material-ui/core";
-import ProfilePicture from "./ProfilePicture";
-import Avatar from "react-avatar";
+import { withFirebase } from "../Firebase";
 
 const useStyles = makeStyles({
   root: {

@@ -1,29 +1,23 @@
 import React, { useState, Fragment, useRef, useCallback } from "react";
-import { ButtonBase, Typography } from "@material-ui/core";
+
+import { Typography } from "@material-ui/core";
 import Slider from "@material-ui/core/Slider";
 import Cropper from "react-easy-crop";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { getOrientation } from "get-orientation/browser";
-import { getCroppedImg, getRotatedImage } from "../canvasUtils";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import MediaQuery from "react-responsive";
-import { v4 as uuidv4 } from "uuid";
-
-import DefaultProfilePic from "../../images/default-profile-pic.png";
-import { withFirebase } from "../Firebase";
-import ImageUploader from "react-images-upload";
 import Avatar from "@material-ui/core/Avatar";
 import { IconButton } from "@material-ui/core";
 import CameraAltIcon from "@material-ui/icons/CameraAlt";
-
 import { makeStyles } from "@material-ui/core/styles";
+
+import { getOrientation } from "get-orientation/browser";
+import { getCroppedImg, getRotatedImage } from "../canvasUtils";
+import MediaQuery from "react-responsive";
+import { v4 as uuidv4 } from "uuid";
+
+import { withFirebase } from "../Firebase";
 
 const useStyles = makeStyles((props) => ({
   root: {

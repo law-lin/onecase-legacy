@@ -3,30 +3,22 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import LeftNavbar from "../LeftNavbar";
 import BottomNavbar from "../BottomNavbar";
+
 import MediaQuery from "react-responsive";
 
-import Avatar from "react-avatar";
+import Avatar from "@material-ui/core/Avatar";
 import Link from "@material-ui/core/Link";
-import CategoriesCard from "../CategoriesCard";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import Box from "@material-ui/core/Box";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import { makeStyles } from "@material-ui/core/styles";
+
 import { useParams, useLocation } from "react-router-dom";
 import { withFirebase } from "../Firebase";
-import { makeStyles } from "@material-ui/core/styles";
 import { Mixpanel } from "../Mixpanel";
 
 const useStyles = makeStyles({
@@ -281,9 +273,11 @@ function BridgeCardContent(props) {
                   </div>
                   <Link href={"/" + username}>
                     <Avatar
-                      style={{ margin: "0 0 0 15px" }}
-                      size="50"
-                      round="50px"
+                      style={{
+                        margin: "0 0 0 15px",
+                        height: "50px",
+                        width: "50px",
+                      }}
                       src={profilePicture}
                     />
                   </Link>
@@ -376,9 +370,11 @@ function BridgeCardContent(props) {
                           </div>
                           <Link href={"/" + username}>
                             <Avatar
-                              style={{ margin: "0 0 0 15px" }}
-                              size="50"
-                              round="50px"
+                              style={{
+                                margin: "0 0 0 15px",
+                                height: "50px",
+                                width: "50px",
+                              }}
                               src={profilePicture}
                             />
                           </Link>
@@ -494,9 +490,11 @@ function BridgeCardContent(props) {
                             </div>
                             <Link href={"/" + username}>
                               <Avatar
-                                style={{ margin: "0 0 0 15px" }}
-                                size="50"
-                                round="50px"
+                                style={{
+                                  margin: "0 0 0 15px",
+                                  height: "50px",
+                                  width: "50px",
+                                }}
                                 src={profilePicture}
                               />
                             </Link>

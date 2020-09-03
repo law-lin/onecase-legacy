@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { ImHome3 } from "react-icons/im";
 import SignOutButton from "./Profile/SignOutButton";
-import Avatar from "react-avatar";
+import Avatar from "@material-ui/core/Avatar";
 import { ImSearch } from "react-icons/im";
 import { ReactComponent as HomeIcon } from "./icons/home.svg";
 import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
@@ -136,7 +136,11 @@ function LeftNavbar(props) {
                       <Avatar
                         round="50px"
                         size="50"
-                        style={{ marginRight: "20px" }}
+                        style={{
+                          marginRight: "20px",
+                          height: "50px",
+                          width: "50px",
+                        }}
                         src={profilePicture}
                       />
                     )}
