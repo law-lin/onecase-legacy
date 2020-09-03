@@ -1,15 +1,12 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { withFirebase } from "../Firebase";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -17,7 +14,6 @@ import Box from "@material-ui/core/Box";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import EditCard from "./EditCard";
-import { CardActionArea } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
