@@ -3,8 +3,7 @@ mixpanel.init("b1a1c3593c366d9b3af9442cd4972455", {
   api_host: "https://api.mixpanel.com",
 });
 
-// let env_check = process.env.NODE_ENV === 'production';
-let env_check = true;
+let env_check = process.env.NODE_ENV === "production";
 
 let actions = {
   identify: (id) => {
