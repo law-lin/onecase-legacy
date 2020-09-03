@@ -499,12 +499,14 @@ function PublicProfilePage(props) {
                               <Followers
                                 followers={followers}
                                 followerCount={followerCount}
+                                currentUser={currentUser}
                               />
                             </Box>
                             <Box>
                               <Following
                                 following={followings}
                                 followingCount={followingCount}
+                                currentUser={currentUser}
                               />
                             </Box>
                           </Box>
@@ -714,12 +716,14 @@ function PublicProfilePage(props) {
                                 <Followers
                                   followers={followers}
                                   followerCount={followerCount}
+                                  currentUser={currentUser}
                                 />
                               </Box>
                               <Box flex={1}>
                                 <Following
                                   following={followings}
                                   followingCount={followingCount}
+                                  currentUser={currentUser}
                                 />
                               </Box>
                             </Box>

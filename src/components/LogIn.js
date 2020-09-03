@@ -168,13 +168,12 @@ function LogIn(props) {
   };
 
   const handleLogin = (event) => {
-    event.preventDefault();
-
     props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then((user) => {
         Mixpanel.identify(user.user.uid);
         Mixpanel.track("Login");
+        props.handleClose();
       })
       .catch((error) => {
         if (error.message.includes("password is invalid")) {
@@ -187,14 +186,6 @@ function LogIn(props) {
           setError("Please enter a valid email address.");
         }
       });
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   return (
