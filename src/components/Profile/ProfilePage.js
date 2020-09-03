@@ -25,11 +25,10 @@ import * as ROUTES from "../../constants/routes";
 function ProfilePage(props) {
   const [personal, setPersonal] = useState(false);
   const [valid, setValid] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [exists, setExists] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     const username = props.match.params.username.toString().toLowerCase();
 
     if (!ROUTES.NON_USERNAMES.includes(username)) {
@@ -50,13 +49,16 @@ function ProfilePage(props) {
           setLoading(false);
         }
       });
+    } else {
+      setValid(false);
+      setLoading(false);
     }
   }, []);
 
   let match = useRouteMatch();
 
-  if (valid) {
-    if (!loading) {
+  if (!loading) {
+    if (valid) {
       if (personal) {
         return (
           <React.Fragment>
@@ -85,10 +87,10 @@ function ProfilePage(props) {
         );
       }
     } else {
-      return null;
+      return <NotFound />;
     }
   } else {
-    return <NotFound />;
+    return null;
   }
 }
 
