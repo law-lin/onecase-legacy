@@ -965,7 +965,7 @@ function EditBridgeCard(props) {
                               <DialogContent>
                                 <div className={classes.crop}>
                                   <Cropper
-                                    image={coverImageSrc}
+                                    image={imageSrc}
                                     crop={crop}
                                     rotation={rotation}
                                     zoom={zoom}
