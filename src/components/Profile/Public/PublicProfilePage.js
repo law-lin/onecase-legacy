@@ -329,6 +329,7 @@ function PublicProfilePage(props) {
   const handleUnfollow = () => {
     setIsFollowing(false);
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
+    closeUnfollowDialog();
   };
 
   const handleSwitch = (event) => {

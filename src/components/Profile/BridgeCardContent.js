@@ -144,6 +144,7 @@ const useStyles = makeStyles({
     position: "absolute",
     right: 0,
     top: 0,
+    padding: 0,
   },
 });
 function BridgeCardContent(props) {
@@ -216,8 +217,10 @@ function BridgeCardContent(props) {
         setCardCoverImageURL(state.cardCoverImageURL);
         setCardImageURL(state.cardImageURL);
         if (state.link) {
-          if (!~link.indexOf("http")) {
+          if (!~state.link.indexOf("http")) {
             setLink("http://" + state.link);
+          } else {
+            setLink(state.link);
           }
         }
         if (state.timeCreated) {
@@ -268,6 +271,7 @@ function BridgeCardContent(props) {
                 style: {
                   backgroundColor: "#232323",
                   minHeight: "450px",
+                  maxWidth: "800px",
                   minWidth: "800px",
                 },
               }}
@@ -276,12 +280,11 @@ function BridgeCardContent(props) {
                 display="flex"
                 style={{ flex: "0 0 auto", margin: 0, padding: "16px 24px" }}
               >
-                <Box flex={1}>
+                <Box>
                   <Typography className={classes.title}>
                     {bridgeCardTitle}
                   </Typography>
                 </Box>
-                <Box flex={1}></Box>
                 <Box display="flex" justifyContent="flex-end" flex={1}>
                   <div>
                     <Link href={"/" + username} className={classes.name}>
@@ -343,7 +346,16 @@ function BridgeCardContent(props) {
                     <Typography gutterBottom className={classes.description}>
                       {description}
                     </Typography>
-                    <Box style={{ padding: "0 20px", minHeight: "24px" }}>
+                    <Box
+                      style={{
+                        padding: "0 20px",
+                        minHeight: "24px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        maxWidth: "420px",
+                      }}
+                    >
                       <Link href={link}>{link}</Link>
                     </Box>
                     <Typography className={classes.lastEdited}>
@@ -463,7 +475,16 @@ function BridgeCardContent(props) {
                             {description}
                           </Typography>
                         </Box>
-                        <Box style={{ padding: "0 20px", minHeight: "24px" }}>
+                        <Box
+                          style={{
+                            padding: "0 20px",
+                            minHeight: "24px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            maxWidth: "420px",
+                          }}
+                        >
                           <Link href={link}>{link}</Link>
                         </Box>
                         <Typography className={classes.lastEdited}>
@@ -493,6 +514,7 @@ function BridgeCardContent(props) {
                         style={{
                           backgroundColor: "#232323",
                           minHeight: "450px",
+                          maxWidth: "800px",
                           minWidth: "800px",
                         }}
                       >
@@ -504,12 +526,11 @@ function BridgeCardContent(props) {
                             padding: "16px 24px",
                           }}
                         >
-                          <Box flex={1}>
+                          <Box>
                             <Typography className={classes.title}>
                               {bridgeCardTitle}
                             </Typography>
                           </Box>
-                          <Box flex={1}></Box>
                           <Box
                             display="flex"
                             justifyContent="flex-end"
@@ -585,7 +606,14 @@ function BridgeCardContent(props) {
                                 {description}
                               </Typography>
                               <Box
-                                style={{ padding: "0 20px", minHeight: "24px" }}
+                                style={{
+                                  padding: "0 20px",
+                                  minHeight: "24px",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
+                                  maxWidth: "420px",
+                                }}
                               >
                                 <Link href={link}>{link}</Link>
                               </Box>
