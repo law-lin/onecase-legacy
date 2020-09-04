@@ -1173,6 +1173,9 @@ function EditBridgeCard(props) {
                               className: classes.textField,
                               disableUnderline: true,
                             }}
+                            inputProps={{
+                              maxLength: 25,
+                            }}
                             defaultValue={props.caption}
                             onChange={(e) => setCaption(e.target.value)}
                             fullWidth
@@ -1665,6 +1668,9 @@ function EditBridgeCard(props) {
                                 className: classes.textField,
                                 disableUnderline: true,
                               }}
+                              inputProps={{
+                                maxLength: 25,
+                              }}
                               defaultValue={props.caption}
                               onChange={(e) => setCaption(e.target.value)}
                               fullWidth
@@ -1794,6 +1800,9 @@ function EditBridgeCard(props) {
                         className: classes.textField,
                         disableUnderline: true,
                       }}
+                      inputProps={{
+                        maxLength: 25,
+                      }}
                       defaultValue={props.caption}
                       onChange={(e) => setCaption(e.target.value)}
                       fullWidth
@@ -1879,6 +1888,9 @@ function EditBridgeCard(props) {
                       InputProps={{
                         className: classes.textField,
                         disableUnderline: true,
+                      }}
+                      inputProps={{
+                        maxLength: 25,
                       }}
                       defaultValue={props.caption}
                       onChange={(e) => setCaption(e.target.value)}

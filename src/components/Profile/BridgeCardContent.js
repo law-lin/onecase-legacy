@@ -72,11 +72,11 @@ const useStyles = makeStyles({
     backgroundColor: "#232323",
   },
   caption: {
-    padding: "50px 0 25px 0",
+    padding: "0 0 25px 0",
     textAlign: "center",
     marginLeft: "3px",
     minHeight: "20px",
-    width: "420px",
+    width: "100%",
     fontFamily: ["Montserrat", "sans-serif"],
     color: "#FFFFFF",
     fontSize: "25px",
@@ -130,7 +130,7 @@ const useStyles = makeStyles({
     fontFamily: ["Mukta Mahee", "sans-serif"],
     fontWeight: 600,
     textAlign: "right",
-    paddingRight: "5px",
+    padding: "30px 10px 5px 0px",
   },
 });
 function BridgeCardContent(props) {
@@ -323,24 +323,25 @@ function BridgeCardContent(props) {
                       )}
                     </React.Fragment>
                   </Box>
-                  <Box>
+                  <Box display="flex" flexDirection="column" flex={1}>
                     <Typography className={classes.caption}>
                       {caption}
                     </Typography>
                     <Typography gutterBottom className={classes.description}>
                       {description}
                     </Typography>
-                    <Box style={{ padding: "0 20px" }}>
+                    <Box style={{ padding: "0 20px", minHeight: "24px" }}>
                       <Link href={link}>{link}</Link>
                     </Box>
                     <Typography className={classes.lastEdited}>
                       {timeCreated}
+                      {lastUpdated && (
+                        <React.Fragment>
+                          <br />
+                          <span>Last Edited: {lastUpdated}</span>
+                        </React.Fragment>
+                      )}
                     </Typography>
-                    {lastUpdated && (
-                      <Typography className={classes.lastEdited}>
-                        Last Edited: {lastUpdated}
-                      </Typography>
-                    )}
                   </Box>
                 </Box>
               </DialogContent>
@@ -423,29 +424,32 @@ function BridgeCardContent(props) {
                             )}
                           </React.Fragment>
                         </Box>
-                        <Typography
-                          className={classes.caption}
-                          style={{ padding: "10px 0" }}
-                        >
-                          {caption}
-                        </Typography>
-                        <Typography
-                          gutterBottom
-                          className={classes.description}
-                        >
-                          {description}
-                        </Typography>
-                        <Box style={{ padding: "0 20px" }}>
+                        <Box display="flex" flexDirection="column" flex={1}>
+                          <Typography
+                            className={classes.caption}
+                            style={{ padding: "10px 0" }}
+                          >
+                            {caption}
+                          </Typography>
+                          <Typography
+                            gutterBottom
+                            className={classes.description}
+                          >
+                            {description}
+                          </Typography>
+                        </Box>
+                        <Box style={{ padding: "0 20px", minHeight: "24px" }}>
                           <Link href={link}>{link}</Link>
                         </Box>
                         <Typography className={classes.lastEdited}>
                           {timeCreated}
+                          {lastUpdated && (
+                            <React.Fragment>
+                              <br />
+                              <span>Last Edited: {lastUpdated}</span>
+                            </React.Fragment>
+                          )}
                         </Typography>
-                        {lastUpdated && (
-                          <Typography className={classes.lastEdited}>
-                            Last Edited: {lastUpdated}
-                          </Typography>
-                        )}
                       </Box>
                     </Box>
                   </Container>
@@ -545,7 +549,7 @@ function BridgeCardContent(props) {
                                 )}
                               </React.Fragment>
                             </Box>
-                            <Box>
+                            <Box display="flex" flexDirection="column" flex={1}>
                               <Typography className={classes.caption}>
                                 {caption}
                               </Typography>
@@ -555,18 +559,20 @@ function BridgeCardContent(props) {
                               >
                                 {description}
                               </Typography>
-                              <Box style={{ padding: "0 20px" }}>
+                              <Box
+                                style={{ padding: "0 20px", minHeight: "24px" }}
+                              >
                                 <Link href={link}>{link}</Link>
                               </Box>
                               <Typography className={classes.lastEdited}>
                                 {timeCreated}
+                                {lastUpdated && (
+                                  <React.Fragment>
+                                    <br />
+                                    <span>Last Edited: {lastUpdated}</span>
+                                  </React.Fragment>
+                                )}
                               </Typography>
-
-                              {lastUpdated && (
-                                <Typography className={classes.lastEdited}>
-                                  Last Edited: {lastUpdated}
-                                </Typography>
-                              )}
                             </Box>
                           </Box>
                         </DialogContent>
