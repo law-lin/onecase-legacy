@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { IoMdClose } from "react-icons/io";
+
 import Navbar from "../Navbar";
 import LeftNavbar from "../LeftNavbar";
 import BottomNavbar from "../BottomNavbar";
@@ -14,7 +16,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useParams, useLocation } from "react-router-dom";
@@ -131,6 +135,15 @@ const useStyles = makeStyles({
     fontWeight: 600,
     textAlign: "right",
     padding: "30px 10px 5px 0px",
+  },
+  close: {
+    "&:focus": {
+      outline: "none",
+    },
+    color: "#FFFFFF",
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
 });
 function BridgeCardContent(props) {
@@ -345,6 +358,14 @@ function BridgeCardContent(props) {
                   </Box>
                 </Box>
               </DialogContent>
+              <DialogActions>
+                <IconButton
+                  onClick={() => window.history.back()}
+                  className={classes.close}
+                >
+                  <IoMdClose />
+                </IconButton>
+              </DialogActions>
             </Dialog>
           )}
           {!modal && (
@@ -353,7 +374,11 @@ function BridgeCardContent(props) {
                 <div style={{ backgroundColor: "#232323" }}>
                   <Navbar />
                   <Container className={classes.root}>
-                    <Box display="flex" flexDirection="column">
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      style={{ width: "100%" }}
+                    >
                       <Box
                         display="flex"
                         justifyContent="space-around"
