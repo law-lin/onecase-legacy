@@ -142,6 +142,7 @@ function BridgeCardContent(props) {
   const [bridgeCardTitle, setBridgeCardTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
+  const [link, setLink] = useState("");
   const [cardImageURL, setCardImageURL] = useState(null);
   const [cardCoverImageURL, setCardCoverImageURL] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -201,6 +202,11 @@ function BridgeCardContent(props) {
         setDescription(state.description);
         setCardCoverImageURL(state.cardCoverImageURL);
         setCardImageURL(state.cardImageURL);
+        if (state.link) {
+          if (!~link.indexOf("http")) {
+            setLink("http://" + state.link);
+          }
+        }
         if (state.timeCreated) {
           const date = new Date(state.timeCreated);
           const dateCreated =
@@ -229,6 +235,7 @@ function BridgeCardContent(props) {
         setBridgeCardTitle(null);
         setCaption(null);
         setDescription(null);
+        setLink(null);
         setCardCoverImageURL(null);
         setCardImageURL(null);
         setLoading(false);
@@ -323,11 +330,12 @@ function BridgeCardContent(props) {
                     <Typography gutterBottom className={classes.description}>
                       {description}
                     </Typography>
-
+                    <Box style={{ padding: "0 20px" }}>
+                      <Link href={link}>{link}</Link>
+                    </Box>
                     <Typography className={classes.lastEdited}>
                       {timeCreated}
                     </Typography>
-
                     {lastUpdated && (
                       <Typography className={classes.lastEdited}>
                         Last Edited: {lastUpdated}
@@ -427,11 +435,12 @@ function BridgeCardContent(props) {
                         >
                           {description}
                         </Typography>
-
+                        <Box style={{ padding: "0 20px" }}>
+                          <Link href={link}>{link}</Link>
+                        </Box>
                         <Typography className={classes.lastEdited}>
                           {timeCreated}
                         </Typography>
-
                         {lastUpdated && (
                           <Typography className={classes.lastEdited}>
                             Last Edited: {lastUpdated}
@@ -546,7 +555,9 @@ function BridgeCardContent(props) {
                               >
                                 {description}
                               </Typography>
-
+                              <Box style={{ padding: "0 20px" }}>
+                                <Link href={link}>{link}</Link>
+                              </Box>
                               <Typography className={classes.lastEdited}>
                                 {timeCreated}
                               </Typography>

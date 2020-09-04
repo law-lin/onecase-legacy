@@ -137,6 +137,7 @@ function BridgeCard(props) {
   const [bridgeCardTitle, setBridgeCardTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
+  const [link, setLink] = useState("");
   const [cardImageURL, setCardImageURL] = useState(null);
   const [cardCoverImageURL, setCardCoverImageURL] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -172,6 +173,7 @@ function BridgeCard(props) {
           setBridgeCardTitle(state.bridgeCardTitle);
           setCaption(state.caption);
           setDescription(state.description);
+          setLink(state.link);
           setCardCoverImageURL(state.cardCoverImageURL);
           setCardImageURL(state.cardImageURL);
           if (state.timeCreated) {
@@ -200,6 +202,7 @@ function BridgeCard(props) {
           setBridgeCardTitle(null);
           setCaption(null);
           setDescription(null);
+          setLink(null);
           setCardCoverImageURL(null);
           setCardImageURL(null);
           setLoading(false);
@@ -217,6 +220,7 @@ function BridgeCard(props) {
               setBridgeCardTitle(state.bridgeCardTitle);
               setCaption(state.caption);
               setDescription(state.description);
+              setLink(state.link);
               setCardCoverImageURL(state.cardCoverImageURL);
               setCardImageURL(state.cardImageURL);
               if (state.timeCreated) {
@@ -245,6 +249,7 @@ function BridgeCard(props) {
               setBridgeCardTitle(null);
               setCaption(null);
               setDescription(null);
+              setLink(null);
               setCardCoverImageURL(null);
               setCardImageURL(null);
               setLoading(false);
@@ -315,6 +320,7 @@ function BridgeCard(props) {
           category={cardTitle}
           caption={caption}
           description={description}
+          link={link}
           cardImageURL={cardImageURL}
           cardCoverImageURL={cardCoverImageURL}
           cardNumber={props.cardNumber}
@@ -348,6 +354,7 @@ function BridgeCard(props) {
                 category={cardTitle}
                 caption={caption}
                 description={description}
+                link={link}
                 cardCoverImageURL={cardCoverImageURL}
                 cardImageURL={cardImageURL}
                 cardNumber={props.cardNumber}

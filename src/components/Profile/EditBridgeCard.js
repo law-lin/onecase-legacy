@@ -256,7 +256,7 @@ const useStyles = makeStyles((theme) => ({
     // [theme.breakpoints.up("md")]: {
     //   marginTop: "90px",
     // },
-    padding: "50px 20px 20px 20px",
+    padding: "0px 20px 20px 20px",
     width: "100%",
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#FFFFFF",
@@ -338,10 +338,12 @@ function EditBridgeCard(props) {
   const [coverImageInputKey, setCoverImageInputKey] = useState(null);
   const [alert, setAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
+  const [linkAlert, setLinkAlert] = useState(false);
   const [cardImage, setCardImage] = useState(null);
   const [bridgeCardTitle, setBridgeCardTitle] = useState(props.bridgeCardTitle);
   const [caption, setCaption] = useState(props.caption);
   const [description, setDescription] = useState(props.description);
+  const [link, setLink] = useState(props.link);
 
   const [coverImagePreview, setCoverImagePreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -466,84 +468,187 @@ function EditBridgeCard(props) {
     if (reason === "clickaway") {
       return;
     }
-    setAlert(false);
+    setImageAlert(false);
+  };
+
+  const handleLinkAlertClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setLinkAlert(false);
   };
 
   const handleSubmit = useCallback(async () => {
     if (props.bridgeCardTitle) {
-      Mixpanel.track("Card Edit", {
-        Category: cardTitle,
-        "Card ID": props.cardID,
-      });
-      props.firebase.editBridgeCard(props.cardID, caption, description);
-      handleClose();
+      if (link !== "") {
+        const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+        if (urlregexp.test(link)) {
+          setLinkAlert(false);
+          Mixpanel.track("Card Edit", {
+            Category: cardTitle,
+            "Card ID": props.cardID,
+          });
+          props.firebase.editBridgeCard(
+            props.cardID,
+            caption,
+            description,
+            link
+          );
+          handleClose();
+        } else {
+          setLinkAlert(true);
+        }
+      } else {
+        setLinkAlert(false);
+        Mixpanel.track("Card Edit", {
+          Category: cardTitle,
+          "Card ID": props.cardID,
+        });
+        props.firebase.editBridgeCard(props.cardID, caption, description, "");
+        handleClose();
+      }
     } else {
       if (imagePreview === null) {
         setImageAlert(true);
       } else {
-        Mixpanel.track("Card Create", { Category: cardTitle });
-        setImageAlert(false);
-        props.firebase.createBridgeCard(
-          props.name,
-          props.username,
-          props.profilePicture,
-          props.cardNumber,
-          props.bridgeCardNumber,
-          bridgeCardTitle,
-          cardTitle,
-          caption,
-          description
-        );
-        if (imagePreview != null) {
-          let blob = await fetch(imagePreview).then((r) => r.blob());
-          let uuid = uuidv4();
-          let file = new File([blob], uuid);
-          props.firebase.uploadCardImage(file).on(
-            "state_changed",
-            (snapshot) => {
-              // progress function ...
-              const progress = Math.round(
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-              );
-            },
-            (error) => {
-              console.log(error);
-            },
-            () => {
-              props.firebase.uploadCardImageURL(
-                props.cardNumber,
-                props.bridgeCardNumber,
-                file
+        if (link !== "") {
+          const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+          if (urlregexp.test(link)) {
+            Mixpanel.track("Card Create", { Category: cardTitle });
+            setImageAlert(false);
+            setLinkAlert(false);
+            props.firebase.createBridgeCard(
+              props.name,
+              props.username,
+              props.profilePicture,
+              props.cardNumber,
+              props.bridgeCardNumber,
+              bridgeCardTitle,
+              cardTitle,
+              caption,
+              description,
+              link
+            );
+            if (imagePreview != null) {
+              let blob = await fetch(imagePreview).then((r) => r.blob());
+              let uuid = uuidv4();
+              let file = new File([blob], uuid);
+              props.firebase.uploadCardImage(file).on(
+                "state_changed",
+                (snapshot) => {
+                  // progress function ...
+                  const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                  );
+                },
+                (error) => {
+                  console.log(error);
+                },
+                () => {
+                  props.firebase.uploadCardImageURL(
+                    props.cardNumber,
+                    props.bridgeCardNumber,
+                    file
+                  );
+                }
               );
             }
-          );
-        }
-        if (coverImagePreview != null) {
-          let blob = await fetch(coverImagePreview).then((r) => r.blob());
-          let uuid = uuidv4();
-          let file = new File([blob], uuid);
+            if (coverImagePreview != null) {
+              let blob = await fetch(coverImagePreview).then((r) => r.blob());
+              let uuid = uuidv4();
+              let file = new File([blob], uuid);
 
-          props.firebase.uploadCardCoverImage(file).on(
-            "state_changed",
-            (snapshot) => {
-              // progress function ...
-              const progress = Math.round(
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-              );
-            },
-            (error) => {
-              console.log(error);
-            },
-            () => {
-              props.firebase.uploadCardCoverImageURL(
-                props.cardNumber,
-                props.bridgeCardNumber,
-                file
+              props.firebase.uploadCardCoverImage(file).on(
+                "state_changed",
+                (snapshot) => {
+                  // progress function ...
+                  const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                  );
+                },
+                (error) => {
+                  console.log(error);
+                },
+                () => {
+                  props.firebase.uploadCardCoverImageURL(
+                    props.cardNumber,
+                    props.bridgeCardNumber,
+                    file
+                  );
+                }
               );
             }
+            handleClose();
+          } else {
+            setLinkAlert(true);
+          }
+        } else {
+          Mixpanel.track("Card Create", { Category: cardTitle });
+          setImageAlert(false);
+          setLinkAlert(false);
+          props.firebase.createBridgeCard(
+            props.name,
+            props.username,
+            props.profilePicture,
+            props.cardNumber,
+            props.bridgeCardNumber,
+            bridgeCardTitle,
+            cardTitle,
+            caption,
+            description,
+            ""
           );
+          if (imagePreview != null) {
+            let blob = await fetch(imagePreview).then((r) => r.blob());
+            let uuid = uuidv4();
+            let file = new File([blob], uuid);
+            props.firebase.uploadCardImage(file).on(
+              "state_changed",
+              (snapshot) => {
+                // progress function ...
+                const progress = Math.round(
+                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+              },
+              (error) => {
+                console.log(error);
+              },
+              () => {
+                props.firebase.uploadCardImageURL(
+                  props.cardNumber,
+                  props.bridgeCardNumber,
+                  file
+                );
+              }
+            );
+          }
+          if (coverImagePreview != null) {
+            let blob = await fetch(coverImagePreview).then((r) => r.blob());
+            let uuid = uuidv4();
+            let file = new File([blob], uuid);
+
+            props.firebase.uploadCardCoverImage(file).on(
+              "state_changed",
+              (snapshot) => {
+                // progress function ...
+                const progress = Math.round(
+                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+              },
+              (error) => {
+                console.log(error);
+              },
+              () => {
+                props.firebase.uploadCardCoverImageURL(
+                  props.cardNumber,
+                  props.bridgeCardNumber,
+                  file
+                );
+              }
+            );
+          }
+          handleClose();
         }
-        handleClose();
       }
     }
   });
@@ -563,7 +668,7 @@ function EditBridgeCard(props) {
     handleClose();
   };
 
-  const CHARACTER_LIMIT = 600;
+  const CHARACTER_LIMIT = 165;
   const fileUpload = useRef(null);
   const coverImageUpload = useRef(null);
 
@@ -1075,8 +1180,8 @@ function EditBridgeCard(props) {
                           <TextField
                             name="description"
                             type="text"
-                            placeholder="Ex: Describe what you did"
-                            rows={7}
+                            placeholder="Describe what you did"
+                            rows={6}
                             multiline
                             style={{ padding: "20px" }}
                             InputProps={{
@@ -1088,6 +1193,19 @@ function EditBridgeCard(props) {
                             }}
                             defaultValue={props.description}
                             onChange={(e) => setDescription(e.target.value)}
+                            fullWidth
+                          />
+                          <TextField
+                            name="link"
+                            type="text"
+                            placeholder="Add a link (optional)"
+                            style={{ padding: "0 20px 20px 20px" }}
+                            InputProps={{
+                              className: classes.textField,
+                              disableUnderline: true,
+                            }}
+                            defaultValue={props.link}
+                            onChange={(e) => setLink(e.target.value)}
                             fullWidth
                           />
                         </Box>
@@ -1349,6 +1467,18 @@ function EditBridgeCard(props) {
                               The card title cannot be empty!
                             </MuiAlert>
                           </Snackbar>
+                          <Snackbar
+                            open={linkAlert}
+                            autoHideDuration={6000}
+                            onClose={handleLinkAlertClose}
+                          >
+                            <MuiAlert
+                              onClose={handleLinkAlertClose}
+                              severity="error"
+                            >
+                              Please enter a valid URL!
+                            </MuiAlert>
+                          </Snackbar>
                         </div>
                       </DialogContent>
                       <DialogActions>
@@ -1542,8 +1672,8 @@ function EditBridgeCard(props) {
                             <TextField
                               name="description"
                               type="text"
-                              placeholder="Ex: Describe what you did"
-                              rows={7}
+                              placeholder="Describe what you did"
+                              rows={6}
                               multiline
                               style={{ padding: "20px" }}
                               InputProps={{
@@ -1555,6 +1685,19 @@ function EditBridgeCard(props) {
                               }}
                               defaultValue={props.description}
                               onChange={(e) => setDescription(e.target.value)}
+                              fullWidth
+                            />
+                            <TextField
+                              name="link"
+                              type="text"
+                              placeholder="Add a link (optional)"
+                              style={{ padding: "0 20px 20px 20px" }}
+                              InputProps={{
+                                className: classes.textField,
+                                disableUnderline: true,
+                              }}
+                              defaultValue={props.link}
+                              onChange={(e) => setLink(e.target.value)}
                               fullWidth
                             />
                           </Box>
@@ -1581,6 +1724,18 @@ function EditBridgeCard(props) {
                           severity="error"
                         >
                           Please attach an image to this card!
+                        </MuiAlert>
+                      </Snackbar>
+                      <Snackbar
+                        open={linkAlert}
+                        autoHideDuration={6000}
+                        onClose={handleLinkAlertClose}
+                      >
+                        <MuiAlert
+                          onClose={handleLinkAlertClose}
+                          severity="error"
+                        >
+                          Please enter a valid URL!
                         </MuiAlert>
                       </Snackbar>
                     </React.Fragment>
@@ -1646,8 +1801,8 @@ function EditBridgeCard(props) {
                     <TextField
                       name="description"
                       type="text"
-                      placeholder="Ex: Describe what you did"
-                      rows={7}
+                      placeholder="Describe what you did"
+                      rows={6}
                       multiline
                       style={{ padding: "20px" }}
                       InputProps={{
@@ -1671,6 +1826,15 @@ function EditBridgeCard(props) {
                 <Button className={classes.save} onClick={handleSubmit}>
                   Save
                 </Button>
+                <Snackbar
+                  open={linkAlert}
+                  autoHideDuration={6000}
+                  onClose={handleLinkAlertClose}
+                >
+                  <MuiAlert onClose={handleLinkAlertClose} severity="error">
+                    Please enter a valid URL!
+                  </MuiAlert>
+                </Snackbar>
               </DialogActions>
             </Dialog>
           </MediaQuery>
@@ -1723,8 +1887,8 @@ function EditBridgeCard(props) {
                     <TextField
                       name="description"
                       type="text"
-                      placeholder="Ex: Describe what you did"
-                      rows={7}
+                      placeholder="Describe what you did"
+                      rows={6}
                       multiline
                       style={{ padding: "20px" }}
                       InputProps={{
@@ -1738,6 +1902,19 @@ function EditBridgeCard(props) {
                       onChange={(e) => setDescription(e.target.value)}
                       fullWidth
                     />
+                    <TextField
+                      name="caption"
+                      type="text"
+                      placeholder="Add a link (optional)"
+                      style={{ padding: "0 20px 20px 20px" }}
+                      InputProps={{
+                        className: classes.textField,
+                        disableUnderline: true,
+                      }}
+                      defaultValue={props.link}
+                      onChange={(e) => setLink(e.target.value)}
+                      fullWidth
+                    />
                   </Box>
                 </Box>
               </DialogContent>
@@ -1748,6 +1925,15 @@ function EditBridgeCard(props) {
                 <Button className={classes.save} onClick={handleSubmit}>
                   Save
                 </Button>
+                <Snackbar
+                  open={linkAlert}
+                  autoHideDuration={6000}
+                  onClose={handleLinkAlertClose}
+                >
+                  <MuiAlert onClose={handleLinkAlertClose} severity="error">
+                    Please enter a valid URL!
+                  </MuiAlert>
+                </Snackbar>
               </DialogActions>
             </Dialog>
           </MediaQuery>

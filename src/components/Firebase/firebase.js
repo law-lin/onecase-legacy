@@ -207,7 +207,8 @@ class Firebase {
     bridgeCardTitle,
     category,
     caption,
-    description
+    description,
+    link
   ) => {
     const timestamp = this.database.ServerValue.TIMESTAMP;
     this.db
@@ -241,6 +242,7 @@ class Firebase {
           bridgeCardTitle,
           caption,
           description,
+          link
         });
 
         this.db.ref(`${category.toLowerCase()}`).update({
@@ -256,11 +258,12 @@ class Firebase {
       });
   };
 
-  editBridgeCard = (cardID, caption, description) => {
+  editBridgeCard = (cardID, caption, description, link) => {
     this.db.ref(`bridgeCards/${cardID}`).update({
       lastUpdated: this.database.ServerValue.TIMESTAMP,
       caption,
       description,
+      link
     });
   };
 
