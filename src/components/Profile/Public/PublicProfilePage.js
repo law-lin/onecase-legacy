@@ -325,12 +325,16 @@ function PublicProfilePage(props) {
     setIsFollowing(true);
     props.firebase.follow(props.firebase.auth.currentUser.uid, userID);
     Mixpanel.track("Follow", { "Followed UserID": userID });
+    Mixpanel.people.increment("Following", 1);
+    Mixpanel.people.increment("Amount of Follows", 1);
   };
 
   const handleUnfollow = () => {
     setIsFollowing(false);
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
     Mixpanel.track("Unfollow", { "Unfollowed UserID": userID });
+    Mixpanel.people.increment("Following", -1);
+    Mixpanel.people.increment("Amount of Unfollows", 1);
     closeUnfollowDialog();
   };
 

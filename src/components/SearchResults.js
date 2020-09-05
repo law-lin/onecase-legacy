@@ -287,6 +287,8 @@ function SearchResults(props) {
     setResults(newList);
     props.firebase.follow(props.firebase.auth.currentUser.uid, userID);
     Mixpanel.track("Follow", { "Followed UserID": userID });
+    Mixpanel.people.increment("Following", 1);
+    Mixpanel.people.increment("Amount of Follows", 1);
   };
 
   const openUnfollowDialog = (userID, username, profilePicture) => {
@@ -318,6 +320,8 @@ function SearchResults(props) {
     setResults(newList);
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
     Mixpanel.track("Unfollow", { "Unfollowed UserID": userID });
+    Mixpanel.people.increment("Following", -1);
+    Mixpanel.people.increment("Amount of Unfollows", 1);
   };
 
   function UnfollowDialog() {
