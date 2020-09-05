@@ -152,6 +152,9 @@ function SignUp(props) {
                 Mixpanel.people.set({
                   Username: username,
                   $email: email,
+                  Following: 0,
+                  "Amount of Follows": 0,
+                  "Amount of Unfollows": 0,
                 });
                 // Create a user in your Firebase realtime database
 

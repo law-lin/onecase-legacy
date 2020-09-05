@@ -138,7 +138,7 @@ const useStyles = makeStyles({
 });
 function LandingPage(props) {
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [error, setError] = useState(null);
   const [waitlistEmail, setWaitlistEmail] = useState("");
@@ -146,11 +146,9 @@ function LandingPage(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    setLoading(true);
     props.firebase.auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         props.history.push("/feed");
-        setLoading(false);
       } else {
         setLoading(false);
       }

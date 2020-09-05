@@ -19,6 +19,9 @@ let actions = {
     set: (props) => {
       if (env_check) mixpanel.people.set(props);
     },
+    increment: (name, props) => {
+      if (env_check) mixpanel.people.increment(name, props);
+    },
   },
   reset: () => {
     if (env_check) mixpanel.reset();

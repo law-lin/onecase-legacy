@@ -82,24 +82,29 @@ function LeftNavbar(props) {
   const classes = useStyles();
 
   useEffect(() => {
+    let isMounted = false;
     setLoading(true);
-
     props.firebase.auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        props.firebase.currentUser().once("value", (snapshot) => {
-          if (snapshot) {
-            setUsername(snapshot.val().username);
-            setProfilePicture(snapshot.val().profilePicture);
-            setLoading(false);
-          } else {
-            setProfilePicture(null);
-            setLoading(false);
-          }
-        });
-      } else {
-        setUsername(null);
+      if (!isMounted) {
+        if (currentUser) {
+          props.firebase.currentUser().once("value", (snapshot) => {
+            if (snapshot) {
+              setUsername(snapshot.val().username);
+              setProfilePicture(snapshot.val().profilePicture);
+              setLoading(false);
+            } else {
+              setProfilePicture(null);
+              setLoading(false);
+            }
+          });
+        } else {
+          setUsername(null);
+        }
       }
     });
+    return () => {
+      isMounted = true;
+    };
   }, []);
 
   function redirectTo(route) {

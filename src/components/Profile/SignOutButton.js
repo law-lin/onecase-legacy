@@ -32,11 +32,9 @@ function SignOutButton(props) {
   const classes = useStyles();
 
   const signOut = () => {
-    props.history.push("/");
-    props.firebase.doSignOut().then(() => {
-      Mixpanel.track("Sign Out");
-      Mixpanel.reset();
-    });
+    Mixpanel.track("Sign Out");
+    Mixpanel.reset();
+    props.firebase.doSignOut();
   };
   return (
     <Button className={classes.root} onClick={signOut}>

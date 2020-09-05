@@ -63,29 +63,35 @@ function CategoriesCard(props) {
   const [categoryLinks, setCategoryLinks] = useState([]);
 
   useEffect(() => {
+    let isMounted = false;
     props.firebase.auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        setDisplay(true);
-        props.firebase.getTrendingCategories().on("value", (snapshot) => {
-          var links = [];
-          var categories = [];
-          for (var i in snapshot.val()) {
-            categories.push(
-              i.replace(/_/g, " ").replace(/\w\S*/g, (txt) => {
-                return (
-                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                );
-              })
-            );
-            links.push(i);
-          }
-          setTrendingCategories(categories);
-          setCategoryLinks(links);
-        });
-      } else {
-        setDisplay(false);
+      if (!isMounted) {
+        if (currentUser) {
+          setDisplay(true);
+          props.firebase.getTrendingCategories().on("value", (snapshot) => {
+            var links = [];
+            var categories = [];
+            for (var i in snapshot.val()) {
+              categories.push(
+                i.replace(/_/g, " ").replace(/\w\S*/g, (txt) => {
+                  return (
+                    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                  );
+                })
+              );
+              links.push(i);
+            }
+            setTrendingCategories(categories);
+            setCategoryLinks(links);
+          });
+        } else {
+          setDisplay(false);
+        }
       }
     });
+    return () => {
+      isMounted = true;
+    };
   }, []);
 
   if (display) {
