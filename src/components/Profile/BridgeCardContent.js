@@ -187,6 +187,7 @@ function BridgeCardContent(props) {
 
   useEffect(() => {
     props.firebase.bridgeCards(cardID).on("value", (snapshot) => {
+      const cardID = snapshot.key;
       const state = snapshot.val();
       if (state) {
         props.firebase.auth.onAuthStateChanged((currentUser) => {
@@ -196,12 +197,12 @@ function BridgeCardContent(props) {
                 if (snapshot.val().username !== state.username) {
                   Mixpanel.track("Card Click", {
                     Category: state.category,
-                    "Card ID": snapshot.key,
+                    "Card ID": cardID,
                   });
                 } else {
                   Mixpanel.track("Card Click (user's own cards)", {
                     Category: state.category,
-                    "Card ID": snapshot.key,
+                    "Card ID": cardID,
                   });
                 }
               }
@@ -257,7 +258,7 @@ function BridgeCardContent(props) {
         setLoading(false);
       }
     });
-  }, []);
+  }, [cardID, props.firebase]);
   return (
     <React.Fragment>
       {!loading && (

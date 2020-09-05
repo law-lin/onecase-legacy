@@ -23,6 +23,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 import { withFirebase } from "./Firebase";
 import { makeStyles } from "@material-ui/core/styles";
+import { Mixpanel } from "./Mixpanel";
 
 const useStyles = makeStyles({
   root: {},
@@ -209,8 +210,8 @@ const Following = (props) => {
       return following;
     });
     setFollowings(newList);
-
     props.firebase.follow(props.firebase.auth.currentUser.uid, userID);
+    Mixpanel.track("Follow", { "Followed UserID": userID });
   };
 
   const openUnfollowDialog = (userID, username, profilePicture) => {
@@ -240,8 +241,8 @@ const Following = (props) => {
       return following;
     });
     setFollowings(newList);
-
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
+    Mixpanel.track("Unfollow", { "Unfollowed UserID": userID });
   };
 
   function UnfollowDialog() {

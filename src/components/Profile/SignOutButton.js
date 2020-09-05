@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { withFirebase } from "../Firebase";
 import { withRouter } from "react-router-dom";
+import { Mixpanel } from "../Mixpanel";
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
     textDecoration: "none",
     textTransform: "none",
     fontSize: "20px",
-    height:"40px",
+    height: "40px",
   },
   icon: {
     width: "25px",
@@ -32,7 +33,10 @@ function SignOutButton(props) {
 
   const signOut = () => {
     props.history.push("/");
-    props.firebase.doSignOut();
+    props.firebase.doSignOut().then(() => {
+      Mixpanel.track("Sign Out");
+      Mixpanel.reset();
+    });
   };
   return (
     <Button className={classes.root} onClick={signOut}>

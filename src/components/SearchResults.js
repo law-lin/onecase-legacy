@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import UsernameButton from "./UsernameButton";
+
+import Navbar from "./Navbar";
+import LeftNavbar from "./LeftNavbar";
+import BottomNavbar from "./BottomNavbar";
 
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -14,16 +15,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
-
-import Navbar from "./Navbar";
-import LeftNavbar from "./LeftNavbar";
+import { makeStyles } from "@material-ui/core/styles";
 
 import queryString from "query-string";
-import { BrowserRouter as Router, Switch, useLocation } from "react-router-dom";
+import { BrowserRouter as useLocation } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 import { withAuthorization } from "./Session";
-import { makeStyles } from "@material-ui/core/styles";
-import BottomNavbar from "./BottomNavbar";
 import { Mixpanel } from "./Mixpanel";
 
 const useStyles = makeStyles({
@@ -130,32 +127,6 @@ const useStyles = makeStyles({
     textTransform: "none",
     width: "85px",
   },
-  title: {
-    color: "#000000",
-    fontFamily: ["Montserrat", "sans-serif"],
-    fontSize: "26px",
-    fontWeight: 800,
-    display: "inline-block",
-    verticalAlign: "middle",
-    textAlign: "center",
-  },
-  button: {
-    "&:hover": {
-      textDecoration: "none",
-
-      color: "#FFFFFF",
-    },
-    "&:active": {
-      outline: "none",
-      color: "#adadad",
-    },
-    "&:focus": {
-      outline: "none",
-    },
-    textDecoration: "none",
-    textTransform: "none",
-    color: "#FFFFFF",
-  },
   unfollowPrompt: {
     fontFamily: ["Montserrat", "sans-serif"],
     fontSize: "18px",
@@ -205,12 +176,8 @@ function SearchResults(props) {
   const classes = useStyles();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [openSignUp, setOpenSignUp] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
-
   const [currentUser, setCurrentUser] = useState(false);
-
   const [userID, setUserID] = useState(null);
   const [username, setUsername] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -304,7 +271,7 @@ function SearchResults(props) {
         }
       });
     }
-  }, []);
+  }, [props.firebase, location.search]);
 
   const handleFollow = (userID) => {
     const newList = results.map((user) => {
@@ -319,6 +286,7 @@ function SearchResults(props) {
     });
     setResults(newList);
     props.firebase.follow(props.firebase.auth.currentUser.uid, userID);
+    Mixpanel.track("Follow", { "Followed UserID": userID });
   };
 
   const openUnfollowDialog = (userID, username, profilePicture) => {
@@ -349,6 +317,7 @@ function SearchResults(props) {
     });
     setResults(newList);
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
+    Mixpanel.track("Unfollow", { "Unfollowed UserID": userID });
   };
 
   function UnfollowDialog() {

@@ -324,11 +324,13 @@ function PublicProfilePage(props) {
   const handleFollow = () => {
     setIsFollowing(true);
     props.firebase.follow(props.firebase.auth.currentUser.uid, userID);
+    Mixpanel.track("Follow", { "Followed UserID": userID });
   };
 
   const handleUnfollow = () => {
     setIsFollowing(false);
     props.firebase.unfollow(props.firebase.auth.currentUser.uid, userID);
+    Mixpanel.track("Unfollow", { "Unfollowed UserID": userID });
     closeUnfollowDialog();
   };
 

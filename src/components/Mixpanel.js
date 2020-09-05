@@ -20,6 +20,9 @@ let actions = {
       if (env_check) mixpanel.people.set(props);
     },
   },
+  reset: () => {
+    if (env_check) mixpanel.reset();
+  },
 };
 
 export let Mixpanel = actions;
