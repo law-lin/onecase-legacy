@@ -18,7 +18,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 
 import queryString from "query-string";
-import { BrowserRouter as useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 import { withAuthorization } from "./Session";
 import { Mixpanel } from "./Mixpanel";
@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     },
   },
   title: {
-    color: "#FFFFFF",
+    color: "#000000",
     fontFamily: ["Montserrat", "sans-serif"],
     fontSize: "26px",
     fontWeight: 800,
