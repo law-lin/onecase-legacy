@@ -5,8 +5,7 @@ import {
   Switch,
   useLocation,
 } from "react-router-dom";
-import { ModalContainer, ModalRoute } from "react-router-modal";
-import EarlyAccessLandingPage from "./components/EarlyAccessLandingPage";
+
 import WelcomePage from "./components/WelcomePage";
 import LandingPage from "./components/LandingPage";
 import ProfilePage from "./components/Profile/ProfilePage";
@@ -20,10 +19,8 @@ import ExhibitionsPage from "./components/ExhibitionsPage";
 import SearchResultsPage from "./components/SearchResults";
 
 import * as ROUTES from "./constants/routes";
-
 import { withAuthentication } from "./components/Session";
 
-// import AuthRoute from './components/AuthRoute'
 import "./App.css";
 
 function useWindowSize() {
