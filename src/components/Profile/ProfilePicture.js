@@ -76,7 +76,7 @@ const useStyles = makeStyles((props) => ({
     left: "50%",
     width: "50%",
     transform: "translateX(-50%)",
-    height: "80px",
+    height: "60px",
     display: "flex",
     alignItems: "center",
   },
@@ -240,7 +240,7 @@ function ProfilePicture(props) {
     } catch (e) {
       console.error(e);
     }
-  }, [imageSrc, croppedAreaPixels, rotation]);
+  }, [props, imageSrc, croppedAreaPixels, rotation]);
 
   const fileUpload = useRef(null);
 
@@ -258,7 +258,7 @@ function ProfilePicture(props) {
           />
           <input
             type="file"
-            accept="image/png, image/jpeg"
+            accept="image/jpg, image/jpeg, image/png, .heic"
             ref={fileUpload}
             style={{ display: "none" }}
             onChange={handleChange}
@@ -293,6 +293,8 @@ function ProfilePicture(props) {
                   onZoomChange={setZoom}
                 />
               </div>
+            </DialogContent>
+            <DialogActions>
               <div className={classes.controls} style={{ left: "25%" }}>
                 <MediaQuery maxDeviceWidth={1114}>
                   <div className={classes.sliderContainer}>
@@ -350,8 +352,6 @@ function ProfilePicture(props) {
                   </div>
                 </MediaQuery>
               </div>
-            </DialogContent>
-            <DialogActions>
               <MediaQuery maxWidth={1114}>
                 <Button
                   className={classes.cancel}

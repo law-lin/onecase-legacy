@@ -766,7 +766,7 @@ function EditBridgeCard(props) {
                       >
                         <input
                           type="file"
-                          accept="image/png, image/jpeg"
+                          accept="image/jpg, image/jpeg, image/png, .heic"
                           key={coverImageInputKey}
                           ref={coverImageUpload}
                           style={{ display: "none" }}
@@ -838,6 +838,9 @@ function EditBridgeCard(props) {
                               onZoomChange={setZoom}
                             />
                           </div>
+                        </DialogContent>
+
+                        <DialogActions>
                           <div
                             className={classes.controls}
                             style={{ left: "25%" }}
@@ -902,8 +905,6 @@ function EditBridgeCard(props) {
                               </div>
                             </MediaQuery>
                           </div>
-                        </DialogContent>
-                        <DialogActions>
                           <Button
                             className={classes.cancel}
                             style={{ fontSize: "14px" }}
@@ -1009,7 +1010,7 @@ function EditBridgeCard(props) {
                               >
                                 <input
                                   type="file"
-                                  accept="image/png, image/jpeg"
+                                  accept="image/jpg, image/jpeg, image/png, .heic"
                                   key={imageInputKey}
                                   ref={fileUpload}
                                   style={{ display: "none" }}
@@ -1035,7 +1036,7 @@ function EditBridgeCard(props) {
                               >
                                 <input
                                   type="file"
-                                  accept="image/png, image/jpeg"
+                                  accept="image/jpg, image/jpeg, image/png, .heic"
                                   key={imageInputKey}
                                   ref={fileUpload}
                                   style={{ display: "none" }}
@@ -1080,6 +1081,8 @@ function EditBridgeCard(props) {
                                     onZoomChange={setZoom}
                                   />
                                 </div>
+                              </DialogContent>
+                              <DialogActions>
                                 <div
                                   className={classes.controls}
                                   style={{ left: "25%" }}
@@ -1144,8 +1147,6 @@ function EditBridgeCard(props) {
                                     </div>
                                   </MediaQuery>
                                 </div>
-                              </DialogContent>
-                              <DialogActions>
                                 <Button
                                   className={classes.cancel}
                                   style={{ fontSize: "14px" }}
@@ -1292,7 +1293,7 @@ function EditBridgeCard(props) {
                       >
                         <input
                           type="file"
-                          accept="image/png, image/jpeg"
+                          accept="image/jpg, image/jpeg, image/png, .heic"
                           key={coverImageInputKey}
                           ref={coverImageUpload}
                           style={{ display: "none" }}
@@ -1365,6 +1366,8 @@ function EditBridgeCard(props) {
                               onZoomChange={setZoom}
                             />
                           </div>
+                        </DialogContent>
+                        <DialogActions>
                           <div className={classes.controls}>
                             <div className={classes.sliderContainer}>
                               <Typography
@@ -1403,8 +1406,6 @@ function EditBridgeCard(props) {
                               />
                             </div>
                           </div>
-                        </DialogContent>
-                        <DialogActions>
                           <Button
                             className={classes.cancel}
                             onClick={handleCoverImageClose}
@@ -1519,7 +1520,7 @@ function EditBridgeCard(props) {
                                   >
                                     <input
                                       type="file"
-                                      accept="image/png, image/jpeg"
+                                      accept="image/jpg, image/jpeg, image/png, .heic"
                                       key={imageInputKey}
                                       ref={fileUpload}
                                       style={{ display: "none" }}
@@ -1545,7 +1546,7 @@ function EditBridgeCard(props) {
                                   >
                                     <input
                                       type="file"
-                                      accept="image/png, image/jpeg"
+                                      accept="image/jpg, image/jpeg, image/png, .heic"
                                       key={imageInputKey}
                                       ref={fileUpload}
                                       style={{ display: "none" }}
@@ -1591,6 +1592,8 @@ function EditBridgeCard(props) {
                                         onZoomChange={setZoom}
                                       />
                                     </div>
+                                  </DialogContent>
+                                  <DialogActions>
                                     <div className={classes.controls}>
                                       <div className={classes.sliderContainer}>
                                         <Typography
@@ -1637,8 +1640,6 @@ function EditBridgeCard(props) {
                                         />
                                       </div>
                                     </div>
-                                  </DialogContent>
-                                  <DialogActions>
                                     <Button
                                       className={classes.cancel}
                                       style={{ fontSize: "14px" }}
