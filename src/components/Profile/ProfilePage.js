@@ -63,6 +63,9 @@ function ProfilePage(props) {
         return (
           <React.Fragment>
             <Switch>
+              <Route exact path={`${match.path}/links`}>
+                <PersonalProfilePage />
+              </Route>
               <Route exact path={`${match.path}/:cardTitle`}>
                 <BridgePage />
               </Route>
@@ -76,6 +79,9 @@ function ProfilePage(props) {
         return (
           <React.Fragment>
             <Switch>
+              <Route exact path={`${match.path}/links`}>
+                <PublicProfilePage />
+              </Route>
               <Route exact path={`${match.path}/:cardTitle`}>
                 <BridgePage />
               </Route>

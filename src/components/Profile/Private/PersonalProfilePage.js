@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import verifiedBadge from "../../../images/verified.png";
 import "../profile.css";
-import { ModalContainer, ModalRoute } from "react-router-modal";
 
-import Feed from "../../FeedPage";
 import Navbar from "../../Navbar";
 import LeftNavbar from "../../LeftNavbar";
 import Switch from "@material-ui/core/Switch";
-import { Route, Link, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 import TextField from "@material-ui/core/TextField";
@@ -22,13 +20,11 @@ import Following from "../../Following";
 
 import Tooltip from "@material-ui/core/Tooltip";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 
 import Button from "@material-ui/core/Button";
 import ProfilePicture from "../ProfilePicture";
-import Grid from "@material-ui/core/Grid";
 import ProfileCard from "../ProfileCard";
 import LinksCard from "../LinksCard";
 import Biography from "../Biography";
@@ -327,9 +323,18 @@ function PersonalProfilePage(props) {
   const classes = useStyles();
 
   let location = useLocation();
+  let usernameParams = useParams().username.toLowerCase();
   useEffect(() => {
-    let username = props.match.params.username.toString().toLowerCase();
-    props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+    if (
+      location.pathname
+        .substring(
+          location.pathname.indexOf(usernameParams) + usernameParams.length
+        )
+        .includes("links")
+    ) {
+      setChecked(true);
+    }
+    props.firebase.getIDWithUsername(usernameParams).on("value", (snapshot) => {
       const userIDState = snapshot.val();
       if (userIDState) {
         setUserID(userIDState);

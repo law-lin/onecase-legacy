@@ -6,10 +6,17 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
+import { ImLink } from "react-icons/im";
 
-import { withRouter } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { withFirebase } from "../Firebase";
-import { Divider, CardActionArea } from "@material-ui/core";
+import {
+  Divider,
+  CardActionArea,
+  CardHeader,
+  IconButton,
+  Snackbar,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -58,6 +65,15 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
+  copyLink: {
+    "&:focus": {
+      outline: "none",
+    },
+    "&:active": {
+      color: "#ABABAB",
+    },
+    color: "#FFFFFF",
+  },
 });
 
 function LinksCard(props) {
@@ -70,14 +86,13 @@ function LinksCard(props) {
   const [linkCard2URL, setLinkCard2URL] = useState("");
   const [linkCard3URL, setLinkCard3URL] = useState("");
 
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [error, setError] = useState(null);
-
+  let usernameParams = useParams().username.toLowerCase();
   useEffect(() => {
-    let username = props.match.params.username.toString().toLowerCase();
     setLoading(true);
-    props.firebase.getIDWithUsername(username).on("value", (snapshot) => {
+    props.firebase.getIDWithUsername(usernameParams).on("value", (snapshot) => {
       if (snapshot.val()) {
         props.firebase.user(snapshot.val()).on("value", (snapshot) => {
           const state = snapshot.val();
@@ -113,11 +128,33 @@ function LinksCard(props) {
   };
   */
 
+  const copyToClipboard = () => {
+    const url = window.location.href + "/links";
+    var tempInput = document.createElement("input");
+    tempInput.value = url;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <React.Fragment>
       <Card className={classes.root}>
-        <CardContent>
-          <h1 className={classes.header}>Links</h1>
+        <CardHeader
+          style={{ padding: "16px 16px 0" }}
+          title={<h1 className={classes.header}>Links</h1>}
+          action={
+            <IconButton className={classes.copyLink} onClick={copyToClipboard}>
+              <ImLink />
+            </IconButton>
+          }
+        />
+        <CardContent style={{ padding: "0px 16px 16px" }}>
           <Divider className={classes.divider} />
           <Grid container spacing={3}>
             <Grid item xs={12} className={classes.gridItem}>
@@ -165,8 +202,14 @@ function LinksCard(props) {
           <Button size="small"></Button>
         </CardActions>
       </Card>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Copied link to clipboard!"
+      />
     </React.Fragment>
   );
 }
 
-export default withFirebase(withRouter(LinksCard));
+export default withFirebase(LinksCard);
