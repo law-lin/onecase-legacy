@@ -588,15 +588,9 @@ function PersonalProfilePage(props) {
       if (valid) {
         if (bio !== "") props.firebase.editBio(bio);
         if (name !== "") props.firebase.editName(oldName, name);
-        if (link1URL !== "") {
-          updateLink("linkCard1", link1Title, link1URL);
-        }
-        if (link2URL !== "") {
-          updateLink("linkCard2", link2Title, link2URL);
-        }
-        if (link3URL !== "") {
-          updateLink("linkCard3", link3Title, link3URL);
-        }
+        updateLink("linkCard1", link1Title, link1URL);
+        updateLink("linkCard2", link2Title, link2URL);
+        updateLink("linkCard3", link3Title, link3URL);
         if (newProfilePicture !== null) {
           props.firebase.uploadProfilePicture(newProfilePicture).on(
             "state_changed",
@@ -616,7 +610,7 @@ function PersonalProfilePage(props) {
             }
           );
         }
-        handleClose();
+        setEditing(false);
       }
     } else {
       props.firebase
@@ -727,15 +721,9 @@ function PersonalProfilePage(props) {
             }
             if (bio !== "") props.firebase.editBio(bio);
             if (name !== "") props.firebase.editName(oldName, name);
-            if (link1URL !== "") {
-              updateLink("linkCard1", link1Title, link1URL);
-            }
-            if (link2URL !== "") {
-              updateLink("linkCard2", link2Title, link2URL);
-            }
-            if (link3URL !== "") {
-              updateLink("linkCard3", link3Title, link3URL);
-            }
+            updateLink("linkCard1", link1Title, link1URL);
+            updateLink("linkCard2", link2Title, link2URL);
+            updateLink("linkCard3", link3Title, link3URL);
             if (newProfilePicture !== null) {
               valid = props.firebase.uploadProfilePicture(newProfilePicture).on(
                 "state_changed",
@@ -755,21 +743,25 @@ function PersonalProfilePage(props) {
                 }
               );
             }
-            handleClose();
+            setEditing(false);
           }
         });
     }
   };
 
   const updateLink = (linkCardNumber, linkTitle, linkURL) => {
-    if (!~linkURL.indexOf("http")) {
-      props.firebase.editLinkCard(
-        linkCardNumber,
-        linkTitle,
-        "http://" + linkURL
-      );
+    if (linkURL !== "") {
+      if (!~linkURL.indexOf("http")) {
+        props.firebase.editLinkCard(
+          linkCardNumber,
+          linkTitle,
+          "http://" + linkURL
+        );
+      } else {
+        props.firebase.editLinkCard(linkCardNumber, linkTitle, linkURL);
+      }
     } else {
-      props.firebase.editLinkCard(linkCardNumber, linkTitle, linkURL);
+      props.firebase.editLinkCard(linkCardNumber, "", "");
     }
   };
 
