@@ -480,7 +480,7 @@ function EditBridgeCard(props) {
 
   const handleSubmit = useCallback(async () => {
     if (props.bridgeCardTitle) {
-      if (link !== "") {
+      if (link !== "" && link !== null) {
         const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
         if (urlregexp.test(link)) {
           setLinkAlert(false);
@@ -511,7 +511,7 @@ function EditBridgeCard(props) {
       if (imagePreview === null) {
         setImageAlert(true);
       } else {
-        if (link !== "") {
+        if (link !== "" && link !== null) {
           const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
           if (urlregexp.test(link)) {
             Mixpanel.track("Card Create", { Category: cardTitle });

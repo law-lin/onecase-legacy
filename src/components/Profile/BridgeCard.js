@@ -199,10 +199,10 @@ function BridgeCard(props) {
           setLoading(false);
         } else {
           setCardID(null);
-          setBridgeCardTitle(null);
-          setCaption(null);
-          setDescription(null);
-          setLink(null);
+          setBridgeCardTitle("");
+          setCaption("");
+          setDescription("");
+          setLink("");
           setCardCoverImageURL(null);
           setCardImageURL(null);
           setLoading(false);
