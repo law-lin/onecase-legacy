@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 
 import { withFirebase } from "./Firebase";
 import { makeStyles } from "@material-ui/core/styles";
-import { setDisplayName } from "recompose";
 
 const useStyles = makeStyles({
   root: {
@@ -92,7 +91,7 @@ function CategoriesCard(props) {
     return () => {
       isMounted = true;
     };
-  }, []);
+  }, [props.firebase]);
 
   if (display) {
     return (

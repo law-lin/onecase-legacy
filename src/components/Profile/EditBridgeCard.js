@@ -211,13 +211,6 @@ const useStyles = makeStyles((theme) => ({
   sliderLabel: {
     margin: "0 20px 0 20px",
   },
-  slider: {
-    padding: "22px 0px",
-    marginLeft: 16,
-    flexDirection: "row",
-    alignItems: "center",
-    margin: "0 16px",
-  },
   dialogPaper: {
     minHeight: "80vh",
     maxHeight: "80vh",
@@ -859,7 +852,6 @@ function EditBridgeCard(props) {
                                   max={360}
                                   step={1}
                                   aria-labelledby="Rotation"
-                                  classes={{ container: classes.slider }}
                                   onChange={(e, rotation) =>
                                     setRotation(rotation)
                                   }
@@ -881,7 +873,6 @@ function EditBridgeCard(props) {
                                   step={0.1}
                                   aria-labelledby="Zoom"
                                   onChange={(e, zoom) => setZoom(zoom)}
-                                  classes={{ container: classes.slider }}
                                 />
                               </div>
                               <div className={classes.sliderContainer}>
@@ -897,7 +888,6 @@ function EditBridgeCard(props) {
                                   max={360}
                                   step={1}
                                   aria-labelledby="Rotation"
-                                  classes={{ container: classes.slider }}
                                   onChange={(e, rotation) =>
                                     setRotation(rotation)
                                   }
@@ -1101,7 +1091,6 @@ function EditBridgeCard(props) {
                                         max={360}
                                         step={1}
                                         aria-labelledby="Rotation"
-                                        classes={{ container: classes.slider }}
                                         onChange={(e, rotation) =>
                                           setRotation(rotation)
                                         }
@@ -1123,7 +1112,6 @@ function EditBridgeCard(props) {
                                         step={0.1}
                                         aria-labelledby="Zoom"
                                         onChange={(e, zoom) => setZoom(zoom)}
-                                        classes={{ container: classes.slider }}
                                       />
                                     </div>
                                     <div className={classes.sliderContainer}>
@@ -1139,7 +1127,6 @@ function EditBridgeCard(props) {
                                         max={360}
                                         step={1}
                                         aria-labelledby="Rotation"
-                                        classes={{ container: classes.slider }}
                                         onChange={(e, rotation) =>
                                           setRotation(rotation)
                                         }
@@ -1383,7 +1370,6 @@ function EditBridgeCard(props) {
                                 step={0.1}
                                 aria-labelledby="Zoom"
                                 onChange={(e, zoom) => setZoom(zoom)}
-                                classes={{ container: classes.slider }}
                               />
                             </div>
                             <div className={classes.sliderContainer}>
@@ -1399,7 +1385,6 @@ function EditBridgeCard(props) {
                                 max={360}
                                 step={1}
                                 aria-labelledby="Rotation"
-                                classes={{ container: classes.slider }}
                                 onChange={(e, rotation) =>
                                   setRotation(rotation)
                                 }
@@ -1572,7 +1557,6 @@ function EditBridgeCard(props) {
                                   onClose={handleImageClose}
                                   fullWidth={true}
                                   maxWidth={"lg"}
-                                  height
                                   classes={{ paper: classes.dialogPaper }}
                                   PaperProps={{
                                     style: { backgroundColor: "#E4E4E4" },
@@ -1611,9 +1595,6 @@ function EditBridgeCard(props) {
                                           step={0.1}
                                           aria-labelledby="Zoom"
                                           onChange={(e, zoom) => setZoom(zoom)}
-                                          classes={{
-                                            container: classes.slider,
-                                          }}
                                         />
                                       </div>
                                       <div className={classes.sliderContainer}>
@@ -1631,9 +1612,6 @@ function EditBridgeCard(props) {
                                           max={360}
                                           step={1}
                                           aria-labelledby="Rotation"
-                                          classes={{
-                                            container: classes.slider,
-                                          }}
                                           onChange={(e, rotation) =>
                                             setRotation(rotation)
                                           }

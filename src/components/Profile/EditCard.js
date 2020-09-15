@@ -1,18 +1,13 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 
 // MUI Stuff
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import Input from "@material-ui/core/Input";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -401,35 +396,6 @@ function EditCard(props) {
                   </Grid>
                 </Grid>
               </Grid>
-              {/* <FormControl>
-                  <Select
-                    defaultValue={props.cardTitle}
-                    value={state.cardTitle}
-                    onChange={handleChange}
-                    input={<Input />}
-                  >
-                    <MenuItem value="School Projects">School Projects</MenuItem>
-                    <MenuItem value="Photography">Photography</MenuItem>
-                    <MenuItem value="Art">Art</MenuItem>
-                    <MenuItem value="Music">Music</MenuItem>
-                    <MenuItem value="Fashion">Fashion</MenuItem>
-                    <MenuItem value="Funny Stuff">Funny Stuff</MenuItem>
-                    <MenuItem value="About Me">About Me</MenuItem>
-                    <MenuItem value="Self-Improvement">
-                      Self-Improvement
-                    </MenuItem>
-                    <MenuItem value="Time Capsule">Time Capsule</MenuItem>
-                    <MenuItem value="Pets/Animals">Pets/Animals</MenuItem>
-                    <MenuItem value="Photos of Self">Photos of Self</MenuItem>
-                    <MenuItem value="Favorite Shows/Movies">
-                      Favorite Shows/Movies
-                    </MenuItem>
-                    <MenuItem value="Favorite Books">Favorite Books</MenuItem>
-                    <MenuItem value="Video Games">Video Games</MenuItem>
-                    <MenuItem value="Tech">Tech</MenuItem>
-                    <MenuItem value="Food">Food</MenuItem>)
-                  </Select>
-                </FormControl> */}
               <Snackbar
                 open={error}
                 autoHideDuration={6000}

@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { ImHome3 } from "react-icons/im";
-import SignOutButton from "./Profile/SignOutButton";
 import Avatar from "@material-ui/core/Avatar";
 import { ImSearch } from "react-icons/im";
-import { ReactComponent as HomeIcon } from "./icons/home.svg";
-import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
 import { withFirebase } from "./Firebase";
 import { withRouter } from "react-router-dom";
 import MediaQuery from "react-responsive";
@@ -105,12 +100,7 @@ function LeftNavbar(props) {
     return () => {
       isMounted = true;
     };
-  }, []);
-
-  function redirectTo(route) {
-    window.location.href = route;
-    // props.history.push(route);
-  }
+  }, [props.firebase]);
 
   return (
     <React.Fragment>

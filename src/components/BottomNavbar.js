@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import { ImHome3 } from "react-icons/im";
 import { ImSearch } from "react-icons/im";
 
 import MediaQuery from "react-responsive";
-import SignOutButton from "./Profile/SignOutButton";
 
-import { ReactComponent as HomeIcon } from "./icons/home.svg";
-import { ReactComponent as ExhibitionsIcon } from "./icons/exhibitions.svg";
-import { ReactComponent as SignOutIcon } from "./icons/signout.svg";
 import { withFirebase } from "./Firebase";
 import { Link, withRouter } from "react-router-dom";
 import "./landingpage.css";
@@ -65,11 +59,6 @@ function BottomNavbar(props) {
       }
     });
   }, []);
-
-  function redirectTo(route) {
-    props.history.push(route);
-    props.history.go();
-  }
 
   return (
     <MediaQuery maxWidth={1114}>

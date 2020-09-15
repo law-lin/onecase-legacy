@@ -132,8 +132,6 @@ const useStyles = makeStyles({
 
 function BridgeCard(props) {
   const [cardID, setCardID] = useState(null);
-  const [cardNumber, setCardNumber] = useState(null);
-  const [bridgeCardNumber, setBridgeCardNumber] = useState(null);
   const [bridgeCardTitle, setBridgeCardTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
@@ -146,7 +144,7 @@ function BridgeCard(props) {
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const classes = useStyles(props);
-  const { username, cardTitle } = useParams();
+  const { cardTitle } = useParams();
 
   const monthNames = [
     "January",
@@ -263,19 +261,9 @@ function BridgeCard(props) {
     props.cardID,
     props.cardNumber,
     props.userID,
+    monthNames,
   ]);
 
-  const handleChange = (event) => {
-    props.onChange(event.target.value);
-  };
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   // handleClick = () => {
   //   let cardTitlePath = state.parentCardTitle;
   //   let bridgeCardTitlePath = state.cardTitle

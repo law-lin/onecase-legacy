@@ -1,24 +1,12 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch, useParams } from "react-router-dom";
 
 import NotFound from "../NotFound";
 import BridgePage from "./BridgePage";
 import PersonalProfilePage from "./Private/PersonalProfilePage";
 import PublicProfilePage from "./Public/PublicProfilePage";
-import { ModalContainer, ModalRoute } from "react-router-modal";
 
-import Followers from "../Followers.js";
-import Following from "../Following";
-
-import { withAuthorization } from "../Session";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
@@ -26,17 +14,17 @@ function ProfilePage(props) {
   const [personal, setPersonal] = useState(false);
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [exists, setExists] = useState(false);
 
+  const { username } = useParams();
   useEffect(() => {
-    const username = props.match.params.username.toString().toLowerCase();
+    let usernameParams = username.toString().toLowerCase();
 
-    if (!ROUTES.NON_USERNAMES.includes(username)) {
+    if (!ROUTES.NON_USERNAMES.includes(usernameParams)) {
       setValid(true);
       props.firebase.auth.onAuthStateChanged((currentUser) => {
         if (currentUser) {
           props.firebase.currentUser().on("value", (snapshot) => {
-            if (snapshot.val().username.toLowerCase() === username) {
+            if (snapshot.val().username.toLowerCase() === usernameParams) {
               setPersonal(true);
               setLoading(false);
             } else {
@@ -53,7 +41,7 @@ function ProfilePage(props) {
       setValid(false);
       setLoading(false);
     }
-  }, []);
+  }, [props.firebase, username]);
 
   let match = useRouteMatch();
 
@@ -99,7 +87,5 @@ function ProfilePage(props) {
     return null;
   }
 }
-
-const condition = (authenticated) => !!authenticated;
 
 export default withFirebase(ProfilePage);

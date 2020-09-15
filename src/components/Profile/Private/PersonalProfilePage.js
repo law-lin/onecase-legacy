@@ -8,7 +8,6 @@ import LeftNavbar from "../../LeftNavbar";
 import Switch from "@material-ui/core/Switch";
 import { useParams, useLocation } from "react-router-dom";
 import Container from "@material-ui/core/Container";
-import DefaultProfilePicture from "../../../images/default-profile-pic.png";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -273,7 +272,6 @@ const useStyles = makeStyles({
 });
 
 function PersonalProfilePage(props) {
-  const [userID, setUserID] = useState(null);
   const [oldUsername, setOldUsername] = useState(null);
   const [username, setUsername] = useState("");
   const [oldName, setOldName] = useState(null);
@@ -283,15 +281,11 @@ function PersonalProfilePage(props) {
   const [oldProfilePicture, setOldProfilePicture] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
   const [newProfilePicture, setNewProfilePicture] = useState(null);
-  const [savedImage, setSavedImage] = useState(null);
-  const [canSave, setCanSave] = useState(false);
-  const [canCancel, setCanCancel] = useState(false);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [cardCount, setCardCount] = useState(0);
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
-  const [isFollowing, setIsFollowing] = useState(false);
   const [error, setError] = useState(null);
 
   const [oldLink1Title, setOldLink1Title] = useState("");
@@ -338,7 +332,6 @@ function PersonalProfilePage(props) {
     props.firebase.getIDWithUsername(usernameParams).on("value", (snapshot) => {
       const userIDState = snapshot.val();
       if (userIDState) {
-        setUserID(userIDState);
         props.firebase.user(userIDState).on("value", (snapshot) => {
           const state = snapshot.val();
           if (state) {
@@ -476,7 +469,7 @@ function PersonalProfilePage(props) {
         setLoading(false);
       }
     });
-  }, []);
+  }, [location.pathname, props.firebase, usernameParams]);
 
   const handleEdit = () => {
     setEditing(true);

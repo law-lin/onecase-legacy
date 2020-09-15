@@ -12,13 +12,7 @@ import { useParams } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 import { Mixpanel } from "../Mixpanel";
 
-import {
-  Divider,
-  CardActionArea,
-  CardHeader,
-  IconButton,
-  Snackbar,
-} from "@material-ui/core";
+import { Divider, CardHeader, IconButton, Snackbar } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -89,11 +83,9 @@ function LinksCard(props) {
   const [linkCard3URL, setLinkCard3URL] = useState("");
 
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   let usernameParams = useParams().username.toLowerCase();
   useEffect(() => {
-    setLoading(true);
     props.firebase.getIDWithUsername(usernameParams).on("value", (snapshot) => {
       if (snapshot.val()) {
         props.firebase.user(snapshot.val()).on("value", (snapshot) => {
@@ -110,25 +102,10 @@ function LinksCard(props) {
             setLinkCard3Title(state.linkCard3.linkTitle);
             setLinkCard3URL(state.linkCard3.linkURL);
           }
-          setLoading(false);
         });
-      } else {
-        setLoading(false);
       }
     });
-  }, []);
-
-  /*
-  const handleClick = (linkURL) => {
-    const urlregexp = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
-    if (urlregexp.test(linkURL)) {
-      if (!~linkURL.indexOf("http")) {
-        linkURL = "http://" + linkURL;
-      }
-      window.open(linkURL);
-    }
-  };
-  */
+  }, [props.firebase, usernameParams]);
 
   const handleClick = (id) => {
     Mixpanel.track_links(id, "Link Click");

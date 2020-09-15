@@ -19,9 +19,6 @@ import Button from "@material-ui/core/Button";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { IoMdArrowDropright } from "react-icons/io";
 
-import BridgeCardContent from "./Profile/BridgeCardContent";
-import { Route } from "react-router-dom";
-
 import * as ROUTES from "../constants/routes";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavbar from "./BottomNavbar";
@@ -248,11 +245,8 @@ function CategoriesPage(props) {
                           {!loading &&
                             cards.map((card) => {
                               return (
-                                <ListItem>
-                                  <Card
-                                    classes={{ root: classes.card }}
-                                    key={card.cardID}
-                                  >
+                                <ListItem key={card.cardID}>
+                                  <Card classes={{ root: classes.card }}>
                                     <CardHeader
                                       avatar={
                                         <Link href={"/" + card.username}>
@@ -346,11 +340,8 @@ function CategoriesPage(props) {
                           {!loading &&
                             cards.map((card) => {
                               return (
-                                <ListItem>
-                                  <Card
-                                    classes={{ root: classes.card }}
-                                    key={card.cardID}
-                                  >
+                                <ListItem key={card.cardID}>
+                                  <Card classes={{ root: classes.card }}>
                                     <CardHeader
                                       avatar={
                                         <Link href={"/" + card.username}>

@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 
 import { Typography } from "@material-ui/core";
 import Slider from "@material-ui/core/Slider";
@@ -88,13 +88,6 @@ const useStyles = makeStyles((props) => ({
   sliderLabel: {
     margin: "0 20px 0 20px",
   },
-  slider: {
-    padding: "22px 0px",
-    marginLeft: 16,
-    flexDirection: "row",
-    alignItems: "center",
-    margin: "0 16px",
-  },
   dialogPaper: {
     minHeight: "80vh",
     maxHeight: "80vh",
@@ -166,11 +159,10 @@ const useStyles = makeStyles((props) => ({
 function ProfilePicture(props) {
   const classes = useStyles(props);
 
-  const [profilePicture, setProfilePicture] = useState(props.profilePicture);
+  const [profilePicture] = useState(props.profilePicture);
   const [newProfilePicture, setNewProfilePicture] = useState(
     props.newProfilePicture
   );
-  const [imagePreview, setImagePreview] = useState(props.profilePicture);
   const [open, setOpen] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -182,16 +174,8 @@ function ProfilePicture(props) {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const onChange = (crop) => {
-    setCrop(crop);
   };
 
   function readFile(file) {
@@ -310,7 +294,6 @@ function ProfilePicture(props) {
                       max={360}
                       step={1}
                       aria-labelledby="Rotation"
-                      classes={{ container: classes.slider }}
                       onChange={(e, rotation) => setRotation(rotation)}
                     />
                   </div>
@@ -330,7 +313,6 @@ function ProfilePicture(props) {
                       step={0.1}
                       aria-labelledby="Zoom"
                       onChange={(e, zoom) => setZoom(zoom)}
-                      classes={{ container: classes.slider }}
                     />
                   </div>
                   <div className={classes.sliderContainer}>
@@ -346,7 +328,6 @@ function ProfilePicture(props) {
                       max={360}
                       step={1}
                       aria-labelledby="Rotation"
-                      classes={{ container: classes.slider }}
                       onChange={(e, rotation) => setRotation(rotation)}
                     />
                   </div>

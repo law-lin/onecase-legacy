@@ -1,35 +1,28 @@
 import React, { useEffect, useState } from "react";
 
-import NotFound from "../NotFound";
 import "./profile.css";
 import Navbar from "../Navbar";
 import LeftNavbar from "../LeftNavbar";
 import BottomNavbar from "../BottomNavbar";
-import DefaultProfilePicture from "../../images/default-profile-pic.png";
 
 import BackButton from "../BackButton";
 import UsernameButton from "../UsernameButton";
 import ProfilePicture from "./ProfilePicture";
-import Grid from "@material-ui/core/Grid";
+import NotesCard from "./NotesCard";
 import BridgeCard from "./BridgeCard";
-import Button from "@material-ui/core/Button";
-import MediaQuery from "react-responsive";
-import Box from "@material-ui/core/Box";
-
 import EditCard from "./EditCard";
+
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
-
-import Name from "./Name";
-import Username from "./Username";
-
-import * as ROUTES from "../../constants/routes";
-
+import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+
+import MediaQuery from "react-responsive";
+
 import { withFirebase } from "../Firebase";
 import { withRouter } from "react-router-dom";
-import { withAuthorization } from "../Session";
-import NotesCard from "./NotesCard";
-import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -200,11 +193,7 @@ function Bridge(props) {
         <React.Fragment>
           <MediaQuery maxWidth={1114}>
             <Navbar />
-            <Container
-              display="flex"
-              flexDirection="column"
-              style={{ margin: "80px 0" }}
-            >
+            <Container display="flex" style={{ margin: "80px 0" }}>
               <Box
                 display="flex"
                 flexDirection="row"

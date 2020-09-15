@@ -1,12 +1,9 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import NotFound from "../NotFound";
-import Navbar from "../Navbar";
 
 import Bridge from "./Bridge";
 import { withRouter } from "react-router-dom";
-import { withAuthorization } from "../Session";
-import DefaultProfilePicture from "../../images/default-profile-pic.png";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 

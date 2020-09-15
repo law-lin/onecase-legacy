@@ -228,7 +228,7 @@ function FeedPage(props) {
         setCards(posts);
         setLoading(false);
       });
-  }, []);
+  }, [props.firebase]);
 
   return (
     <div>
@@ -262,11 +262,8 @@ function FeedPage(props) {
                         <List style={{ width: "100%" }}>
                           {cards.map((card) => {
                             return (
-                              <ListItem>
-                                <Card
-                                  classes={{ root: classes.card }}
-                                  key={card.cardID}
-                                >
+                              <ListItem key={card.cardID}>
+                                <Card classes={{ root: classes.card }}>
                                   <CardHeader
                                     avatar={
                                       <Link href={"/" + card.username}>
@@ -379,11 +376,8 @@ function FeedPage(props) {
                       <List style={{ width: "100%" }}>
                         {cards.map((card) => {
                           return (
-                            <ListItem>
-                              <Card
-                                classes={{ root: classes.card }}
-                                key={card.cardID}
-                              >
+                            <ListItem key={card.cardID}>
+                              <Card classes={{ root: classes.card }}>
                                 <CardHeader
                                   avatar={
                                     <Link href={"/" + card.username}>

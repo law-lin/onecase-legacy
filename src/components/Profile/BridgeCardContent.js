@@ -21,7 +21,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 import { Mixpanel } from "../Mixpanel";
 
@@ -151,8 +151,6 @@ function BridgeCardContent(props) {
   const [name, setName] = useState(null);
   const [username, setUsername] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
-  const [cardNumber, setCardNumber] = useState(null);
-  const [bridgeCardNumber, setBridgeCardNumber] = useState(null);
   const [bridgeCardTitle, setBridgeCardTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
@@ -160,14 +158,12 @@ function BridgeCardContent(props) {
   const [cardImageURL, setCardImageURL] = useState(null);
   const [cardCoverImageURL, setCardCoverImageURL] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
   const [timeCreated, setTimeCreated] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const classes = useStyles();
   const { cardID } = useParams();
 
-  let location = useLocation();
   let modal = props.isModal;
 
   const monthNames = [
@@ -258,7 +254,7 @@ function BridgeCardContent(props) {
         setLoading(false);
       }
     });
-  }, [cardID, props.firebase]);
+  }, [cardID, props.firebase, monthNames]);
   return (
     <React.Fragment>
       {!loading && (

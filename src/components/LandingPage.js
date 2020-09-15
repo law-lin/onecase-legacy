@@ -137,9 +137,7 @@ const useStyles = makeStyles({
   },
 });
 function LandingPage(props) {
-  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState(null);
   const [waitlistEmail, setWaitlistEmail] = useState("");
 
@@ -153,7 +151,7 @@ function LandingPage(props) {
         setLoading(false);
       }
     });
-  }, []);
+  }, [props.firebase.auth, props.history]);
 
   const validateEmail = (email) => {
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -259,6 +257,7 @@ function LandingPage(props) {
               <img
                 style={{ width: "100px", height: "100px" }}
                 src={scrapbook}
+                alt="scrapbook"
               />
               <Card
                 style={{
@@ -296,6 +295,7 @@ function LandingPage(props) {
               <img
                 style={{ width: "100px", height: "100px" }}
                 src={lightbulb}
+                alt="lightbulb"
               />
               <Card
                 style={{
@@ -333,6 +333,7 @@ function LandingPage(props) {
               <img
                 style={{ width: "100px", height: "100px" }}
                 src={community}
+                alt="community"
               />
               <Card
                 style={{
@@ -403,6 +404,7 @@ function LandingPage(props) {
               <img
                 src={one}
                 style={{ width: "100%", maxWidth: "300px", marginTop: "40px" }}
+                alt="pick a theme"
               />
             </Grid>
             <Grid item xs={12} sm={4} align="center">
@@ -423,6 +425,7 @@ function LandingPage(props) {
               <img
                 src={two}
                 style={{ width: "95%", maxWidth: "300px", marginTop: "40px" }}
+                alt="create cards"
               />
             </Grid>
             <Grid item xs={12} sm={4} align="center">
@@ -443,6 +446,7 @@ function LandingPage(props) {
               <img
                 src={three}
                 style={{ width: "100%", maxWidth: "300px", marginTop: "40px" }}
+                alt="display them"
               />
             </Grid>
           </Grid>
@@ -573,279 +577,6 @@ function LandingPage(props) {
           </Container>
         </div>
       </React.Fragment>
-
-      // <div className="main-container">
-      //   <LandingPageNavbar />
-
-      //   <Grid
-      //     container
-      //     alignItems="center"
-      //     justify="center"
-      //     direction="column"
-      //     style={{
-      //       minHeight: "70vh",
-      //       backgroundImage: `url(${background})`,
-      //       backgroundRepeat: "no-repeat",
-      //       backgroundSize: "cover",
-      //       backgroundPosition: "center",
-      //     }}
-      //   >
-      //     <Grid
-      //       item
-      //       xs={12}
-      //       style={{
-      //         minWidth: "35%",
-      //         maxWidth: "80%",
-      //         minHeight: "200px",
-      //         backgroundColor: "#3e4e55",
-      //         borderRadius: "15px",
-      //         borderStyle: "solid",
-      //         borderColor: "#ffffff",
-      //       }}
-      //     >
-      //       <Grid
-      //         item
-      //         xs={12}
-      //         style={{
-      //           textAlign: "center",
-      //           fontSize: "50px",
-      //           fontFamily: "Mukta Mahee",
-      //           fontWeight: 700,
-      //           color: "#aaeef2",
-      //           textShadow: "2px 2px black",
-      //         }}
-      //       >
-      //         OneCase
-      //       </Grid>
-      //       <Grid
-      //         item
-      //         xs={12}
-      //         style={{
-      //           textAlign: "center",
-      //           fontSize: "30px",
-      //           fontFamily: "Mukta Mahee",
-      //           fontWeight: 300,
-      //           color: "#ffffff",
-      //         }}
-      //       >
-      //         <p style={{ margin: "0 20px 0 20px" }}>
-      //           A Personal Archive + Social Network
-      //         </p>
-      //       </Grid>
-      //       <Grid
-      //         item
-      //         xs={12}
-      //         align="center"
-      //         style={{ margin: "10px 0 20px 0" }}
-      //       >
-      //         <Button className={classes.button} onClick={() => setOpen(true)}>
-      //           Sign Up
-      //         </Button>
-      //         <SignUp handleOpen={open} handleClose={() => setOpen(false)} />
-      //       </Grid>
-      //     </Grid>
-      //   </Grid>
-      //   <Grid container>
-      //     <Grid item xs={12} align="center">
-      //       <div className="twoblocks" />
-      //     </Grid>
-      //     <Grid
-      //       item
-      //       xs={12}
-      //       style={{
-      //         display: "flex",
-      //         justifyContent: "center",
-      //         marginTop: "8vh",
-      //       }}
-      //     >
-      //       <p className="description">
-      //         We're an
-      //         <span className="one-liner"> online scrapbook </span>
-      //         or portfolio, with
-      //         <span className="one-liner"> friends</span>
-      //       </p>
-      //     </Grid>
-      //     <Grid item xs={12} style={{ margin: "0 10% 0 10%" }}>
-      //       <Grid
-      //         container
-      //         justify="center"
-      //         className="three-icons"
-      //         spacing={3}
-      //       >
-      //         <Grid item xs={12} sm={4} align="center">
-      //           <img
-      //             className="scrapbook"
-      //             src={scrapbook}
-      //             alt="scrapbook icon"
-      //           />
-      //           <div className="three-headers">Your Own Page</div>
-      //           <div className="three-descriptions">
-      //             Let OneCase serve as your one-stop shop to display all your
-      //             favorite projects and things
-      //           </div>
-      //         </Grid>
-      //         <Grid item xs={12} sm={4} align="center">
-      //           <img
-      //             className="lightbulb"
-      //             src={lightbulb}
-      //             alt="lightbulb icon"
-      //           />
-      //           <div className="three-headers">Interest Oriented</div>
-      //           <div className="three-descriptions">
-      //             Uploading content shouldn’t feel too personal and daunting,
-      //             let your interests speak for themselves
-      //           </div>
-      //         </Grid>
-      //         <Grid item xs={12} sm={4} align="center">
-      //           <img
-      //             className="community"
-      //             src={community}
-      //             alt="community icon"
-      //           />
-      //           <div className="three-headers">Creative Motivation</div>
-      //           <div className="three-descriptions">
-      //             Get inspo from your friends, collaborate, and get excited to
-      //             try/learn new things
-      //           </div>
-      //         </Grid>
-      //       </Grid>
-      //     </Grid>
-      //   </Grid>
-      //   <Grid
-      //     container
-      //     spacing={5}
-      //     className="three-images"
-      //     style={{ marginTop: "15vh" }}
-      //   >
-      //     <Grid item xs={12} style={{ margin: "0 5% 0 5%" }}>
-      //       <Grid container alignItems="center" spacing={5}>
-      //         <Grid item xs={12} sm={6} align="center">
-      //           <img
-      //             style={{ maxWidth: "70%" }}
-      //             src={platform}
-      //             alt="User Centered Platform"
-      //           />
-      //         </Grid>
-      //         <Grid item xs={12} sm={6} align="center">
-      //           <div className="three-big-headers">User Centered Platform</div>
-      //           <div className="three-image-descriptions">
-      //             We’re a social network that revolves around people’s geniune
-      //             interests and personalities
-      //           </div>
-      //         </Grid>
-      //       </Grid>
-      //     </Grid>
-      //     <Grid item xs={12} style={{ margin: "0 5% 0 5%" }}>
-      //       <Grid container alignItems="center" spacing={5}>
-      //         <Grid item xs={12} sm={6} align="center">
-      //           <div className="three-big-headers">Untapped Potential</div>
-      //           <div className="three-image-descriptions">
-      //             A lot of the most interesting things we do go unbroadcasted or
-      //             unrecorded, this is a place to share it with others
-      //           </div>
-      //         </Grid>
-      //         <Grid item xs={12} sm={6} align="center">
-      //           <img
-      //             style={{ maxWidth: "70%" }}
-      //             src={potential}
-      //             alt="Untapped Potential"
-      //           />
-      //         </Grid>
-      //       </Grid>
-      //     </Grid>
-      //     <Grid item xs={12} style={{ margin: "0 5% 0 5%" }}>
-      //       <Grid container alignItems="center" spacing={5}>
-      //         <Grid item xs={12} sm={6} align="center">
-      //           <img
-      //             style={{ maxWidth: "70%" }}
-      //             src={hub}
-      //             alt="Creative and Professional Hub"
-      //           />
-      //         </Grid>
-      //         <Grid item xs={12} sm={6} align="center">
-      //           <div className="three-big-headers">
-      //             Creative and Professional Hub
-      //           </div>
-      //           <div className="three-image-descriptions">
-      //             OneCase gives you a platform to showcase your work and
-      //             interests, as well as connect with others
-      //           </div>
-      //         </Grid>
-      //       </Grid>
-      //     </Grid>
-      //   </Grid>
-
-      //   <Grid container className="footer">
-      //     <Grid item xs={12}>
-      //       <Grid container>
-      //         <Grid item xs={12} style={{ margin: "0 7% 0 7%" }}>
-      //           <Grid container>
-      //             <Grid
-      //               item
-      //               xs={12}
-      //               sm={2}
-      //               align="center"
-      //               style={{ marginTop: "2%" }}
-      //             >
-      //               <img src={roundedlogo} />
-      //               <span className="footer-logo"> OneCase</span>
-      //             </Grid>
-      //             <Grid item xs={12} sm={10}></Grid>
-      //           </Grid>
-      //         </Grid>
-      //         <Grid item xs={12} style={{ margin: "2.5% 7% 2% 7%" }}>
-      //           <Grid container alignItems="center">
-      //             <Grid container item xs={12} sm={8} align="center">
-      //               <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-      //                 <span className="footer-links">About Us</span>
-      //               </Grid>
-      //               <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-      //                 <span className="footer-links">Terms of Service</span>
-      //               </Grid>
-      //               <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-      //                 <span className="footer-links">Privacy Policy </span>
-      //               </Grid>
-      //               <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
-      //                 <span className="footer-links">Contact</span>
-      //               </Grid>
-      //             </Grid>
-      //             <Grid item xs={12} sm={2} />
-      //             <Grid
-      //               item
-      //               xs={12}
-      //               sm={2}
-      //               align="center"
-      //               style={{ marginTop: "10px" }}
-      //             >
-      //               {/* Icons provided by https://icons8.com */}
-      //               <a
-      //                 target="_window"
-      //                 href="https://twitter.com/onecaseapp"
-      //                 className="social-media-icons"
-      //               >
-      //                 <TwitterIcon />
-      //               </a>
-      //               <a
-      //                 target="_window"
-      //                 href="https://www.instagram.com/onecaseapp/"
-      //                 className="social-media-icons"
-      //               >
-      //                 <InstagramIcon />
-      //               </a>
-      //               <a
-      //                 target="_window"
-      //                 href="https://www.linkedin.com/company/onecaseapp/"
-      //                 className="social-media-icons"
-      //               >
-      //                 <LinkedinIcon />
-      //               </a>
-      //             </Grid>
-      //           </Grid>
-      //         </Grid>
-      //       </Grid>
-      //     </Grid>
-      //   </Grid>
-      // </div>
     );
   } else {
     return null;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState } from "react";
+
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -7,9 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Link from "@material-ui/core/Link";
-import DefaultProfilePicture from "../images/default-profile-pic.png";
-import { withFirebase } from "./Firebase";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { withFirebase } from "./Firebase";
 import { Mixpanel } from "./Mixpanel";
 
 const useStyles = makeStyles({
@@ -70,98 +70,11 @@ const useStyles = makeStyles({
   },
 });
 function LogIn(props) {
-  const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [usernameError, setUsernameError] = useState(null);
-  const [emailError, setEmailError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
 
   const classes = useStyles();
-  useEffect(() => {
-    setOpen(props.open);
-    if (props.noButton) {
-      setOpen(true);
-    }
-  }, [props.open]);
-  const handleSignUp = (event) => {
-    event.preventDefault();
-
-    let valid = true;
-    let formattedUsername = username.toLowerCase();
-
-    props.firebase
-      .checkDuplicateUsername(formattedUsername)
-      .once("value")
-      .then((snapshot) => {
-        // Email validation
-        const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (regexp.test(email)) {
-          setEmailError(null);
-        } else {
-          setEmailError("Please enter a valid email.");
-          valid = false;
-        }
-
-        // Username validation
-        const usernameRegexp = /^(?=.{1,20}$)(?:[a-z\d]+(?:(?:\.|-|_)[a-z\d])*)+$/;
-        if (usernameRegexp.test(username)) {
-          if (!snapshot.exists()) {
-            setUsernameError(null);
-          } else {
-            setUsernameError("Username is already taken.");
-            valid = false;
-          }
-        } else {
-          setUsernameError(
-            "Please use only lowercase letters (a-z), numbers, underscores, and periods. (1-30 characters)"
-          );
-          valid = false;
-        }
-        // Password validation
-        // TODO: Password strength
-        if (password === confirmPassword) {
-          setPasswordError(null);
-        } else {
-          setPasswordError("Passwords do not match.");
-          valid = false;
-        }
-        if (valid) {
-          if (valid) {
-            props.firebase
-              .doCreateUserWithEmailAndPassword(email, password)
-              .then((authUser) => {
-                // Create a user in your Firebase realtime database
-                props.firebase.user(authUser.user.uid).set({
-                  name: username,
-                  username,
-                  email,
-                  bio: "",
-                  followerCount: 0,
-                  followingCount: 0,
-                  profilePicture: DefaultProfilePicture,
-                });
-                props.firebase.usernames().update({
-                  [formattedUsername]: authUser.user.uid,
-                });
-                props.firebase.names().update({
-                  [formattedUsername]: authUser.user.uid,
-                });
-              })
-              .then(() => {
-                setOpen(false);
-                window.location.href = "/" + username;
-              })
-              .catch((error) => {
-                setError(error);
-              });
-          }
-        }
-      });
-  };
 
   const validateLogin = () => {
     return password !== "" && email !== "";

@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { useHistory } from "react-router-dom";
-
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import UsernameButton from "./UsernameButton";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -174,7 +171,6 @@ const Following = (props) => {
   const [open, setOpen] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openUnfollow, setOpenUnfollow] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [followings, setFollowings] = useState([]);
 
   const [userID, setUserID] = useState(null);
@@ -289,93 +285,91 @@ const Following = (props) => {
         &nbsp;Following
       </Button>
       <LogIn handleOpen={openSignUp} handleClose={() => setOpenSignUp(false)} />
-      {!loading && (
-        <Dialog
-          classes={{ paper: classes.paper }}
-          PaperProps={{
-            style: {
-              backgroundColor: "#3E4E55",
-              borderRadius: "15px",
-            },
-          }}
-          fullWidth
-          open={open}
-          onClose={handleClose}
-        >
-          <DialogTitle className={classes.header}>
-            <Typography className={classes.title}>Following</Typography>
-          </DialogTitle>
-          <DialogContent style={{ padding: 0 }}>
-            <List>
-              {followings.map((following) => {
-                return (
-                  <ListItem key={following.userID}>
-                    <ListItemAvatar>
-                      <Link href={"/" + following.username}>
-                        <Avatar
-                          src={following.profilePicture}
-                          style={{ width: "75px", height: "75px" }}
-                        />
+
+      <Dialog
+        classes={{ paper: classes.paper }}
+        PaperProps={{
+          style: {
+            backgroundColor: "#3E4E55",
+            borderRadius: "15px",
+          },
+        }}
+        fullWidth
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle className={classes.header}>
+          <Typography className={classes.title}>Following</Typography>
+        </DialogTitle>
+        <DialogContent style={{ padding: 0 }}>
+          <List>
+            {followings.map((following) => {
+              return (
+                <ListItem key={following.userID}>
+                  <ListItemAvatar>
+                    <Link href={"/" + following.username}>
+                      <Avatar
+                        src={following.profilePicture}
+                        style={{ width: "75px", height: "75px" }}
+                      />
+                    </Link>
+                  </ListItemAvatar>
+                  <ListItemText
+                    style={{ paddingLeft: "10px" }}
+                    primary={
+                      <Link
+                        href={"/" + following.username}
+                        className={classes.name}
+                      >
+                        {following.name}
                       </Link>
-                    </ListItemAvatar>
-                    <ListItemText
-                      style={{ paddingLeft: "10px" }}
-                      primary={
-                        <Link
-                          href={"/" + following.username}
-                          className={classes.name}
+                    }
+                    secondary={
+                      <Typography className={classes.username}>
+                        @{following.username}
+                      </Typography>
+                    }
+                  />
+                  {following.userID !== props.firebase.auth.currentUser.uid && (
+                    <React.Fragment>
+                      {!following.isFollowing && (
+                        <Button
+                          className={classes.followButton}
+                          onClick={() => handleFollow(following.userID)}
                         >
-                          {following.name}
-                        </Link>
-                      }
-                      secondary={
-                        <Typography className={classes.username}>
-                          @{following.username}
-                        </Typography>
-                      }
-                    />
-                    {following.userID !==
-                      props.firebase.auth.currentUser.uid && (
-                      <React.Fragment>
-                        {!following.isFollowing && (
+                          Follow
+                        </Button>
+                      )}
+                      {following.isFollowing && (
+                        <React.Fragment>
                           <Button
-                            className={classes.followButton}
-                            onClick={() => handleFollow(following.userID)}
+                            className={classes.followingButton}
+                            onClick={() =>
+                              openUnfollowDialog(
+                                following.userID,
+                                following.username,
+                                following.profilePicture
+                              )
+                            }
                           >
-                            Follow
+                            Following
                           </Button>
-                        )}
-                        {following.isFollowing && (
-                          <React.Fragment>
-                            <Button
-                              className={classes.followingButton}
-                              onClick={() =>
-                                openUnfollowDialog(
-                                  following.userID,
-                                  following.username,
-                                  following.profilePicture
-                                )
-                              }
-                            >
-                              Following
-                            </Button>
-                            <UnfollowDialog />
-                          </React.Fragment>
-                        )}
-                      </React.Fragment>
-                    )}
-                  </ListItem>
-                );
-              })}
-            </List>
-          </DialogContent>
-          <DialogActions>
-            <IconButton onClick={handleClose} className={classes.close}>
-              <IoMdClose />
-            </IconButton>
-          </DialogActions>
-        </Dialog>
-      )}
+                          <UnfollowDialog />
+                        </React.Fragment>
+                      )}
+                    </React.Fragment>
+                  )}
+                </ListItem>
+              );
+            })}
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <IconButton onClick={handleClose} className={classes.close}>
+            <IoMdClose />
+          </IconButton>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 };
