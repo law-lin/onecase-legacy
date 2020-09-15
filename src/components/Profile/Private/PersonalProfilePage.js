@@ -39,6 +39,7 @@ import { withAuthorization } from "../../Session";
 import BottomNavbar from "../../BottomNavbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { Mixpanel } from "../../Mixpanel";
 
 const useStyles = makeStyles({
   root: {
@@ -750,6 +751,15 @@ function PersonalProfilePage(props) {
   };
 
   const updateLink = (linkCardNumber, linkTitle, linkURL) => {
+    let empty = false;
+    if (
+      (linkCardNumber === "linkCard1" && oldLink1Title === "") ||
+      (linkCardNumber === "linkCard2" && oldLink2Title === "") ||
+      (linkCardNumber === "linkCard3" && oldLink3Title === "")
+    ) {
+      empty = true;
+    }
+
     if (linkURL !== "") {
       if (!~linkURL.indexOf("http")) {
         props.firebase.editLinkCard(
@@ -760,8 +770,32 @@ function PersonalProfilePage(props) {
       } else {
         props.firebase.editLinkCard(linkCardNumber, linkTitle, linkURL);
       }
+      if (empty) {
+        Mixpanel.track("Link Add", {
+          "Link Number": linkCardNumber,
+          "Link Title": linkTitle,
+          "Link URL": linkURL,
+        });
+      } else if (
+        (linkCardNumber === "linkCard1" && oldLink1Title !== linkTitle) ||
+        (linkCardNumber === "linkCard2" && oldLink2Title !== linkTitle) ||
+        (linkCardNumber === "linkCard2" && oldLink2Title !== linkTitle)
+      ) {
+        Mixpanel.track("Link Edit", {
+          "Link Number": linkCardNumber,
+          "Link Title": linkTitle,
+          "Link URL": linkURL,
+        });
+      }
     } else {
       props.firebase.editLinkCard(linkCardNumber, "", "");
+      if (!empty) {
+        Mixpanel.track("Link Delete", {
+          "Link Number": linkCardNumber,
+          "Link Title": linkTitle,
+          "Link URL": linkURL,
+        });
+      }
     }
   };
 

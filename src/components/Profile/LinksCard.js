@@ -10,6 +10,8 @@ import { ImLink } from "react-icons/im";
 
 import { useParams } from "react-router-dom";
 import { withFirebase } from "../Firebase";
+import { Mixpanel } from "../Mixpanel";
+
 import {
   Divider,
   CardActionArea,
@@ -128,6 +130,10 @@ function LinksCard(props) {
   };
   */
 
+  const handleClick = (id) => {
+    Mixpanel.track_links(id, "Link Click");
+  };
+
   const copyToClipboard = () => {
     const url = window.location.href + "/links";
     var tempInput = document.createElement("input");
@@ -160,10 +166,12 @@ function LinksCard(props) {
             <Grid item xs={12} className={classes.gridItem}>
               {linkCard1URL && (
                 <Link
+                  id="link1"
                   target="_blank"
                   rel="noopener noreferrer"
                   href={linkCard1URL}
                   className={classes.button}
+                  onClick={handleClick("#link1")}
                 >
                   {linkCard1Title}
                 </Link>
@@ -177,6 +185,8 @@ function LinksCard(props) {
                   rel="noopener noreferrer"
                   href={linkCard2URL}
                   className={classes.button}
+                  id="link2"
+                  onClick={handleClick("#link2")}
                 >
                   {linkCard2Title}
                 </Link>
@@ -190,6 +200,8 @@ function LinksCard(props) {
                   rel="noopener noreferrer"
                   href={linkCard3URL}
                   className={classes.button}
+                  id="link3"
+                  onClick={handleClick("#link3")}
                 >
                   {linkCard3Title}
                 </Link>
