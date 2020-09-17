@@ -35,6 +35,7 @@ function SignOutButton(props) {
     Mixpanel.track("Sign Out");
     Mixpanel.reset();
     props.firebase.doSignOut();
+    window.location.href = "/";
   };
   return (
     <Button className={classes.root} onClick={signOut}>
