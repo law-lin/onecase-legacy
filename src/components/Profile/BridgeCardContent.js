@@ -104,6 +104,7 @@ const useStyles = makeStyles({
     fontFamily: ["Mukta Mahee", "sans-serif"],
     color: "#FFFFFF",
     fontSize: "18px",
+    whiteSpace: "pre-line",
   },
   name: {
     "&:hover": {
