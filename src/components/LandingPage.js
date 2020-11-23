@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { ReactComponent as TwitterIcon } from "./icons/twitter.svg";
-import { ReactComponent as InstagramIcon } from "./icons/instagram.svg";
-import { ReactComponent as LinkedinIcon } from "./icons/linkedin.svg";
+import { ReactComponent as TwitterIcon } from './icons/twitter.svg';
+import { ReactComponent as InstagramIcon } from './icons/instagram.svg';
+import { ReactComponent as LinkedinIcon } from './icons/linkedin.svg';
 
-import "./landingpage.css";
+import './landingpage.css';
 
-import LandingPageNavbar from "./LandingPageNavbar";
+import LandingPageNavbar from './LandingPageNavbar';
 
-import lightbulb from "../images/lightbulb.png";
-import scrapbook from "../images/scrapbook.png";
-import community from "../images/community.png";
+import lightbulb from '../images/lightbulb.png';
+import scrapbook from '../images/scrapbook.png';
+import community from '../images/community.png';
 
-import one from "../images/one.png";
-import two from "../images/two.png";
-import three from "../images/three.png";
-import newbackground from "../images/newbackground.png";
+import one from '../images/one.png';
+import two from '../images/two.png';
+import three from '../images/three.png';
+import newbackground from '../images/newbackground.png';
 
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
-import { withFirebase } from "./Firebase";
-import { withRouter } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { withFirebase } from './Firebase';
+import { withRouter } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   CssBaseline,
   Container,
@@ -30,123 +30,123 @@ import {
   Box,
   Card,
   TextField,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const useStyles = makeStyles({
   button: {
-    "&:hover": {
-      backgroundColor: "#0069d9",
-      borderColor: "#0062cc",
+    '&:hover': {
+      backgroundColor: '#0069d9',
+      borderColor: '#0062cc',
     },
-    "&:active": {
-      backgroundColor: "#0062cc",
-      borderColor: "#005cbf",
+    '&:active': {
+      backgroundColor: '#0062cc',
+      borderColor: '#005cbf',
     },
-    "&:focus": {
-      boxShadow: "0 0 0 0.2rem rgba(38, 143, 255, 0.5)",
-      outline: "none",
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(38, 143, 255, 0.5)',
+      outline: 'none',
     },
-    color: "#FFFFFF",
-    display: "inline-block",
-    backgroundColor: "#007bff",
-    fontFamily: ["Mukta Mahee", "san-serif"],
-    border: "1px solid transparent",
-    borderColor: "#007bff",
-    padding: "0.5rem 1rem",
-    fontSize: "1.25rem",
+    color: '#FFFFFF',
+    display: 'inline-block',
+    backgroundColor: '#007bff',
+    fontFamily: ['Mukta Mahee', 'san-serif'],
+    border: '1px solid transparent',
+    borderColor: '#007bff',
+    padding: '0.5rem 1rem',
+    fontSize: '1.25rem',
     lineHeight: 1.5,
-    borderRadius: "15px",
+    borderRadius: '15px',
     transition:
-      "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
+      'color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out',
     fontWeight: 400,
-    textTransform: "none",
+    textTransform: 'none',
   },
   input: {
     padding: 5,
-    fontSize: "24px",
-    borderRadius: "5px",
-    fontFamily: ["Mukta Mahee", "sans-serif"],
+    fontSize: '24px',
+    borderRadius: '5px',
+    fontFamily: ['Mukta Mahee', 'sans-serif'],
     fontWeight: 700,
   },
   labelRoot: {
-    fontFamily: ["Mukta Mahee", "sans-serif"],
-    fontSize: "24px",
-    color: "#9F9F9F",
-    left: "10px",
-    "&$labelFocused": {
-      color: "#3E4E55",
+    fontFamily: ['Mukta Mahee', 'sans-serif'],
+    fontSize: '24px',
+    color: '#9F9F9F',
+    left: '10px',
+    '&$labelFocused': {
+      color: '#3E4E55',
     },
   },
   labelFocused: {},
   heroContainer: {
-    minWidth: "1500px",
-    minHeight: "530px",
+    minWidth: '1500px',
+    minHeight: '530px',
     background: `url(${newbackground}) no-repeat center/cover`,
-    "@media (max-width: 750px)": {
-      minWidth: "0px",
+    '@media (max-width: 750px)': {
+      minWidth: '0px',
       background: `url(${newbackground}) no-repeat left center/1000px 500px`,
-      maxWidth: "750px",
-      overflow: "hidden",
+      maxWidth: '750px',
+      overflow: 'hidden',
     },
   },
   heroContent: {
-    maxWidth: "475px",
-    marginLeft: "250px",
-    padding: "125px 5px 0",
-    "@media (max-width: 750px)": {
-      maxWidth: "320px",
-      marginLeft: "165px",
+    maxWidth: '475px',
+    marginLeft: '250px',
+    padding: '125px 5px 0',
+    '@media (max-width: 750px)': {
+      maxWidth: '320px',
+      marginLeft: '165px',
     },
   },
   showcasePassions: {
-    color: "#FFFFFF",
-    fontSize: "48px",
-    textAlign: "center",
-    fontFamily: ["Montserrat", "sans-serif"],
+    color: '#FFFFFF',
+    fontSize: '48px',
+    textAlign: 'center',
+    fontFamily: ['Montserrat', 'sans-serif'],
     fontWeight: 800,
-    "@media (max-width: 750px)": {
-      fontSize: "32px",
+    '@media (max-width: 750px)': {
+      fontSize: '32px',
     },
   },
   oneLiner: {
-    marginTop: "20px",
-    color: "#FFFFFF",
-    fontSize: "22px",
-    textAlign: "center",
-    fontFamily: ["Montserrat", "sans-serif"],
+    marginTop: '20px',
+    color: '#FFFFFF',
+    fontSize: '22px',
+    textAlign: 'center',
+    fontFamily: ['Montserrat', 'sans-serif'],
     fontWeight: 800,
-    "@media (max-width: 750px)": {
-      fontSize: "16px",
+    '@media (max-width: 750px)': {
+      fontSize: '16px',
     },
   },
   joinWaitlist: {
     padding: 10,
-    backgroundColor: "#3E4E55",
-    fontFamily: ["Mukta Mahee", "sans-serif"],
-    color: "#FFFFFF",
-    fontSize: "24px",
-    textTransform: "none",
-    margin: "0 0 0 10px",
+    backgroundColor: '#3E4E55',
+    fontFamily: ['Mukta Mahee', 'sans-serif'],
+    color: '#FFFFFF',
+    fontSize: '24px',
+    textTransform: 'none',
+    margin: '0 0 0 10px',
     borderRadius: 10,
-    "&:hover": {
-      backgroundColor: "#5E7681",
+    '&:hover': {
+      backgroundColor: '#5E7681',
     },
-    "&:focus": {
-      outline: "none",
+    '&:focus': {
+      outline: 'none',
     },
   },
 });
 function LandingPage(props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [waitlistEmail, setWaitlistEmail] = useState("");
+  const [waitlistEmail, setWaitlistEmail] = useState('');
 
   const classes = useStyles();
 
   useEffect(() => {
     props.firebase.auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
-        props.history.push("/feed");
+        props.history.push('/feed');
       } else {
         setLoading(false);
       }
@@ -161,17 +161,17 @@ function LandingPage(props) {
     if (validateEmail(waitlistEmail)) {
       props.firebase
         .checkDuplicateEmail(waitlistEmail)
-        .on("value", (snapshot) => {
+        .on('value', (snapshot) => {
           if (snapshot.exists()) {
-            setError("This email is already signed up!");
+            setError('This email is already signed up!');
           } else {
             setError(null);
             props.firebase.earlyAccess(waitlistEmail);
-            props.history.push("welcome");
+            props.history.push('welcome');
           }
         });
     } else {
-      setError("Please enter a valid email address.");
+      setError('Please enter a valid email address.');
     }
   };
   if (!loading) {
@@ -180,7 +180,7 @@ function LandingPage(props) {
         <CssBaseline />
         <LandingPageNavbar />
         <Container
-          component="main"
+          component='main'
           className={classes.heroContainer}
           style={{}}
         >
@@ -191,14 +191,14 @@ function LandingPage(props) {
             <Typography className={classes.oneLiner}>
               A Personal Archive + Social Network
             </Typography>
-            <div style={{ marginTop: "30px", textAlign: "center" }}>
+            <div style={{ marginTop: '30px', textAlign: 'center' }}>
               <TextField
-                margin="none"
+                margin='none'
                 style={{
                   padding: 2,
                   borderRadius: 5,
-                  backgroundColor: "#FFFFFF",
-                  marginBottom: "20px",
+                  backgroundColor: '#FFFFFF',
+                  marginBottom: '20px',
                 }}
                 InputProps={{
                   classes: {
@@ -212,14 +212,14 @@ function LandingPage(props) {
                     focused: classes.labelFocused,
                   },
                 }}
-                label="Email"
+                label='Email'
                 onChange={(e) => setWaitlistEmail(e.target.value)}
                 error={error}
                 helperText={error}
               />
               <Button
                 className={classes.joinWaitlist}
-                style={{ backgroundColor: "#00A1E5", fontSize: "20px" }}
+                style={{ backgroundColor: '#00A1E5', fontSize: '20px' }}
                 onClick={handleSubmit}
               >
                 Join Waitlist
@@ -227,50 +227,50 @@ function LandingPage(props) {
             </div>
           </Box>
         </Container>
-        <Container component="main">
+        <Container component='main'>
           <Box
-            display="flex"
-            justifyContent="center"
-            style={{ marginTop: "150px" }}
+            display='flex'
+            justifyContent='center'
+            style={{ marginTop: '150px' }}
           >
             <Typography
-              align="center"
+              align='center'
               style={{
-                backgroundColor: "#232323",
-                padding: "25px 10px",
+                backgroundColor: '#232323',
+                padding: '25px 10px',
                 borderRadius: 9,
-                color: "#7B7B7B",
-                fontFamily: ["Montserrat", "sans-serif"],
+                color: '#7B7B7B',
+                fontFamily: ['Montserrat', 'sans-serif'],
                 fontWeight: 800,
-                width: "75%",
+                width: '75%',
                 fontSize: 30,
               }}
             >
-              We're an{" "}
-              <span style={{ color: "#FFFFFF" }}>online scrapbook</span> or{" "}
-              <span style={{ color: "#FFFFFF" }}>portfolio</span>, with{" "}
-              <span style={{ color: "#FFFFFF" }}>friends</span>
+              We're an{' '}
+              <span style={{ color: '#FFFFFF' }}>online scrapbook</span> or{' '}
+              <span style={{ color: '#FFFFFF' }}>portfolio</span>, with{' '}
+              <span style={{ color: '#FFFFFF' }}>friends</span>
             </Typography>
           </Box>
-          <Grid container style={{ marginTop: "150px" }}>
-            <Grid item xs={12} sm={4} align="center">
+          <Grid container style={{ marginTop: '150px' }}>
+            <Grid item xs={12} sm={4} align='center'>
               <img
-                style={{ width: "100px", height: "100px" }}
+                style={{ width: '100px', height: '100px' }}
                 src={scrapbook}
-                alt="scrapbook"
+                alt='scrapbook'
               />
               <Card
                 style={{
-                  backgroundColor: "#3E4E55",
+                  backgroundColor: '#3E4E55',
                   borderRadius: 9,
-                  width: "90%",
+                  width: '90%',
                   minHeight: 150,
                 }}
               >
                 <Typography
                   style={{
-                    fontFamily: ["Montserrat", "sans-serif"],
-                    color: "#FFFFFF",
+                    fontFamily: ['Montserrat', 'sans-serif'],
+                    color: '#FFFFFF',
                     fontWeight: 800,
                     padding: 15,
                     fontSize: 25,
@@ -280,8 +280,8 @@ function LandingPage(props) {
                 </Typography>
                 <Typography
                   style={{
-                    fontFamily: ["Mukta Mahee", "sans-serif"],
-                    color: "#FFFFFF",
+                    fontFamily: ['Mukta Mahee', 'sans-serif'],
+                    color: '#FFFFFF',
                     padding: 10,
                     fontSize: 16,
                   }}
@@ -291,24 +291,24 @@ function LandingPage(props) {
                 </Typography>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={4} align="center">
+            <Grid item xs={12} sm={4} align='center'>
               <img
-                style={{ width: "100px", height: "100px" }}
+                style={{ width: '100px', height: '100px' }}
                 src={lightbulb}
-                alt="lightbulb"
+                alt='lightbulb'
               />
               <Card
                 style={{
-                  backgroundColor: "#3E4E55",
+                  backgroundColor: '#3E4E55',
                   borderRadius: 9,
-                  width: "90%",
+                  width: '90%',
                   minHeight: 150,
                 }}
               >
                 <Typography
                   style={{
-                    fontFamily: ["Montserrat", "sans-serif"],
-                    color: "#FFFFFF",
+                    fontFamily: ['Montserrat', 'sans-serif'],
+                    color: '#FFFFFF',
                     fontWeight: 800,
                     padding: 15,
                     fontSize: 25,
@@ -318,8 +318,8 @@ function LandingPage(props) {
                 </Typography>
                 <Typography
                   style={{
-                    fontFamily: ["Mukta Mahee", "sans-serif"],
-                    color: "#FFFFFF",
+                    fontFamily: ['Mukta Mahee', 'sans-serif'],
+                    color: '#FFFFFF',
                     padding: 10,
                     fontSize: 16,
                   }}
@@ -329,24 +329,24 @@ function LandingPage(props) {
                 </Typography>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={4} align="center">
+            <Grid item xs={12} sm={4} align='center'>
               <img
-                style={{ width: "100px", height: "100px" }}
+                style={{ width: '100px', height: '100px' }}
                 src={community}
-                alt="community"
+                alt='community'
               />
               <Card
                 style={{
-                  backgroundColor: "#3E4E55",
+                  backgroundColor: '#3E4E55',
                   borderRadius: 9,
-                  width: "90%",
+                  width: '90%',
                   minHeight: 150,
                 }}
               >
                 <Typography
                   style={{
-                    fontFamily: ["Montserrat", "sans-serif"],
-                    color: "#FFFFFF",
+                    fontFamily: ['Montserrat', 'sans-serif'],
+                    color: '#FFFFFF',
                     fontWeight: 800,
                     padding: 15,
                     fontSize: 25,
@@ -356,8 +356,8 @@ function LandingPage(props) {
                 </Typography>
                 <Typography
                   style={{
-                    fontFamily: ["Mukta Mahee", "sans-serif"],
-                    color: "#FFFFFF",
+                    fontFamily: ['Mukta Mahee', 'sans-serif'],
+                    color: '#FFFFFF',
                     padding: 10,
                     fontSize: 16,
                   }}
@@ -369,15 +369,15 @@ function LandingPage(props) {
             </Grid>
           </Grid>
           <Box
-            display="flex"
-            justifyContent="center"
-            style={{ marginTop: "150px" }}
+            display='flex'
+            justifyContent='center'
+            style={{ marginTop: '150px' }}
           >
             <Typography
-              align="center"
+              align='center'
               style={{
-                color: "#232323",
-                fontFamily: ["Montserrat", "sans-serif"],
+                color: '#232323',
+                fontFamily: ['Montserrat', 'sans-serif'],
                 fontWeight: 800,
                 fontSize: 60,
               }}
@@ -385,17 +385,17 @@ function LandingPage(props) {
               TLDR...
             </Typography>
           </Box>
-          <Grid container style={{ marginTop: "150px" }} spacing={3}>
-            <Grid item xs={12} sm={4} align="center">
+          <Grid container style={{ marginTop: '150px' }} spacing={3}>
+            <Grid item xs={12} sm={4} align='center'>
               <Typography
                 style={{
-                  color: "#FFFFFF",
-                  backgroundColor: "#232323",
-                  fontFamily: ["Montserrat", "sans-serif"],
+                  color: '#FFFFFF',
+                  backgroundColor: '#232323',
+                  fontFamily: ['Montserrat', 'sans-serif'],
                   fontWeight: 800,
                   fontSize: 36,
                   borderRadius: 9,
-                  width: "80%",
+                  width: '80%',
                   padding: 10,
                 }}
               >
@@ -403,20 +403,20 @@ function LandingPage(props) {
               </Typography>
               <img
                 src={one}
-                style={{ width: "100%", maxWidth: "300px", marginTop: "40px" }}
-                alt="pick a theme"
+                style={{ width: '100%', maxWidth: '300px', marginTop: '40px' }}
+                alt='pick a theme'
               />
             </Grid>
-            <Grid item xs={12} sm={4} align="center">
+            <Grid item xs={12} sm={4} align='center'>
               <Typography
                 style={{
-                  color: "#FFFFFF",
-                  backgroundColor: "#232323",
-                  fontFamily: ["Montserrat", "sans-serif"],
+                  color: '#FFFFFF',
+                  backgroundColor: '#232323',
+                  fontFamily: ['Montserrat', 'sans-serif'],
                   fontWeight: 800,
                   fontSize: 36,
                   borderRadius: 9,
-                  width: "80%",
+                  width: '80%',
                   padding: 10,
                 }}
               >
@@ -424,20 +424,20 @@ function LandingPage(props) {
               </Typography>
               <img
                 src={two}
-                style={{ width: "95%", maxWidth: "300px", marginTop: "40px" }}
-                alt="create cards"
+                style={{ width: '95%', maxWidth: '300px', marginTop: '40px' }}
+                alt='create cards'
               />
             </Grid>
-            <Grid item xs={12} sm={4} align="center">
+            <Grid item xs={12} sm={4} align='center'>
               <Typography
                 style={{
-                  color: "#FFFFFF",
-                  backgroundColor: "#232323",
-                  fontFamily: ["Montserrat", "sans-serif"],
+                  color: '#FFFFFF',
+                  backgroundColor: '#232323',
+                  fontFamily: ['Montserrat', 'sans-serif'],
                   fontWeight: 800,
                   fontSize: 36,
                   borderRadius: 9,
-                  width: "80%",
+                  width: '80%',
                   padding: 10,
                 }}
               >
@@ -445,29 +445,29 @@ function LandingPage(props) {
               </Typography>
               <img
                 src={three}
-                style={{ width: "100%", maxWidth: "300px", marginTop: "40px" }}
-                alt="display them"
+                style={{ width: '100%', maxWidth: '300px', marginTop: '40px' }}
+                alt='display them'
               />
             </Grid>
           </Grid>
         </Container>
-        <div style={{ backgroundColor: "#232323" }}>
-          <Container component="footer">
+        <div style={{ backgroundColor: '#232323' }}>
+          <Container component='footer'>
             <Grid
               container
               style={{
-                marginTop: "150px",
-                minHeight: "150px",
-                color: "#FFFFFF",
+                marginTop: '150px',
+                minHeight: '150px',
+                color: '#FFFFFF',
                 fontSize: 20,
               }}
               spacing={3}
             >
-              <Grid item xs={12} style={{ margin: "0 7% 0 7%" }} align="center">
+              <Grid item xs={12} style={{ margin: '0 7% 0 7%' }} align='center'>
                 <Typography
                   style={{
-                    color: "#FFFFFF",
-                    fontFamily: ["Montserrat", "sans-serif"],
+                    color: '#FFFFFF',
+                    fontFamily: ['Montserrat', 'sans-serif'],
                     fontWeight: 800,
                     fontSize: 36,
                     padding: 10,
@@ -477,8 +477,8 @@ function LandingPage(props) {
                 </Typography>
                 <Typography
                   style={{
-                    color: "#FFFFFF",
-                    fontFamily: ["Mukta Mahee", "sans-serif"],
+                    color: '#FFFFFF',
+                    fontFamily: ['Mukta Mahee', 'sans-serif'],
                     fontWeight: 500,
                     fontSize: 24,
                     padding: 10,
@@ -486,14 +486,14 @@ function LandingPage(props) {
                 >
                   Sign up here to join the waitlist, you won't regret it.
                 </Typography>
-                <div style={{ marginTop: "10px" }}>
+                <div style={{ marginTop: '10px' }}>
                   <TextField
-                    margin="none"
+                    margin='none'
                     style={{
                       padding: 2,
                       borderRadius: 5,
-                      backgroundColor: "#FFFFFF",
-                      marginBottom: "30px",
+                      backgroundColor: '#FFFFFF',
+                      marginBottom: '30px',
                     }}
                     InputProps={{
                       classes: {
@@ -507,7 +507,7 @@ function LandingPage(props) {
                         focused: classes.labelFocused,
                       },
                     }}
-                    label="Email"
+                    label='Email'
                     onChange={(e) => setWaitlistEmail(e.target.value)}
                     error={error}
                     helperText={error}
@@ -524,11 +524,11 @@ function LandingPage(props) {
                 container
                 item
                 xs={12}
-                align="center"
-                style={{ margin: "2.5% 7% 2% 7%" }}
+                align='center'
+                style={{ margin: '2.5% 7% 2% 7%' }}
               >
-                <Grid container item xs={12} sm={8} align="center">
-                  <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
+                <Grid container item xs={12} sm={8} align='center'>
+                  {/* <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
                     <span className="footer-links">About Us</span>
                   </Grid>
                   <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
@@ -539,35 +539,35 @@ function LandingPage(props) {
                   </Grid>
                   <Grid item xs={12} sm={3} style={{ marginTop: "10px" }}>
                     <span className="footer-links">Contact</span>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Grid item xs={12} sm={2} />
                 <Grid
                   item
                   xs={12}
                   sm={2}
-                  align="center"
-                  style={{ marginTop: "10px" }}
+                  align='center'
+                  style={{ marginTop: '10px' }}
                 >
                   {/* Icons provided by https://icons8.com */}
                   <a
-                    target="_window"
-                    href="https://twitter.com/onecaseapp"
-                    className="social-media-icons"
+                    target='_window'
+                    href='https://twitter.com/onecaseapp'
+                    className='social-media-icons'
                   >
                     <TwitterIcon />
                   </a>
                   <a
-                    target="_window"
-                    href="https://www.instagram.com/onecaseapp/"
-                    className="social-media-icons"
+                    target='_window'
+                    href='https://www.instagram.com/onecaseapp/'
+                    className='social-media-icons'
                   >
                     <InstagramIcon />
                   </a>
                   <a
-                    target="_window"
-                    href="https://www.linkedin.com/company/onecaseapp/"
-                    className="social-media-icons"
+                    target='_window'
+                    href='https://www.linkedin.com/company/onecaseapp/'
+                    className='social-media-icons'
                   >
                     <LinkedinIcon />
                   </a>

@@ -1,18 +1,18 @@
-import app from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
-import "firebase/storage";
-import "firebase/analytics";
+import app from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
+import 'firebase/analytics';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBBeFFUunRUU-Fop4wXbEcR9BQUJ7uhBkY",
-  authDomain: "onecase-app.firebaseapp.com",
-  databaseURL: "https://onecase-app.firebaseio.com",
-  projectId: "onecase-app",
-  storageBucket: "onecase-app.appspot.com",
-  messagingSenderId: "56673846186",
-  appId: "1:56673846186:web:48c8a223804732c38861d3",
-  measurementId: "G-FLYJGB2ZHX",
+  apiKey: 'AIzaSyDoQp0KRim4aWyQcIxGn9GEL8WeixFDFtc',
+  authDomain: 'onecase-legacy.firebaseapp.com',
+  databaseURL: 'https://onecase-legacy.firebaseio.com',
+  projectId: 'onecase-legacy',
+  storageBucket: 'onecase-legacy.appspot.com',
+  messagingSenderId: '987591255368',
+  appId: '1:987591255368:web:2b959e708f1116db08bf7d',
+  measurementId: 'G-J7HHC64F6B',
 };
 
 class Firebase {
@@ -47,38 +47,38 @@ class Firebase {
 
   // EARLY ACCESS FUNCTIONS
   earlyAccess = (email) => {
-    const key = this.db.ref("emails").push().getKey();
-    this.db.ref("emails").update({
+    const key = this.db.ref('emails').push().getKey();
+    this.db.ref('emails').update({
       [key]: email,
     });
   };
 
   checkDuplicateEmail = (email) =>
-    this.db.ref("emails").orderByValue().equalTo(email);
+    this.db.ref('emails').orderByValue().equalTo(email);
 
   // *** User API ***
 
   user = (userID) => this.db.ref(`users/${userID}`);
 
   checkDuplicateUsername = (username) =>
-    this.db.ref("usernames").orderByKey().equalTo(username);
+    this.db.ref('usernames').orderByKey().equalTo(username);
 
   userCards = (userID, cardNumber) =>
     this.db.ref(`users/${userID}/card${cardNumber}`);
 
   newCards = (userID, cardNumber, cardTitle) => {
-    let strCardTitle = cardTitle + "";
+    let strCardTitle = cardTitle + '';
 
     this.db.ref(`cards/${this.auth.currentUser.uid}`).update({
       [strCardTitle]: cardNumber,
     });
   };
 
-  usernames = () => this.db.ref("usernames");
+  usernames = () => this.db.ref('usernames');
 
-  names = () => this.db.ref("names");
+  names = () => this.db.ref('names');
 
-  users = () => this.db.ref("users");
+  users = () => this.db.ref('users');
 
   currentUser = () => this.db.ref(`users/${this.auth.currentUser.uid}`);
 
@@ -96,8 +96,8 @@ class Firebase {
   };
 
   checkDuplicateCardTitle = (cardTitle) => {
-    let strCardTitle = cardTitle + "";
-    let formattedCardTitle = strCardTitle.split(" ").join("_");
+    let strCardTitle = cardTitle + '';
+    let formattedCardTitle = strCardTitle.split(' ').join('_');
     return this.db
       .ref(`cards/${this.auth.currentUser.uid}`)
       .orderByKey()
@@ -106,18 +106,18 @@ class Firebase {
 
   searchUsernames = (queryText) =>
     this.db
-      .ref("usernames")
+      .ref('usernames')
       .orderByKey()
       .startAt(queryText)
-      .endAt(queryText + "\uf8ff");
+      .endAt(queryText + '\uf8ff');
   // this.db.ref(`users/${userID}`).orderByChild("card2").equalTo(cardTitle);
 
   searchNames = (queryText) =>
     this.db
-      .ref("names")
+      .ref('names')
       .orderByKey()
       .startAt(queryText)
-      .endAt(queryText + "\uf8ff");
+      .endAt(queryText + '\uf8ff');
 
   bridgeCardIDs = (userID, cardNumber, bridgeCardNumber) => {
     return this.db.ref(`users/${userID}/${cardNumber}/${bridgeCardNumber}`);
@@ -129,23 +129,23 @@ class Firebase {
   // *** Edit Profile Functions (Setters) ***
 
   editUsername = (oldUsername, username) => {
-    this.db.ref("usernames").child(oldUsername.toLowerCase()).remove();
+    this.db.ref('usernames').child(oldUsername.toLowerCase()).remove();
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       username,
     });
     let formattedUsername = username.toLowerCase();
-    this.db.ref("usernames").update({
+    this.db.ref('usernames').update({
       [formattedUsername]: this.auth.currentUser.uid,
     });
   };
 
   editName = (oldName, name) => {
-    this.db.ref("names").child(oldName.toLowerCase()).remove();
+    this.db.ref('names').child(oldName.toLowerCase()).remove();
     this.db.ref(`users/${this.auth.currentUser.uid}`).update({
       name,
     });
     let formattedName = name.toLowerCase();
-    this.db.ref("names").update({
+    this.db.ref('names').update({
       [formattedName]: this.auth.currentUser.uid,
     });
   };
@@ -165,11 +165,11 @@ class Firebase {
     this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).update({
       cardTitle,
     });
-    let strOldCardTitle = oldCardTitle + "";
-    let formattedOldCardTitle = strOldCardTitle.split(" ").join("_");
+    let strOldCardTitle = oldCardTitle + '';
+    let formattedOldCardTitle = strOldCardTitle.split(' ').join('_');
 
-    let strCardTitle = cardTitle + "";
-    let formattedCardTitle = strCardTitle.split(" ").join("_");
+    let strCardTitle = cardTitle + '';
+    let formattedCardTitle = strCardTitle.split(' ').join('_');
 
     this.db
       .ref(`cards/${this.auth.currentUser.uid}`)
@@ -183,8 +183,8 @@ class Firebase {
   deleteCard = (oldCardTitle, cardNumber) => {
     this.db.ref(`users/${this.auth.currentUser.uid}/${cardNumber}`).remove();
 
-    let strOldCardTitle = oldCardTitle + "";
-    let formattedOldCardTitle = strOldCardTitle.split(" ").join("_");
+    let strOldCardTitle = oldCardTitle + '';
+    let formattedOldCardTitle = strOldCardTitle.split(' ').join('_');
 
     this.db
       .ref(`cards/${this.auth.currentUser.uid}`)
@@ -215,7 +215,7 @@ class Firebase {
       .ref(
         `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
       )
-      .once("value", (snapshot) => {
+      .once('value', (snapshot) => {
         let oldCardID = snapshot.val();
 
         this.db.ref(`bridgeCards/${oldCardID}`).remove();
@@ -242,7 +242,7 @@ class Firebase {
           bridgeCardTitle,
           caption,
           description,
-          link
+          link,
         });
 
         this.db.ref(`${category.toLowerCase()}`).update({
@@ -263,7 +263,7 @@ class Firebase {
       lastUpdated: this.database.ServerValue.TIMESTAMP,
       caption,
       description,
-      link
+      link,
     });
   };
 
@@ -299,7 +299,7 @@ class Firebase {
 
   uploadCardImageURL = (cardNumber, bridgeCardNumber, image) => {
     this.storage
-      .ref("card_images")
+      .ref('card_images')
       .child(image.name)
       .getDownloadURL()
       .then((cardImageURL) => {
@@ -307,7 +307,7 @@ class Firebase {
           .ref(
             `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
           )
-          .once("value", (snapshot) => {
+          .once('value', (snapshot) => {
             let cardID = snapshot.val();
             this.db.ref(`bridgeCards/${cardID}`).update({
               cardImageURL,
@@ -318,7 +318,7 @@ class Firebase {
 
   uploadCardCoverImageURL = (cardNumber, bridgeCardNumber, image) => {
     this.storage
-      .ref("cover_card_images")
+      .ref('cover_card_images')
       .child(image.name)
       .getDownloadURL()
       .then((cardCoverImageURL) => {
@@ -326,7 +326,7 @@ class Firebase {
           .ref(
             `users/${this.auth.currentUser.uid}/${cardNumber}/${bridgeCardNumber}`
           )
-          .once("value", (snapshot) => {
+          .once('value', (snapshot) => {
             let cardID = snapshot.val();
             this.db.ref(`bridgeCards/${cardID}`).update({
               cardCoverImageURL,
@@ -342,7 +342,7 @@ class Firebase {
   // checkUsername = (username) => this.db.ref(`usernames/${username}`)
   uploadProfilePictureURL = (image) => {
     this.storage
-      .ref("profile_pictures")
+      .ref('profile_pictures')
       .child(image.name)
       .getDownloadURL()
       .then((profilePicture) => {
@@ -393,14 +393,14 @@ class Firebase {
   getCardsInCategory = (category) => {
     return this.db
       .ref(category.toLowerCase())
-      .once("value")
+      .once('value')
       .then((snapshot) => {
         var promises = [];
         snapshot.forEach((snap) => {
           var results = [];
           results.push(
-            this.db.ref(`users/${snap.val()}`).once("value"),
-            this.db.ref(`bridgeCards/${snap.key}`).once("value")
+            this.db.ref(`users/${snap.val()}`).once('value'),
+            this.db.ref(`bridgeCards/${snap.key}`).once('value')
           );
           promises.push(Promise.all(results));
         });
