@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   useLocation,
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import WelcomePage from "./components/WelcomePage";
-import LandingPage from "./components/LandingPage";
-import ProfilePage from "./components/Profile/ProfilePage";
-import BridgeCardContent from "./components/Profile/BridgeCardContent";
-import AdminPage from "./components/AdminPage";
-import PasswordResetPage from "./components/PasswordResetPage";
-import FeedPage from "./components/FeedPage";
-import ExplorePage from "./components/ExplorePage";
-import CategoriesPage from "./components/CategoriesPage";
-import ExhibitionsPage from "./components/ExhibitionsPage";
-import SearchResultsPage from "./components/SearchResults";
+import WelcomePage from './components/WelcomePage';
+import LandingPage from './components/LandingPage';
+import ProfilePage from './components/Profile/ProfilePage';
+import BridgeCardContent from './components/Profile/BridgeCardContent';
+import AdminPage from './components/AdminPage';
+import PasswordResetPage from './components/PasswordResetPage';
+import FeedPage from './components/FeedPage';
+import ExplorePage from './components/ExplorePage';
+import CategoriesPage from './components/CategoriesPage';
+import ExhibitionsPage from './components/ExhibitionsPage';
+import SearchResultsPage from './components/SearchResults';
 
-import * as ROUTES from "./constants/routes";
-import { withAuthentication } from "./components/Session";
+import * as ROUTES from './constants/routes';
+import { withAuthentication } from './components/Session';
 
-import "./App.css";
+import './App.css';
 
 function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
@@ -40,13 +40,13 @@ function useWindowSize() {
     }
 
     // Add event listener
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Call handler right away so state gets updated with initial window size
     handleResize();
 
     // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []); // Empty array ensures that effect is only run on mount
 
   return windowSize;

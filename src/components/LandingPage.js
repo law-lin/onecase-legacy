@@ -31,6 +31,7 @@ import {
   Card,
   TextField,
 } from '@material-ui/core';
+import SignUp from './SignUp';
 
 const useStyles = makeStyles({
   button: {
@@ -138,6 +139,7 @@ const useStyles = makeStyles({
 });
 function LandingPage(props) {
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [waitlistEmail, setWaitlistEmail] = useState('');
 
@@ -192,38 +194,14 @@ function LandingPage(props) {
               A Personal Archive + Social Network
             </Typography>
             <div style={{ marginTop: '30px', textAlign: 'center' }}>
-              <TextField
-                margin='none'
-                style={{
-                  padding: 2,
-                  borderRadius: 5,
-                  backgroundColor: '#FFFFFF',
-                  marginBottom: '20px',
-                }}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                  disableUnderline: true,
-                }}
-                InputLabelProps={{
-                  classes: {
-                    root: classes.labelRoot,
-                    focused: classes.labelFocused,
-                  },
-                }}
-                label='Email'
-                onChange={(e) => setWaitlistEmail(e.target.value)}
-                error={error}
-                helperText={error}
-              />
               <Button
                 className={classes.joinWaitlist}
                 style={{ backgroundColor: '#00A1E5', fontSize: '20px' }}
-                onClick={handleSubmit}
+                onClick={() => setOpen(true)}
               >
-                Join Waitlist
+                Register
               </Button>
+              <SignUp handleOpen={open} handleClose={() => setOpen(false)} />
             </div>
           </Box>
         </Container>
@@ -463,63 +441,12 @@ function LandingPage(props) {
               }}
               spacing={3}
             >
-              <Grid item xs={12} style={{ margin: '0 7% 0 7%' }} align='center'>
-                <Typography
-                  style={{
-                    color: '#FFFFFF',
-                    fontFamily: ['Montserrat', 'sans-serif'],
-                    fontWeight: 800,
-                    fontSize: 36,
-                    padding: 10,
-                  }}
-                >
-                  How do I try it out?
-                </Typography>
-                <Typography
-                  style={{
-                    color: '#FFFFFF',
-                    fontFamily: ['Mukta Mahee', 'sans-serif'],
-                    fontWeight: 500,
-                    fontSize: 24,
-                    padding: 10,
-                  }}
-                >
-                  Sign up here to join the waitlist, you won't regret it.
-                </Typography>
-                <div style={{ marginTop: '10px' }}>
-                  <TextField
-                    margin='none'
-                    style={{
-                      padding: 2,
-                      borderRadius: 5,
-                      backgroundColor: '#FFFFFF',
-                      marginBottom: '30px',
-                    }}
-                    InputProps={{
-                      classes: {
-                        input: classes.input,
-                      },
-                      disableUnderline: true,
-                    }}
-                    InputLabelProps={{
-                      classes: {
-                        root: classes.labelRoot,
-                        focused: classes.labelFocused,
-                      },
-                    }}
-                    label='Email'
-                    onChange={(e) => setWaitlistEmail(e.target.value)}
-                    error={error}
-                    helperText={error}
-                  />
-                  <Button
-                    className={classes.joinWaitlist}
-                    onClick={handleSubmit}
-                  >
-                    Join Waitlist
-                  </Button>
-                </div>
-              </Grid>
+              <Grid
+                item
+                xs={12}
+                style={{ margin: '0 7% 0 7%' }}
+                align='center'
+              ></Grid>
               <Grid
                 container
                 item
