@@ -5,14 +5,14 @@ import 'firebase/storage';
 import 'firebase/analytics';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDoQp0KRim4aWyQcIxGn9GEL8WeixFDFtc',
-  authDomain: 'onecase-legacy.firebaseapp.com',
-  databaseURL: 'https://onecase-legacy.firebaseio.com',
-  projectId: 'onecase-legacy',
-  storageBucket: 'onecase-legacy.appspot.com',
-  messagingSenderId: '987591255368',
-  appId: '1:987591255368:web:2b959e708f1116db08bf7d',
-  measurementId: 'G-J7HHC64F6B',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 class Firebase {
