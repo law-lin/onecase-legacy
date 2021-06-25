@@ -6,7 +6,12 @@ This version of the project is not being maintained anymore and the code has bee
 
 You can find OneCase v2 [here](https://github.com/law-lin/onecase-v2).
 
-# Setup
+## Application Stack
+- React
+- Firebase
+- Material-UI
+- 
+##  Setup
 1. Clone the repository.
 2. `cd` into the repository.
 3. Run `npm i` to install the necessary dependencies.
