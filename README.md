@@ -10,7 +10,7 @@ You can find OneCase v2 [here](https://github.com/law-lin/onecase-v2).
 - React
 - Firebase
 - Material-UI
-- 
+
 ##  Setup
 1. Clone the repository.
 2. `cd` into the repository.
